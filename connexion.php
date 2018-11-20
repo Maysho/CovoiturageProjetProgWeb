@@ -9,7 +9,10 @@ class connexion
 	{
 		# code...
 	}
-	
+	public function FunctionName($value='')
+	{
+		# code...
+	}
 
 	public static function init()
 	{
