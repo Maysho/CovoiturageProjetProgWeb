@@ -1,0 +1,19 @@
+.imagenav{
+	width: 75px;
+}
+.separation{
+	margin-top: 200px;
+	color: blue;
+	border: none;
+	height: 350px;
+}
+#espaceConnexion{
+	width: 100%;
+}
+h2{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.warning{
+	color: red;
+}
