@@ -6,8 +6,8 @@ else
 	$nomFonction="";
 switch ($nomFonction){
 	case"verifieInscription":
-		include_once '../modules/mod_connexion/mod_connexion.php';
-		$mod_connexion=new mod_connexion();
+		include_once '../modules/mod_connexion/modele_connexion.php';
+		$mod_connexion=new modele_connexion();
 		$mod_connexion->verifieInscription($_POST['email'],$_POST['emailConf'],$_POST['nom'],$_POST['prenom'],$_POST['mdp'],$_POST['mdpConf']);
 		break
 		;
