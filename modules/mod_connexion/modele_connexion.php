@@ -3,7 +3,7 @@
 /**
 * 
 */
-include_once '/../../connexion.php';
+include_once 'connexion.php';
 class modele_connexion extends connexion
 {
 	

@@ -3,7 +3,7 @@
 /**
 * 
 */
-include_once '/../../vue_generique.php';
+include_once 'vue_generique.php';
 class vue_connexion extends VueGenerique
 {
 	
