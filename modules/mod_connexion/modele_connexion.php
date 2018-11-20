@@ -3,7 +3,7 @@
 /**
 * 
 */
-include_once 'connexion.php';
+include_once __DIR__ . '/../../connexion.php';
 class modele_connexion extends connexion
 {
 	
@@ -70,7 +70,7 @@ class modele_connexion extends connexion
 		$reponse = self::$bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur desc limit 1');
 		$id=($reponse->fetch());
 		$id1=$id['idUtilisateur']+1;
-		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit) values(:idUtilisateur,:nom,:prenom,:motDePasse,"1999-05-02",:sexe,:adresseMail,null,null,DEFAULT)');
+		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit) values(:idUtilisateur,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT)');
 		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdp,'sexe'=>true));
 	}
 
