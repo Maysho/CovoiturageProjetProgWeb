@@ -23,7 +23,19 @@ class cont_connexion
 		}
 		
 	}
-	
+	public function VerifConnexion()
+	{
+		$_SESSION['id']=$this->modele->verifieConnexion();
+		if($_SESSION['id']<0){
+			unset($_SESSION['id']);
+			$this->vue->pageConnexion(1);
+		}
+		else{
+			header("Location: index.php");
+		}
+
+		
+	}
 	public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$this->modele->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
 	}
@@ -32,4 +44,6 @@ class cont_connexion
 	{
 		$this->vue->pageConnexion();
 	}
+
+
 }

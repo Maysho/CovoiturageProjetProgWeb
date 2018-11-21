@@ -70,7 +70,7 @@ class vue_connexion extends VueGenerique
 ";
    	
   	}
-  	public function pageConnexion($login='')
+  	public function pageConnexion($error=0)
   	{
   		echo '<div class="row">
 
@@ -108,18 +108,26 @@ class vue_connexion extends VueGenerique
   		</section>
   		<div class=" col-0 order-md-1 separation border border-dark d-none d-md-block"></div>
   		<section class=" row order-md-2 order-0 justify-content-md-start justify-content-center align-items-center col-md-4 offset-1 ">
-  		<form id="espaceConnexion">
+  		<form id="espaceConnexion" method="post" action="index.php?module=mod_connexion&action=verifConnexion">
   			<h2>Se connecter</h2>
 			  <div class="form-group">
 			    <label for="exampleInputEmail3">Adresse mail</label>
-			    <input type="email" class="form-control" id="exampleInputEmail3"  placeholder="adresse mail">
+			    <input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder="adresse mail">
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="exampleInputPassword4">Mot De Passe</label>
-			    <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Mot De Passe">
+			    <input type="password" class="form-control" name="mdpConnexion" id="mdpConnexion" placeholder="Mot De Passe">
+			    ';
+			  if ($error==1) {
+			  	 echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
+			  }
+			 echo '
 			  </div>
+			  <div class="justify-content-md-between container-fluid row">
 			  <button type="submit" class="btn btn-primary">Se connecter</button>
+			  <a href="#">mot de passe oublier</a>
+			  </div>
 		</form>
   		</section>
   		<div class="col-1"></div>
