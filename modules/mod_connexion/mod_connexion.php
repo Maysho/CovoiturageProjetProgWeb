@@ -21,7 +21,28 @@ class mod_connexion extends VueGenerique
 	}
 	public function init()
 	{
-		$this->controleur->AffichePageConnexion();
+		if(isset($_GET['action'])){
+
+			$action=$_GET['action'];
+		}
+		else
+			$action="";
+
+		switch ($action) {
+			case 'verifConnexion':
+				$this->controleur->VerifConnexion();
+				break;
+			case 'affichage':
+				break;
+			default:
+				if (isset($_SESSION['id'])) {
+					header("Location: index.php");
+				}
+				else
+					$this->controleur->AffichePageConnexion();
+				break;
+		}
+		
 	}
 
 

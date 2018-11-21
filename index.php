@@ -32,7 +32,7 @@ if(isset($_GET['module'])){
 	$module=$_GET['module'];
 }
 else{
-	$module="mod_connexion";
+	$module="mod_accueil";
 }
 
 switch ($module){
