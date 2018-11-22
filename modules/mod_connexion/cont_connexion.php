@@ -31,6 +31,7 @@ class cont_connexion
 			$this->vue->pageConnexion(1);
 		}
 		else{
+			unset($_SESSION['id']);
 			header("Location: index.php");
 		}
 
