@@ -31,6 +31,7 @@ class cont_connexion
 			$this->vue->pageConnexion(1);
 		}
 		else{
+			unset($_SESSION['id']);
 			header("Location: index.php");
 		}
 
@@ -43,6 +44,11 @@ class cont_connexion
 	public function AffichePageConnexion()
 	{
 		$this->vue->pageConnexion();
+	}
+
+	public function AfficheMotDePasseOublier()
+	{
+		$this->vue->motDePasseOublier();
 	}
 
 
