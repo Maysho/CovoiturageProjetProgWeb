@@ -32,8 +32,10 @@ class mod_connexion extends VueGenerique
 			case 'verifConnexion':
 				$this->controleur->VerifConnexion();
 				break;
-			case 'affichage':
+			case 'AffichePageConnexion':
+				$this->controleur->AfficheMotDePasseOublier();
 				break;
+
 			default:
 				if (isset($_SESSION['id'])) {
 					header("Location: index.php");

@@ -46,5 +46,10 @@ class cont_connexion
 		$this->vue->pageConnexion();
 	}
 
+	public function AfficheMotDePasseOublier()
+	{
+		$this->vue->motDePasseOublier();
+	}
+
 
 }
