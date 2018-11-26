@@ -63,14 +63,18 @@ session_start();
 							    <label for="">Je pars de... </label>
 							    <input type="text" required="required" name="" class="form-control" id=""  placeholder="Ville de Depart">
 							</div>
-							<div class="text-center form-group" id="">
-							    <label for="">... Pour aller à...</label>
-							    <input type="text" required="required" name="" id="" class="form-control" id=""  placeholder="Ville d'Arrivée">
-							</div >
-							<div class="text-right form-group">
+							
+							<div class="text-center form-group" hidden>
 							    <label for="">...En Passant par...</label>
 							    <input type="text" name="" id="" class="form-control" id=""  placeholder="Ville de Passage">
 							</div >
+
+							<div class="text-right form-group" id="">
+							    <label for="">... Pour aller à...</label>
+							    <input type="text" required="required" name="" id="" class="form-control" id=""  placeholder="Ville d'Arrivée">
+							</div >
+							<input type="button" class="btn-group" value="Ajouter une Etape" name="">
+							
 							<div class="form-group text-left">
 								<label>Frequence :</label>
 						      <label class="offset-1"><input type="radio" name="frequence" checked>Occasionnel</label>
@@ -85,7 +89,7 @@ session_start();
 	  			</div>
 	  			<div>
 	  				<div class="text-left">
-	  					<div>
+	  					<div class="row container">
 	  						<h2>Dates et Horaires</h2>
 	  						<label>Aller-Retour<input type="checkbox" name="allerRetour"></label>
 	  					</div>
@@ -98,8 +102,9 @@ session_start();
 	  					<label>+-</label>
 	  						<input class="col-md-1" type="" name="" value="00">
 	  				</div>
-	  				<!-- <div class="text-left form-group" hidden>
-	  					<label>Date du retour</label>
+	  				
+					<div class="text-left form-group" id="checkpoint" class="row" >
+	  					<label>Date Etape</label>
 	  						<input type="" name="" value="00-00-0000">
 	  					<label>Heure</label>
 							<input class="col-md-1" type="" name="" value="00:00">
@@ -108,16 +113,29 @@ session_start();
 	  					<label>prix</label>
 	  						<input class="col-md-1" type="" name="" value="0">
 	  				</div> 
-	  				<div id="checkpoint" class="row" hidden>
-	  					<label>Date</label>
-	  						<input type="" name="" value="">
+
+	  				<div class="text-left form-group" id="checkpoint" class="row" >
+	  					<label>Date Arrive</label>
+	  						<input type="" name="" value="00-00-0000">
 	  					<label>Heure</label>
-	  						<input type="" name="" value="">
+							<input class="col-md-1" type="" name="" value="00:00">
 	  					<label>+-</label>
-	  						<input type="" name="" value="">
+	  						<input class="col-md-1" type="" name="" value="00">
 	  					<label>prix</label>
-	  						<input type="" name="" value="">
-	  				</div> -->
+	  						<input class="col-md-1" type="" name="" value="0">
+	  				</div> 
+
+	  				<div class="text-left form-group" hidden>
+	  					<label>Date du retour</label>
+	  						<input type="" name="" value="00-00-0000">
+	  					<label>Heure</label>
+							<input class="col-md-1" type="" name="" value="00:00">
+	  					<label>+-</label>
+	  						<input class="col-md-1" type="" name="" value="00">
+	  					<label>prix</label>
+	  						<input class="col-md-1" type="" name="" value="0">
+	  				</div>
+	  				
 	  				<hr>
 	  			</div>
 	  			
