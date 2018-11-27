@@ -11,7 +11,7 @@ class vue_connexion extends VueGenerique
 	{
 		parent::__construct();
 	}
-	public function formNonConnecte($value='')
+	public function navNonConnecte($value='')
 	{
 		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
 			  <a class='navbar-brand ' href='#'><img src='home.jpg' class='imagenav'></a>
@@ -36,7 +36,7 @@ class vue_connexion extends VueGenerique
 			</nav>
 ";
 	}
-	public function formConnecte(){
+	public function navConnecte(){
 
    		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
 			  <a class='navbar-brand ' href='#'><img src='home.jpg' class='imagenav'></a>
