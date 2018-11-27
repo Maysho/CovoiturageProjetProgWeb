@@ -112,8 +112,10 @@ class vue_Trajet extends VueGenerique
 										    <option value="">Ajouter Un Véhicule</option>
 										</select>
 									</div>
-								    <label class="col-md-4" for="">Nombre de place</label>
-								    <input class="offset-1 col-md-6" type="text" required="required" name="" id="" class="form-control" id=""  placeholder="0">
+								    <div class="row">
+									    <label class="col-md-4" for="">Nombre de place</label>
+									    <input class="offset-1 col-md-6 form-control" type="text" required="required" name=""   id=""  placeholder="0">
+									</div>
 								</div >
 							</div>
 			  				<div class="col-md-6"> 
