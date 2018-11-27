@@ -19,6 +19,7 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
             ,
  
             function(data,statut){
+
               //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
                 if(data.includes("success")){
                      // Le membre est connecté. Ajoutons lui un message dans la page HTML.

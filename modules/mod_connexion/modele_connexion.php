@@ -71,7 +71,7 @@ class modele_connexion extends connexion
 		
 		
 
-		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM utilisateur ');
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT adresseMail FROM utilisateur where adresseMail=? ');
 		$tableauIds=array($email);
 		$selecPrepareeUnique->execute($tableauIds);
 		$unique=$selecPrepareeUnique->fetch();
