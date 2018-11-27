@@ -10,11 +10,9 @@ class vue_Trajet extends VueGenerique
 	function __construct(){
 		parent::__construct();
 	}
-
-	
 	public function formCreation(){
 		?>
-		<div class="offset-2 col-md-8 text-center">
+		<div class="offset-0 offset-md-2 col-md-8 text-center">
 	  		<section>
 	  			<h2>Je propose un Trajet</h2>
 	  			<form method="POST" id="formTrajet">
@@ -40,8 +38,8 @@ class vue_Trajet extends VueGenerique
 								
 								<div class="form-group text-left">
 									<label>Frequence :</label>
-							      <label class="offset-1"><input type="radio" name="frequence" checked>Occasionnel</label>
-							      <label class="offset-1"><input type="radio" name="frequence">Régulier</label>
+								    <label class="offset-1"><input type="radio" name="frequence" checked>Occasionnel</label>
+								    <label class="offset-1"><input type="radio" name="frequence">Régulier</label>
 								</div>	
 							</div>
 			  				<div class="col-md-6"> 

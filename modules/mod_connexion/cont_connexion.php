@@ -20,8 +20,7 @@ class cont_connexion
 		}
 		else{
 			$this->vue->navNonConnecte();
-		}
-		
+		}	
 	}
 	
 	public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
