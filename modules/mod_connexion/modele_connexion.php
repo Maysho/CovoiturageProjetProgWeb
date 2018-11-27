@@ -6,11 +6,12 @@
 include_once __DIR__ . '/../../connexion.php';
 class modele_connexion extends connexion
 {
-	
+	private $msg;
 	function __construct()
 	{
 		$connexion=new connexion();
 		$connexion->init();
+		$this->msg="";
 	}
 	public function verifieConnexion()
 	{
@@ -32,27 +33,29 @@ class modele_connexion extends connexion
 	public function verifieVar($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$erreur=false;
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-			echo "00";
+			 $this->msg=$this->msg."00-";
+			 echo $this->msg;
 			$erreur=true;
 		}
 		if (!($emailConf==$email)) {
-			echo "01";
+			$this->msg= $this->msg."01-";
+
 			$erreur=true;
 		}
 		if (!preg_match('#^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$#', $nom)) {
-			echo "02";
+			$this->msg=$this->msg."02-";
 			$erreur=true;
 		}
 		if (!preg_match('#^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$#', $prenom)) {
-			echo "03";
+			$this->msg=$this->msg."03-";
 			$erreur=true;
 		}
 		if (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})#', $mdp)) {
-			echo "04";
+			$this->msg= $this->msg."04-";
 			$erreur=true;
 		}
 		if (!($mdp==$mdpConf)) {
-			echo "05";
+			$this->msg= $this->msg."05-";
 			$erreur=true;
 		}
 		return $erreur;
@@ -60,16 +63,21 @@ class modele_connexion extends connexion
 	}
 	public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		if(self::verifieVar($email,$emailConf,$nom,$prenom,$mdp,$mdpConf)){
+			http_response_code(400);
+			echo $this->msg;
+
 			exit(1);
 		}
 		
 		
 
-		$selecPrepareeUnique=self::$bdd->prepare('SELECT adresseMail FROM utilisateur WHERE adresseMail=?');
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM utilisateur ');
 		$tableauIds=array($email);
 		$selecPrepareeUnique->execute($tableauIds);
-		$unique=$selecPrepareeUnique->fetch();
+		$unique=$selecPrepareeUnique->fetchAll();
+		echo json_encode($unique);
 		if (empty($unique['adresseMail'])==0) {
+			http_response_code(401);
 			echo "06";
 			exit(1);
 		}

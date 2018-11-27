@@ -16,10 +16,10 @@ class cont_connexion
 	public function nav()
 	{
 		if(isset($_SESSION['login'])){
-			$this->vue->formConnecte();
+			$this->vue->navConnecte();
 		}
 		else{
-			$this->vue->formNonConnecte();
+			$this->vue->navNonConnecte();
 		}
 		
 	}
