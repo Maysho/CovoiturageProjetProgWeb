@@ -71,10 +71,10 @@ class modele_connexion extends connexion
 		
 		
 
-		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM utilisateur ');
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT adresseMail FROM utilisateur where adresseMail=? ');
 		$tableauIds=array($email);
 		$selecPrepareeUnique->execute($tableauIds);
-		$unique=$selecPrepareeUnique->fetchAll();
+		$unique=$selecPrepareeUnique->fetch();
 		echo json_encode($unique);
 		if (empty($unique['adresseMail'])==0) {
 			http_response_code(401);
