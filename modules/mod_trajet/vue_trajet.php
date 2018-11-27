@@ -25,7 +25,7 @@ class vue_Trajet extends VueGenerique
 								    <input type="text" required="required" name="" class="form-control" id=""  placeholder="Ville de Depart">
 								</div>
 								
-								<div class="text-center form-group" hidden>
+								<div class="text-center form-group" id="etape" hidden>
 								    <label for="">...En Passant par...</label>
 								    <input type="text" name="" id="" class="form-control" id=""  placeholder="Ville de Passage">
 								</div >
@@ -34,7 +34,7 @@ class vue_Trajet extends VueGenerique
 								    <label for="">... Pour aller à...</label>
 								    <input type="text" required="required" name="" id="" class="form-control" id=""  placeholder="Ville d'Arrivée">
 								</div >
-								<input type="button" class="btn-group" value="Ajouter une Etape" name="">
+								<input type="button" class="btn-group" id="btnAjoutEtape" value="Ajouter une Etape" name="">
 								
 								<div class="form-group text-left">
 									<label>Frequence :</label>

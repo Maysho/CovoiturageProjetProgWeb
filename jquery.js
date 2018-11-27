@@ -34,18 +34,35 @@ $("#inscriptionbutton").click(function(e){ // On sélectionne le formulaire par 
                 }
                 else{
                     verifError(data);
-                     // Le membre n'a pas été connecté. (data vaut ici "failed")
-                    
+                     // Le membre n'a pas été connecté. (data vaut ici "failed")   
                 }
-         
             },
             'text'
          );
-   
+});
+
+
+$(function(){
+  $("#btnAjoutEtape").click(function(){
+    $("#etape").removeAttr("hidden");
+    $("#btnAjoutEtape").remove();
+    $("#etape").focusin(function(){
+      alert("entrer");
+        $(this).css("background-color", "#FFFFCC");
+    });
+  });
+
+  $("#etape").focusout(function(){
+      alert("sortie");
+    $(this).css("background-color", "#FFFFFF");
+  });
+
 
 
 });
 
+
+//FUNCTION
 function removeWarningForm(){
   $('.warning').remove();
 }
