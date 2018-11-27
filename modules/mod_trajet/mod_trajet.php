@@ -17,13 +17,14 @@ class mod_trajet extends VueGenerique
 		$this->controleur->nav();
 	}
 
+
 	/*public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$this->controleur->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
-	}
-	public function init()
-	{
-		$this->controleur->AffichePageConnexion();
 	}*/
 
+	public function init()
+	{
+		$this->controleur->formTrajet();
+	}
 
 }

@@ -56,7 +56,12 @@ switch ($module){
 		$mod_connexion->init();
 		$affichageForm=$mod_connexion->getAffichage();
 	break;
-
+	case "mod_trajet":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_trajet=new mod_trajet();
+		$mod_trajet->init();
+		$affichageForm=$mod_trajet->getAffichage();
+	break;
 	case "mod_profil":
 	include_once 'modules/'.$module.'/'.$module.".php";
 		$mod_profil=new ModProfil();
