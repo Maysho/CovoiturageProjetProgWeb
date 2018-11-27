@@ -13,14 +13,8 @@
 		}
 
 		public function accueilProfil(){
-			if($this->modele->utilisateurConnecter()){
-
-				$result=$this->modele->recupereInfoUtilisateurCo();
-				$result=$this->modele->traduitResultatRequeteCo($result);
-				$nbTrajetEtNote=$this->modele->nbTrajetsEtNote();
-				$commentaires=$this->modele->commentaires();
-				$this->vue->accueilProfil($result, $nbTrajetEtNote['nb'], $nbTrajetEtNote['moyenne'], $commentaires);
-			}	
+			$this->vue->accueilProfil();
 		}
+
 	}
 ?>

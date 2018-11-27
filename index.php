@@ -70,7 +70,7 @@ switch ($module){
 	break;
 	default
 :
-die("Interdiction d’acces a ce module");
+//die("Interdiction d’acces a ce module");
 }
 
 ?>

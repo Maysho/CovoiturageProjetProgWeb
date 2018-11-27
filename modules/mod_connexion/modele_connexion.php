@@ -12,41 +12,47 @@ class modele_connexion extends connexion
 		$connexion=new connexion();
 		$connexion->init();
 	}
-	public function validite_connexion($login,$mdp)
+	public function verifieConnexion()
 	{
-		if($login!=null && $mdp!=null && isset($login)&& isset($mdp)){
-			$selecPreparee=self::$bdd->prepare('SELECT login FROM utilisateur WHERE login=? and mot_de_passe=?');
-			$tableauIds=array($login,crypt($mdp,'$5$rounds=5000$usesomesillystringforsalt$'));
+
+		if(isset($_POST['mailConnexion'])&& isset($_POST['mdpConnexion'])){
+			$selecPreparee=self::$bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE adresseMail=? and motDePasse=?');
+			//$tableauIds=array($login,crypt($mdp,'$5$rounds=5000$usesomesillystringforsalt$'));
+			$tableauIds=array($_POST['mailConnexion'],$_POST['mdpConnexion']);
 			$selecPreparee->execute($tableauIds);
 			$tab= $selecPreparee->fetch();
-			return $tab[0]==$login;
+			echo $tab[0];
+			if(empty($tab[0]))
+				return -1;
+			else
+				return $tab[0];
 		}
-		return 1==2;
+		return -1;
 	}
 	public function verifieVar($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$erreur=false;
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-			echo "00-";
+			echo "00";
 			$erreur=true;
 		}
 		if (!($emailConf==$email)) {
-			echo "01-";
+			echo "01";
 			$erreur=true;
 		}
 		if (!preg_match('#^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$#', $nom)) {
-			echo "02-";
+			echo "02";
 			$erreur=true;
 		}
 		if (!preg_match('#^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$#', $prenom)) {
-			echo "03-";
+			echo "03";
 			$erreur=true;
 		}
 		if (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})#', $mdp)) {
-			echo "04-";
+			echo "04";
 			$erreur=true;
 		}
 		if (!($mdp==$mdpConf)) {
-			echo "05-";
+			echo "05";
 			$erreur=true;
 		}
 		return $erreur;
@@ -70,8 +76,9 @@ class modele_connexion extends connexion
 		$reponse = self::$bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur desc limit 1');
 		$id=($reponse->fetch());
 		$id1=$id['idUtilisateur']+1;
-		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit) values(:idUtilisateur,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT)');
-		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdp,'sexe'=>true));
+		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(:idUtilisateur,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
+		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdp,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
+		echo "success";
 	}
 
 }
