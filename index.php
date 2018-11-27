@@ -32,7 +32,7 @@ if(isset($_GET['module'])){
 	$module=$_GET['module'];
 }
 else{
-	$module="mod_accueil";
+	$module="mod_connexion";
 }
 
 switch ($module){
@@ -55,12 +55,17 @@ switch ($module){
 		$mod_connexion=new mod_connexion();
 		$mod_connexion->init();
 		$affichageForm=$mod_connexion->getAffichage();
-		
+	break;
 
+	case "mod_profil":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_profil=new ModProfil();
+		$mod_profil->init();
+		$affichageForm=$mod_profil->getAffichage();
 	break;
 	default
 :
-//die("Interdiction d’acces a ce module");
+die("Interdiction d’acces a ce module");
 }
 
 ?>

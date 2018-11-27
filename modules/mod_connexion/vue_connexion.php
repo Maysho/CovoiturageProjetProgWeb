@@ -14,7 +14,7 @@ class vue_connexion extends VueGenerique
 	public function formNonConnecte($value='')
 	{
 		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
-			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
+			  <a class='navbar-brand ' href='#'><img src='home.jpg' class='imagenav'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
 			  </button>
@@ -26,10 +26,10 @@ class vue_connexion extends VueGenerique
 			        <a class='nav-link' href='#'>Rechercher <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
+			        <a class='nav-link' href='#'>S'inscrire </a>
 			      </li>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_connexion'>Se Connecter</a>
+			        <a class='nav-link' href='#'>Se Connecter</a>
 			      </li>
 			    </ul>
 			  </div>
@@ -39,7 +39,7 @@ class vue_connexion extends VueGenerique
 	public function formConnecte(){
 
    		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
-			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
+			  <a class='navbar-brand ' href='#'><img src='home.jpg' class='imagenav'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
 			  </button>
@@ -70,7 +70,7 @@ class vue_connexion extends VueGenerique
 ";
    	
   	}
-  	public function pageConnexion($error=0)
+  	public function pageConnexion($login='')
   	{
   		echo '<div class="row">
 
@@ -101,58 +101,28 @@ class vue_connexion extends VueGenerique
 			    <label for="exampleInputPassword2">Confirmation De Mot De Passe</label>
 			    <input type="password" required name="confmdp" class="form-control" id="confMDPInscription" placeholder="Confirmation De Mot De Passe">
 			  </div>
-			  <button type="submit"  id="inscriptionbutton" name="submit"  class="btn btn-primary">S\'inscrire</button>
+			  <button type="submit"  id="inscriptionbutton"name="submit"  class="btn btn-primary">S\'inscrire</button>
 		</form>
 
 
   		</section>
   		<div class=" col-0 order-md-1 separation border border-dark d-none d-md-block"></div>
   		<section class=" row order-md-2 order-0 justify-content-md-start justify-content-center align-items-center col-md-4 offset-1 ">
-  		<form id="espaceConnexion" method="post" action="index.php?module=mod_connexion&action=verifConnexion">
+  		<form id="espaceConnexion">
   			<h2>Se connecter</h2>
 			  <div class="form-group">
 			    <label for="exampleInputEmail3">Adresse mail</label>
-			    <input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder="adresse mail">
+			    <input type="email" class="form-control" id="exampleInputEmail3"  placeholder="adresse mail">
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="exampleInputPassword4">Mot De Passe</label>
-			    <input type="password" class="form-control" name="mdpConnexion" id="mdpConnexion" placeholder="Mot De Passe">
-			    ';
-			  if ($error==1) {
-			  	 echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
-			  }
-			 echo '
+			    <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Mot De Passe">
 			  </div>
-			  <div class="justify-content-md-between container-fluid row">
 			  <button type="submit" class="btn btn-primary">Se connecter</button>
-			  <a href="index.php?module=mod_connexion&action=AffichePageConnexion">mot de passe oublier</a>
-			  </div>
 		</form>
   		</section>
   		<div class="col-1"></div>
   		</div>';
-  	}
-
-  	public function motDePasseOublier($value='')
-  	{
-  		echo '<div class="row">
-
-  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
-  		<h2>Mot de passe oublier</h2>
-  		<form method="POST"">
-			  <div class="form-group" id="divEmailInscription">
-			    <label for="emailInscription">Renseignez l’adresse e-mail de votre compte Pathé Gaumont ci-dessous :</label>
-			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail">
-			  </div>
-			  <div class="justify-content-end row" >
-			  <button type="submit" name="submit"  class="btn btn-primary">Réinitialiser mon mot de passe </button>
-			  </div>
-		</form>
-
-
-  		</section>
-  		</div>';
-
   	}
 }

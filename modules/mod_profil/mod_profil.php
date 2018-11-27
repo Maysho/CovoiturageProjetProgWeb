@@ -1,17 +1,22 @@
 <?php 
 
 include_once 'cont_profil.php';
-class ModProfil
+
+class ModProfil extends VueGenerique
 {
-	
+	private $controleur;
 	function __construct(){
 		//$connexion=new connexion();
 		//$connexion->init();
-		$this->init();
+		$this->controleur=new ContProfil();
 
 	}
+
+
 	public function init()
 	{
+		$this->controleur-> accueilProfil();
+		/*
 		$action='profil';
 		if(isset($_GET['action'])){
 
@@ -19,8 +24,8 @@ class ModProfil
 		}
 
 
-		$controleur=new ContProfil();
-		$controleur-> accueilProfil();
+		
+		
 		/*switch ($action) {
 			case 'liste':
 				$controleur->liste();
