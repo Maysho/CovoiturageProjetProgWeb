@@ -17,9 +17,9 @@ class modele_connexion extends connexion
 	{
 
 		if(isset($_POST['mailConnexion'])&& isset($_POST['mdpConnexion'])){
+			$mdpCrypt=crypt($_POST['mdpConnexion'],'$6$rounds=5000$usesomesillystringforsalt$');
 			$selecPreparee=self::$bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE adresseMail=? and motDePasse=?');
-			//$tableauIds=array($login,crypt($mdp,'$5$rounds=5000$usesomesillystringforsalt$'));
-			$tableauIds=array($_POST['mailConnexion'],$_POST['mdpConnexion']);
+			$tableauIds=array($_POST['mailConnexion'],$mdpCrypt);
 			$selecPreparee->execute($tableauIds);
 			$tab= $selecPreparee->fetch();
 			echo $tab[0];
@@ -84,9 +84,37 @@ class modele_connexion extends connexion
 		$reponse = self::$bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur desc limit 1');
 		$id=($reponse->fetch());
 		$id1=$id['idUtilisateur']+1;
+		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
 		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(:idUtilisateur,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
-		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdp,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
+		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
 		echo "success";
+	}
+
+	public function chercheVille($ville)
+	{
+		$codePostal=preg_grep("#[0-9]+#", explode(",", $ville));
+		$ville=preg_replace("#[0-9]|[ ]|[,]#", "", $ville);
+
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT nomVille,codePostal FROM ville where nomVille like "%"?"%" or( codePostal>= ? and codePostal<=?) limit 5');
+
+		$codePostals=isset($codePostal[1]) || isset($codePostal[0])?(isset($codePostal[0])?$codePostal[0] :$codePostal[1]):"99999999";
+		$codePostal1=$codePostals;
+		$codePostal2=$codePostals;
+		while ($codePostal1 <= 10000) {
+			$codePostal1=$codePostal1*10;
+		}
+		while ($codePostal2 <= 10000) {
+			$codePostal2=($codePostal2*10)+9;
+		}
+		if (empty($ville)) {
+			$ville=-9999999999999;
+		}
+
+		$tableauIds=array($ville,$codePostal1,$codePostal2);
+		$selecPrepareeUnique->execute($tableauIds);
+		$unique=$selecPrepareeUnique->fetchAll();
+		echo json_encode($unique);
+		$selecPrepareeUnique->closeCursor();
 	}
 
 }

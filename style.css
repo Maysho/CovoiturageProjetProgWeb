@@ -17,3 +17,13 @@ h2{
 .warning{
 	color: red;
 }
+.villeTrouve:hover{
+	background-color: gray;
+}
+.villeTrouve{
+	background-color: white;
+}
+#villesTrouve{
+	position: absolute;
+	z-index: 100;
+}
