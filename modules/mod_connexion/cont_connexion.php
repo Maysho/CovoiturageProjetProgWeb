@@ -15,7 +15,7 @@ class cont_connexion
 	}
 	public function nav()
 	{
-		if(isset($_SESSION['login'])){
+		if(isset($_SESSION['id'])){
 			$this->vue->navConnecte();
 		}
 		else{
@@ -31,7 +31,6 @@ class cont_connexion
 			$this->vue->pageConnexion(1);
 		}
 		else{
-			unset($_SESSION['id']);
 			header("Location: index.php");
 		}
 
