@@ -78,8 +78,6 @@ switch ($module){
 			$mod_connexion=new mod_connexion();
 			$mod_connexion->afficheNav();
 			echo "$affichageForm";
-			
-			
 		?>
 
 	</header>

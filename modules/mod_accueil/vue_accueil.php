@@ -25,7 +25,7 @@ class VueAccueil extends VueGenerique
   			<button class='btn btn-primary' style='margin-right: 3%'>lala</button>
   		</div>
   			<form id='formulaireDeRecherche'>
-  			<div class='form-row justify-content-around'>
+  			<div class='form-row justify-content-around' id="formPrincipal">
 				    <div class='form-group container col-md-6' id="villeDepartRecherche">
 				      <label for='rechercheDepart'>depart</label>
 				      <input type='adresse' class='form-control col-12' id='rechercheDepart' placeholder='adresse'  >
@@ -36,8 +36,8 @@ class VueAccueil extends VueGenerique
 				    </div>
 				</div>
 				  
-				  <div class='row'>
-				  	<button class='btn btn-secondary mr-auto' onclick='agranditForm()'>+</button>
+				  <div class='row' id="buttonSubmitAccueil">
+				  	<button class='btn btn-secondary mr-auto' id="buttonAgranditForm">+</button>
 				  <button type='submit' class='btn btn-primary' style='margin-right: 3%'>Sign in</button>
 				  </div>
 				  
