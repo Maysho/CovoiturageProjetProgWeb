@@ -1,44 +1,36 @@
 <?php 
 
 include_once 'cont_profil.php';
-class ModProfil
+
+class ModProfil extends VueGenerique
 {
-	
+	private $controleur;
 	function __construct(){
 		//$connexion=new connexion();
 		//$connexion->init();
-		$this->init();
+		$this->controleur=new ContProfil();
 
 	}
+
+
 	public function init()
 	{
-		$action='profil';
-		if(isset($_GET['action'])){
 
-			$action=$_GET['action'];
+
+		
+		
+		$idUser=isset($_SESSION['id']) ? $_SESSION['id'] : -1;
+		
+		if(isset($_GET['idprofil'])){
+			$idUser=$_GET['idprofil'];
 		}
 
-
-		$controleur=new ContProfil();
-		$controleur-> accueilProfil();
-		/*switch ($action) {
-			case 'liste':
-				$controleur->liste();
-				break;
-			case 'details':
-				$controleur->details();
-				break;
-			case 'form':
-				$controleur->form_ajout();
-				break;
-			case 'ajout':
-				$controleur->ajout($_POST['nom'],$_POST['description']);
-				break;
-
-			default:
-				
-				break;
-		}*/
+		if($idUser!==-1){
+			$estConnecter = isset($_SESSION['id']) ? true : false;
+			$this->controleur->accueilProfil($idUser, $estConnecter);	
+		
+		}
+		
 	}
 
 
