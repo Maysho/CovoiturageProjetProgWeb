@@ -10,7 +10,7 @@ function removeAide() {
   $('.aide').remove();
 }
 
-
+/*
 $(document).on('mousedown',".villeTrouve",function(){
   $("#"+this.id).parent().parent().children('input').val($(this).children().text());
   $("#villesTrouve").remove();
@@ -20,10 +20,14 @@ $(document).on('focusout',"#villeDepartRecherche",function(event) {
 });
 $(document).on('focusout',"#villeArriveRecherche",function(event) {
   $("#villesTrouve").remove();
-});
-
-function ville($variable) {
-  variable=$("#"+$variable.id);
+});*/
+$( "#rechercheDepart" ).autocomplete({
+      source: "scriptphp/chercheVille.php"
+    });
+/*$("#villeDepartRecherche").autocomplete({
+      source: ville($("#villeDepartRecherche"))
+    });*/
+function ville(variable) {
  $.post('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
             
             { ville: variable.val()}
@@ -31,15 +35,17 @@ function ville($variable) {
             ,
  
             function(data,statut){ 
-              var val=JSON.parse(data);
+              alert(data);
+              /*var val=JSON.parse(data);
               $("#villesTrouve").remove();
               variable.parent().append('<div id= "villesTrouve" class="border border-dark container"> </div> ')
                 for (var i = 0; i < data.length; i++) {
                   $("#villesTrouve").append('<div id=villeTrouve'+i+' class="row villeTrouve" > </div>');
                   $("#villeTrouve"+i).append('<p> '+val[i]["nomVille"]+', '+ val[i]["codePostal"]+' <p>');
 
-                }
+                }*/
                 //$("#rechercheDepart").parent().append(t[0][0]);
+                return data;
          
             },
             'text'
@@ -47,7 +53,7 @@ function ville($variable) {
            verifError(data.responseText);
          });
   
-}
+}/*
 $(document).on('keyup',"#rechercheDepart",function() {
   ville(this);
 });
@@ -59,7 +65,7 @@ $(document).on('focusin',"#rechercheDepart",function() {
 });
 $(document).on('focusin',"#rechercheArrive",function() {
   ville(this);
-});
+});*/
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
   $("#formPrincipal").append('<div class="form-group col-md-3 partitAjoute"> <label for="inputAddress">date</label>  <input type="date" class="form-control" id="inputAddress" placeholder="1234 Main St">   </div> <div class="form-group col-md-3 partitAjoute"><label for="inputAddress2">prix</label>     <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"> </div>     <div class="partitAjoute form-group col-md-2">     <label for="inputState">type de vehicule</label>     <select id="inputState" class="form-control">       <option selected>1</option> <option>2</option> </select> </div> </div> ');

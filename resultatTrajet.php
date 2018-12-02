@@ -50,13 +50,51 @@ session_start();
 
 
 
-				<h1 class="text-center">Bienvenue dans notre site de covoiturage</h1>
+			
   		
   		<aside class="composant col-md-3  float-left">
   			<img src="profildefault.jpg" style="width: 100%">
   		</aside>
 	<div class="row ">
-  		
+  		<div class=" col-md-3">
+  			<form id='formulaireDeRecherche'>
+  			<div class='form-row justify-content-around' id="formPrincipal">
+				    <div class='form-group container col-md-12' id="villeDepartRecherche">
+				      <label for='rechercheDepart'>depart</label>
+				      <input type='adresse' class='form-control col-12' id='rechercheDepart' placeholder='adresse'  >
+				      </div>
+				    <div class='form-group col-md-12' id="villeArriveRecherche">
+				      <label for='rechercheArrive'>destination</label>
+				      <input type='adresse' class='form-control' id='rechercheArrive' placeholder='adresse'>
+				    </div>
+				</div>
+				  
+				  <div class='row' id="buttonSubmitAccueil">
+				  	<button class='btn btn-secondary mr-auto' id="buttonAgranditForm">+</button>
+				  <button type='submit' class='btn btn-primary' style='margin-right: 3%'>Sign in</button>
+				  </div>
+				  
+				</form>
+  		</div>
+  		<div class="row border border-dark justify-content-md-between col-md-8">
+  			<div class="col-md-2">
+  				<img src="home.jpg" style="width: 100px;">
+  				<span class="">nom chauffeur</span>
+  			</div>
+  			<div class="col-md-6 row offset-1" >
+  				<span class="align-top">fjiroefieo</span>
+  				<div class="align-items-end row container">
+  				<span class="align-bottom" style="padding-right: 3px;">fjiroefidezdezd ezdzezedeo</span>
+  				</div>
+  			</div>
+  			<div class="col-md-2 row offset-1 justify-content-end ">
+  				<span class="align-top">90 €</span>
+  				<div class="align-items-end row container">
+  				<span class="align-bottom">place dispo</span>
+  				</div>
+  			</div>
+  			
+  		</div>
   		</div>
   		<div><aside class="composant col-md-3">
   			<img src="profildefault.jpg" style="width: 100%">
