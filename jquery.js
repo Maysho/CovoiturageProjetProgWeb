@@ -53,37 +53,19 @@ function ville(variable) {
            verifError(data.responseText);
          });
   
-}/*
-$(document).on('keyup',"#rechercheDepart",function() {
-  ville(this);
-});
-$(document).on('keyup',"#rechercheArrive",function() {
-  ville(this);
-});
-$(document).on('focusin',"#rechercheDepart",function() {
-  ville(this);
-});
-$(document).on('focusin',"#rechercheArrive",function() {
-  ville(this);
-});*/
+}
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
-  $("#formPrincipal").append('<div class="form-group col-md-3 partitAjoute"> <label for="inputAddress">date</label>  <input type="date" class="form-control" id="inputAddress" placeholder="1234 Main St">   </div> <div class="form-group col-md-3 partitAjoute"><label for="inputAddress2">prix</label>     <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"> </div>     <div class="partitAjoute form-group col-md-2">     <label for="inputState">type de vehicule</label>     <select id="inputState" class="form-control">       <option selected>1</option> <option>2</option> </select> </div> </div> ');
-  $( '<div class="form-row" id="regulierForm"> <div class="form-check"> <input class="form-check-input" type="checkbox" id="gridCheck"> <label class="form-check-label" for="gridCheck"> regulier </label></div> </div> ' ).insertBefore( "#buttonSubmitAccueil" );
-  $("#buttonSubmitAccueil").remove();
-  $('<div class="row justify-content-end" id="buttonSubmitAccueil"> <button type="submit" class="btn btn-primary"  style="margin-right: 3%">Sign in</button> </div> <div class="row" id="divbuttonrapetisseform"> <button class="btn btn-secondary" id="buttonRapetisseForm">-</button> </div>').insertAfter('#regulierForm');   
+  $(".d-none").toggleClass("d-none d-block");
+  $("#buttonAgranditForm").toggleClass("d-block d-none");
 
 });
 
 $(document).on('click', '#buttonRapetisseForm', function(event) {
   event.preventDefault();
-  $(".partitAjoute").remove();
-  $("#regulierForm").remove();
-
-    $("#buttonSubmitAccueil").remove();
-  $("#divbuttonrapetisseform").remove();
-  $("#formulaireDeRecherche").append("<div class='row' id='buttonSubmitAccueil'> <button class='btn btn-secondary mr-auto' id='buttonAgranditForm'>+</button> <button type='submit' class='btn btn-primary' style='margin-right: 3%'>Sign in</button>  </div>");
-});
+   $(".d-block").toggleClass("d-block d-none");
+  $("#buttonAgranditForm").toggleClass("d-none d-block");
+  });
 
 $("#inscription").submit(function(e){ // On sélectionne le formulaire par son identifiant
     e.preventDefault();
