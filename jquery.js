@@ -10,7 +10,7 @@ function removeAide() {
   $('.aide').remove();
 }
 
-
+/*
 $(document).on('mousedown',".villeTrouve",function(){
   $("#"+this.id).parent().parent().children('input').val($(this).children().text());
   $("#villesTrouve").remove();
@@ -20,10 +20,14 @@ $(document).on('focusout',"#villeDepartRecherche",function(event) {
 });
 $(document).on('focusout',"#villeArriveRecherche",function(event) {
   $("#villesTrouve").remove();
-});
-
-function ville($variable) {
-  variable=$("#"+$variable.id);
+});*/
+$( "#rechercheDepart" ).autocomplete({
+      source: "scriptphp/chercheVille.php"
+    });
+/*$("#villeDepartRecherche").autocomplete({
+      source: ville($("#villeDepartRecherche"))
+    });*/
+function ville(variable) {
  $.post('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
             
             { ville: variable.val()}
@@ -31,15 +35,17 @@ function ville($variable) {
             ,
  
             function(data,statut){ 
-              var val=JSON.parse(data);
+              alert(data);
+              /*var val=JSON.parse(data);
               $("#villesTrouve").remove();
               variable.parent().append('<div id= "villesTrouve" class="border border-dark container"> </div> ')
                 for (var i = 0; i < data.length; i++) {
                   $("#villesTrouve").append('<div id=villeTrouve'+i+' class="row villeTrouve" > </div>');
                   $("#villeTrouve"+i).append('<p> '+val[i]["nomVille"]+', '+ val[i]["codePostal"]+' <p>');
 
-                }
+                }*/
                 //$("#rechercheDepart").parent().append(t[0][0]);
+                return data;
          
             },
             'text'
@@ -48,18 +54,19 @@ function ville($variable) {
          });
   
 }
-$(document).on('keyup',"#rechercheDepart",function() {
-  ville(this);
+$(document).on('click', '#buttonAgranditForm', function(event) {
+  event.preventDefault();
+  $(".d-none").toggleClass("d-none d-block");
+  $("#buttonAgranditForm").toggleClass("d-block d-none");
+
 });
-$(document).on('keyup',"#rechercheArrive",function() {
-  ville(this);
-});
-$(document).on('focusin',"#rechercheDepart",function() {
-  ville(this);
-});
-$(document).on('focusin',"#rechercheArrive",function() {
-  ville(this);
-});
+
+$(document).on('click', '#buttonRapetisseForm', function(event) {
+  event.preventDefault();
+   $(".d-block").toggleClass("d-block d-none");
+  $("#buttonAgranditForm").toggleClass("d-none d-block");
+  });
+
 $("#inscription").submit(function(e){ // On sélectionne le formulaire par son identifiant
     e.preventDefault();
     removeWarningForm();

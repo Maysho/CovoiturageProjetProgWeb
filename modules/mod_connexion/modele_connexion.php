@@ -112,8 +112,14 @@ class modele_connexion extends connexion
 
 		$tableauIds=array($ville,$codePostal1,$codePostal2);
 		$selecPrepareeUnique->execute($tableauIds);
-		$unique=$selecPrepareeUnique->fetchAll();
-		echo json_encode($unique);
+		$array = array(); // on créé le tableau
+
+		while($donnee = $selecPrepareeUnique->fetch()) // on effectue une boucle pour obtenir les données
+		{
+		    array_push($array, $donnee['nomVille']." ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
+		}
+
+		echo json_encode($array); 
 		$selecPrepareeUnique->closeCursor();
 	}
 
