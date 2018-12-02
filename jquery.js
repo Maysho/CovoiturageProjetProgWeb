@@ -6,39 +6,86 @@ $( window ).resize(function() {
   	$(".composant" ).show();
   }
 });
+function removeAide() {
+  $('.aide').remove();
+}
 
-$("#inscriptionbutton").click(function(e){ // On sélectionne le formulaire par son identifiant
+
+$(document).on('mousedown',".villeTrouve",function(){
+  $("#"+this.id).parent().parent().children('input').val($(this).children().text());
+  $("#villesTrouve").remove();
+  });
+$(document).on('focusout',"#villeDepartRecherche",function(event) {
+  $("#villesTrouve").remove();
+});
+$(document).on('focusout',"#villeArriveRecherche",function(event) {
+  $("#villesTrouve").remove();
+});
+
+function ville($variable) {
+  variable=$("#"+$variable.id);
+ $.post('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
+            
+            { ville: variable.val()}
+                
+            ,
+ 
+            function(data,statut){ 
+              var val=JSON.parse(data);
+              $("#villesTrouve").remove();
+              variable.parent().append('<div id= "villesTrouve" class="border border-dark container"> </div> ')
+                for (var i = 0; i < data.length; i++) {
+                  $("#villesTrouve").append('<div id=villeTrouve'+i+' class="row villeTrouve" > </div>');
+                  $("#villeTrouve"+i).append('<p> '+val[i]["nomVille"]+', '+ val[i]["codePostal"]+' <p>');
+
+                }
+                //$("#rechercheDepart").parent().append(t[0][0]);
+         
+            },
+            'text'
+         ).fail(function(data,statut,xhr) {
+           verifError(data.responseText);
+         });
+  
+}
+$(document).on('keyup',"#rechercheDepart",function() {
+  ville(this);
+});
+$(document).on('keyup',"#rechercheArrive",function() {
+  ville(this);
+});
+$(document).on('focusin',"#rechercheDepart",function() {
+  ville(this);
+});
+$(document).on('focusin',"#rechercheArrive",function() {
+  ville(this);
+});
+$("#inscription").submit(function(e){ // On sélectionne le formulaire par son identifiant
     e.preventDefault();
     removeWarningForm();
     alert("on rentre");
     //$('#email').val().length
-
     $.post('scriptphp/formulaireDinscription.php', // Un script PHP que l'on va créer juste après
-            {
-                nomFonction : "verifieInscription",
-                email : $("#emailInscription").val(),  // Nous récupérons la valeur de nos input que l'on fait passer à connexion.php
-                emailConf : $("#confemail").val(),
-                nom : $('#nomInscription').val(),
-                prenom : $('#prenomInscription').val(),
-                mdp : $("#MDPInscription").val(),
-                mdpConf : $("#confMDPInscription").val()
-            },
+            
+                $("#inscription").serialize()
+            ,
  
             function(data,statut){
-              //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
               alert(data);
+              //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
                 if(data.includes("success")){
                      // Le membre est connecté. Ajoutons lui un message dans la page HTML.
                     
-                     //window.location.replace('index.php');
+                     window.location.replace('index.php');
                 }
                 else{
-                    verifError(data);
-                     // Le membre n'a pas été connecté. (data vaut ici "failed")   
+                     // Le membre n'a pas été connecté. (data vaut ici "failed")
                 }
             },
             'text'
-         );
+         ).fail(function(data,statut,xhr) {
+           verifError(data.responseText);
+         });
 });
 
 
@@ -92,8 +139,6 @@ $(function(){
   // });
 
 
-
-});
 
 
 //FUNCTION

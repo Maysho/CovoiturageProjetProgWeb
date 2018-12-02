@@ -13,9 +13,6 @@ class ContAccueil
 		$this->vue=new VueAccueil();
 	}
 	public function affiche(){
-		if(isset($_SESSION['id']))
-			$this->vue->afficheSiConnecte();
-		else
-			$this->vue->afficheSiNonConnecte();
+		$this->vue->affiche(isset($_SESSION['id']));
 	}
 }

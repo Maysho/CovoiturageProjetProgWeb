@@ -79,27 +79,27 @@ class vue_connexion extends VueGenerique
   		<form method="POST" id="inscription">
 			  <div class="form-group" id="divEmailInscription">
 			    <label for="exampleInputEmail1">Adresse mail</label>
-			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail">
+			    <input type="email" required name="emailInscription" class="form-control" id="emailInscription"  placeholder="adresse mail">
 			  </div>
 			  <div class="form-group" id="divConfEmail">
 			    <label for="exampleInputEmail2">Confirmation d\'adresse mail</label>
-			    <input type="email" required name="confemail" id="confemail" class="form-control" id="exampleInputEmail2"  placeholder="adresse mail">
+			    <input type="email" required name="confemail" id="confemail" class="form-control"   placeholder="adresse mail">
 			  </div >
 			  <div class="form-group" id="divNomInscription">
 			    <label for="Nom">Nom</label>
-			    <input type="text" required name="nom"class="form-control" id="nomInscription"  placeholder="Nom">
+			    <input type="text" required name="nomInscription"class="form-control" id="nomInscription"  placeholder="Nom">
 			  </div>
 			  <div class="form-group" id="divPrenomInscription">
 			    <label for="Prenom">Prenom</label>
-			    <input type="text" required name="prenom" class="form-control" id="prenomInscription"  placeholder="Prenom">
+			    <input type="text" required name="prenomInscription" class="form-control" id="prenomInscription"  placeholder="Prenom">
 			  </div>
 			  <div class="form-group" id="divMDPInscription">
 			    <label for="exampleInputPassword1">Mot De Passe</label>
-			    <input type="password" required name="mdr" class="form-control" id="MDPInscription" placeholder="Mot De Passe">
+			    <input type="password" required name="MDPInscription" class="form-control" id="MDPInscription" placeholder="Mot De Passe">
 			  </div>
 			  <div class="form-group" id="divConfMDPInscription">
 			    <label for="exampleInputPassword2">Confirmation De Mot De Passe</label>
-			    <input type="password" required name="confmdp" class="form-control" id="confMDPInscription" placeholder="Confirmation De Mot De Passe">
+			    <input type="password" required name="confMDPInscription" class="form-control" id="confMDPInscription" placeholder="Confirmation De Mot De Passe">
 			  </div>
 			  <button type="submit"  id="inscriptionbutton" name="submit"  class="btn btn-primary">S\'inscrire</button>
 		</form>
