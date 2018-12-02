@@ -43,19 +43,53 @@ $("#inscriptionbutton").click(function(e){ // On sélectionne le formulaire par 
 
 
 $(function(){
+
   $("#btnAjoutEtape").click(function(){
-    $("#etape").removeAttr("hidden");
-    $("#btnAjoutEtape").remove();
-    $("#etape").focusin(function(){
-      alert("entrer");
-        $(this).css("background-color", "#FFFFCC");
-    });
+    // $("#etape").removeAttr("hidden");
+    var fils= $("#etape").find("#villeEtape").clone();
+    $("#etape").append(fils);
+  // console.log($(this).find(".nomVille").length());
   });
 
-  $("#etape").focusout(function(){
-      alert("sortie");
-    $(this).css("background-color", "#FFFFFF");
+  
+
+  $(document).on('click',".btnSupprEtape",function(){
+    /*if($(document).find(".etape .nomVille").count()){
+
+    }*/
+    $(this).parent().remove();
+    console.log("on a cliqué");
   });
+
+   /*$("#btnAjoutEtape").click(function(){
+    // $("#etape").removeAttr("hidden");
+    var fils= $("#etape").clone().removeAttr("hidden");
+    fils = fils.attr("id","");
+    $("#departEtape").append(fils);
+  });
+
+
+  if(  ){
+    $(document).on('click',".btnSupprEtape",function(){
+      $(this).parent().remove();
+    });
+  }else{
+    $(document).on('click',".btnSupprEtape",function(){
+      $(this).parent().remove();
+    });
+  }*/
+
+    /*$("#btnAjoutEtape").remove();*/
+  //   $("#etape").focusin(function(){
+  //     alert("entrer");
+  //       $(this).css("background-color", "#FFFFCC");
+  //   });
+  // });
+
+  // $("#etape").focusout(function(){
+  //     alert("sortie");
+  //   $(this).css("background-color", "#FFFFFF");
+  // });
 
 
 

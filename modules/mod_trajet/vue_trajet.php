@@ -20,14 +20,17 @@ class vue_Trajet extends VueGenerique
 		  				<h2 class="text-left">Itinéraire</h2>
 		  				<div class="row">
 			  				<div class="col-md-6"> 
-			  					<div class="text-left form-group" id="">
+			  					<div class="text-left form-group" id="departEtape">
 								    <label for="">Je pars de... </label>
 								    <input type="text" required="required" name="" class="form-control" id=""  placeholder="Ville de Depart">
 								</div>
 								
-								<div class="text-center form-group" id="etape" hidden>
+								<div class="text-center container" id="etape" >
 								    <label for="">...En Passant par...</label>
-								    <input type="text" name="" id="" class="form-control" id=""  placeholder="Ville de Passage">
+								    <div class="form-group row" id="villeEtape" class="villeEtape">
+									    <input type="text" name=""  class="form-control col-md-11 nomdeVille" placeholder="Ville de Passage">
+									    <input type="button" class="btn col-md-1 btnSupprEtape" value="x" name="" disabled="true">
+								    </div>
 								</div >
 
 								<div class="text-right form-group" id="">
