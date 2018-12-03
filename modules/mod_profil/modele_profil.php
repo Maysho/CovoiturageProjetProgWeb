@@ -26,18 +26,22 @@ include_once __DIR__ . '/../../connexion.php';
 
 		}
 
+		public function recupereInfoUtilisateurModif($idUser){
+			
+				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$tableauIds=array($idUser);
+				$selecPreparee->execute($tableauIds);
+				return $selecPreparee->fetch();
+		}
+
 		public function estPagePerso($idUser){
 			return $idUser===$_SESSION['id'];
 		}
 
 		public function traduitResultatRequete($result){
-			$result['sexe']=self::traduitSexe($result['sexe']);
+			$result['sexe']=$result['sexe'] == 0 ? 'femme' : 'homme';
 			$result['dateDeNaissance']=self::traduitAge($result['dateDeNaissance']);
 			return $result;
-		}
-
-		private function traduitSexe($sexeInt){
-			return $sexeInt === 1 ? 'femme' : 'homme';
 		}
 
 		private function traduitAge($dateDeNaissance){

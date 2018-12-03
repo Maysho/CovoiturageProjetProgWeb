@@ -26,9 +26,27 @@ class ModProfil extends VueGenerique
 		}
 
 		if($idUser!==-1){
+
 			$estConnecter = isset($_SESSION['id']) ? true : false;
-			$this->controleur->accueilProfil($idUser, $estConnecter);	
-		
+			$ongletProfil = isset($_GET['ongletprofil']) ? $_GET['ongletprofil'] : 'profil';
+
+			switch ($ongletProfil) {
+				case 'profil':
+					$this->controleur->accueilProfil($idUser, $estConnecter);
+					break;
+				
+				case 'modif':
+
+					$this->controleur->modifierProfil($idUser, $estConnecter);
+					break;
+
+				default:
+					# code...
+					break;
+			}
+
+
+				
 		}
 		
 	}
