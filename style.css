@@ -27,3 +27,6 @@ h2{
 	position: absolute;
 	z-index: 100;
 }
+.ui-menu-item{
+	color: blue;
+}
