@@ -95,25 +95,52 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
          });
 });
 
+$('#formTrajet').submit(function(e){
+  e.preventDefault();
+  console.log("SVP");
+  alert("1");
+  // $.post('scriptphp/formTrajet.php', $("#formTrajet").serialize(), function(data, statut){ });
+  $.ajax({
+    url:'scriptphp/formTrajet.php',
+    method:'POST',
+    // $_POST['idConduteur'],$_POST['soustrajets'],$_POST['idVehicule'],$_POST['descriptionTrajet'],$_POST['placeTotale']
+    data: {
+      soustrajets: "soustrajets",
+      idVehicule: "idVehicule",
+      descriptionTrajet: "descriptionTrajet",
+      placeTotale: "placeTotale"
+    },
+    success : function(){
+      alert("gg");
+      console.log(idVehicule);
+      console.log(descriptionTrajet);
+      console.log(placeTotale);
+    },
+    error: function(){
+      alert("fail");
+    }
+  });
+});
+
 
 $(function(){
 
   $("#btnAjoutEtape").click(function(){
     // $("#etape").removeAttr("hidden");
     var fils= $("#etape").find("#villeEtape").clone();
+    fils.find('btnSupprEtape').
     $("#etape").append(fils);
   // console.log($(this).find(".nomVille").length());
   });
 
-  
-
   $(document).on('click',".btnSupprEtape",function(){
     /*if($(document).find(".etape .nomVille").count()){
-
     }*/
     $(this).parent().remove();
     console.log("on a cliqué");
   });
+
+});
 
    /*$("#btnAjoutEtape").click(function(){
     // $("#etape").removeAttr("hidden");

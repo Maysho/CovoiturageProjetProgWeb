@@ -26,6 +26,12 @@ class cont_trajet
 		$this->vue->formCreation();
 	}
 
+
+
+	public function verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale){
+		$this->modele->verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale); 
+	}
+
 	/*public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$this->modele->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
 	}

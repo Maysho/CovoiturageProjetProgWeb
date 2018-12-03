@@ -22,8 +22,29 @@ class mod_trajet extends VueGenerique
 		$this->controleur->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
 	}*/
 
+	public function verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale){
+		$this->controleur->verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale);
+	}
+
+
 	public function init()
 	{
+		// if(isset($_GET['action'])){
+		// 	$action=$_GET['action'];
+		// }
+		// else{
+		// 	$action="";
+		// }
+
+		// switch ($action) {
+		// 	case 'formTrajet':
+		// 		$this->controleur->verifCreationTrajet();
+		// 		break;
+			
+		// 	default:
+		// 		# code...
+		// 		break;
+		// }
 		$this->controleur->formTrajet();
 	}
 

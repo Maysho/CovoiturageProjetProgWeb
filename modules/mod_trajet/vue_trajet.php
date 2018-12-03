@@ -11,6 +11,7 @@ class vue_Trajet extends VueGenerique
 		parent::__construct();
 	}
 	public function formCreation(){
+		date_default_timezone_set('Europe/Paris');
 		?>
 		<div class="offset-0 offset-md-2 col-md-8 text-center">
 	  		<section>
@@ -22,27 +23,27 @@ class vue_Trajet extends VueGenerique
 			  				<div class="col-md-6"> 
 			  					<div class="text-left form-group" id="departEtape">
 								    <label for="">Je pars de... </label>
-								    <input type="text" required="required" name="" class="form-control" id=""  placeholder="Ville de Depart">
+								    <input type="text"  name="vileDepart" class="form-control" id=""  placeholder="Ville de Depart">
 								</div>
 								
-								<div class="text-center container" id="etape" >
+								<div class="text-center form-group container" id="etape" >
 								    <label for="">...En Passant par...</label>
 								    <div class="form-group row" id="villeEtape" class="villeEtape">
-									    <input type="text" name=""  class="form-control col-md-11 nomdeVille" placeholder="Ville de Passage">
-									    <input type="button" class="btn col-md-1 btnSupprEtape" value="x" name="" disabled="true">
+									    <input type="text" name=""  class="form-control col-11 nomdeVille" placeholder="Ville de Passage">
+									    <input type="button" class="btn col-1 btnSupprEtape" value="x" name="soustrajet[]" >
 								    </div>
 								</div >
 
 								<div class="text-right form-group" id="">
 								    <label for="">... Pour aller à...</label>
-								    <input type="text" required="required" name="" id="" class="form-control" id=""  placeholder="Ville d'Arrivée">
+								    <input type="text" name="" id="" class="form-control" id=""  placeholder="Ville d'Arrivée">
 								</div >
 								<input type="button" class="btn-group" id="btnAjoutEtape" value="Ajouter une Etape" name="">
 								
 								<div class="form-group text-left">
 									<label>Frequence :</label>
-								    <label class="offset-1"><input type="radio" name="frequence" checked>Occasionnel</label>
-								    <label class="offset-1"><input type="radio" name="frequence">Régulier</label>
+								    <label class="offset-1"><input type="radio" name="regulier" checked>Occasionnel</label>
+								    <label class="offset-1"><input type="radio" name="regulier">Régulier</label>
 								</div>	
 							</div>
 			  				<div class="col-md-6"> 
@@ -60,42 +61,34 @@ class vue_Trajet extends VueGenerique
 		  				</div>
 		  				<div class="text-left form-group " >
 		  					<label>Date de l'aller</label>
-		  						<input type="" name="" value="00-00-0000">
+		  						<input type="date" name="dateDepart" value=" <?php echo date('d/m/Y') ?> ">
 		  					<label>Heure</label>
-		  						<input class="col-md-1" type="" name="" value="00:00">
-		  					<label>+-</label>
-		  						<input class="col-md-1" type="" name="" value="00">
+		  						<input class="col-md-2" type="time" name="heureDepart" value="<?php echo date('h:i') ?> ">
 		  				</div>
 		  				
 						<div class="text-left form-group" id="checkpoint" class="row" >
 		  					<label>Date Etape</label>
-		  						<input type="" name="" value="00-00-0000">
+		  						<input type="date" name="" value="">
 		  					<label>Heure</label>
-								<input class="col-md-1" type="" name="" value="00:00">
-		  					<label>+-</label>
-		  						<input class="col-md-1" type="" name="" value="00">
+								<input class="col-md-2" type="time" name="" value="<?php echo date('h:i') ?> ">
 		  					<label>prix</label>
 		  						<input class="col-md-1" type="" name="" value="0">
 		  				</div> 
 
 		  				<div class="text-left form-group" id="checkpoint" class="row" >
 		  					<label>Date Arrive</label>
-		  						<input type="" name="" value="00-00-0000">
+		  						<input type="date" name="" value="00-00-0000">
 		  					<label>Heure</label>
-								<input class="col-md-1" type="" name="" value="00:00">
-		  					<label>+-</label>
-		  						<input class="col-md-1" type="" name="" value="00">
+								<input class="col-md-2" type="time" name="" value="<?php echo date('h:i') ?> ">
 		  					<label>prix</label>
 		  						<input class="col-md-1" type="" name="" value="0">
 		  				</div> 
 
 		  				<div class="text-left form-group" hidden>
 		  					<label>Date du retour</label>
-		  						<input type="" name="" value="00-00-0000">
+		  						<input type="date" name="" value="00-00-0000">
 		  					<label>Heure</label>
-								<input class="col-md-1" type="" name="" value="00:00">
-		  					<label>+-</label>
-		  						<input class="col-md-1" type="" name="" value="00">
+								<input class="col-md-2" type="time" name="" value="<?php echo date('h:i') ?> ">
 		  					<label>prix</label>
 		  						<input class="col-md-1" type="" name="" value="0">
 		  				</div>
@@ -108,16 +101,16 @@ class vue_Trajet extends VueGenerique
 			  					<div class="text-left form-group" id="">
 			  						<div class="row">
 									    <label class="col-md-4" for="">Mon Vehicule</label>
-									    <!-- <input class="offset-1 col-md-6 form-control" type="text" required="required" name=""  id="emailInscription"  placeholder="Ajouter un Vehicule"> -->
+									    <!-- <input class="offset-1 col-md-6 form-control" type="text"  name=""  id="emailInscription"  placeholder="Ajouter un Vehicule"> -->
 									    
-										<select class="offset-1 col-md-6 form-control" id="monVehicule">
+										<select class="offset-1 col-md-6 form-control" id="idVehicule">
 										    <option value="">--Please choose an option--</option>
 										    <option value="">Ajouter Un Véhicule</option>
 										</select>
 									</div>
 								    <div class="row">
 									    <label class="col-md-4" for="">Nombre de place</label>
-									    <input class="offset-1 col-md-6 form-control" type="text" required="required" name=""   id=""  placeholder="0">
+									    <input class="offset-1 col-md-6 form-control" type="text"  name="placeTotale"   id=""  placeholder="0">
 									</div>
 								</div >
 							</div>
@@ -129,7 +122,7 @@ class vue_Trajet extends VueGenerique
 		  					<div class="col-md-12">
 			  					<div class="text-left form-group" id="">
 								    <label  for="">Detail du voyage</label>
-								    <textarea class="form-control" type="textarea" name="" id="" rows="4"  placeholder="Description"></textarea>
+								    <textarea class="form-control" type="textarea" name="descriptionTrajet" id="" rows="4"  placeholder="Description"></textarea>
 								</div>
 							</div>
 						</div > 
@@ -138,7 +131,7 @@ class vue_Trajet extends VueGenerique
 		  			<div class="row">
 					    <label><input type="checkbox" name="notificationJoin">Me prévenir lorsqu'un passager s'inscrit au trajet</label>
 					</div>
-		  			<button type="submit"  id=""  name="submit"  class="btn btn-primary">C'est parti!</button>
+		  			<button type="submit" class="btn btn-primary">C'est parti!</button>
 				</form>
 	  		</section>
 	  	</div>
