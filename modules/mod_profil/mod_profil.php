@@ -40,6 +40,10 @@ class ModProfil extends VueGenerique
 					$this->controleur->modifierProfil($idUser, $estConnecter);
 					break;
 
+				case 'recupmodif':
+					$this->controleur->recupereModifProfil($idUser, $estConnecter);
+					break;
+
 				default:
 					# code...
 					break;

@@ -32,6 +32,8 @@
 			
 		}
 
+		
+
 		public function modifierProfil($idUser, $estConnecter){
 
 			/*$estPagePerso=false;
@@ -47,6 +49,38 @@
 			$donnees=$result=$this->modele->recupereInfoUtilisateurModif($idUser);
 
 			$this->vue->modificationDeProfil($idUser, $donnees);
+		}
+
+		public function recupereModifProfil($idUser, $estConnecter){
+
+			/*$estPagePerso=false;
+
+			if(!$estConnecter)
+				die("Page inaccessible");
+			else
+				$estPagePerso=$this->modele->estPagePerso($idUser);
+
+			if(!$estPagePerso)
+				die("Page inaccessible");
+*/
+		/*	$prenom = htmlspecialchars($_POST['prenom']);
+			$nom = htmlspecialchars($_POST['nom']);
+			$email = htmlspecialchars($_POST['Email']);
+			$emailConfirm = htmlspecialchars($_POST['confirmationEmail']);
+			$date = $_POST['datedenaissance'];
+			$sexe = $_POST['sexe'];
+			$description = htmlspecialchars($_POST['description']);
+			*/
+
+
+			$this->modele->verifieModificationProfil($idUser);
+			
+				
+		
+
+
+
+			header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
 		}
 	}
 ?>

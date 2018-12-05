@@ -47,8 +47,11 @@ include_once 'vue_generique.php';
 <?php
 		if(isset($donnerAAfficher['dateDeNaissance']))
 			echo '					<label class="col-md-12"> Age : '.$donnerAAfficher['dateDeNaissance'].' ans</label>';
+
+		if(isset($donnerAAfficher['sexe']))
+			echo '
+								<label class="col-md-12">Sexe : '.$donnerAAfficher['sexe'].'</label>';					
 ?>
-								<label class="col-md-12">Sexe : <?php echo $donnerAAfficher['sexe']; ?></label>						
 							</div>
 
 							<div class="row col-md-4 order-3 order-md-2">
@@ -95,6 +98,11 @@ include_once 'vue_generique.php';
 <?php		
 		}
 
+
+
+
+
+
 		function modificationDeProfil($idUser, $donnees){
 ?>
 
@@ -116,16 +124,18 @@ include_once 'vue_generique.php';
 					</nav> 
 
 					<section class="border border-dark rounded">
-						<form method="POST" id="editProfil">
+						<form method="POST" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
 							<div class="row col-12">
-								<label class="col-md-4">Photo de profil : </label>
+								<label class="col-md-4">Photo de profil (5Mo max): </label>
 								<img class="col-md-4" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
+								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+								<input class="cole-md-4" type="file" name="photoprofil" >
 								<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
 							</div>
 
 							<div class="row col-12">
 								<label class="col-md-4">Prenom : </label>
-								<input class="col-md-4 type="text" name="prenom" value="<?php echo $donnees['prenom']; ?>">
+								<input class="col-md-4" type="text" name="prenom" value="<?php echo $donnees['prenom']; ?>">
 							</div>
 
 							<div class="row col-12">
@@ -145,7 +155,7 @@ include_once 'vue_generique.php';
 
 							<div class="row col-12">
 								<label class="col-md-4">Date de naissance : </label>
-								<input class="col-md-4" type="date" name="date de naissance" value="<?php echo $donnees['dateDeNaissance']; ?>">
+								<input class="col-md-4" type="date" name="datedenaissance" value="<?php echo $donnees['dateDeNaissance']; ?>">
 							</div>
 
 							<div class="row col-12">
@@ -153,11 +163,11 @@ include_once 'vue_generique.php';
 								<div class="col-md-4">
 									<div class="row">
 										<div class="col-md-6">
-											<input type="radio" name="sexe" id="homme" value="homme" <?php if($donnees['sexe'] == 1) echo 'checked'; ?>>
+											<input type="radio" name="sexe" id="homme" value=1 <?php if(isset($donnees['sexe']) && $donnees['sexe'] == 1) echo 'checked'; ?>>
 											<label for="homme">Homme</label>
 										</div>
 										<div class="col-md-6">
-											<input type="radio" name="sexe" id="femme" value="femme"<?php if($donnees['sexe'] == 0) echo 'checked'; ?>>
+											<input type="radio" name="sexe" id="femme" value=0 <?php if(isset($donnees['sexe']) && $donnees['sexe'] == 0) echo 'checked'; ?>>
 											<label for="femme">Femme</label>
 										</div>
 									</div>	
