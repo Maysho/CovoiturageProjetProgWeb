@@ -9,7 +9,10 @@ $( window ).resize(function() {
 function removeAide() {
   $('.aide').remove();
 }
-
+/*
+$(document).on('focusin',"#rechercheDepart",function(event) {
+  console.log(ville($("#rechercheDepart"))); 
+});*/
 /*
 $(document).on('mousedown',".villeTrouve",function(){
   $("#"+this.id).parent().parent().children('input').val($(this).children().text());
@@ -24,13 +27,13 @@ $(document).on('focusout',"#villeArriveRecherche",function(event) {
 $( "#rechercheDepart" ).autocomplete({
       source: "scriptphp/chercheVille.php"
     });
-/*$("#villeDepartRecherche").autocomplete({
-      source: ville($("#villeDepartRecherche"))
-    });*/
+$("#rechercheArrive").autocomplete({
+      source: "scriptphp/chercheVille.php"
+    });
 function ville(variable) {
- $.post('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
+ $.get('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
             
-            { ville: variable.val()}
+            { term: variable.val()}
                 
             ,
  

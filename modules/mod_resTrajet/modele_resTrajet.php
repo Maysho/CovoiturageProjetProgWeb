@@ -3,8 +3,7 @@
 /**
 * 
 */
-include_once __DIR__ . '/../../connexion.php';
-class modele_connexion extends connexion
+class modele_resTrajet extends connexion
 {
 	private $msg;
 	function __construct()
@@ -12,6 +11,25 @@ class modele_connexion extends connexion
 		$connexion=new connexion();
 		$connexion->init();
 		$this->msg="";
+	}
+	public function donneTrajet($depart='',$destination='',$date='',$prix='',$type='',$regulier='')
+	{
+
+		$codePostal1=preg_grep("#[0-9]+#", explode(",", $depart));
+		$depart=preg_replace("#[0-9]|[ ]|[,]#", "", $depart);
+
+		$codePostal2=preg_grep("#[0-9]+#", explode(",", $destination));
+		$destination=preg_replace("#[0-9]|[ ]|[,]#", "", $destination);
+
+		$selecPreparee=self::$bdd->prepare('SELECT idTrajet,urlPhoto,prenom,villeDepart,villeArrive FROM trajet t inner join soustrajet st on t.idTrajet=st.idTrajet inner join utilisateur u on u.idUtilisateur=t.idConducteur WHERE villeDepart=? and( villeArrive=? or villeDepart=?)');
+		$tableauIds=array($depart,$destination,$destination);
+		$selecPreparee->execute($tableauIds);
+		$tab= $selecPreparee->fetch();
+		echo $tab[0];
+		if(empty($tab[0]))
+			return -1;
+		else
+			return $tab[0];
 	}
 	public function verifieConnexion()
 	{
@@ -92,7 +110,7 @@ class modele_connexion extends connexion
 	public function chercheVille($ville)
 	{
 		$codePostal=preg_grep("#[0-9]+#", explode(",", $ville));
-		$ville=preg_replace("#([0-9]|[,])*#", "", $ville);
+		$ville=preg_replace("#([0-9]|[ ]|[,])*#", "", $ville);
 
 		$selecPrepareeUnique=self::$bdd->prepare('SELECT nomVille,codePostal FROM ville where nomVille like "%"?"%" or( codePostal>= ? and codePostal<=?) limit 5');
 
@@ -115,7 +133,7 @@ class modele_connexion extends connexion
 
 		while($donnee = $selecPrepareeUnique->fetch()) // on effectue une boucle pour obtenir les données
 		{
-		    array_push($array, $donnee['nomVille'].", ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
+		    array_push($array, $donnee['nomVille']." ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
 		}
 
 		echo json_encode($array); 
