@@ -1,44 +1,58 @@
 <?php 
 
 include_once 'cont_profil.php';
-class ModProfil
+
+class ModProfil extends VueGenerique
 {
-	
+	private $controleur;
 	function __construct(){
 		//$connexion=new connexion();
 		//$connexion->init();
-		$this->init();
+		$this->controleur=new ContProfil();
 
 	}
+
+
 	public function init()
 	{
-		$action='profil';
-		if(isset($_GET['action'])){
 
-			$action=$_GET['action'];
+
+		
+		
+		$idUser=isset($_SESSION['id']) ? $_SESSION['id'] : -1;
+		
+		if(isset($_GET['idprofil'])){
+			$idUser=$_GET['idprofil'];
 		}
 
+		if($idUser!==-1){
 
-		$controleur=new ContProfil();
-		$controleur-> accueilProfil();
-		/*switch ($action) {
-			case 'liste':
-				$controleur->liste();
-				break;
-			case 'details':
-				$controleur->details();
-				break;
-			case 'form':
-				$controleur->form_ajout();
-				break;
-			case 'ajout':
-				$controleur->ajout($_POST['nom'],$_POST['description']);
-				break;
+			$estConnecter = isset($_SESSION['id']) ? true : false;
+			$ongletProfil = isset($_GET['ongletprofil']) ? $_GET['ongletprofil'] : 'profil';
 
-			default:
+			switch ($ongletProfil) {
+				case 'profil':
+					$this->controleur->accueilProfil($idUser, $estConnecter);
+					break;
 				
-				break;
-		}*/
+				case 'modif':
+
+					$this->controleur->modifierProfil($idUser, $estConnecter);
+					break;
+
+				case 'recupmodif':
+					$this->controleur->recupereModifProfil($idUser, $estConnecter);
+					break;
+
+				default:
+					# code...
+					break;
+			}
+
+
+				
+		}
+		
 	}
 
 
