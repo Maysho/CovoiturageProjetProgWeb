@@ -88,7 +88,7 @@ switch ($module){
 
  
   	<div class="container-fluid">
-  		 <header>
+	<header>
   		<?php 
 			//$CompMenu->affiche();
 

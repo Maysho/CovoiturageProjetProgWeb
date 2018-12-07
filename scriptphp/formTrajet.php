@@ -1,10 +1,13 @@
 <?php  
-include_once '../modules/mod_connexion/modele_connexion.php';
-$mod_connexion=new modele_connexion();
-// verifCreationTrajet($idConducteur, $soustrajets, $idVehicule, $descTrajet, $placeTotale, $suppresion)
-$mod_connexion->verifCreationTrajet($_POST['soustrajets'],$_POST['idVehicule'],$_POST['descriptionTrajet'],$_POST['placeTotale']);
+include_once __DIR__.'/../modules/mod_trajet/mod_trajet.php';
+$mod_trajet=new mod_trajet();
 
 
+if(isset($_POST['descriptionTrajet']) && isset($_POST['placeTotale'])){
+	if($mod_trajet->verifCreationTrajet2($_POST['descriptionTrajet'],$_POST['placeTotale'])){
+	echo "ok";
+	}
+}
 
 
 ?>

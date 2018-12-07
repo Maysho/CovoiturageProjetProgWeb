@@ -83,5 +83,46 @@ class modele_trajet extends connexion {
 			));
 		}
 	}
-	
+
+	public function verifCreationTrajet2($descriptionTrajet, $placeTotale){
+		
+		$reponse = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
+		$idTraj=($reponse->fetch());
+		$idTrajet=$idTraj['idTrajet']+1;
+		echo $idTrajet;
+
+		$reponse2 = self::$bdd->query('SELECT idConducteur FROM trajet ORDER BY idConducteur desc limit 1');
+		$idCon=($reponse2->fetch());
+		$idConducteur=$idCon['idTrajet']+1;
+		echo $idCon;
+		
+		$sql =self::$bdd->prepare("
+		INSERT INTO trajet(
+			idTrajet, 
+			descriptionTrajet, 
+			idConducteur, 
+			placeTotale, 
+			suppression
+			) VALUES (
+			:idTrajet,
+			:descriptionTrajet,
+			:idConducteur,
+			:placeTotale,
+			false
+			) 
+		");
+
+		
+		$sql->execute(array(
+			':idTrajet' => $idTrajet,
+			':descriptionTrajet' => $descriptionTrajet,
+			':idConducteur' => $idConducteur,
+			':placeTotale' => $placeTotale
+		));
+
+	}
+
 }
+
+
+?>

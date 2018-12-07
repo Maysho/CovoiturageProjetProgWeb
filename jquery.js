@@ -95,26 +95,30 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
          });
 });
 
-$('#formTrajet').submit(function(e){
+$('#envoiTrajet').on("click",function(e){
   e.preventDefault();
-  console.log("SVP");
-  alert("1");
+
   // $.post('scriptphp/formTrajet.php', $("#formTrajet").serialize(), function(data, statut){ });
+  // var depart=$(document).find("#depart").val();
+  // var arrive=$(document).find("#arrive").val();
+  // var villes = $(document).find(".nomdeVille");
+  var descriptionTrajet =$(document).find("#descriptionTrajet").val();
+  var placeTotale=$(document).find("#placeTotale").val();
+  console.log(descriptionTrajet) 
+  console.log(placeTotale)
+  // var idVehi=$(document).find(".nomdeVille");
+
   $.ajax({
     url:'scriptphp/formTrajet.php',
-    method:'POST',
+    type:'POST',
     // $_POST['idConduteur'],$_POST['soustrajets'],$_POST['idVehicule'],$_POST['descriptionTrajet'],$_POST['placeTotale']
     data: {
-      soustrajets: "soustrajets",
-      idVehicule: "idVehicule",
-      descriptionTrajet: "descriptionTrajet",
-      placeTotale: "placeTotale"
+      // idVehicule: "idVehicule",
+      descriptionTrajet: descriptionTrajet,
+      placeTotale: placeTotale
     },
-    success : function(){
-      alert("gg");
-      console.log(idVehicule);
-      console.log(descriptionTrajet);
-      console.log(placeTotale);
+    success : function(txt){
+      $(location).attr('href', '/CovoiturageProjetProgWeb');
     },
     error: function(){
       alert("fail");
@@ -128,7 +132,6 @@ $(function(){
   $("#btnAjoutEtape").click(function(){
     // $("#etape").removeAttr("hidden");
     var fils= $("#etape").find("#villeEtape").clone();
-    fils.find('btnSupprEtape').
     $("#etape").append(fils);
   // console.log($(this).find(".nomVille").length());
   });
@@ -137,40 +140,11 @@ $(function(){
     /*if($(document).find(".etape .nomVille").count()){
     }*/
     $(this).parent().remove();
-    console.log("on a cliqué");
+    console.log("On a supprimé une étape");
   });
 
 });
 
-   /*$("#btnAjoutEtape").click(function(){
-    // $("#etape").removeAttr("hidden");
-    var fils= $("#etape").clone().removeAttr("hidden");
-    fils = fils.attr("id","");
-    $("#departEtape").append(fils);
-  });
-
-
-  if(  ){
-    $(document).on('click',".btnSupprEtape",function(){
-      $(this).parent().remove();
-    });
-  }else{
-    $(document).on('click',".btnSupprEtape",function(){
-      $(this).parent().remove();
-    });
-  }*/
-
-    /*$("#btnAjoutEtape").remove();*/
-  //   $("#etape").focusin(function(){
-  //     alert("entrer");
-  //       $(this).css("background-color", "#FFFFCC");
-  //   });
-  // });
-
-  // $("#etape").focusout(function(){
-  //     alert("sortie");
-  //   $(this).css("background-color", "#FFFFFF");
-  // });
 
 
 

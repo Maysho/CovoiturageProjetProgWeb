@@ -26,26 +26,13 @@ class mod_trajet extends VueGenerique
 		$this->controleur->verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale);
 	}
 
+	public function verifCreationTrajet2($descriptionTrajet, $placeTotale){
+		$this->controleur->verifCreationTrajet2($descriptionTrajet, $placeTotale);
+	}
 
 	public function init()
 	{
-		// if(isset($_GET['action'])){
-		// 	$action=$_GET['action'];
-		// }
-		// else{
-		// 	$action="";
-		// }
-
-		// switch ($action) {
-		// 	case 'formTrajet':
-		// 		$this->controleur->verifCreationTrajet();
-		// 		break;
-			
-		// 	default:
-		// 		# code...
-		// 		break;
-		// }
 		$this->controleur->formTrajet();
 	}
 
-}
+}?>

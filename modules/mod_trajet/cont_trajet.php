@@ -32,6 +32,9 @@ class cont_trajet
 		$this->modele->verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale); 
 	}
 
+	public function verifCreationTrajet2($descriptionTrajet, $placeTotale){
+		$this->modele->verifCreationTrajet2($descriptionTrajet, $placeTotale); 
+	}
 	/*public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$this->modele->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
 	}
@@ -40,4 +43,4 @@ class cont_trajet
 	{
 		$this->vue->pageTrajet();
 	}*/
-}
+}?>
