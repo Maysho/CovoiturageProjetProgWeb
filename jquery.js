@@ -74,25 +74,25 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
     //$('#email').val().length
     $.post('scriptphp/formulaireDinscription.php', // Un script PHP que l'on va créer juste après
             
-                $("#inscription").serialize()
-            ,
- 
-            function(data,statut){
-              alert(data);
-              //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
-                if(data.includes("success")){
-                     // Le membre est connecté. Ajoutons lui un message dans la page HTML.
-                    
-                     window.location.replace('index.php');
-                }
-                else{
-                     // Le membre n'a pas été connecté. (data vaut ici "failed")
-                }
-            },
-            'text'
-         ).fail(function(data,statut,xhr) {
-           verifError(data.responseText);
-         });
+        $("#inscription").serialize()
+    ,
+
+    function(data,statut){
+      alert(data);
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+        if(data.includes("success")){
+             // Le membre est connecté. Ajoutons lui un message dans la page HTML.
+            
+             window.location.replace('index.php');
+        }
+        else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+        }
+    },
+    'text'
+   ).fail(function(data,statut,xhr) {
+     verifError(data.responseText);
+   });
 });
 
 $('#envoiTrajet').on("click",function(e){
@@ -118,7 +118,7 @@ $('#envoiTrajet').on("click",function(e){
       placeTotale: placeTotale
     },
     success : function(txt){
-      $(location).attr('href', '/CovoiturageProjetProgWeb');
+      
     },
     error: function(){
       alert("fail");
@@ -126,16 +126,23 @@ $('#envoiTrajet').on("click",function(e){
   });
 });
 
+$("#btnAjoutEtape").on("click",function(){
+  // $("#etape").removeAttr("hidden");
+  // if($('.villeEtape').length()){
+  // }
+  // console.log($(document).find(".villeEtape").length )
+  console.log($(document).find("#etape .villeEtape"))
+  console.log($(document).find("#etape .villeEtape").size())
+  console.log($(document).find("#etape .villeEtape").length)
+  var fils= $("#etape").find("#villeEtape").clone();
+  
+  fils.find(".nomdeVille").val("");
+  // console.log(fils)
+  $("#etape").append(fils);
+  // console.log($(this).find(".nomVille").length());
+}); 
 
 $(function(){
-
-  $("#btnAjoutEtape").click(function(){
-    // $("#etape").removeAttr("hidden");
-    var fils= $("#etape").find("#villeEtape").clone();
-    $("#etape").append(fils);
-  // console.log($(this).find(".nomVille").length());
-  });
-
   $(document).on('click',".btnSupprEtape",function(){
     /*if($(document).find(".etape .nomVille").count()){
     }*/
@@ -143,11 +150,13 @@ $(function(){
     console.log("On a supprimé une étape");
   });
 
+  $('#placeTotale').on("keyup",function(){
+    var verif = $(this).val();
+    if(verif.match(/[a-zA-Z]/g)){
+      $(this).val(verif.replace(/[a-zA-Z]/g,""))
+    }
+  });
 });
-
-
-
-
 
 //FUNCTION
 function removeWarningForm(){
@@ -168,7 +177,6 @@ function verifError(data){
   }
   if (data.includes("04")) {
     $('#divMDPInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect il doit être au minimum superieur a 8 charactere, contenir une lettre en majuscule, un chiffre et un charactere en minuscule </small>');
-
   }
   if(data.includes("05")){
     $('#divConfMDPInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>');

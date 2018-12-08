@@ -91,10 +91,17 @@ class modele_trajet extends connexion {
 		$idTrajet=$idTraj['idTrajet']+1;
 		echo $idTrajet;
 
-		$reponse2 = self::$bdd->query('SELECT idConducteur FROM trajet ORDER BY idConducteur desc limit 1');
-		$idCon=($reponse2->fetch());
-		$idConducteur=$idCon['idTrajet']+1;
-		echo $idCon;
+		if(isset($_SESSION['id'])){
+			$idConducteur==$_SESSION['id'];
+		}
+		else{
+			$reponse2 = self::$bdd->prepare('SELECT idConducteur FROM trajet ORDER BY idConducteur desc limit 1');
+			$idCon=($reponse2->fetch());
+			$idConducteur=$idCon['idTrajet']+1;
+			//erreur
+		}
+		echo $idConducteur;
+		
 		
 		$sql =self::$bdd->prepare("
 		INSERT INTO trajet(
@@ -104,7 +111,7 @@ class modele_trajet extends connexion {
 			placeTotale, 
 			suppression
 			) VALUES (
-			:idTrajet,
+			DEFAULT,
 			:descriptionTrajet,
 			:idConducteur,
 			:placeTotale,
@@ -114,7 +121,6 @@ class modele_trajet extends connexion {
 
 		
 		$sql->execute(array(
-			':idTrajet' => $idTrajet,
 			':descriptionTrajet' => $descriptionTrajet,
 			':idConducteur' => $idConducteur,
 			':placeTotale' => $placeTotale
