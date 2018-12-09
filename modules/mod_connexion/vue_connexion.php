@@ -156,6 +156,7 @@ class vue_connexion extends VueGenerique
 
   		</section>
   		</div>
-
+  		<?php
   	}
 }
+?>

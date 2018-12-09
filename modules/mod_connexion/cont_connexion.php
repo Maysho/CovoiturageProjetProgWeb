@@ -46,7 +46,7 @@ class cont_connexion
 	}
 	public function ChercheMotDePasseOublier()
 	{
-		if (isset($_POST["email"]) {
+		if (isset($_POST["email"])){
 			$this->modele->verifieMail($_POST["email"]);
 			$this->modele->envoieMailMdp();
 		}
@@ -59,4 +59,4 @@ class cont_connexion
 	}
 
 
-}
+}?>
