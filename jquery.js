@@ -1,3 +1,5 @@
+var key = 0 ;
+
 $( window ).resize(function() {
   if ($(window).width() <768) {
   	$(".composant" ).hide();
@@ -10,17 +12,6 @@ function removeAide() {
   $('.aide').remove();
 }
 
-/*
-$(document).on('mousedown',".villeTrouve",function(){
-  $("#"+this.id).parent().parent().children('input').val($(this).children().text());
-  $("#villesTrouve").remove();
-  });
-$(document).on('focusout',"#villeDepartRecherche",function(event) {
-  $("#villesTrouve").remove();
-});
-$(document).on('focusout',"#villeArriveRecherche",function(event) {
-  $("#villesTrouve").remove();
-});*/
 $( "#rechercheDepart" ).autocomplete({
       source: "scriptphp/chercheVille.php"
     });
@@ -95,67 +86,145 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
    });
 });
 
+
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
 
-  // $.post('scriptphp/formTrajet.php', $("#formTrajet").serialize(), function(data, statut){ });
-  // var depart=$(document).find("#depart").val();
-  // var arrive=$(document).find("#arrive").val();
-  // var villes = $(document).find(".nomdeVille");
+  var soustrajets=[];
+
+  if( key  == 0){
+    var soustrajet = { 
+      idVilleD : $(document).find('#depart').val(), 
+      idVilleA : $(document).find('#arrive').val(),
+      dateDepart: $(document).find('#dateDepart').val(),
+      heureDepart: $(document).find('#heureDepart').val(),
+      heureArrivee: $(document).find('#heureArrive').val(),
+      // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
+      idVehiculeConducteur: 1,
+      prix: $(document).find('#prixArrive').val(),
+      regulier: $(document).find('#regulier').val()
+    };
+    console.log(soustrajet);
+    soustrajets[0]= soustrajet;
+
+  }else{
+    for( var i = 1 ; i < key+1 ; i++ ){
+    console.log(i);
+    var st= '#villeEtape'+i;
+    console.log(st);
+    
+    var bite = { test : $(document).find(st).val() };
+
+    soustrajets[i] = bite;
+    console.log(bite);
+    }
+  }
+
+  console.log(soustrajets);
+
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
-  console.log(descriptionTrajet) 
-  console.log(placeTotale)
-  // var idVehi=$(document).find(".nomdeVille");
-
+  
   $.ajax({
     url:'scriptphp/formTrajet.php',
     type:'POST',
-    // $_POST['idConduteur'],$_POST['soustrajets'],$_POST['idVehicule'],$_POST['descriptionTrajet'],$_POST['placeTotale']
+    dataType : 'text',
     data: {
-      // idVehicule: "idVehicule",
+      soustrajet: soustrajets,
       descriptionTrajet: descriptionTrajet,
       placeTotale: placeTotale
     },
     success : function(txt){
-      
+       // window.location='/CovoiturageProjetProgWeb/index.php' 
+       console.log(txt);
     },
     error: function(){
       alert("fail");
     }
   });
+  key = 0;
 });
 
-$("#btnAjoutEtape").on("click",function(){
-  // $("#etape").removeAttr("hidden");
-  // if($('.villeEtape').length()){
-  // }
-  // console.log($(document).find(".villeEtape").length )
-  console.log($(document).find("#etape .villeEtape"))
-  console.log($(document).find("#etape .villeEtape").size())
-  console.log($(document).find("#etape .villeEtape").length)
-  var fils= $("#etape").find("#villeEtape").clone();
-  
-  fils.find(".nomdeVille").val("");
-  // console.log(fils)
-  $("#etape").append(fils);
-  // console.log($(this).find(".nomVille").length());
-}); 
+
 
 $(function(){
+  
+  // ajout des champs etapes
+  $("#btnAjoutEtape").on("click",function(){
+    // On copie le template et on le rend visible la premiere fois 
+    if( $('.tpl').length == 1){
+      var cont= $('#etape').clone(); //partie itineraire
+      cont.removeAttr("id");
+      cont.removeAttr("hidden");
+
+      cont.find("input.nomdeVille").each(function() {
+        console.log(key);
+        $(this).attr("value", "");
+        $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
+      });
+      $("#etape").after(cont);
+
+      var cont2= $('#checkpoint').clone(); //partie horaire
+      cont2.removeAttr("id");
+      cont2.removeAttr("hidden");
+
+      cont2.find("input.nomdeVille").each(function() {
+        console.log("horaire "+key);
+        $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
+      });
+      $("#checkpoint").after(cont2);
+
+      
+    }else{ // on ajoute au truc suivant copie du template
+      var fils= $('#villeEtape').clone(); //partie itineraire
+      fils.find(".nomdeVille").val("");
+      fils.removeAttr("id");
+
+      fils.find("input.nomdeVille").each(function() {
+        console.log(key);
+        $(this).attr("value", "")
+        $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
+      });
+      $("#etape").next().append(fils);
+
+      var fils2= $('#checkpoint1').clone(); //partie horaire
+      fils2.removeAttr("id");
+      // fils2.closest("label").text(fils2.closest("label").text().replace(/\d+/g, key + 1))
+      fils2.find("input").each(function() {
+        $(this).find("input").attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
+      });
+      $("#checkpoint").next().append(fils2);
+    };
+    key ++;
+
+  }); 
+
+  //supprime les chamlps etapes 
+  //TODO suppression remettre les machins dans l'ordre
   $(document).on('click',".btnSupprEtape",function(){
-    /*if($(document).find(".etape .nomVille").count()){
-    }*/
-    $(this).parent().remove();
-    console.log("On a supprimé une étape");
+    if($(this).parent().parent().find("div").length==1 ){
+      console.log("On a supprimé le block");
+      $(this).parent().parent().fadeOut(function(){
+        $(this).remove(); 
+      });
+
+    }else{
+      console.log("On a supprimé une étape");
+      $(this).parent().fadeOut(function(){
+        $(this).remove();
+      });
+    }
+    key--;
   });
 
+  //transforme les entrées non numerique  en vide
   $('#placeTotale').on("keyup",function(){
     var verif = $(this).val();
     if(verif.match(/[a-zA-Z]/g)){
       $(this).val(verif.replace(/[a-zA-Z]/g,""))
     }
   });
+
 });
 
 //FUNCTION

@@ -26,13 +26,13 @@ class vue_Trajet extends VueGenerique
 								    <input type="text"  name="depart" class="form-control" id="depart"  placeholder="Ville de Depart">
 								</div>
 								
-								<div class="text-center form-group container" id="etape" >
+								<div class="text-center form-group container tpl" id="etape" hidden>
 								    <label for="villeEtape">...En Passant par...</label>
-								    <div class="form-group row villeEtape" id="villeEtape">
-									    <input type="text" name="soustrajet[][villeDepart]"  class="form-control col-11 nomdeVille" placeholder="Ville de Passage" value="">
+								    <div class="form-group row villeEtape" id="villeEtape" >
+									    <input type="text" id="villeEtape0" class="form-control col-11 nomdeVille" placeholder="Ville de Passage" value="">
 										<input type="button" class="btn col-1 btnSupprEtape" value="x">
 								    </div>
-								</div>
+								</div>								
 
 								<div class="text-right form-group">
 								    <label for="arrive">... Pour aller à...</label>
@@ -42,8 +42,8 @@ class vue_Trajet extends VueGenerique
 								
 								<div class="form-group text-left">
 									<label>Frequence :</label>
-								    <label class="offset-1"><input type="radio" name="regulier" checked>Occasionnel</label>
-								    <label class="offset-1"><input type="radio" name="regulier">Régulier</label>
+								    <label class="offset-1"><input type="radio" name="regulier" id="regulier" checked>Occasionnel</label>
+								    <label class="offset-1"><input type="radio" name="regulier" id="regulier">Régulier</label>
 								</div>	
 							</div>
 			  				<div class="col-md-6"> 
@@ -61,37 +61,39 @@ class vue_Trajet extends VueGenerique
 		  				</div>
 		  				<div class="text-left form-group " >
 		  					<label>Date de l'aller</label>
-		  						<input type="date" name="dateDepart" value="<?php echo date('Y-m-d') ?>">
+		  						<input type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
 		  					<label>Heure</label>
-		  						<input class="col-md-2" type="time" name="heureDepart" value="<?php echo date('h:i') ?>">
+		  						<input class="col-md-2" type="time" id="heureDepart" value="<?php echo date('h:i') ?>">
 		  				</div>
 		  				
-						<div class="text-left form-group" id="checkpoint">
-		  					<label>Date Etape</label>
-		  						<input type="date" name="soustrajet[][dateEtape]" value="<?php echo date('Y-m-d') ?>">
+						<div class="text-left form-group" id="checkpoint" hidden>
+		  					<div class="form-group" id="checkpoint1" >
+	  						<label>Date Etape</label>
+		  						<input type="date" id="date[0]" value="<?php echo date('Y-m-d') ?>">
 		  					<label>Heure</label>
-								<input class="col-md-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
+								<input class="col-md-2" type="time" id="heure[0]" value="<?php echo date('h:i') ?>">
 		  					<label>prix</label>
-		  						<input class="col-md-1" type="" name="soustrajet[][prix]" value="0">
+		  						<input class="col-md-1" type="" id="prix[0]" value="0">
+		  					</div>
 		  				</div> 
 
 		  				<div class="text-left form-group">
 		  					<label>Date Arrive</label>
-		  						<input type="date" name="soustrajet[][arrive]" value="<?php echo date('Y-m-d') ?>">
+		  						<input type="date" id="dateArrive" value="<?php echo date('Y-m-d') ?>">
 		  					<label>Heure</label>
-								<input class="col-md-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
+								<input class="col-md-2" type="time" id="heureArrive" value="<?php echo date('h:i') ?>">
 		  					<label>prix</label>
-		  						<input class="col-md-1" type="" name="soustrajet[][prix]" value="0">
+		  						<input class="col-md-1" id="prixArrive" value="0">
 		  				</div> 
 
-		  				<div class="text-left form-group" hidden>
+		  				<!-- <div class="text-left form-group" hidden>
 		  					<label>Date du retour</label>
 		  						<input type="date" name="" value="">
 		  					<label>Heure</label>
 								<input class="col-md-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
 		  					<label>prix</label>
 		  						<input class="col-md-1" name="prix" value="0">
-		  				</div>
+		  				</div> -->
 		  				<hr>
 		  			</div>
 		  			<div> 
@@ -106,7 +108,9 @@ class vue_Trajet extends VueGenerique
 										<select class="offset-1 col-md-6 form-control" id="idVehicule">
 										    <option value="">--Please choose an option--</option>
 										    <option value="">Ajouter Un Véhicule</option>
+										    <option value="1">Ajouter Un Véhicule</option>
 										</select>
+
 									</div>
 								    <div class="row">
 									    <label class="col-md-4" for="placeTotale">Nombre de place</label>

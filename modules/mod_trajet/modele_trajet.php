@@ -12,85 +12,9 @@ class modele_trajet extends connexion {
 		$trajet->init();
 	}
 
-	public function verifCreationTrajet($soustrajets, $idVehicule, $descTrajet, $placeTotale){
-		$erreur =false;
-		// if($idConducteur == null){
-		// 	// renvoyer vers la page de connexion
-		// }
-
-		$sqlTrajet= self::$bdd->prepare('
-			INSERT INTO trajet(
-			idTrajet, 
-			descriptionTrajet, 
-			idConducteur, 
-			placeTotale, 
-			suppresion) 
-			values(
-			:idTrajet, 
-			:descriptionTrajet, 
-			:idConducteur, 
-			:placeTotale, 
-			:suppresion)
-		');
-
-		$sqlTrajet -> execute(array( 
-			'idTrajet'=> $idTrajet, 
-			'descriptionTrajet'=> $descTrajet, 
-			'idConducteur' => $Conducteur, 
-			'placeTotale' => $placeTotale, 
-			'suppresion' => $suppresion	
-		));
-
-		foreach( $soustrajets as $key => $values){
-
-			$sqlSousTrajet = self::$bdd->prepare('
-				INSERT INTO soustrajets(
-				idsousTrajet,
-				idTrajet,
-				dateDepart,
-				heureDepart,
-				villeDepart,
-				dureeTrajet,
-				heureArrivee,
-				idVehiculeConducteur,
-				prix,
-				regulier
-				)
-				values(
-				:idsousTrajet,
-				:idTrajet,
-				:dateDepart,
-				:heureDepart,
-				:villeDepart,
-				:dureeTrajet,
-				:heureArrivee,
-				:idVehiculeConducteur,
-				:prix,
-				:regulier
-				)
-			');
-			$sqlSousTrajet -> execute(array(
-				'idsousTrajet'=>$key,
-				'idTrajet'=> $values['idTrajet'],
-				'dateDepart'=>$values['date'],
-				'heureDepart'=>$values['heureDepart'],
-				'villeDepart'=>$values['villeDepart'],
-				'dureeTrajet'=>$values['dureeTrajet'],
-				'heureArrivee'=>$values['heureArrivee'],
-				'idVehiculeConducteur'=>$values['idVehiculeConducteur'],
-				'prix'=>$values['prix'],
-				'regulier'=> $values['regulier']
-			));
-		}
-	}
-
-	public function verifCreationTrajet2($descriptionTrajet, $placeTotale){
+	public function verifCreationTrajet3($soustrajets, $descriptionTrajet, $placeTotale){
 		
-		$reponse = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
-		$idTraj=($reponse->fetch());
-		$idTrajet=$idTraj['idTrajet']+1;
-		echo $idTrajet;
-
+		
 		if(isset($_SESSION['id'])){
 			$idConducteur==$_SESSION['id'];
 		}
@@ -100,8 +24,7 @@ class modele_trajet extends connexion {
 			$idConducteur=$idCon['idTrajet']+1;
 			//erreur
 		}
-		echo $idConducteur;
-		
+		// echo $idConducteur;
 		
 		$sql =self::$bdd->prepare("
 		INSERT INTO trajet(
@@ -118,7 +41,6 @@ class modele_trajet extends connexion {
 			false
 			) 
 		");
-
 		
 		$sql->execute(array(
 			':descriptionTrajet' => $descriptionTrajet,
@@ -126,8 +48,61 @@ class modele_trajet extends connexion {
 			':placeTotale' => $placeTotale
 		));
 
-	}
+		$reponse = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
+		$idTraj=($reponse->fetch());
+		$idTrajet=$idTraj['idTrajet'];
+		echo "c'est moi ".$idTrajet;
 
+		foreach ($soustrajets as $key => $value) {
+			if( $value['regulier'] == "on"){
+				$reg = 1;
+			}
+			else {
+				$reg = 0;
+			}
+
+ 			$sqlsss =self::$bdd->prepare('
+	 				INSERT INTO soustrajet (
+		 				idsousTrajet,
+						idTrajet,
+						dateDepart,
+						heureDepart,
+						villeDepart,
+						dureeTrajet,
+						heureArrivee,
+						idVehiculeConducteur,
+						prix,
+						regulier
+	 				) VALUES (
+	 					DEFAULT,
+						:idTrajet,
+						:dateDepart,
+						:heureDepart,
+						:villeDepart,
+						:dureeTrajet,
+						:heureArrivee,
+						:idVehiculeConducteur,
+						:prix,
+						:regulier
+	 				)
+	 			');
+
+		 	$sqlsss->execute(array(
+		 		':idTrajet' => $idTrajet, 
+		 		':dateDepart'=>$value['dateDepart'],
+		 		':heureDepart'=>$value['heureDepart'],
+		 		':villeDepart'=>$value['idVilleD'],
+		 		':dureeTrajet'=>$value['heureDepart'],
+		 		// ':dureeTrajet'=>$value['dureeTrajet'],
+		 		':heureArrivee'=>$value['heureDepart'],
+		 		// ':heureArrivee'=>$value['heureArrive'],
+		 		':idVehiculeConducteur'=>1,
+		 		// ':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':prix'=>$value['prix'],
+		 		':regulier'=> $reg
+		 	));
+	 	}
+	}
 }
 
 

@@ -1,10 +1,10 @@
 <?php  
-include_once __DIR__.'/../modules/mod_trajet/mod_trajet.php';
-$mod_trajet=new mod_trajet();
+include_once __DIR__.'/../modules/mod_trajet/modele_trajet.php';
+$modele_trajet=new modele_trajet();
 
-if(isset($_POST['descriptionTrajet']) && isset($_POST['placeTotale'])){
-	if($mod_trajet->verifCreationTrajet2($_POST['descriptionTrajet'],$_POST['placeTotale'])){
-	echo "ok";
+if( isset($_POST['soustrajet']) && isset($_POST['descriptionTrajet']) && isset($_POST['placeTotale'])){
+	if($modele_trajet->verifCreationTrajet3($_POST['soustrajet'], $_POST['descriptionTrajet'],$_POST['placeTotale'])){
+		echo "ok";
 	}
 }
 
