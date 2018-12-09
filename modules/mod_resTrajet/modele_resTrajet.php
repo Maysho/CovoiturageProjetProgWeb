@@ -3,8 +3,7 @@
 /**
 * 
 */
-include_once __DIR__ . '/../../connexion.php';
-class modele_connexion extends connexion
+class modele_resTrajet extends connexion
 {
 	private $msg;
 	function __construct()
@@ -12,6 +11,25 @@ class modele_connexion extends connexion
 		$connexion=new connexion();
 		$connexion->init();
 		$this->msg="";
+	}
+	public function donneTrajet($depart='',$destination='',$date='',$prix,$type='',$regulier='')
+	{
+
+		$codePostal1=preg_grep("#[0-9]+#", explode(",", $depart));
+		$depart=preg_replace("#[0-9]|[ ]|[,]#", "", $depart);
+
+		$codePostal2=preg_grep("#[0-9]+#", explode(",", $destination));
+		$destination=preg_replace("#[0-9]|[ ]|[,]#", "", $destination);
+
+		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet,urlPhoto,prenom,villeDepart,villeArrive FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur WHERE villeDepart=? and( villeArrive=? or villeDepart=?) and (prix>=? and prix<=?) and trajet ');
+		$tableauIds=array($depart,$destination,$destination);
+		$selecPreparee->execute($tableauIds);
+		$tab= $selecPreparee->fetch();
+		echo $tab[0];
+		if(empty($tab[0]))
+			return -1;
+		else
+			return $tab[0];
 	}
 	public function verifieConnexion()
 	{
@@ -64,30 +82,35 @@ class modele_connexion extends connexion
 		if(self::verifieVar($email,$emailConf,$nom,$prenom,$mdp,$mdpConf)){
 			http_response_code(400);
 			echo $this->msg;
-			echo "dneuz";
+
 			exit(1);
 		}
+		
 		
 
 		$selecPrepareeUnique=self::$bdd->prepare('SELECT adresseMail FROM utilisateur where adresseMail=? ');
 		$tableauIds=array($email);
 		$selecPrepareeUnique->execute($tableauIds);
 		$unique=$selecPrepareeUnique->fetch();
+		echo json_encode($unique);
 		if (empty($unique['adresseMail'])==0) {
 			http_response_code(401);
 			echo "06";
 			exit(1);
 		}
+		$reponse = self::$bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur desc limit 1');
+		$id=($reponse->fetch());
+		$id1=$id['idUtilisateur']+1;
 		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
-		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(DEFAULT,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
-		$insertPreparee -> execute(array('nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
+		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(:idUtilisateur,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
+		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
 		echo "success";
 	}
 
 	public function chercheVille($ville)
 	{
 		$codePostal=preg_grep("#[0-9]+#", explode(",", $ville));
-		$ville=preg_replace("#([0-9]|[,])*#", "", $ville);
+		$ville=preg_replace("#([0-9]|[ ]|[,])*#", "", $ville);
 
 		$selecPrepareeUnique=self::$bdd->prepare('SELECT nomVille,codePostal FROM ville where nomVille like "%"?"%" or( codePostal>= ? and codePostal<=?) limit 5');
 
@@ -110,25 +133,11 @@ class modele_connexion extends connexion
 
 		while($donnee = $selecPrepareeUnique->fetch()) // on effectue une boucle pour obtenir les données
 		{
-		    array_push($array, $donnee['nomVille'].", ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
+		    array_push($array, $donnee['nomVille']." ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
 		}
 
 		echo json_encode($array); 
 		$selecPrepareeUnique->closeCursor();
-	}
-
-	public function envoieMailMdp()
-	{
-		$lettrePossible = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9');
-		$token="";
-		for ($i=0; $i < 10; $i++) { 
-			$token=$token.$lettrePossible[rand(0,61)];
-		}
-		mail('caffeinated@example.com', 'Mot de passe oublier covoiturage', $token);
-	}
-	public function verifieMail()
-	{
-		# code...
 	}
 
 }

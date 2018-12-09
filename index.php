@@ -50,6 +50,14 @@ switch ($module){
 		$affichageForm=$mod_joueur->getAffichage();
 	break
 	;
+	case "mod_resTrajet":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_resTrajet=new mod_resTrajet();
+		$mod_resTrajet->init();
+		$affichageForm=$mod_resTrajet->getAffichage();
+		
+
+	break;
 	case "mod_connexion":
 	include_once 'modules/'.$module.'/'.$module.".php";
 		$mod_connexion=new mod_connexion();

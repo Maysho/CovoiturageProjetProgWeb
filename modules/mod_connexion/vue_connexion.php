@@ -126,7 +126,7 @@ class vue_connexion extends VueGenerique
 			  </div>
 			  <div class="justify-content-md-between container-fluid row">
 			  <button type="submit" class="btn btn-primary">Se connecter</button>
-			  <a href="index.php?module=mod_connexion&action=AffichePageConnexion">mot de passe oublier</a>
+			  <a href="index.php?module=mod_connexion&action=AfficheMotDePasseOublier">mot de passe oublier</a>
 			  </div>
 		</form>
   		</section>
@@ -134,16 +134,19 @@ class vue_connexion extends VueGenerique
   		</div>';
   	}
 
-  	public function motDePasseOublier($value='')
+  	public function motDePasseOublier($value)
   	{
-  		echo '<div class="row">
+  		?><div class="row">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Mot de passe oublier</h2>
-  		<form method="POST"">
+  		<form method="POST" action="index.php?module=mod_connexion&action=ChercheMotDePasseOublier">
 			  <div class="form-group" id="divEmailInscription">
-			    <label for="emailInscription">Renseignez l’adresse e-mail de votre compte Pathé Gaumont ci-dessous :</label>
-			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail">
+			    <label for="emailInscription">Renseignez l’adresse e-mail de votre compte :</label>
+			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail"><?php 
+			    if($value==1)
+			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
+			    ?>
 			  </div>
 			  <div class="justify-content-end row" >
 			  <button type="submit" name="submit"  class="btn btn-primary">Réinitialiser mon mot de passe </button>
@@ -152,7 +155,7 @@ class vue_connexion extends VueGenerique
 
 
   		</section>
-  		</div>';
+  		</div>
 
   	}
 }
