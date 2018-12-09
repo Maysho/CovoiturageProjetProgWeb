@@ -68,22 +68,22 @@ class vue_Trajet extends VueGenerique
 		  				
 						<div class="text-left form-group" id="checkpoint" hidden>
 		  					<div class="form-group" id="checkpoint1" >
-	  						<label>Date Etape</label>
-		  						<input type="date" id="date[0]" value="<?php echo date('Y-m-d') ?>">
-		  					<label>Heure</label>
-								<input class="col-md-2" type="time" id="heure[0]" value="<?php echo date('h:i') ?>">
-		  					<label>prix</label>
-		  						<input class="col-md-1" type="" id="prix[0]" value="0">
+		  						<label>Date Etape</label>
+			  						<input type="date" id="date0" value="<?php echo date('Y-m-d') ?>">
+			  					<label>Heure</label>
+									<input class="col-md-2" type="time" id="heure0" value="<?php echo date('h:i') ?>">
+			  					<label>prix</label>
+			  						<input class="col-md-1" type="" id="prix0" value="0">
 		  					</div>
 		  				</div> 
 
 		  				<div class="text-left form-group">
-		  					<label>Date Arrive</label>
-		  						<input type="date" id="dateArrive" value="<?php echo date('Y-m-d') ?>">
+		  					<label>Date Arrivee</label>
+		  						<input type="date" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
 		  					<label>Heure</label>
-								<input class="col-md-2" type="time" id="heureArrive" value="<?php echo date('h:i') ?>">
+								<input class="col-md-2" type="time" id="heureArrivee" value="<?php echo date('h:i') ?>">
 		  					<label>prix</label>
-		  						<input class="col-md-1" id="prixArrive" value="0">
+		  						<input class="col-md-1" id="prixArrivee" value="0">
 		  				</div> 
 
 		  				<!-- <div class="text-left form-group" hidden>

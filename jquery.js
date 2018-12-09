@@ -89,38 +89,87 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
 
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
-
+  console.log("Valeur de "+key);
   var soustrajets=[];
 
-  if( key  == 0){
+  if( key == 0){
+    // console.log("pas dde sns")
     var soustrajet = { 
       idVilleD : $(document).find('#depart').val(), 
       idVilleA : $(document).find('#arrive').val(),
       dateDepart: $(document).find('#dateDepart').val(),
       heureDepart: $(document).find('#heureDepart').val(),
-      heureArrivee: $(document).find('#heureArrive').val(),
+      heureArrivee: $(document).find('#heureArrivee').val(),
       // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
       idVehiculeConducteur: 1,
-      prix: $(document).find('#prixArrive').val(),
+      prix: $(document).find('#prixArrivee').val(),
       regulier: $(document).find('#regulier').val()
     };
-    console.log(soustrajet);
+    // console.log(soustrajet);
     soustrajets[0]= soustrajet;
 
   }else{
-    for( var i = 1 ; i < key+1 ; i++ ){
-    console.log(i);
-    var st= '#villeEtape'+i;
-    console.log(st);
-    
-    var bite = { test : $(document).find(st).val() };
+    // console.log(key)
+    for( var i = 0 ; i < key+1 ; i++ ){
+      // console.log(i);
+      
+      if( i == 0){
+        // console.log("premier sous trajet")
+        var soustrajet = { 
+          idVilleD : $(document).find('#depart').val(), 
+          idVilleA : $(document).find('#villeEtape1').val(),
+          dateDepart: $(document).find('#dateDepart').val(),
+          heureDepart: $(document).find('#heureDepart').val(),
+          heureArrivee: $(document).find('#heure1').val(),
+          // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
+          idVehiculeConducteur: 1,
+          prix: $(document).find('#prix1').val(),
+          regulier: $(document).find('#regulier').val()
+        };
+      }
+      else if( i == key){//dernier
+        // console.log("dernier sous trajet")
+        var villeDepart = "#villeEtape"+(i);
+        var dateDepart = "#date"+(i);
+        var heureDepart = "#heure"+(i);
 
-    soustrajets[i] = bite;
-    console.log(bite);
+        var soustrajet = { 
+          idVilleD : $(document).find(villeDepart).val(), 
+          idVilleA : $(document).find('#arrive').val(),
+          dateDepart: $(document).find(dateDepart).val(),
+          heureDepart: $(document).find(heureDepart).val(),
+          heureArrivee: $(document).find('#heureArrivee').val(),
+          // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
+          idVehiculeConducteur: 1,
+          prix: $(document).find('#prixArrivee').val(),
+          regulier: $(document).find('#regulier').val()
+        };
+      }
+      else if( 0 < i && i < key){
+        // console.log("sous trajet inter")
+        var villeDepart = "#villeEtape"+(i);
+        var dateDepart = "#date"+(i);
+        var heureDepart = "#heure"+(i);
+        var villeArrivee="#villeEtape"+(i+1) ;
+        var heureArrivee="#heure"+(i+1) ;
+        var prix="#prix"+(i+1) ;
+        var soustrajet = { 
+          idVilleD : $(document).find(villeDepart).val(), 
+          idVilleA : $(document).find(villeArrivee).val(),
+          dateDepart: $(document).find(dateDepart).val(),
+          heureDepart: $(document).find(heureDepart).val(),
+          heureArrivee: $(document).find(heureArrivee).val(),
+          // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
+          idVehiculeConducteur: 1,
+          prix: $(document).find(prix).val(),
+          regulier: $(document).find('#regulier').val()
+        };
+      }
+      console.log(soustrajet)
+      soustrajets[i]= soustrajet;
     }
   }
-
-  console.log(soustrajets);
+  // console.log(soustrajets)
 
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
@@ -136,7 +185,7 @@ $('#envoiTrajet').on("click",function(e){
     },
     success : function(txt){
        // window.location='/CovoiturageProjetProgWeb/index.php' 
-       console.log(txt);
+       // console.log(txt);
     },
     error: function(){
       alert("fail");
@@ -158,7 +207,7 @@ $(function(){
       cont.removeAttr("hidden");
 
       cont.find("input.nomdeVille").each(function() {
-        console.log(key);
+        
         $(this).attr("value", "");
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
       });
@@ -168,12 +217,10 @@ $(function(){
       cont2.removeAttr("id");
       cont2.removeAttr("hidden");
 
-      cont2.find("input.nomdeVille").each(function() {
-        console.log("horaire "+key);
+      cont2.find("input").each(function() {
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
       });
       $("#checkpoint").after(cont2);
-
       
     }else{ // on ajoute au truc suivant copie du template
       var fils= $('#villeEtape').clone(); //partie itineraire
@@ -181,7 +228,6 @@ $(function(){
       fils.removeAttr("id");
 
       fils.find("input.nomdeVille").each(function() {
-        console.log(key);
         $(this).attr("value", "")
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
       });
@@ -189,9 +235,9 @@ $(function(){
 
       var fils2= $('#checkpoint1').clone(); //partie horaire
       fils2.removeAttr("id");
-      // fils2.closest("label").text(fils2.closest("label").text().replace(/\d+/g, key + 1))
       fils2.find("input").each(function() {
-        $(this).find("input").attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
+        $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
+
       });
       $("#checkpoint").next().append(fils2);
     };
