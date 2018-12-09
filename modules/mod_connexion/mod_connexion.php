@@ -24,6 +24,7 @@ class mod_connexion extends VueGenerique
 		if(isset($_GET['action'])){
 
 			$action=$_GET['action'];
+			
 		}
 		else
 			$action="";
@@ -32,10 +33,16 @@ class mod_connexion extends VueGenerique
 			case 'verifConnexion':
 				$this->controleur->VerifConnexion();
 				break;
-			case 'AffichePageConnexion':
-				$this->controleur->AfficheMotDePasseOublier();
+			case 'AfficheMotDePasseOublier':
+				if (isset($_GET['trompe'])) {
+					$this->controleur->AfficheMotDePasseOublier(1);
+				}
+				else
+					$this->controleur->AfficheMotDePasseOublier(0);
 				break;
-
+			case 'ChercheMotDePasseOublier':
+				$this->controleur->ChercheMotDePasseOublier();
+				break;
 			default:
 				if (isset($_SESSION['id'])) {
 					header("Location: index.php");

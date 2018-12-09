@@ -30,7 +30,7 @@ $( "#rechercheDepart" ).autocomplete({
 $("#rechercheArrive").autocomplete({
       source: "scriptphp/chercheVille.php"
     });
-function ville(variable) {
+/*function ville(variable) {
  $.get('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
             
             { term: variable.val()}
@@ -39,14 +39,14 @@ function ville(variable) {
  
             function(data,statut){ 
               alert(data);
-              /*var val=JSON.parse(data);
+              var val=JSON.parse(data);
               $("#villesTrouve").remove();
               variable.parent().append('<div id= "villesTrouve" class="border border-dark container"> </div> ')
                 for (var i = 0; i < data.length; i++) {
                   $("#villesTrouve").append('<div id=villeTrouve'+i+' class="row villeTrouve" > </div>');
                   $("#villeTrouve"+i).append('<p> '+val[i]["nomVille"]+', '+ val[i]["codePostal"]+' <p>');
 
-                }*/
+                }
                 //$("#rechercheDepart").parent().append(t[0][0]);
                 return data;
          
@@ -56,7 +56,7 @@ function ville(variable) {
            verifError(data.responseText);
          });
   
-}
+}*/
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
   $(".d-none").toggleClass("d-none d-block");

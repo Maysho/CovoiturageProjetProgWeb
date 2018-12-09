@@ -44,10 +44,18 @@ class cont_connexion
 	{
 		$this->vue->pageConnexion();
 	}
-
-	public function AfficheMotDePasseOublier()
+	public function ChercheMotDePasseOublier()
 	{
-		$this->vue->motDePasseOublier();
+		if (isset($_POST["email"]) {
+			$this->modele->verifieMail($_POST["email"]);
+			$this->modele->envoieMailMdp();
+		}
+		
+	}
+
+	public function AfficheMotDePasseOublier($val)
+	{
+		$this->vue->motDePasseOublier($val);
 	}
 
 

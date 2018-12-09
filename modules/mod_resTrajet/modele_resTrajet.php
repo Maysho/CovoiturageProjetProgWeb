@@ -12,7 +12,7 @@ class modele_resTrajet extends connexion
 		$connexion->init();
 		$this->msg="";
 	}
-	public function donneTrajet($depart='',$destination='',$date='',$prix='',$type='',$regulier='')
+	public function donneTrajet($depart='',$destination='',$date='',$prix,$type='',$regulier='')
 	{
 
 		$codePostal1=preg_grep("#[0-9]+#", explode(",", $depart));
@@ -21,7 +21,7 @@ class modele_resTrajet extends connexion
 		$codePostal2=preg_grep("#[0-9]+#", explode(",", $destination));
 		$destination=preg_replace("#[0-9]|[ ]|[,]#", "", $destination);
 
-		$selecPreparee=self::$bdd->prepare('SELECT idTrajet,urlPhoto,prenom,villeDepart,villeArrive FROM trajet t inner join soustrajet st on t.idTrajet=st.idTrajet inner join utilisateur u on u.idUtilisateur=t.idConducteur WHERE villeDepart=? and( villeArrive=? or villeDepart=?)');
+		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet,urlPhoto,prenom,villeDepart,villeArrive FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur WHERE villeDepart=? and( villeArrive=? or villeDepart=?) and (prix>=? and prix<=?) and trajet ');
 		$tableauIds=array($depart,$destination,$destination);
 		$selecPreparee->execute($tableauIds);
 		$tab= $selecPreparee->fetch();

@@ -64,28 +64,23 @@ class modele_connexion extends connexion
 		if(self::verifieVar($email,$emailConf,$nom,$prenom,$mdp,$mdpConf)){
 			http_response_code(400);
 			echo $this->msg;
-
+			echo "dneuz";
 			exit(1);
 		}
-		
 		
 
 		$selecPrepareeUnique=self::$bdd->prepare('SELECT adresseMail FROM utilisateur where adresseMail=? ');
 		$tableauIds=array($email);
 		$selecPrepareeUnique->execute($tableauIds);
 		$unique=$selecPrepareeUnique->fetch();
-		echo json_encode($unique);
 		if (empty($unique['adresseMail'])==0) {
 			http_response_code(401);
 			echo "06";
 			exit(1);
 		}
-		$reponse = self::$bdd->query('SELECT idUtilisateur FROM utilisateur ORDER BY idUtilisateur desc limit 1');
-		$id=($reponse->fetch());
-		$id1=$id['idUtilisateur']+1;
 		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
-		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(:idUtilisateur,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
-		$insertPreparee -> execute(array('idUtilisateur'=>$id1,'nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
+		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(DEFAULT,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
+		$insertPreparee -> execute(array('nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
 		echo "success";
 	}
 
@@ -120,6 +115,20 @@ class modele_connexion extends connexion
 
 		echo json_encode($array); 
 		$selecPrepareeUnique->closeCursor();
+	}
+
+	public function envoieMailMdp()
+	{
+		$lettrePossible = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9');
+		$token="";
+		for ($i=0; $i < 10; $i++) { 
+			$token=$token.$lettrePossible[rand(0,61)];
+		}
+		mail('caffeinated@example.com', 'Mot de passe oublier covoiturage', $token);
+	}
+	public function verifieMail()
+	{
+		# code...
 	}
 
 }
