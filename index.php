@@ -63,7 +63,25 @@ switch ($module){
 		$mod_connexion=new mod_connexion();
 		$mod_connexion->init();
 		$affichageForm=$mod_connexion->getAffichage();
-		
+	break;
+	case "mod_trajet":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_trajet=new mod_trajet();
+		$mod_trajet->init();
+		$affichageForm=$mod_trajet->getAffichage();
+	break;
+	case "mod_profil":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_profil=new ModProfil();
+		$mod_profil->init();
+		$affichageForm=$mod_profil->getAffichage();
+	break;
+
+	case "mod_profil":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_profil=new modProfil();
+		$mod_profil->init();
+		$affichageForm=$mod_profil->getAffichage();
 
 	break;
 	default
@@ -78,7 +96,7 @@ switch ($module){
 
  
   	<div class="container-fluid">
-  		 <header>
+	<header>
   		<?php 
 			//$CompMenu->affiche();
 
