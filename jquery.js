@@ -12,12 +12,13 @@ function removeAide() {
   $('.aide').remove();
 }
 
-$( "#rechercheDepart" ).autocomplete({
+$("#rechercheDepart").autocomplete({
       source: "scriptphp/chercheVille.php"
     });
 $("#rechercheArrive").autocomplete({
       source: "scriptphp/chercheVille.php"
     });
+
 /*function ville(variable) {
  $.get('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
             
@@ -185,7 +186,7 @@ $('#envoiTrajet').on("click",function(e){
     },
     success : function(txt){
        // window.location='/CovoiturageProjetProgWeb/index.php' 
-       // console.log(txt);
+       console.log(txt);
     },
     error: function(){
       alert("fail");
@@ -208,10 +209,13 @@ $(function(){
 
       cont.find("input.nomdeVille").each(function() {
         
-        $(this).attr("value", "");
+        // $(this).attr("value", "");
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
       });
       $("#etape").after(cont);
+          $(document).find('.ville').autocomplete({
+        source: "scriptphp/chercheVille.php"
+      });
 
       var cont2= $('#checkpoint').clone(); //partie horaire
       cont2.removeAttr("id");
@@ -224,14 +228,18 @@ $(function(){
       
     }else{ // on ajoute au truc suivant copie du template
       var fils= $('#villeEtape').clone(); //partie itineraire
-      fils.find(".nomdeVille").val("");
+      // fils.find(".nomdeVille").val("");
       fils.removeAttr("id");
 
       fils.find("input.nomdeVille").each(function() {
-        $(this).attr("value", "")
+        // $(this).attr("value", "")
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
       });
       $("#etape").next().append(fils);
+      
+      $(document).find('.ville').autocomplete({
+        source: "scriptphp/chercheVille.php"
+      });
 
       var fils2= $('#checkpoint1').clone(); //partie horaire
       fils2.removeAttr("id");
@@ -240,10 +248,23 @@ $(function(){
 
       });
       $("#checkpoint").next().append(fils2);
+
     };
     key ++;
 
   }); 
+
+  $(document).find('.ville').autocomplete({
+    source: "scriptphp/chercheVille.php"
+  });
+
+  // $(document).on("click", ".ville", function(){
+  //   console.log($(this));
+  // });
+
+  // $('.ville').autocomplete({
+  //   source: "scriptphp/chercheVille.php"
+  // });
 
   //supprime les chamlps etapes 
   //TODO suppression remettre les machins dans l'ordre
