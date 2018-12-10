@@ -62,7 +62,7 @@ class vue_connexion extends VueGenerique
 			          <a class='dropdown-item' href='#'>Discussion</a>
 			          <a class='dropdown-item' href='#'>Profil</a>
 			          <div class='dropdown-divider'></div>
-			          <a class='dropdown-item' href='#'>Deconnexion</a>
+			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
 			        </div>
 			      </div>
 			  </div>
@@ -133,17 +133,92 @@ class vue_connexion extends VueGenerique
   		<div class="col-1"></div>
   		</div>';
   	}
+  	public function pageToken($value,$email)
+  	{
+  		?><div class="row">
 
+  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
+  		<h2>Renseigner le code reçu par email</h2>
+  		<?php echo '<form method="POST" action='."index.php?module=mod_connexion&action=VerifieToken&email=$email".'>';?>
+			  <div class="form-group" id="divEmailInscription">
+			    <label for="emailInscription">Code recu par mail</label>
+			    <input type="text" required name="token" class="form-control" id="emailInscription"  placeholder="Code..."><?php 
+			    if($value==1)
+			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
+			    ?>
+			  </div>
+			  <div class="justify-content-end row" >
+			  <button type="submit" name="submit"  class="btn btn-primary">Verifier</button>
+			  </div>
+		</form>
+
+
+  		</section>
+  		</div>
+<?php
+  	}
+  	public function afficheChangementMdp($value,$email)
+  	{
+  		?><div class="row">
+
+  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
+  		<h2>Renseigner le code reçu par email</h2>
+  		<?php echo '<form method="POST" action='."index.php?module=mod_connexion&action=VerifieToken&email=$email".'>';?>
+			  <div class="form-group" id="divEmailInscription">
+			    <label for="emailInscription">Code recu par mail</label>
+			    <input type="text" required name="token" class="form-control" id="emailInscription"  placeholder="Code..."><?php 
+			    if($value==1)
+			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
+			    ?>
+			  </div>
+			  <div class="justify-content-end row" >
+			  <button type="submit" name="submit"  class="btn btn-primary">Verifier</button>
+			  </div>
+		</form>
+
+
+  		</section>
+  		</div>
+<?php
+  	}
+  	public function affichePageChangementMPD($value,$email)
+  	{
+  		?><div class="row">
+
+  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
+  		<h2>Renseigner le nouveau Mot de Passe</h2>
+  		<?php echo '<form method="POST" action='."index.php?module=mod_connexion&action=VerifieMPD&email=$email".'>';?>
+			  <div class="form-group" id="divEmailInscription">
+			    <label for="mdp">Mot de passe</label>
+			    <input type="password" required name="mdp" class="form-control" id="mdp"  placeholder="Code...">
+			    <label for="mdpconf">Mot de passe</label>
+			    <input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Code..."><?php 
+			    if($value==1)
+			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ un champ est incorrect</small>';
+			    ?>
+			  </div>
+			  <div class="justify-content-end row" >
+			  <button type="submit" name="submit"  class="btn btn-primary">Changer</button>
+			  </div>
+		</form>
+
+
+  		</section>
+  		</div>
+<?php
+  	}
   	public function motDePasseOublier($value)
   	{
   		?><div class="row">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Mot de passe oublier</h2>
-  		<form method="POST" action="index.php?module=mod_connexion&action=ChercheMotDePasseOublier">
+  		<form method="GET" action="index.php?module=mod_connexion&action=ChercheMotDePasseOublier">
 			  <div class="form-group" id="divEmailInscription">
 			    <label for="emailInscription">Renseignez l’adresse e-mail de votre compte :</label>
-			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail"><?php 
+			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail">
+			    <input type="hidden" name="module" value="mod_connexion" />
+			    <input type="hidden" name="action" value="ChercheMotDePasseOublier" /><?php 
 			    if($value==1)
 			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
 			    ?>
@@ -157,6 +232,7 @@ class vue_connexion extends VueGenerique
   		</section>
   		</div>
   		<?php
+
   	}
 }
 ?>
