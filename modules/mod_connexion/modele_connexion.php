@@ -177,4 +177,10 @@ class modele_connexion extends connexion
 		}
 		return -1;
 	}
+	public function changeMDP($mdp,$id)
+	{
+		$insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET motDePasse = :mdp WHERE idUtilisateur=:id');
+		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
+		$insertPreparee -> execute(array('mdp'=>$mdpCrypt,'id'=>$id));
+	}
 }

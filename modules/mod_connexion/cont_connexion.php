@@ -85,15 +85,11 @@ class cont_connexion
 	public function VerifieMPD()
 	{
 		if (isset($_POST['mdp'])&&isset($_POST['mdpconf']) && $this->modele->verifieMDP($_POST['mdp'],$_POST['mdpconf'])) {
-			$_SESSION['id']=$this->modele->recupereID($_GET['email']);
-			echo $_SESSION['id'];
-			if($_SESSION['id']<0){
-				unset($_SESSION['id']);
-				$this->vue->pageConnexion(1);
+			$id=$this->modele->recupereID($_GET['email']);
+			if($id>=0){
+				$this->modele->changeMDP($_POST['mdp'],$id);				
 			}
-			else{
-				header("Location: index.php");
-			}
+			$this->vue->pageConnexion(0);
 		}
 		else
 			$this->vue->affichePageChangementMPD(1,$_GET["email"]);
