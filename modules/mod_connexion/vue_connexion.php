@@ -133,13 +133,13 @@ class vue_connexion extends VueGenerique
   		<div class="col-1"></div>
   		</div>';
   	}
-  	public function pageToken($value,$email)
+  	public function pageToken($value)
   	{
   		?><div class="row">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Renseigner le code reçu par email</h2>
-  		<?php echo '<form method="POST" action='."index.php?module=mod_connexion&action=VerifieToken&email=$email".'>';?>
+  		<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieToken">';?>
 			  <div class="form-group" id="divEmailInscription">
 			    <label for="emailInscription">Code recu par mail</label>
 			    <input type="text" required name="token" class="form-control" id="emailInscription"  placeholder="Code..."><?php 
@@ -155,39 +155,16 @@ class vue_connexion extends VueGenerique
 
   		</section>
   		</div>
+
 <?php
   	}
-  	public function afficheChangementMdp($value,$email)
-  	{
-  		?><div class="row">
-
-  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
-  		<h2>Renseigner le code reçu par email</h2>
-  		<?php echo '<form method="POST" action='."index.php?module=mod_connexion&action=VerifieToken&email=$email".'>';?>
-			  <div class="form-group" id="divEmailInscription">
-			    <label for="emailInscription">Code recu par mail</label>
-			    <input type="text" required name="token" class="form-control" id="emailInscription"  placeholder="Code..."><?php 
-			    if($value==1)
-			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
-			    ?>
-			  </div>
-			  <div class="justify-content-end row" >
-			  <button type="submit" name="submit"  class="btn btn-primary">Verifier</button>
-			  </div>
-		</form>
-
-
-  		</section>
-  		</div>
-<?php
-  	}
-  	public function affichePageChangementMPD($value,$email)
+  	public function affichePageChangementMPD($value)
   	{
   		?><div class="row">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Renseigner le nouveau Mot de Passe</h2>
-  		<?php echo '<form method="POST" action='."index.php?module=mod_connexion&action=VerifieMPD&email=$email".'>';?>
+  		<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieMPD">';?>
 			  <div class="form-group" id="divEmailInscription">
 			    <label for="mdp">Mot de passe</label>
 			    <input type="password" required name="mdp" class="form-control" id="mdp"  placeholder="Code...">
