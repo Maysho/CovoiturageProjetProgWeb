@@ -23,20 +23,20 @@ class vue_Trajet extends VueGenerique
 			  				<div class="col-md-6"> 
 			  					<div class="text-left form-group" id="departEtape">
 								    <label for="depart">Je pars de... </label>
-								    <input type="text"  name="depart" class="form-control" id="depart"  placeholder="Ville de Depart">
+								    <input type="text"  name="depart" class="form-control ville" id="depart"  placeholder="Ville de Depart">
 								</div>
 								
 								<div class="text-center form-group container tpl" id="etape" hidden>
 								    <label for="villeEtape">...En Passant par...</label>
 								    <div class="form-group row villeEtape" id="villeEtape" >
-									    <input type="text" id="villeEtape0" class="form-control col-11 nomdeVille" placeholder="Ville de Passage" value="">
+									    <input type="text" id="villeEtape0" class="form-control col-11 nomdeVille ville" placeholder="Ville de Passage">
 										<input type="button" class="btn col-1 btnSupprEtape" value="x">
 								    </div>
 								</div>								
 
 								<div class="text-right form-group">
 								    <label for="arrive">... Pour aller à...</label>
-								    <input type="text" name="arrive" id="arrive" class="form-control"  placeholder="Ville d'Arrivée">
+								    <input type="text" name="arrive" id="arrive" class="form-control ville"  placeholder="Ville d'Arrivée">
 								</div >
 								<input type="button" class="btn-group" id="btnAjoutEtape" value="Ajouter une Etape" name="btnAjoutEtape">
 								
@@ -73,7 +73,7 @@ class vue_Trajet extends VueGenerique
 			  					<label>Heure</label>
 									<input class="col-md-2" type="time" id="heure0" value="<?php echo date('h:i') ?>">
 			  					<label>prix</label>
-			  						<input class="col-md-1" type="" id="prix0" value="0">
+			  						<input class="col-md-1" id="prix0" value="0">
 		  					</div>
 		  				</div> 
 

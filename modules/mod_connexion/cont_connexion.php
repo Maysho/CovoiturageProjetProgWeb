@@ -46,9 +46,11 @@ class cont_connexion
 	}
 	public function ChercheMotDePasseOublier()
 	{
+
 		if (isset($_GET["email"])&& $this->modele->verifieMail($_GET["email"])) {
 			$this->modele->envoieMailMdp($_GET["email"]);
 			self::affichePageToken(0,$_GET["email"]);
+
 		}
 		else
 			self::AfficheMotDePasseOublier(1);
@@ -107,4 +109,4 @@ class cont_connexion
 	}
 
 
-}
+}?>

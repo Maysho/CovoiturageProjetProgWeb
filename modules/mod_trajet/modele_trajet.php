@@ -14,6 +14,33 @@ class modele_trajet extends connexion {
 
 	public function verifCreationTrajet3($soustrajets, $descriptionTrajet, $placeTotale){
 		
+		// $this->verifChamps($soustrajets, $descriptionTrajet, $placeTotale);
+		// foreach ($soustrajets as $key => $value) {
+		// 	list($nomVille, $codePostal)= explode(",", $value['idVilleD']);
+		// 	list($nomVille2, $codePostal2)= explode(",", $value['idVilleA']);
+		// 	echo $nomVille."\n";
+		// 	echo $codePostal."\n";
+		// 	echo $nomVille2."\n";
+		// 	echo $codePostal2."\n";
+
+		// 	$sql = self::$bdd->prepare('SELECT idVille FROM ville where nomVille like ? or codePostal like ?');
+		// 	$array = array($nomVille, $codePostal);
+		// 	$sql->execute($array);
+		// 	$reponsesql = ($sql->fetch());
+		// 	$idVille1 = $reponsesql['idVille'];
+
+		// 	$sql2 = self::$bdd->prepare('SELECT idVille FROM ville where nomVille like ? or codePostal like ?');
+		// 	$array2 = array($nomVille2, $codePostal2);
+		// 	$sql2->execute($array2);
+		// 	$reponsesql2 = ($sql2->fetch());
+		// 	$idVille2 = $reponsesql2['idVille'];
+
+		// 	$value['idVilleD'] = $idVille1;
+		// 	$value['idVilleA'] = $idVille2;
+		// 	echo $value['idVilleD'] ."\n";
+		// 	echo $value['idVilleA'] ."\n";
+		// }
+
 		if(isset($_SESSION['id'])){
 			$idConducteur==$_SESSION['id'];
 		}
@@ -58,13 +85,39 @@ class modele_trajet extends connexion {
 		));
 
 		foreach ($soustrajets as $key => $value) {
+			list($nomVille, $codePostal)= explode(",", $value['idVilleD']);
+			list($nomVille2, $codePostal2)= explode(",", $value['idVilleA']);
+			// echo $nomVille."\n";
+			// echo $codePostal."\n";
+			// echo $nomVille2."\n";
+			// echo $codePostal2."\n";
+
+			$sql = self::$bdd->prepare('SELECT idVille FROM ville where nomVille like ? or codePostal like ?');
+			$array = array($nomVille, $codePostal);
+			$sql->execute($array);
+			$reponsesql = ($sql->fetch());
+			$idVille1 = $reponsesql['idVille'];
+
+			$sql2 = self::$bdd->prepare('SELECT idVille FROM ville where nomVille like ? or codePostal like ?');
+			$array2 = array($nomVille2, $codePostal2);
+			$sql2->execute($array2);
+			$reponsesql2 = ($sql2->fetch());
+			$idVille2 = $reponsesql2['idVille'];
+
+			$value['idVilleD'] = $idVille1;
+			$value['idVilleA'] = $idVille2;
+			// echo $value['idVilleD'] ."\n";
+			// echo $value['idVilleA'] ."\n";
+
+			
 			if( $value['regulier'] == "on"){
 				$reg = 1;
 			}
 			else {
 				$reg = 0;
 			}
-
+			// echo $value['idVilleD'] ."\n";
+			// echo $value['idVilleA'] ."\n";
  			$reqSousTrajet =self::$bdd->prepare('
  				INSERT INTO soustrajet (
 	 				idsousTrajet,
@@ -104,6 +157,9 @@ class modele_trajet extends connexion {
 		 		':regulier'=> $reg
 		 	));
 	 	}	
+	}
+
+	public function verifChamps($soustrajets, $descriptionTrajet, $placeTotale){
 	}
 }
 
