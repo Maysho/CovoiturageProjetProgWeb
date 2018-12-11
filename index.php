@@ -72,13 +72,6 @@ switch ($module){
 	break;
 	case "mod_profil":
 	include_once 'modules/'.$module.'/'.$module.".php";
-		$mod_profil=new ModProfil();
-		$mod_profil->init();
-		$affichageForm=$mod_profil->getAffichage();
-	break;
-
-	case "mod_profil":
-	include_once 'modules/'.$module.'/'.$module.".php";
 		$mod_profil=new modProfil();
 		$mod_profil->init();
 		$affichageForm=$mod_profil->getAffichage();
