@@ -1,7 +1,7 @@
-<?php
 
+<?php
 include_once 'vue_generique.php';
-	class VueProfil{
+	class VueProfil extends VueGenerique{
 
 		function __construct(){}
 
@@ -124,41 +124,41 @@ include_once 'vue_generique.php';
 					</nav> 
 
 					<section class="border border-dark rounded">
-						<form method="POST" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
-							<div class="row col-12">
+						<form method="POST" class="col-12" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
+							<div class="row form-group">
 								<label class="col-md-4">Photo de profil (5Mo max): </label>
 								<img class="col-md-4" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-								<input class="cole-md-4" type="file" name="photoprofil" >
+								<input class="col-md-4" type="file" name="photoprofil" >
 								<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
 							</div>
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">Prenom : </label>
-								<input class="col-md-4" type="text" name="prenom" value="<?php echo $donnees['prenom']; ?>">
+								<input class="col-md-4 form-control" type="text" name="prenom" value="<?php echo $donnees['prenom']; ?>">
 							</div>
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">Nom : </label>
-								<input class="col-md-4" type="text" name="nom" value="<?php echo $donnees['nom']; ?>">
+								<input class="col-md-4 form-control" type="text" name="nom" value="<?php echo $donnees['nom']; ?>">
 							</div>
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">E-mail : </label>
-								<input class="col-md-4" type="email" name="Email" placeholder="Entrez votre nouvel E-mail">
+								<input class="col-md-4 form-control" type="email" name="Email" placeholder="Entrez votre nouvel E-mail">
 							</div>
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">E-mail confirmation : </label>
-								<input class="col-md-4" type="email" name="confirmationEmail" placeholder="Confirmez votre E-mail">
+								<input class="col-md-4 form-control" type="email" name="confirmationEmail" placeholder="Confirmez votre E-mail">
 							</div>
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">Date de naissance : </label>
-								<input class="col-md-4" type="date" name="datedenaissance" value="<?php echo $donnees['dateDeNaissance']; ?>">
+								<input class="col-md-4 form-control" type="date" name="datedenaissance" value="<?php echo $donnees['dateDeNaissance']; ?>">
 							</div>
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">Sexe : </label>
 								<div class="col-md-4">
 									<div class="row">
@@ -174,17 +174,15 @@ include_once 'vue_generique.php';
 								</div>
 							</div>	
 
-							<div class="row col-12">
+							<div class="row form-group">
 								<label class="col-md-4">Description : </label>
-								<textarea class="col-md-4" rows="10" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
+								<textarea class="col-md-4 form-control" rows="10" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
 							</div>
 
-							<input type="submit" name="submit" value="Mettre à jour vos données">
+							<button class="btn btn-primary" type="submit" name="submit">Mettre à jour vos données</button>
 						</form>
 
 						
-						
-
 					</section>
 				</div>
 			</div>

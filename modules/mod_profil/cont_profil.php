@@ -14,10 +14,11 @@
 
 		public function accueilProfil($idUser, $estConnecter){
 			
-			$estPagePerso=false;
-
-			if($estConnecter)
-				$estPagePerso=$this->modele->estPagePerso($idUser);
+			//$estPagePerso=false;
+			$estPagePerso=true;
+			$estConnecter=true;
+			//if($estConnecter)
+			//	$estPagePerso=$this->modele->estPagePerso($idUser);
 			
 			
 			$result=$this->modele->recupereInfoUtilisateur($idUser, $estPagePerso);

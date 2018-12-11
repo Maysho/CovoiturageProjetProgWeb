@@ -70,6 +70,7 @@ switch ($module){
 		$mod_trajet->init();
 		$affichageForm=$mod_trajet->getAffichage();
 	break;
+
 	case "mod_profil":
 	include_once 'modules/'.$module.'/'.$module.".php";
 		$mod_profil=new ModProfil();
@@ -77,13 +78,6 @@ switch ($module){
 		$affichageForm=$mod_profil->getAffichage();
 	break;
 
-	case "mod_profil":
-	include_once 'modules/'.$module.'/'.$module.".php";
-		$mod_profil=new modProfil();
-		$mod_profil->init();
-		$affichageForm=$mod_profil->getAffichage();
-
-	break;
 	default
 :
 //die("Interdiction d’acces a ce module");
@@ -96,17 +90,18 @@ switch ($module){
 
  
   	<div class="container-fluid">
-	<header>
-  		<?php 
-			//$CompMenu->affiche();
+		<header>
+	  		<?php 
+				//$CompMenu->affiche();
 
-			include_once 'modules/mod_connexion/mod_connexion.php';
-			$mod_connexion=new mod_connexion();
-			$mod_connexion->afficheNav();
-			echo "$affichageForm";
-		?>
-
-	</header>
+				include_once 'modules/mod_connexion/mod_connexion.php';
+				$mod_connexion=new mod_connexion();
+				$mod_connexion->afficheNav();
+				echo "$affichageForm";
+				
+			?>
+		</header>
+	</div>
 
 	<footer>Antoine Dabilly</footer>
 	<!-- Optional JavaScript -->
