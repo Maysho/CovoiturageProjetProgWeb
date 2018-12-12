@@ -129,14 +129,11 @@ class modele_trajet extends connexion {
 			':idConducteur' => 1,
 			':placeTotale' => $placeTotale
 		));
-
+		$somme =0;
 		foreach ($soustrajets as $key => $value) {
+
 			list($nomVille, $codePostal)= explode(",", $value['idVilleD']);
 			list($nomVille2, $codePostal2)= explode(",", $value['idVilleA']);
-			// echo $nomVille."\n";
-			// echo $codePostal."\n";
-			// echo $nomVille2."\n";
-			// echo $codePostal2."\n";
 
 			$sql = self::$bdd->prepare('SELECT idVille FROM ville where nomVille like ? or codePostal like ?');
 			$array = array($nomVille, $codePostal);
@@ -152,8 +149,6 @@ class modele_trajet extends connexion {
 
 			$value['idVilleD'] = $idVille1;
 			$value['idVilleA'] = $idVille2;
-			// echo $value['idVilleD'] ."\n";
-			// echo $value['idVilleA'] ."\n";
 
 			
 			if( $value['regulier'] == "on"){
@@ -162,8 +157,9 @@ class modele_trajet extends connexion {
 			else {
 				$reg = 0;
 			}
-			// echo $value['idVilleD'] ."\n";
-			// echo $value['idVilleA'] ."\n";
+
+			$somme+=$value['prix'];
+
  			$reqSousTrajet =self::$bdd->prepare('
  				INSERT INTO soustrajet (
 	 				idsousTrajet,
@@ -175,6 +171,7 @@ class modele_trajet extends connexion {
 					heureArrivee,
 					idVehiculeConducteur,
 					prix,
+					prixCumule,
 					regulier
  				) VALUES (
  					DEFAULT,
@@ -186,6 +183,7 @@ class modele_trajet extends connexion {
 					:heureArrivee,
 					:idVehiculeConducteur,
 					:prix,
+					:prixCumule,
 					:regulier
  				)
  			');
@@ -200,6 +198,7 @@ class modele_trajet extends connexion {
 		 		':idVehiculeConducteur'=>1,
 		 		// ':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
 		 		':prix'=>$value['prix'],
+		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg
 		 	));
 	 	}	

@@ -181,7 +181,7 @@ class vue_Trajet extends VueGenerique
 
 								    <div class="rows">
 									    <label class="col-md-4" for="placeTotale">Nombre de place</label>
-									    <input class="offset-md-1 col-md-6 form-control" type="text"  name="placeTotale"   id="placeTotale"  placeholder="0">
+									    <input class="offset-md-1 col-md-6 form-control" type="text"  name="placeTotale"   id="placeTotale"  value="0">
 									</div>
 								</div >
 							</div>
