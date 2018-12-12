@@ -12,6 +12,52 @@ class modele_trajet extends connexion {
 		$trajet->init();
 	}
 
+
+	// private function enregistrePhoto(){
+
+	// 		$ancienUrl=$resultselect['urlPhoto'];
+
+	// 	if($_FILES['photoprofil']['size']>0){
+	// 		unlink($ancienUrl);
+	// 		$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
+	// 		$_FILES['photoprofil']['name']=$idUser.'.'.$extension_upload;
+	// 		$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$_FILES['photoprofil']['name']);
+
+	// 		if($result)
+	// 			return "sources/images/photoProfil/".$_FILES['photoprofil']['name'];
+
+	// 	}
+	// 	else 
+	// 		return $ancienUrl;
+	// }
+
+	public function ajoutVehicule($immatriculation, $critair, $hybride){
+		if( $hybride == "on")
+			$reg = 1;
+		else 
+			$reg = 0;
+
+		$reqAddCar=self::$bdd->prepare("
+			INSERT INTO vehicule (
+			immatriculation,
+			critair,
+			hybride
+			) VALUES (
+			:immatriculation,
+			:critair,
+			:hybride
+			)
+		");
+
+		$reqAddCar->execute(array(
+			":immatriculation" => $immatriculation,
+			":critair" => $critair,
+			":hybride" => $reg
+		));
+
+	}
+
+
 	public function verifCreationTrajet3($soustrajets, $descriptionTrajet, $placeTotale){
 		
 		// $this->verifChamps($soustrajets, $descriptionTrajet, $placeTotale);

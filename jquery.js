@@ -87,6 +87,37 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
    });
 });
 
+$('#addCar').on('click', function(e){
+  e.preventDefault();
+  alert("dans lafocntione");
+  var immatriculation= $(document).find('#immatriculation').val();
+  var critair=$(document).find('#critair').val();
+  var hybride=$(document).find('#hybride').val();
+  // console.log(immatriculation);
+  // console.log(critair);
+  // console.log(hybride);
+  $.ajax({
+    url:'scriptphp/formTrajet.php',
+    type:'POST',
+    dataType : 'text',
+    data: {
+      // photoCar: photoCar
+      immatriculation : immatriculation,
+      critair: critair,
+      hybride: hybride
+    },
+    success : function(txt){
+       // window.location='/CovoiturageProjetProgWeb/index.php' 
+       console.log(txt);
+       alert("dans le ajx" +txt);
+    },
+    error: function(){
+      alert("fail");
+    }
+  });
+
+});
+
 
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
@@ -201,6 +232,7 @@ $(function(){
   
   // ajout des champs etapes
   $("#btnAjoutEtape").on("click",function(){
+
     // On copie le template et on le rend visible la premiere fois 
     if( $('.tpl').length == 1){
       var cont= $('#etape').clone(); //partie itineraire
