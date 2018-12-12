@@ -38,7 +38,7 @@ class vue_Trajet extends VueGenerique
 								    <label for="arrive">... Pour aller à...</label>
 								    <input type="text" name="arrive" id="arrive" class="form-control ville"  placeholder="Ville d'Arrivée">
 								</div >
-								<input type="button" class="btn-group" id="btnAjoutEtape" value="Ajouter une Etape" name="btnAjoutEtape">
+								<button class="btn btn-info btn-lg" id="btnAjoutEtape" name="btnAjoutEtape">Ajouter une Etape <i class="far fa-flag"></i></button>
 								
 								<div class="form-group text-left">
 									<label>Frequence :</label>
@@ -61,17 +61,17 @@ class vue_Trajet extends VueGenerique
 		  					</div> --> 
 		  				</div>
 		  				<div class="text-left form-group " >
-		  					<label class="col-sm-2">Date de l'aller</label>
+		  					<label class="col-sm-2"><i class="fab fa-font-awesome-flag"></i> Date de l'aller</label>
 		  						<input class="col-md-2 col-xs-6" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
-		  					<label class="offset-1 col-sm-1">Heure</label>
+		  					<label class="offset-1 col-sm-1">Heure <i class="far fa-clock"></i></label>
 		  						<input  type="time" class="col-xs-12" id="heureDepart" value="<?php echo date('h:i') ?>">
 		  				</div>
 		  				
 						<div class="text-left form-group" id="checkpoint" hidden>
 		  					<div class="form-group" id="checkpoint1" >
-		  						<label class="col-sm-2">Date Etape</label>
+		  						<label class="col-sm-2"><i class="fab fa-font-awesome-flag"></i> Date Etape</label>
 			  						<input type="date" class="col-sm-2 col-xs-6" id="date0" value="<?php echo date('Y-m-d') ?>">
-			  					<label class="offset-1 col-sm-1">Heure</label>
+			  					<label class="offset-1 col-sm-1">Heure <i class="far fa-clock"></i></label>
 									<input  type="time" class="col-xs-12 " id="heure0" value="<?php echo date('h:i') ?>">
 			  					<label class="offset-1 col-sm-1">prix</label>
 			  						<input class="col-md-1 col-sm-6" id="prix0" value="0">
@@ -79,9 +79,9 @@ class vue_Trajet extends VueGenerique
 		  				</div> 
 
 		  				<div class="text-left form-group">
-		  					<label class="col-sm-2">Date Arrivee</label>
+		  					<label class="col-sm-2"> <i class="fab fa-font-awesome-flag"></i> Date Arrivee</label>
 		  						<input type="date" class="col-sm-2 col-xs-6" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
-		  					<label class="offset-1 col-sm-1" >Heure</label>
+		  					<label class="offset-1 col-sm-1" >Heure <i class="far fa-clock"></i></label>
 								<input  type="time" id="heureArrivee" class="col-xs-12 " value="<?php echo date('h:i') ?>">
 		  					<label class="offset-1 col-sm-1">prix</label>
 		  						<input class="col-sm-1 col-xs-6" id="prixArrivee" value="0">
@@ -203,7 +203,7 @@ class vue_Trajet extends VueGenerique
 		  			<div class="row">
 					    <label><input type="checkbox" name="notificationJoin">Me prévenir lorsqu'un passager s'inscrit au trajet</label>
 					</div>
-		  			<button id="envoiTrajet" class="btn btn-primary">C'est parti!</button>
+		  			<button id="envoiTrajet" class="btn btn-primary">C'est parti! <i class="fas fa-car-side"></i></button>
 	  		</section>
 	  	</div>
 
