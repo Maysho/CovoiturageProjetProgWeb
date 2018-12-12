@@ -7,5 +7,19 @@ if( isset($_POST['soustrajet']) && isset($_POST['descriptionTrajet']) && isset($
 		echo "ok";
 	}
 }
+if( isset($_POST['immatriculation']) && isset($_POST['critair']) && isset($_POST['hybride'])){
+	if($modele_trajet->ajoutVehicule($_POST['immatriculation'],$_POST['critair'],$_POST['hybride'])){
+		echo "ok";
+	}
+}
+ // echo $_FILES['photoCar'];
+
+// if(){
+	// if($modele_trajet->ajoutVehicule($_POST['immatriculation'], $_POST['critair'], $POST['hybride'])){
+
+// 	// }
+
+
+
 
 ?>
