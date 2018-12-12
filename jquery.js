@@ -75,7 +75,7 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
         if(data.includes("success")){
              // Le membre est connecté. Ajoutons lui un message dans la page HTML.
             
-             window.location.replace('index.php');
+             window.location.replace('index.php?module=mod_connexion');
         }
         else{
              // Le membre n'a pas été connecté. (data vaut ici "failed")
