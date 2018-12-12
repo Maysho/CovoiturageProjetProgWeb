@@ -29,8 +29,8 @@ class vue_Trajet extends VueGenerique
 								<div class="text-center form-group container tpl" id="etape" hidden>
 								    <label for="villeEtape">...En Passant par...</label>
 								    <div class="form-group row villeEtape" id="villeEtape" >
-									    <input type="text" id="villeEtape0" class="form-control col-11 nomdeVille ville" placeholder="Ville de Passage">
-										<input type="button" class="btn col-1 btnSupprEtape" value="x">
+									    <input type="text" id="villeEtape0" class="form-control col-10 nomdeVille ville" placeholder="Ville de Passage">
+										<input type="button" class="btn col-2 btnSupprEtape" value="&times;">
 								    </div>
 								</div>								
 
@@ -54,36 +54,37 @@ class vue_Trajet extends VueGenerique
 		  			</div>
 		  			<div>
 		  				<div class="text-left">
-		  					<div class="row container">
+		  					<h2>Dates et Horaires</h2>
+		  					<!-- <div class="row container" >
 		  						<h2>Dates et Horaires</h2>
 		  						<label>Aller-Retour<input type="checkbox" name="allerRetour"></label>
-		  					</div>
+		  					</div> --> 
 		  				</div>
 		  				<div class="text-left form-group " >
-		  					<label>Date de l'aller</label>
-		  						<input type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
-		  					<label>Heure</label>
-		  						<input class="col-md-2" type="time" id="heureDepart" value="<?php echo date('h:i') ?>">
+		  					<label class="col-sm-2">Date de l'aller</label>
+		  						<input class="col-md-2 col-xs-6" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
+		  					<label class="offset-1 col-sm-1">Heure</label>
+		  						<input  type="time" class="col-xs-12" id="heureDepart" value="<?php echo date('h:i') ?>">
 		  				</div>
 		  				
 						<div class="text-left form-group" id="checkpoint" hidden>
 		  					<div class="form-group" id="checkpoint1" >
-		  						<label>Date Etape</label>
-			  						<input type="date" id="date0" value="<?php echo date('Y-m-d') ?>">
-			  					<label>Heure</label>
-									<input class="col-md-2" type="time" id="heure0" value="<?php echo date('h:i') ?>">
-			  					<label>prix</label>
-			  						<input class="col-md-1" id="prix0" value="0">
+		  						<label class="col-sm-2">Date Etape</label>
+			  						<input type="date" class="col-sm-2 col-xs-6" id="date0" value="<?php echo date('Y-m-d') ?>">
+			  					<label class="offset-1 col-sm-1">Heure</label>
+									<input  type="time" class="col-xs-12 " id="heure0" value="<?php echo date('h:i') ?>">
+			  					<label class="offset-1 col-sm-1">prix</label>
+			  						<input class="col-md-1 col-sm-6" id="prix0" value="0">
 		  					</div>
 		  				</div> 
 
 		  				<div class="text-left form-group">
-		  					<label>Date Arrivee</label>
-		  						<input type="date" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
-		  					<label>Heure</label>
-								<input class="col-md-2" type="time" id="heureArrivee" value="<?php echo date('h:i') ?>">
-		  					<label>prix</label>
-		  						<input class="col-md-1" id="prixArrivee" value="0">
+		  					<label class="col-sm-2">Date Arrivee</label>
+		  						<input type="date" class="col-sm-2 col-xs-6" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
+		  					<label class="offset-1 col-sm-1" >Heure</label>
+								<input  type="time" id="heureArrivee" class="col-xs-12 " value="<?php echo date('h:i') ?>">
+		  					<label class="offset-1 col-sm-1">prix</label>
+		  						<input class="col-sm-1 col-xs-6" id="prixArrivee" value="0">
 		  				</div> 
 
 		  				<!-- <div class="text-left form-group" hidden>
@@ -105,16 +106,82 @@ class vue_Trajet extends VueGenerique
 									    <label class="col-md-4" for="idVehicule">Mon Vehicule</label>
 									    <!-- <input class="offset-1 col-md-6 form-control" type="text"  name=""  id="emailInscription"  placeholder="Ajouter un Vehicule"> -->
 									    
-										<select class="offset-1 col-md-6 form-control" id="idVehicule">
+										<select class="offset-md-1 col-md-6 form-control" id="idVehicule">
 										    <option value="">--Please choose an option--</option>
-										    <option value="">Ajouter Un Véhicule</option>
-										    <option value="1">Ajouter Un Véhicule</option>
+										<!--     <option value="">Ajouter Un Véhicule</option>
+										    <option value="1">Ajouter Un Véhicule</option> -->
 										</select>
-
 									</div>
-								    <div class="row">
+
+									<div class="row">
+									  <!-- Trigger the modal with a button -->
+									  	<button type="button" class="offset-md-5 col-md-6  btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule</button>
+									  <!-- Modal -->
+									  <div class="modal fade" id="myModal" role="dialog">
+									    <div class="modal-dialog modal-lg">
+									    
+									      <!-- Modal content-->
+									      	<div class="modal-content">
+										        <div class="modal-header">
+										          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+										        </div>
+										        
+
+										        <div class="modal-body">
+										          	<h3 class="modal-title text-center">Votre nouveau Vehicule</h3>
+										          	<div class="row offset-1">
+											          	<label class="col-5" for="immatriculation">Immatriculation</label>
+				  										<input class="col-5" type="text" id="immatriculation" placeholder="AA-000-AA">
+			  										</div>
+			  										<div class="row offset-1">
+				  										<label class="col-5" for="critair">Crit'air</label>
+				  										<select class="col-5 form-control" id="critair">
+				  											<option value="0">Vert</option>
+														    <option value="1">1</option>
+														    <option value="2">2</option>
+														    <option value="3">3</option>
+														    <option value="4">4</option>
+														    <option value="5">5</option>
+														    <option value="6">Je n'ai pas certifié mon véhicule</option>
+														</select>
+													</div>
+
+
+								  					<div class="row offset-1">
+								  						<label class="col-5" for="hybride">Hybride</label>	
+								  						<input class="offset-md-2" type="checkbox" id="hybride" name="hybride">
+								  					</div>
+
+								  					<div class="row offset-1">
+														<label class="col-5" for="photoVehicule">Photo du Vehicule</label>
+														<img class="col-5" src="photos/Black.png" alt="Photo du vehicule">
+														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
+														<input class="offset-md-5" type="file" id="photoCar"name="photoCar">
+														<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
+													</div>
+									  				
+
+
+													<div class="text-center">
+														<button id="addCar" class="btn btn-primary"> Ajouter </button>
+													</div>
+										        </div>
+
+
+
+										        <div class="modal-footer">
+										        	<button class="btn btn-default" data-dismiss="modal">Close</button>
+										        </div>
+									      	</div>
+
+									    </div>
+									  </div>									  
+									</div>
+
+
+								    <div class="rows">
 									    <label class="col-md-4" for="placeTotale">Nombre de place</label>
-									    <input class="offset-1 col-md-6 form-control" type="text"  name="placeTotale"   id="placeTotale"  placeholder="0">
+									    <input class="offset-md-1 col-md-6 form-control" type="text"  name="placeTotale"   id="placeTotale"  value="0">
 									</div>
 								</div >
 							</div>

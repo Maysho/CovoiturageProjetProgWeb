@@ -12,6 +12,52 @@ class modele_trajet extends connexion {
 		$trajet->init();
 	}
 
+
+	// private function enregistrePhoto(){
+
+	// 		$ancienUrl=$resultselect['urlPhoto'];
+
+	// 	if($_FILES['photoprofil']['size']>0){
+	// 		unlink($ancienUrl);
+	// 		$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
+	// 		$_FILES['photoprofil']['name']=$idUser.'.'.$extension_upload;
+	// 		$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$_FILES['photoprofil']['name']);
+
+	// 		if($result)
+	// 			return "sources/images/photoProfil/".$_FILES['photoprofil']['name'];
+
+	// 	}
+	// 	else 
+	// 		return $ancienUrl;
+	// }
+
+	public function ajoutVehicule($immatriculation, $critair, $hybride){
+		if( $hybride == "on")
+			$reg = 1;
+		else 
+			$reg = 0;
+
+		$reqAddCar=self::$bdd->prepare("
+			INSERT INTO vehicule (
+			immatriculation,
+			critair,
+			hybride
+			) VALUES (
+			:immatriculation,
+			:critair,
+			:hybride
+			)
+		");
+
+		$reqAddCar->execute(array(
+			":immatriculation" => $immatriculation,
+			":critair" => $critair,
+			":hybride" => $reg
+		));
+
+	}
+
+
 	public function verifCreationTrajet3($soustrajets, $descriptionTrajet, $placeTotale){
 		
 		// $this->verifChamps($soustrajets, $descriptionTrajet, $placeTotale);
@@ -83,14 +129,11 @@ class modele_trajet extends connexion {
 			':idConducteur' => 1,
 			':placeTotale' => $placeTotale
 		));
-
+		$somme =0;
 		foreach ($soustrajets as $key => $value) {
+
 			list($nomVille, $codePostal)= explode(",", $value['idVilleD']);
 			list($nomVille2, $codePostal2)= explode(",", $value['idVilleA']);
-			// echo $nomVille."\n";
-			// echo $codePostal."\n";
-			// echo $nomVille2."\n";
-			// echo $codePostal2."\n";
 
 			$sql = self::$bdd->prepare('SELECT idVille FROM ville where nomVille like ? or codePostal like ?');
 			$array = array($nomVille, $codePostal);
@@ -106,8 +149,6 @@ class modele_trajet extends connexion {
 
 			$value['idVilleD'] = $idVille1;
 			$value['idVilleA'] = $idVille2;
-			// echo $value['idVilleD'] ."\n";
-			// echo $value['idVilleA'] ."\n";
 
 			
 			if( $value['regulier'] == "on"){
@@ -116,8 +157,9 @@ class modele_trajet extends connexion {
 			else {
 				$reg = 0;
 			}
-			// echo $value['idVilleD'] ."\n";
-			// echo $value['idVilleA'] ."\n";
+
+			$somme+=$value['prix'];
+
  			$reqSousTrajet =self::$bdd->prepare('
  				INSERT INTO soustrajet (
 	 				idsousTrajet,
@@ -129,6 +171,7 @@ class modele_trajet extends connexion {
 					heureArrivee,
 					idVehiculeConducteur,
 					prix,
+					prixCumule,
 					regulier
  				) VALUES (
  					DEFAULT,
@@ -140,6 +183,7 @@ class modele_trajet extends connexion {
 					:heureArrivee,
 					:idVehiculeConducteur,
 					:prix,
+					:prixCumule,
 					:regulier
  				)
  			');
@@ -154,6 +198,7 @@ class modele_trajet extends connexion {
 		 		':idVehiculeConducteur'=>1,
 		 		// ':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
 		 		':prix'=>$value['prix'],
+		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg
 		 	));
 	 	}	
