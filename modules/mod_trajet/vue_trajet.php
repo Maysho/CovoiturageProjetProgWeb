@@ -16,7 +16,7 @@ class vue_Trajet extends VueGenerique
 
 		<div class="offset-0 offset-md-2 col-md-8 text-center">
 	  		<section>
-	  			<h2>Je propose un Trajet</h2>
+	  			<h2>Je propose un Trajet <i class="fas fa-car"></i> </h2>
 		  			<div>
 		  				<h2 class="text-left">Itinéraire</h2>
 		  				<div class="row">
@@ -115,7 +115,8 @@ class vue_Trajet extends VueGenerique
 
 									<div class="row">
 									  <!-- Trigger the modal with a button -->
-									  	<button type="button" class="offset-md-5 col-md-6  btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule</button>
+									  	<button type="button" class="offset-md-5 col-md-6  btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>
+
 									  <!-- Modal -->
 									  <div class="modal fade" id="myModal" role="dialog">
 									    <div class="modal-dialog modal-lg">
@@ -193,7 +194,7 @@ class vue_Trajet extends VueGenerique
 		  					<div class="col-md-12">
 			  					<div class="text-left form-group">
 								    <label  for="">Detail du voyage</label>
-								    <textarea class="form-control" name="descriptionTrajet" id="descriptionTrajet" rows="4"  placeholder="Description"></textarea>
+								    <textarea class="form-control" name="descriptionTrajet" id="descriptionTrajet" rows="4"  placeholder="0"></textarea>
 								</div>
 							</div>
 						</div > 

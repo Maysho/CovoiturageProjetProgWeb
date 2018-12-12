@@ -32,10 +32,10 @@ class modele_trajet extends connexion {
 	// }
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
-		if( $hybride == "on")
-			$reg = 1;
-		else 
-			$reg = 0;
+
+		$reg = $hybride == "on" ?  1 :  0; 
+
+		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
 
 		$reqAddCar=self::$bdd->prepare("
 			INSERT INTO vehicule (
@@ -54,6 +54,23 @@ class modele_trajet extends connexion {
 			":critair" => $critair,
 			":hybride" => $reg
 		));
+
+
+		$reqAddCarUser=self::$bdd->prepare("
+			INSERT INTO vehiculeutilisateur (
+			idUtilisateur,
+			immatriculation
+			) VALUES (
+			:idUtilisateur,
+			:immatriculation
+			)
+		");
+
+		$reqAddCarUser->execute(array(
+			":idUtilisateur" => $idConducteur,
+			":immatriculation" => $immatriculation
+		));
+
 
 	}
 
@@ -87,12 +104,8 @@ class modele_trajet extends connexion {
 		// 	echo $value['idVilleA'] ."\n";
 		// }
 
-		if(isset($_SESSION['id'])){
-			$idConducteur==$_SESSION['id'];
-		}
-		else{
-			//erreur
-		}
+		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
+
 		// echo $idConducteur;
 			
 		$reqGetIdTrajet = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
@@ -125,8 +138,7 @@ class modele_trajet extends connexion {
 		$reqTrajet->execute(array(
 			'idTrajet' => $idTrajet,
 			':descriptionTrajet' => $descriptionTrajet,
-			// ':idConducteur' => $idConducteur,
-			':idConducteur' => 1,
+			':idConducteur' => $idConducteur,
 			':placeTotale' => $placeTotale
 		));
 		$somme =0;

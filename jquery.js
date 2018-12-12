@@ -216,14 +216,15 @@ $('#envoiTrajet').on("click",function(e){
       placeTotale: placeTotale
     },
     success : function(txt){
-       // window.location='/CovoiturageProjetProgWeb/index.php' 
-       console.log(txt);
+      window.location='index.php';
+      console.log(txt);
+      key = 0;
     },
     error: function(){
       alert("fail");
     }
   });
-  key = 0;
+  
 });
 
 
