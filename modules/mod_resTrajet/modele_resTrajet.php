@@ -50,7 +50,7 @@ class modele_resTrajet extends connexion
 			inner join ville as a on a.idVille=c.idVilleDepart 
 			inner join ville as b on b.idVille=d.idVilleArrivee 
 			inner join ville as f on f.idVille=e.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?))');
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?))');//ORDER BY prix apres la derniere parenthese
 		$tableauIds=array($depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee;
