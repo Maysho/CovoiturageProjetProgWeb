@@ -1,4 +1,4 @@
-<?php  
+<?php
 session_start();
 ?> 
 <!doctype html>
@@ -71,13 +71,6 @@ switch ($module){
 		$mod_trajet->init();
 		$affichageForm=$mod_trajet->getAffichage();
 	break;
-	case "mod_profil":
-	include_once 'modules/'.$module.'/'.$module.".php";
-		$mod_profil=new ModProfil();
-		$mod_profil->init();
-		$affichageForm=$mod_profil->getAffichage();
-	break;
-
 	case "mod_profil":
 	include_once 'modules/'.$module.'/'.$module.".php";
 		$mod_profil=new modProfil();
