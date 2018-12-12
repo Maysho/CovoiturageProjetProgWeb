@@ -48,7 +48,7 @@ class vue_connexion extends VueGenerique
 			  <div class='mr-auto'></div>
 			    <ul class='navbar-nav '>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Proposer <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
 			        <a class='nav-link' href='#'>Rechercher</a>
