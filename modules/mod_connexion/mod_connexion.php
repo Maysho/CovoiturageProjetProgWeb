@@ -43,6 +43,18 @@ class mod_connexion extends VueGenerique
 			case 'ChercheMotDePasseOublier':
 				$this->controleur->ChercheMotDePasseOublier();
 				break;
+			case 'deconnexion':
+				$this->controleur->deconnexion();
+				break;
+			case 'VerifieToken':
+				$this->controleur->VerifieToken();
+				break;
+			case 'ChangementMDP':
+				$this->controleur->ChangementMDP();
+				break;
+			case 'VerifieMPD':
+				$this->controleur->VerifieMPD();
+				break;
 			default:
 				if (isset($_SESSION['id'])) {
 					header("Location: index.php");

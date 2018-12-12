@@ -64,7 +64,6 @@ class modele_connexion extends connexion
 		if(self::verifieVar($email,$emailConf,$nom,$prenom,$mdp,$mdpConf)){
 			http_response_code(400);
 			echo $this->msg;
-			echo "dneuz";
 			exit(1);
 		}
 		
@@ -79,7 +78,7 @@ class modele_connexion extends connexion
 			exit(1);
 		}
 		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
-		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(DEFAULT,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation)');
+		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation) values(DEFAULT,:nom,:prenom,:motDePasse,null,:sexe,:adresseMail,null,null,DEFAULT,:dateCreation,null)');
 		$insertPreparee -> execute(array('nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'sexe'=>true,'dateCreation'=>date("Y-m-d")));
 		echo "success";
 	}
@@ -117,18 +116,71 @@ class modele_connexion extends connexion
 		$selecPrepareeUnique->closeCursor();
 	}
 
-	public function envoieMailMdp()
+	public function envoieMailMdp($email)
 	{
 		$lettrePossible = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9');
 		$token="";
 		for ($i=0; $i < 10; $i++) { 
 			$token=$token.$lettrePossible[rand(0,61)];
 		}
-		mail('caffeinated@example.com', 'Mot de passe oublier covoiturage', $token);
+		$insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET token = :token WHERE adresseMail=:adresseMail');
+		$insertPreparee -> execute(array('token'=>$token,'adresseMail'=>$email));
+		mail($email, 'Mot de passe oublier covoiturage', $token, "From: covoiturage@hotm.fr");
 	}
-	public function verifieMail()
+	public function verifieMail($email)
 	{
-		# code...
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)){
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT adresseMail FROM utilisateur where adresseMail=? ');
+			$tableauIds=array($email);
+			$selecPrepareeUnique->execute($tableauIds);
+			$unique=$selecPrepareeUnique->fetch();
+			if (!empty($unique['adresseMail'])==0) {
+				return false;
+			}
+			return true;
+		}
+		else
+			return false;
 	}
-
+	public function verifieToken($email,$token)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT token FROM utilisateur where adresseMail=? and token=?');
+		$tableauIds=array($email,$token);
+		$selecPrepareeUnique->execute($tableauIds);
+		$unique=$selecPrepareeUnique->fetch();
+		if (!empty($unique['token'])==0) {
+			return false;
+		}
+		return true;
+	}
+	public function verifieMDP($mdp,$mdpConf)
+	{
+		if (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})#', $mdp)) {
+			return false;
+		}
+		if (!($mdp==$mdpConf)) {
+			return false;
+		}
+		return true;
+	}
+	public function recupereID($email)
+	{
+		if(empty($email)==0){
+			$selecPreparee=self::$bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE adresseMail=?');
+			$tableauIds=array($email);
+			$selecPreparee->execute($tableauIds);
+			$tab= $selecPreparee->fetch();
+			if(empty($tab[0]))
+				return -1;
+			else
+				return $tab[0];
+		}
+		return -1;
+	}
+	public function changeMDP($mdp,$id)
+	{
+		$insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET motDePasse = :mdp WHERE idUtilisateur=:id');
+		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
+		$insertPreparee -> execute(array('mdp'=>$mdpCrypt,'id'=>$id));
+	}
 }
