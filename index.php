@@ -97,10 +97,14 @@ switch ($module){
 			include_once 'modules/mod_connexion/mod_connexion.php';
 			$mod_connexion=new mod_connexion();
 			$mod_connexion->afficheNav();
-			echo "$affichageForm";
-		?>
+			?>
+		</header>
+		<section id="contenu">
+			<?php echo "$affichageForm";?>
+		</section>
 
-	</header>
+
+	
 
 	<footer>Antoine Dabilly</footer>
 	<!-- Optional JavaScript -->

@@ -29,18 +29,21 @@ class cont_resTrajet
 	}
 	public function affichePage($value='')
 	{
-		$regulier=false;
+		$regulier=0;
 		if (isset($_POST['regulier'])) {
-			$regulier=true;
+			$regulier=1;
 		}
-		$tab=$this->modele->donneTrajet($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
-		//$tab2=$this->modele->donneTrajetAPartirEtape($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
-		//$tab3=$this->modele->donneTrajetAPartirDepart($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
-		if (isset($_SESSION['id'])) {
-			$this->vue->affichePage(1,$tab);
+		if (!isset($_POST['depart'])|| !isset($_POST['destination'])) {
+			header("Location: index.php");
 		}
-		else
-			$this->vue->affichePage(0,$tab);
+		else{
+			$tab=$this->modele->donneTrajet($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+			if (isset($_SESSION['id'])) {
+				$this->vue->affichePage(1,$tab,$_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+			}
+			else
+				$this->vue->affichePage(0,$tab,$_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+		}
 	}
 	
 
