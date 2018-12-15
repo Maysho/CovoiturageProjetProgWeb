@@ -18,7 +18,6 @@ class vue_connexion extends VueGenerique
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
 			  </button>
-
 			  <div class='collapse navbar-collapse justify-content-end' id='navbarSupportedContent'>
 			    <ul class='navbar-nav '>
 			      
@@ -37,18 +36,16 @@ class vue_connexion extends VueGenerique
 ";
 	}
 	public function navConnecte(){
-
    		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
 			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
 			  </button>
-
 			  <div class='collapse navbar-collapse float-right' id='navbarSupportedContent'>
 			  <div class='mr-auto'></div>
 			    <ul class='navbar-nav '>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Proposer <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
 			        <a class='nav-link' href='#'>Rechercher</a>
@@ -73,7 +70,6 @@ class vue_connexion extends VueGenerique
   	public function pageConnexion($error=0)
   	{
   		echo '<div class="row">
-
   		<section class="order-md-0 order-2 justify-content-md-start justify-content-lg-center offset-1 col-md-4 ">
   		<h2>S\'inscrire</h2>
   		<form method="POST" id="inscription">
@@ -103,8 +99,6 @@ class vue_connexion extends VueGenerique
 			  </div>
 			  <button type="submit"  id="inscriptionbutton" name="submit"  class="btn btn-primary">S\'inscrire</button>
 		</form>
-
-
   		</section>
   		<div class=" col-0 order-md-1 separation border border-dark d-none d-md-block"></div>
   		<section class=" row order-md-2 order-0 justify-content-md-start justify-content-center align-items-center col-md-4 offset-1 ">
@@ -209,7 +203,6 @@ class vue_connexion extends VueGenerique
   		</section>
   		</div>
   		<?php
-
   	}
 }
 ?>

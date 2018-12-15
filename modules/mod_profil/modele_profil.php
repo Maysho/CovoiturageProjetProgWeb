@@ -56,7 +56,9 @@ include_once __DIR__ . '/../../connexion.php';
 			if(isset($result['sexe']))
 				$result['sexe']=$result['sexe'] == 0 ? 'femme' : 'homme';
 
-			$result['dateDeNaissance']=self::traduitAge($result['dateDeNaissance']);
+			if(isset($result['dateDeNaissance']))
+				$result['dateDeNaissance']=self::traduitAge($result['dateDeNaissance']);
+
 			return $result;
 		}
 
@@ -64,10 +66,12 @@ include_once __DIR__ . '/../../connexion.php';
 
 
 		private function traduitAge($dateDeNaissance){
+			
 			$datetime1 = new DateTime(date("Y-m-d"));
 			$datetime2 = new DateTime($dateDeNaissance);
 			$age = $datetime2->diff($datetime1);
 			return  $age->format('%y');
+			
 		}
 
 
@@ -118,7 +122,8 @@ include_once __DIR__ . '/../../connexion.php';
 				$this->msg=$this->msg."10-";
 				$erreur = true;
 			}
-			if(self::traduitAge($date)<18){
+
+			if($date != null && self::traduitAge($date)<18){
 				$this->msg=$this->msg."11-";
 				$erreur = true;
 			}
@@ -159,10 +164,14 @@ include_once __DIR__ . '/../../connexion.php';
 
 
 
-		private function insertModifProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto){
+		private function updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto){
 			$insertPrepare=self::$bdd->prepare('UPDATE utilisateur SET adresseMail =:mail, nom=:nom, prenom=:prenom, sexe=:sexe, dateDeNaissance=:datenaiss, description=:descri, urlPhoto=:urlphoto WHERE idUtilisateur=:iduser');
+			if($date != null)
 			$tableauVal=array('mail'=>$email, 'nom'=>$nom, 'prenom'=>$prenom, 'sexe'=>$sexe, 'datenaiss'=>$date, 'descri'=>$description, 'iduser'=>$idUser, 'urlphoto'=>$urlPhoto);
+			else
+				$tableauVal=array('mail'=>$email, 'nom'=>$nom, 'prenom'=>$prenom, 'sexe'=>$sexe, 'datenaiss'=>null, 'descri'=>$description, 'iduser'=>$idUser, 'urlphoto'=>$urlPhoto);
 			$insertPrepare->execute($tableauVal);
+
 		}
 
 
@@ -223,7 +232,7 @@ include_once __DIR__ . '/../../connexion.php';
 
 			
 			$urlPhoto = self::enregistrePhotoProfil($idUser);			
-			self::insertModifProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
+			self::updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
 				
 		}
 
