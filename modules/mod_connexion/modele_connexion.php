@@ -78,8 +78,10 @@ class modele_connexion extends connexion
 			exit(1);
 		}
 		$mdpCrypt=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
+
 		$insertPreparee=self::$bdd->prepare('INSERT INTO utilisateur(idUtilisateur,nom,prenom,motDePasse,dateDeNaissance,sexe,adresseMail,description,urlPhoto,credit,dateCreation,token) values(DEFAULT,:nom,:prenom,:motDePasse,null,null,:adresseMail,null,null,DEFAULT,:dateCreation,null)');
 		$insertPreparee -> execute(array('nom'=>$nom,'prenom'=>$prenom,'adresseMail'=>$email,'motDePasse'=>$mdpCrypt,'dateCreation'=>date("Y-m-d")));
+
 		echo "success";
 	}
 
