@@ -25,7 +25,10 @@ class cont_trajet
 	public function formTrajet(){
 		$this->vue->formCreation();
 	}
-
+	public function AffichePageTrajet($value='')
+	{
+		# code...
+	}
 	/*public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
 		$this->modele->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
 	}

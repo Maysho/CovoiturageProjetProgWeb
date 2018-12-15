@@ -14,7 +14,7 @@ class vue_resTrajet extends VueGenerique
 	public function affichePage($value=-1,$tab1,$depart,$destination,$date,$prix,$type,$regulier)
 	{
 		?>
-		
+		<div id="contenu" >
   		<?php
   		if ($value==1) {
   			echo "<div id='divHauteRes' class='row'><div id='divHauteRes2' class=' col-md-8 row justify-content-between border border-dark'>";
@@ -43,8 +43,9 @@ class vue_resTrajet extends VueGenerique
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
 				    	 	<label for="inputState">type de vehicule</label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
-				    	 	<option selected>1</option>
-				    	 	<option>2</option>
+
+				    	 	<option <?php echo $type=="1"? "selected":""; ?>>1</option>
+				    	 	<option <?php echo $type=="2"? "selected":""; ?>>2</option>
 				    	 	</select> 
     	 	                </div>
 				    
@@ -120,6 +121,12 @@ class vue_resTrajet extends VueGenerique
 
   		</div>
   		
-  		<?php }
+  		
+  		<?php }?>
+  		</div>
+  		<div class="justify-content-center row">
+  			<button id="buttonAffichePlus">en afficher plus</button>
+  		</div>
+  		<?php
 	}
 }

@@ -99,7 +99,7 @@ switch ($module){
 			$mod_connexion->afficheNav();
 			?>
 		</header>
-		<section id="contenu">
+		<section>
 			<?php echo "$affichageForm";?>
 		</section>
 
