@@ -82,7 +82,7 @@ switch ($module){
 	include_once 'modules/'.$module.'/'.$module.".php";
 		$mod_discussion=new ModDiscussion();
 		$mod_discussion->init();
-		$affichageForm=$mod_discussion->getAffichage();
+		$affichageForm=$mod_discussion	->getAffichage();
 	break;
 
 	default

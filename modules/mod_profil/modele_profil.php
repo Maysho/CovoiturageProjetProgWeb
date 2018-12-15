@@ -204,7 +204,7 @@ include_once __DIR__ . '/../../connexion.php';
 			$email = htmlspecialchars($_POST['Email']);
 			$emailConfirm = htmlspecialchars($_POST['confirmationEmail']);
 			$date = $_POST['datedenaissance'];
-			$sexe = $_POST['sexe'];
+			$sexe = isset($_POST['sexe'])?$_POST['sexe'] : null;
 			$description = htmlspecialchars($_POST['description']);
 
 			if(self::erreurDansModif($email, $emailConfirm, $nom, $prenom, $sexe, $date, $description) || self::erreurDansUploadImage()){
