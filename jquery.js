@@ -94,7 +94,7 @@ $('#addCar').on('click', function(e){
   alert("dans lafocntione");
   var immatriculation= $(document).find('#immatriculation').val();
   var critair=$(document).find('#critair').val();
-  var hybride=$(document).find('#hybride').val();
+  var hybride=$(document).find('#hybride').is(":checked");
   // console.log(immatriculation);
   // console.log(critair);
   // console.log(hybride);
@@ -176,7 +176,7 @@ $('#envoiTrajet').on("click",function(e){
       // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
       idVehiculeConducteur: 1,
       prix: $(document).find('#prixArrivee').val(),
-      regulier: $(document).find('#regulier').val()
+      regulier: $(document).find('#regulier').is(":checked")
     };
     // console.log(soustrajet);
     soustrajets[0]= soustrajet;
@@ -197,7 +197,7 @@ $('#envoiTrajet').on("click",function(e){
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: 1,
           prix: $(document).find('#prix1').val(),
-          regulier: $(document).find('#regulier').val()
+          regulier: $(document).find('#regulier').is(":checked")
         };
       }
       else if( i == key){//dernier
@@ -215,7 +215,7 @@ $('#envoiTrajet').on("click",function(e){
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: 1,
           prix: $(document).find('#prixArrivee').val(),
-          regulier: $(document).find('#regulier').val()
+          regulier: $(document).find('#regulier').is(":checked")
         };
       }
       else if( 0 < i && i < key){
@@ -235,7 +235,7 @@ $('#envoiTrajet').on("click",function(e){
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: 1,
           prix: $(document).find(prix).val(),
-          regulier: $(document).find('#regulier').val()
+          regulier: $(document).find('#regulier').is(":checked")
         };
       }
       console.log(soustrajet)
@@ -257,8 +257,9 @@ $('#envoiTrajet').on("click",function(e){
       placeTotale: placeTotale
     },
     success : function(txt){
-      window.location='index.php';
-      console.log(txt);
+      // window.location='index.php';
+      console.log("msg :"+txt);
+
       key = 0;
     },
     error: function(){
