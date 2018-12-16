@@ -16,17 +16,17 @@ include_once __DIR__ . '/../../connexion.php';
 		public function recupereInfoUtilisateur($idUser, $estPagePerso){
 			
 			if($estPagePerso){
-				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$selectPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
 				$tableauIds=array($idUser);
-				$selecPreparee->execute($tableauIds);
-				return $selecPreparee->fetch();
+				$selectPreparee->execute($tableauIds);
+				return $selectPreparee->fetch();
 			}
 
 			else{
-				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$selectPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
 				$tableauIds=array($idUser);
-				$selecPreparee->execute($tableauIds);
-				return $selecPreparee->fetch();
+				$selectPreparee->execute($tableauIds);
+				return $selectPreparee->fetch();
 			}
 
 		}
@@ -36,10 +36,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function recupereInfoUtilisateurModif($idUser){
 			
-				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$selectPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
 				$tableauIds=array($idUser);
-				$selecPreparee->execute($tableauIds);
-				return $selecPreparee->fetch();
+				$selectPreparee->execute($tableauIds);
+				return $selectPreparee->fetch();
 		}
 
 
@@ -79,10 +79,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function commentaires($idUser){
 
-			$selecPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
+			$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
 			$tableauIds=array($idUser);
-			$selecPreparee->execute($tableauIds);
-			return $selecPreparee->fetchAll();
+			$selectPreparee->execute($tableauIds);
+			return $selectPreparee->fetchAll();
 		}
 
 
@@ -90,10 +90,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function nbTrajetsEtNote($idUser){
 
-			$selecPreparee=self::$bdd->prepare('SELECT count(*) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? ');
+			$selectPreparee=self::$bdd->prepare('SELECT count(*) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? ');
 			$tableauIds=array($idUser);
-			$selecPreparee->execute($tableauIds);
-			return $selecPreparee->fetch();
+			$selectPreparee->execute($tableauIds);
+			return $selectPreparee->fetch();
 		}
 
 
@@ -180,10 +180,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		private function enregistrePhotoProfil($idUser){
 
-			$selecPreparee=self::$bdd->prepare('SELECT urlPhoto from utilisateur where idUtilisateur=?');
+			$selectPreparee=self::$bdd->prepare('SELECT urlPhoto from utilisateur where idUtilisateur=?');
 			$tableauIds=array($idUser);
-			$selecPreparee->execute($tableauIds);
-			$resultselect=$selecPreparee->fetch();
+			$selectPreparee->execute($tableauIds);
+			$resultselect=$selectPreparee->fetch();
 
 			$ancienUrl=null;
 
@@ -223,10 +223,10 @@ include_once __DIR__ . '/../../connexion.php';
 			}
 
 			else if($email == null){
-					$selecPreparee=self::$bdd->prepare('SELECT adresseMail FROM utilisateur WHERE idUtilisateur=? ');
+					$selectPreparee=self::$bdd->prepare('SELECT adresseMail FROM utilisateur WHERE idUtilisateur=? ');
 					$tableauIds=array($idUser);
-					$selecPreparee->execute($tableauIds);
-					$tab=$selecPreparee->fetch();
+					$selectPreparee->execute($tableauIds);
+					$tab=$selectPreparee->fetch();
 					$email=$tab['adresseMail'];
 			}
 

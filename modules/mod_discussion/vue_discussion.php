@@ -7,7 +7,7 @@ include_once 'vue_generique.php';
 
 		function __construct(){}
 
-		public function discussion(){
+		public function discussion($interlocuteurs, $msg){
 ?>
 			<div class="row">
 	
@@ -17,31 +17,24 @@ include_once 'vue_generique.php';
 
 					<div class="row">
 						<div class="col-md-2 pre-scrollable">
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-							<p>test</p>
-						</div>
+<?php
+			for($i=0; $i<count($interlocuteurs); $i++){
+?>
+							<p><?php echo $interlocuteurs[$i]['prenom'] ?></p>
+<?php							
+			}
+?>
+
+													</div>
 
 						<div class="col-md-9 pre-scrollable">
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
-							<p> test d'un message qui doit etre un minimum long quand meme. Enfin c'est surtout histoire de pouvoir avoir un retour à la ligne pour voir ce que ça donne avce le pre-scrollable</p>
+<?php
+			for($i=0; $i<count($msg); $i++){
+?>
+							<p><?php echo $msg[$i]['prenom']."  ".$msg[$i]['date']."  ".$msg[$i]['contenuMessage'] ?></p>
+<?php							
+			}
+?>
 						</div>
 
 					</div>

@@ -71,18 +71,16 @@ include_once 'vue_generique.php';
 							<label class="">Description : </label>
 							<label class=" col-md-12 border border-primary rounded"><?php echo $donnerAAfficher['description']; ?></label>
 						</div>
-							
-						
 					</section>
 					
 <?php
 
 				for ($i=0; $i < count($commentaires); $i++) { 
-
+					$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
 ?>
 	   				<section class="border border-dark rounded col-md-12">
 	   					<div class="row">
-	   						<label class="col-md-8">De <?php echo $commentaires[$i]['prenom']; ?> le <?php echo $commentaires[$i]['date']; ?></label>
+	   						<label class="col-md-8">De <a href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?></label>
 	   						<label class="col-md-4">note : <?php echo $commentaires[$i]['note']; ?></label>
 	   					</div>
 	   					<div class="row">

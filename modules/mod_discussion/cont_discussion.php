@@ -13,7 +13,10 @@
 		}
 
 		public function discussion($idUser){
-			$this->vue->discussion();
+
+			$interlocuteurs=$this->modele->interlocuteurs($idUser);
+			$msg=$this->modele->messages($idUser,4);
+			$this->vue->discussion($interlocuteurs, $msg);
 		}
 
 	}
