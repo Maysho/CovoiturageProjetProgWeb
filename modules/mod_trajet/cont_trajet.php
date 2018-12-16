@@ -8,12 +8,20 @@ class cont_trajet
 {
 	private $modele;
 	private $vue;
-
-	function __construct(){
+	function __construct()
+	{
 		$this->modele=new modele_trajet();
 		$this->vue=new vue_trajet();
 	}
-
+	public function nav(){
+		if(isset($_SESSION['login'])){
+			$this->vue->navConnecte();
+		}
+		else{
+			$this->vue->navNonConnecte();
+		}
+	}
+	
 	public function formTrajet(){
 		$this->vue->formCreation();
 	}

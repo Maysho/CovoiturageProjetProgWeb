@@ -1,6 +1,6 @@
-<?php
+<!-- <?php  
 session_start();
-?> 
+?> -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,7 +11,6 @@ session_start();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <title>Covoiturage</title>
   </head>
 
@@ -71,16 +70,24 @@ switch ($module){
 		$mod_trajet->init();
 		$affichageForm=$mod_trajet->getAffichage();
 	break;
+
 	case "mod_profil":
 	include_once 'modules/'.$module.'/'.$module.".php";
-		$mod_profil=new modProfil();
+		$mod_profil=new ModProfil();
 		$mod_profil->init();
 		$affichageForm=$mod_profil->getAffichage();
-
 	break;
+
+	case "mod_discussion":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_discussion=new ModDiscussion();
+		$mod_discussion->init();
+		$affichageForm=$mod_discussion	->getAffichage();
+	break;
+
 	default
 :
-//die("Interdiction d’acces a ce module");
+die("Interdiction d’acces a ce module");
 }
 
 ?>
@@ -90,17 +97,18 @@ switch ($module){
 
  
   	<div class="container-fluid">
-	<header>
-  		<?php 
-			//$CompMenu->affiche();
+		<header>
+	  		<?php 
+				//$CompMenu->affiche();
 
-			include_once 'modules/mod_connexion/mod_connexion.php';
-			$mod_connexion=new mod_connexion();
-			$mod_connexion->afficheNav();
-			echo "$affichageForm";
-		?>
-
-	</header>
+				include_once 'modules/mod_connexion/mod_connexion.php';
+				$mod_connexion=new mod_connexion();
+				$mod_connexion->afficheNav();
+				echo "$affichageForm";
+				
+			?>
+		</header>
+	</div>
 
 	<footer>Antoine Dabilly</footer>
 	<!-- Optional JavaScript -->

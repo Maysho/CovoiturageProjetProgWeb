@@ -12,100 +12,24 @@ class modele_resTrajet extends connexion
 		$connexion->init();
 		$this->msg="";
 	}
-	public function donneTrajet($depart='',$destination='',$date,$prix=100000,$type='',$regulier)
+	public function donneTrajet($depart='',$destination='',$date='',$prix,$type='',$regulier='')
 	{
-		if (empty($date)) {
-			$date=date('Y-m-d');
-		}
-		if (empty($prix)) {
-			$prix=100000;
-		}
-		list($depart, $codePostal1)= explode(",", $depart);
-		list($destination, $codePostal2)= explode(",", $destination);
-		echo $depart.$destination.$prix;
-		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart,b.nomVille as destination,prix FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet 
-			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
-			inner join ville as a on a.idVille=soustrajet.idVilleDepart 
-			inner join ville as b on b.idVille=soustrajet.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and prix<=? and regulier=? and dateDepart=? 
-			UNION (SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart,b.nomVille as destination,d.prixCumule-e.prixCumule as prix FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
-			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
-			inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
-			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
-			inner join ville as a on a.idVille=c.idVilleDepart 
-			inner join ville as b on b.idVille=d.idVilleArrivee 
-			inner join ville as f on f.idVille=e.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?) 
-			UNION (SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart ,b.nomVille as destination,d.prixCumule as prix FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
-			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
-			inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
-			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
-			inner join ville as a on a.idVille=c.idVilleDepart 
-			inner join ville as b on b.idVille=d.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and d.prixCumule<=? and c.regulier=? and c.dateDepart=? and d.idTrajet NOT IN (
-			SELECT trajet.idTrajet as idTrajet FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
-			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
-			inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
-			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
-			inner join ville as a on a.idVille=c.idVilleDepart 
-			inner join ville as b on b.idVille=d.idVilleArrivee 
-			inner join ville as f on f.idVille=e.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?))');//ORDER BY prix apres la derniere parenthese
-		$tableauIds=array($depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date);
-		$selecPreparee->execute($tableauIds);
-		return $selecPreparee;
-	}
-	public function donneTrajetDirect($depart='',$destination='',$date,$prix=0,$type='',$regulier)//fonctionne pas si on prend une etape donc il faut rajouter dans la bd un champ qui est prixDepuisDepart en plus du prixsousTrajet 
-	{
-		if (empty($date)) {
-			$date=date('Y-m-d');
-		}
+
 		$codePostal1=preg_grep("#[0-9]+#", explode(",", $depart));
 		$depart=preg_replace("#[0-9]|[ ]|[,]#", "", $depart);
 
 		$codePostal2=preg_grep("#[0-9]+#", explode(",", $destination));
 		$destination=preg_replace("#[0-9]|[ ]|[,]#", "", $destination);
 
-		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart,b.nomVille as destination,prix FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur inner join ville as a on a.idVille=soustrajet.idVilleDepart inner join ville as b on b.idVille=soustrajet.idVilleArrivee WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and prix<=? and regulier=? and dateDepart=?');
-		$tableauIds=array($depart,$destination,$prix+20,1,$date);
-		$selecPreparee->execute($tableauIds);
-		print_r($selecPreparee);
-		return $selecPreparee;
-	}
-	public function donneTrajetAPartirEtape($depart='',$destination='',$date='',$prix,$type='',$regulier)
-	{
-
-		$codePostal1=preg_grep("#[0-9]+#", explode(",", $depart));
-		$depart=preg_replace("#[0-9]|[,]#", "", $depart);
-
-		$codePostal2=preg_grep("#[0-9]+#", explode(",", $destination));
-		$destination=preg_replace("#[0-9]|[,]#", "", $destination);
-
-		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart,b.nomVille as destination,d.prix-e.prix as prix FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet
-		 inner join soustrajet as d on trajet.idTrajet=d.idTrajet
-		  inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
-		  inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
-		  inner join ville as a on a.idVille=c.idVilleDepart 
-		  inner join ville as b on b.idVille=d.idVilleArrivee 
-		  inner join ville as f on f.idVille=e.idVilleArrivee 
-		  WHERE a.nomVille LIKE ? and b.nomVille LIKE ?  and f.nomVille LIKE ? and d.prixCumule-e.prixCumule<=? and c.regulier=? and c.dateDepart=?');
-		$tableauIds=array($depart,$destination,$depart);
-		$selecPreparee->execute($tableauIds);
-		return $selecPreparee;
-	}
-	public function donneTrajetAPartirDepart($depart='',$destination='',$date='',$prix,$type='',$regulier)
-	{
-
-		$codePostal1=preg_grep("#[0-9]+#", explode(",", $depart));
-		$depart=preg_replace("#[0-9]|[,]#", "", $depart);
-
-		$codePostal2=preg_grep("#[0-9]+#", explode(",", $destination));
-		$destination=preg_replace("#[0-9]|[,]#", "", $destination);
-
-		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart ,b.nomVille as destination,d.prix as prix FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet inner join soustrajet as d on trajet.idTrajet=d.idTrajet inner join soustrajet as e on trajet.idTrajet=e.idTrajet inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur inner join ville as a on a.idVille=c.idVilleDepart inner join ville as b on b.idVille=d.idVilleArrivee WHERE a.nomVille LIKE ? and b.nomVille LIKE ? and d.prixCumule<=? and c.regulier=? and c.date=?');
+		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet,urlPhoto,prenom,villeDepart,villeArrive FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur WHERE villeDepart=? and( villeArrive=? or villeDepart=?) and (prix>=? and prix<=?) and trajet ');
 		$tableauIds=array($depart,$destination,$destination);
 		$selecPreparee->execute($tableauIds);
-		return $selecPreparee;
+		$tab= $selecPreparee->fetch();
+		echo $tab[0];
+		if(empty($tab[0]))
+			return -1;
+		else
+			return $tab[0];
 	}
 	public function verifieConnexion()
 	{
