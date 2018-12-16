@@ -41,9 +41,7 @@ class vue_Trajet extends VueGenerique
 								<button class="btn btn-info btn-lg" id="btnAjoutEtape" name="btnAjoutEtape">Ajouter une Etape <i class="far fa-flag"></i></button>
 								
 								<div class="form-group text-left">
-									<label>Frequence :</label>
-								    <label class="offset-1"><input type="radio" name="regulier" id="regulier" checked>Occasionnel</label>
-								    <label class="offset-1"><input type="radio" name="regulier" id="regulier">Régulier</label>
+									<label class="offset-md-10"><input type="checkbox" name="regulier" id="regulier">Régulier</label>
 								</div>	
 							</div>
 			  				<div class="col-md-6"> 
