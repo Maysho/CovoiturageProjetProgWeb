@@ -60,7 +60,7 @@ class vue_Trajet extends VueGenerique
 		  				</div>
 		  				<div class="text-left form-group row" >
 		  					<div class="col-md-4 row form-group text-center">
-			  					<label class="col-md-5"><i class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
+			  					<label class="col-md-5"><i style=" color: green;"class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
 		  						<input class="offset-md-1 col-md-5 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
 							</div>
 
@@ -91,7 +91,7 @@ class vue_Trajet extends VueGenerique
 
 		  				<div class="form-group text-left row">
 							<div class="col-md-4 row form-group text-center">
-			  					<label class="col-md-5"><i class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
+			  					<label class="col-md-5"><i style=" color: red;" class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
 		  						<input type="date" class="offset-md-1 col-md-5 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
 	  						</div>
 
@@ -172,10 +172,17 @@ class vue_Trajet extends VueGenerique
 
 								  					<div class="row offset-md-1">
 														<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
-														<img class="col-md-5" src="photos/Black.png" alt="Photo du vehicule">
+														<img id="thumbnail"class="col-md-5" src="photos/Black.png" alt="Photo du vehicule">
 														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
 														<input class="offset-md-5" type="file" id="photoCar"name="photoCar">
+<!-- 
+														<input type="file" id="file-input" multiple />
+														<div id="thumb-output"></div>
+ -->
+														<!-- <input type="file" onchange="previewFile()"><br>
+														<img src="" height="200" alt="Image preview..."> -->
 														<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
+
 													</div>
 									  				
 													<div class="text-center">

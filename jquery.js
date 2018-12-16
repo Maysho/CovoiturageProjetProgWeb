@@ -380,7 +380,41 @@ $(function(){
     }
   });
 
+  // $('#test').on("change", function(){
+  //      var reader = new FileReader(); 
+  //      reader.onload = function (e) { 
+  //          $('#imagepreview').attr('src', e.target.result); 
+  //      }
+  // });
+  
+  $(document).ready(function(){
+    $('#photoCar').on('change', function(){ //on file input change
+      if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
+        {
+        $('#thumbnail').html(''); //clear html of output element
+        var data = $(this)[0].files; //this file data
+        
+        $.each(data, function(index, file){ //loop though each file
+          if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
+            var fRead = new FileReader(); //new filereader
+            fRead.onload = (function(file){ //trigger function on successful read
+            return function(e) {
+              var img = $('<img/>').addClass('thumb').attr('src', e.target.result); //create image element 
+              $('#thumbnail').append(img); //append image to output element
+            };
+              })(file);
+            fRead.readAsDataURL(file); //URL representing the file's data.
+          }
+        });
+        
+      }else{
+        alert("Your browser doesn't support File API!"); //if File API is absent
+      }
+    });
+    });
 });
+
+
 
 //FUNCTION
 function removeWarningForm(){
@@ -410,3 +444,28 @@ function verifError(data){
     $('#divEmailInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ cette adresse email est deja utilisee</small>');
   }
 }
+
+
+// function previewFile() {
+//   var preview = document.querySelector('img');
+//   var file    = document.querySelector('input[type=file]').files[0];
+//   var reader  = new FileReader();
+
+//   reader.addEventListener("load", function () {
+//     preview.src = reader.result;
+//   }, false);
+
+//   if (file) {
+//     reader.readAsDataURL(file);
+//   }
+// }
+
+// function showImage(input) { 
+//          if (input.files && input.files[0]) { 
+//          var reader = new FileReader(); 
+//          reader.onload = function (e) { 
+//                  $('#imagepreview').attr('src', e.target.result); 
+//          }
+//          reader.readAsDataURL(input.files[0]); 
+//       } 
+// } 
