@@ -2,10 +2,10 @@ var key = 0 ;
 
 $( window ).resize(function() {
   if ($(window).width() <768) {
-  	$(".composant" ).hide();
+    $(".composant" ).hide();
   }
   else{
-  	$(".composant" ).show();
+    $(".composant" ).show();
   }
 });
 function removeAide() {

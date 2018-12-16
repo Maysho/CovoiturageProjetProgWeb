@@ -11,7 +11,7 @@ class vue_resTrajet extends VueGenerique
 	{
 		parent::__construct();
 	}
-	public function affichePage($value=-1,$tab1)
+	public function affichePage($value=-1)
 	{
 		?>
 		
@@ -71,10 +71,6 @@ class vue_resTrajet extends VueGenerique
 	  		</div>
   		</div>
   		<?php
-  		while($donnee = $tab1->fetch()) // on effectue une boucle pour obtenir les données
-		{
-		    //array_push($array, $donnee['nomVille']." ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
-		
   		if ($value==1) {
 
   			echo "<div class='row'>
@@ -83,8 +79,7 @@ class vue_resTrajet extends VueGenerique
   		else
   			echo "<div class='row justify-content-md-center'> <div class=' row border border-dark justify-content-md-between col-md-6'>";
   		?>
-  		<?php echo $donnee['idTrajet'];echo $donnee['urlPhoto'];echo $donnee['prenom'];echo $donnee['depart'];echo $donnee['destination'];echo $donnee['prix'];
-  		?>
+  		
 	  			<div class="col-md-2">
 	  				<img src="home.jpg" style="width: 100px;">
 	  				<span class="">nom chauffeur</span>
@@ -105,6 +100,6 @@ class vue_resTrajet extends VueGenerique
 	  		</div>
 
   		</div>
-  		<?php }
+  		</div><?php
 	}
 }
