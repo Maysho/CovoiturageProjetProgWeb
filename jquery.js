@@ -2,10 +2,10 @@ var key = 0 ;
 
 $( window ).resize(function() {
   if ($(window).width() <768) {
-  	$(".composant" ).hide();
+    $(".composant" ).hide();
   }
   else{
-  	$(".composant" ).show();
+    $(".composant" ).show();
   }
 });
 function removeAide() {
@@ -75,7 +75,7 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
         if(data.includes("success")){
              // Le membre est connecté. Ajoutons lui un message dans la page HTML.
             
-             window.location.replace('index.php');
+             window.location.replace('index.php?module=mod_connexion');
         }
         else{
              // Le membre n'a pas été connecté. (data vaut ici "failed")
@@ -87,6 +87,78 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
    });
 });
 
+
+
+$('#addCar').on('click', function(e){
+  e.preventDefault();
+  alert("dans lafocntione");
+  var immatriculation= $(document).find('#immatriculation').val();
+  var critair=$(document).find('#critair').val();
+  var hybride=$(document).find('#hybride').is(":checked");
+  // console.log(immatriculation);
+  // console.log(critair);
+  // console.log(hybride);
+  var formData = new FormData();
+  formData.append("photo", $("#photoCar")[0].files[0]);
+  formData.append("immatriculation", immatriculation);
+  $.ajax({
+    url:'scriptphp/formTrajet.php',
+    type:'POST',    
+    contentType: false,
+    processData: false,
+    method: 'POST',
+    type: 'POST', // For jQuery < 1.9
+    data:{
+      immatriculation : immatriculation,
+      critair: critair,
+      hybride: hybride,
+      formData
+    },
+    success : function(txt){
+       // window.location='/CovoiturageProjetProgWeb/index.php' 
+       console.log(txt);
+       alert("dans le ajax" + txt);
+    },
+    error: function(){
+      alert("fail");
+    }
+  });
+
+});
+
+      /*
+$('#addCar').on('click', function(e){
+  e.preventDefault();
+  alert("dans lafocntione");
+  var immatriculation= $(document).find('#immatriculation').val();
+  var critair=$(document).find('#critair').val();
+  var hybride=$(document).find('#hybride').val();
+  // console.log(immatriculation);
+  // console.log(critair);
+  // console.log(hybride);
+  var formData = new FormData();
+  formData.append("photo", $("#photoCar")[0].files[0]);
+  formData.append("immatriculation", immatriculation);
+  $.ajax({
+    url:'scriptphp/formTrajet.php',
+    type:'POST',    
+    contentType: false,
+    processData: false,
+    method: 'POST',
+    type: 'POST', // For jQuery < 1.9
+    data:formData,
+    success : function(txt){
+       // window.location='/CovoiturageProjetProgWeb/index.php' 
+       console.log(txt);
+       alert("dans le ajax" + txt);
+    },
+    error: function(){
+      alert("fail");
+    }
+  });
+
+});
+*/
 
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
@@ -104,7 +176,7 @@ $('#envoiTrajet').on("click",function(e){
       // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
       idVehiculeConducteur: 1,
       prix: $(document).find('#prixArrivee').val(),
-      regulier: $(document).find('#regulier').val()
+      regulier: $(document).find('#regulier').is(":checked")
     };
     // console.log(soustrajet);
     soustrajets[0]= soustrajet;
@@ -125,7 +197,7 @@ $('#envoiTrajet').on("click",function(e){
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: 1,
           prix: $(document).find('#prix1').val(),
-          regulier: $(document).find('#regulier').val()
+          regulier: $(document).find('#regulier').is(":checked")
         };
       }
       else if( i == key){//dernier
@@ -143,7 +215,7 @@ $('#envoiTrajet').on("click",function(e){
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: 1,
           prix: $(document).find('#prixArrivee').val(),
-          regulier: $(document).find('#regulier').val()
+          regulier: $(document).find('#regulier').is(":checked")
         };
       }
       else if( 0 < i && i < key){
@@ -163,7 +235,7 @@ $('#envoiTrajet').on("click",function(e){
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: 1,
           prix: $(document).find(prix).val(),
-          regulier: $(document).find('#regulier').val()
+          regulier: $(document).find('#regulier').is(":checked")
         };
       }
       console.log(soustrajet)
@@ -185,14 +257,16 @@ $('#envoiTrajet').on("click",function(e){
       placeTotale: placeTotale
     },
     success : function(txt){
-       // window.location='/CovoiturageProjetProgWeb/index.php' 
-       console.log(txt);
+      // window.location='index.php';
+      console.log("msg :"+txt);
+
+      key = 0;
     },
     error: function(){
       alert("fail");
     }
   });
-  key = 0;
+  
 });
 
 
@@ -201,6 +275,7 @@ $(function(){
   
   // ajout des champs etapes
   $("#btnAjoutEtape").on("click",function(){
+
     // On copie le template et on le rend visible la premiere fois 
     if( $('.tpl').length == 1){
       var cont= $('#etape').clone(); //partie itineraire
@@ -220,7 +295,7 @@ $(function(){
       var cont2= $('#checkpoint').clone(); //partie horaire
       cont2.removeAttr("id");
       cont2.removeAttr("hidden");
-
+      cont2.find("#checkpoint0").attr("id",cont2.find("#checkpoint0").attr("id").replace(/\d+/g, key + 1));
       cont2.find("input").each(function() {
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
       });
@@ -241,11 +316,10 @@ $(function(){
         source: "scriptphp/chercheVille.php"
       });
 
-      var fils2= $('#checkpoint1').clone(); //partie horaire
-      fils2.removeAttr("id");
+      var fils2= $('#checkpoint0').clone(); //partie horaire
+      fils2.attr("id", fils2.attr("id").replace(/\d+/g, key + 1));
       fils2.find("input").each(function() {
         $(this).attr("id", $(this).attr("id").replace(/\d+/g, key + 1));
-
       });
       $("#checkpoint").next().append(fils2);
 
@@ -258,29 +332,43 @@ $(function(){
     source: "scriptphp/chercheVille.php"
   });
 
-  // $(document).on("click", ".ville", function(){
-  //   console.log($(this));
-  // });
-
-  // $('.ville').autocomplete({
-  //   source: "scriptphp/chercheVille.php"
-  // });
-
-  //supprime les chamlps etapes 
-  //TODO suppression remettre les machins dans l'ordre
   $(document).on('click',".btnSupprEtape",function(){
     if($(this).parent().parent().find("div").length==1 ){
+      
+      var id = $(this).parent().find("input").first().attr("id") ;
+      var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
+
       console.log("On a supprimé le block");
       $(this).parent().parent().fadeOut(function(){
+        $(this).remove(); 
+        
+      });
+      $(document).find("#date"+nb).parent().parent().parent().fadeOut(function(){
         $(this).remove(); 
       });
 
     }else{
+      
+      var id = $(this).parent().find("input").first().attr("id") ;
+      var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
+      $(document).find("#date"+nb).parent().parent().remove();
       console.log("On a supprimé une étape");
+
       $(this).parent().fadeOut(function(){
         $(this).remove();
       });
+
+      for(var i = nb ; i < key  ; i++){
+        
+        $(document).find("#villeEtape"+(i+1)).attr("id", "villeEtape"+i);
+        $(document).find("#checkpoint"+(i+1)).find("input").each(function(){
+          $(this).attr("id", $(this).attr("id").replace(/\d+/g, i ));
+        });
+        $(document).find("#checkpoint"+(i+1)).attr("id","checkpoint"+i );
+      }
+      
     }
+
     key--;
   });
 
