@@ -48,7 +48,7 @@ class vue_connexion extends VueGenerique
 			  <div class='mr-auto'></div>
 			    <ul class='navbar-nav '>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Proposer <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
 			        <a class='nav-link' href='#'>Rechercher</a>
@@ -59,8 +59,8 @@ class vue_connexion extends VueGenerique
 			          <img src='profildefault.jpg' class='imagenav'>
 			        </a>
 			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-			          <a class='dropdown-item' href='?module=mod_discussion'>Discussion</a>
-			          <a class='dropdown-item' href='?module=mod_profil'>Profil</a>
+			          <a class='dropdown-item' href='#'>Discussion</a>
+			          <a class='dropdown-item' href='#'>Profil</a>
 			          <div class='dropdown-divider'></div>
 			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
 			        </div>

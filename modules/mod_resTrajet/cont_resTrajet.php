@@ -29,13 +29,18 @@ class cont_resTrajet
 	}
 	public function affichePage($value='')
 	{
-
-		$this->modele->donneTrajet($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$_POST['regulier']);
+		$regulier=false;
+		if (isset($_POST['regulier'])) {
+			$regulier=true;
+		}
+		$tab=$this->modele->donneTrajet($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+		//$tab2=$this->modele->donneTrajetAPartirEtape($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+		//$tab3=$this->modele->donneTrajetAPartirDepart($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
 		if (isset($_SESSION['id'])) {
-			$this->vue->affichePage(1);
+			$this->vue->affichePage(1,$tab);
 		}
 		else
-			$this->vue->affichePage(0);
+			$this->vue->affichePage(0,$tab);
 	}
 	
 
