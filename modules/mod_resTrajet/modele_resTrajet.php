@@ -47,8 +47,10 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 			inner join ville as a on a.idVille=c.idVilleDepart 
 			inner join ville as b on b.idVille=d.idVilleArrivee 
 			inner join ville as f on f.idVille=e.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=? and suppression=0 and placeTotale>0 and c.idsousTrajet in (SELECT idsoustraj from(
-			SELECT s.idTrajet,s.idsousTrajet as idsoustraj, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur),trajet.placeTotale FROM soustrajet as s1 
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=? and suppression=0 and placeTotale>0 and c.idTrajet in (SELECT idTrajete from( 
+			SELECT idTrajete, min(placeTotale) as placeTotale from (
+
+			SELECT s.idTrajet as idTrajete,s.idsousTrajet as idsoustraj, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur) as placeTotale,trajet.placeTotale as ptot FROM soustrajet as s1 
 				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
 				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
 				inner join `soustrajetutilisateur` as stu2 on s8.idsousTrajet=stu2.sousTrajet_idsousTrajet 
@@ -57,9 +59,9 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
 				inner join ville as a on a.idVille=s1.idVilleDepart 
 				inner join ville as b on b.idVille=s8.idVilleArrivee 
-				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur))>0) col ))a
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet ) col group by idTrajete HAVING min(placeTotale)>0)l ))a
 
-				inner join (
+				inner join ( SELECT idTrajete, min(placeTotale) as placeTotale from (
 			SELECT s.idTrajet as idTrajete,s.idsousTrajet as idsoustraje, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur) as placeTotale,trajet.placeTotale as totale FROM soustrajet as s1 
 				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
 				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
@@ -69,7 +71,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
 				inner join ville as a on a.idVille=s1.idVilleDepart 
 				inner join ville as b on b.idVille=s8.idVilleArrivee 
-				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (totale-count(DISTINCT stu3.utilisateur_idutilisateur))>0)b on idsoustraj=idsoustraje
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet )b group by idTrajete)h on idTrajet=idTrajete
 				) 
 
 
@@ -81,8 +83,12 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
 			inner join ville as a on a.idVille=c.idVilleDepart 
 			inner join ville as b on b.idVille=d.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and d.prixCumule<=? and c.regulier=? and c.dateDepart=? and suppression=0 and c.idsousTrajet in ( SELECT idsoustraj FROM (
-			SELECT s.idTrajet,s.idsousTrajet as idsoustraj, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur),trajet.placeTotale FROM soustrajet as s1 
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and d.prixCumule<=? and c.regulier=? and c.dateDepart=? and suppression=0 and c.idTrajet in ( 
+
+
+			SELECT idTrajete FROM (
+			SELECT idTrajete, min(placeTotale) as placeTotale from (
+			SELECT s.idTrajet as idTrajete,s.idsousTrajet as idsoustraj, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur) as placeTotale,trajet.placeTotale as ptot FROM soustrajet as s1 
 				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
 				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
 				inner join `soustrajetutilisateur` as stu2 on s8.idsousTrajet=stu2.sousTrajet_idsousTrajet 
@@ -91,8 +97,9 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
 				inner join ville as a on a.idVille=s1.idVilleDepart 
 				inner join ville as b on b.idVille=s8.idVilleArrivee 
-				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur))>0) col2)
-				and d.idTrajet NOT IN (
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet) col2 group by idTrajete HAVING min(placeTotale)>0)k )
+				
+			and d.idTrajet NOT IN (
 			SELECT trajet.idTrajet as idTrajet FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
 			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
 			inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
@@ -102,7 +109,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 			inner join ville as f on f.idVille=e.idVilleArrivee 
 			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?)
 
-			)e inner join (
+			)e inner join ( SELECT idTrajete, min(placeTotale) as placeTotale from (
 			SELECT s.idTrajet as idTrajete,s.idsousTrajet as idsoustraje, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur) as placeTotale,trajet.placeTotale as totale FROM soustrajet as s1 
 				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
 				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
@@ -112,7 +119,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
 				inner join ville as a on a.idVille=s1.idVilleDepart 
 				inner join ville as b on b.idVille=s8.idVilleArrivee 
-				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (totale-count(DISTINCT stu3.utilisateur_idutilisateur))>0)b on idsoustraj=idsoustraje
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet )b group by idTrajete)g on idTrajet=idTrajete
 
 		)order by '."{$order}"); 
 		$tableauIds=array($depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination,$depart,$destination,$depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination);
