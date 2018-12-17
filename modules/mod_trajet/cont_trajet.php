@@ -15,7 +15,11 @@ class cont_trajet
 	}
 
 	public function formTrajet(){
-		$this->vue->formCreation();
+		if (isset($_GET['action'])) {
+			$this->vue->afficheTrajet();
+		}
+		else
+			$this->vue->formCreation();
 	}
 	public function AffichePageTrajet($value='')
 	{

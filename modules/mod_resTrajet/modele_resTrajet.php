@@ -24,25 +24,75 @@ class modele_resTrajet extends connexion
 		}
 		list($depart, $codePostal1)= explode(",", $depart);
 		list($destination, $codePostal2)= explode(",", $destination);
-		$selecPreparee=self::$bdd->prepare('SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart, b.nomVille as destination,prix,heureDepart,heureArrivee,placeTotale FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet 
+		$selecPreparee=self::$bdd->prepare('SELECT idTrajet, urlPhoto, prenom, depart, destination, prix, heureDepart, heureArrivee,placeTotale from ( 
+			SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart, b.nomVille as destination,prix,heureDepart,heureArrivee,trajet.placeTotale-count(utilisateur_idutilisateur) as placeTotale, trajet.placeTotale as t FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet 
 			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
 			inner join ville as a on a.idVille=soustrajet.idVilleDepart 
 			inner join ville as b on b.idVille=soustrajet.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and prix<=? and regulier=? and dateDepart=? and suppression=0 and placeTotale>0
-			UNION (SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart,b.nomVille as destination, d.prixCumule-e.prixCumule as prix,c.heureDepart as heureDepart, d.heureArrivee as heureArrivee,placeTotale FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
+			left join soustrajetutilisateur as stu on stu.sousTrajet_idsousTrajet=soustrajet.idsousTrajet
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and prix<=? and regulier=? and dateDepart=? and suppression=0  GROUP BY trajet.idTrajet
+HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
+			
+
+
+
+			UNION (
+
+	SELECT idTrajet, urlPhoto, prenom, depart, destination, prix, heureDepart, heureArrivee,placeTotale from(
+			SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart,b.nomVille as destination, d.prixCumule-e.prixCumule as prix,c.heureDepart as heureDepart, d.heureArrivee as heureArrivee, c.idsoustrajet as idsoustraj FROM trajet 
+			inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
 			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
 			inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
 			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
 			inner join ville as a on a.idVille=c.idVilleDepart 
 			inner join ville as b on b.idVille=d.idVilleArrivee 
 			inner join ville as f on f.idVille=e.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=? and suppression=0 and placeTotale>0) 
-			UNION (SELECT trajet.idTrajet as idTrajet,urlPhoto,prenom,a.nomVille as depart ,b.nomVille as destination,d.prixCumule as prix ,c.heureDepart as heureDepart, d.heureArrivee as heureArrivee,placeTotale FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=? and suppression=0 and placeTotale>0 and c.idsousTrajet in (SELECT idsoustraj from(
+			SELECT s.idTrajet,s.idsousTrajet as idsoustraj, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur),trajet.placeTotale FROM soustrajet as s1 
+				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
+				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
+				inner join `soustrajetutilisateur` as stu2 on s8.idsousTrajet=stu2.sousTrajet_idsousTrajet 
+				INNER JOIN soustrajet as s on s.idTrajet=s1.idTrajet 
+				inner join `soustrajetutilisateur` as stu3 on s.idsousTrajet=stu3.sousTrajet_idsousTrajet 
+				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
+				inner join ville as a on a.idVille=s1.idVilleDepart 
+				inner join ville as b on b.idVille=s8.idVilleArrivee 
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur))>0) col ))a
+
+				inner join (
+			SELECT s.idTrajet as idTrajete,s.idsousTrajet as idsoustraje, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur) as placeTotale,trajet.placeTotale as totale FROM soustrajet as s1 
+				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
+				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
+				inner join `soustrajetutilisateur` as stu2 on s8.idsousTrajet=stu2.sousTrajet_idsousTrajet 
+				INNER JOIN soustrajet as s on s.idTrajet=s1.idTrajet 
+				inner join `soustrajetutilisateur` as stu3 on s.idsousTrajet=stu3.sousTrajet_idsousTrajet 
+				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
+				inner join ville as a on a.idVille=s1.idVilleDepart 
+				inner join ville as b on b.idVille=s8.idVilleArrivee 
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (totale-count(DISTINCT stu3.utilisateur_idutilisateur))>0)b on idsoustraj=idsoustraje
+				) 
+
+
+			UNION (
+
+	SELECT idTrajet, urlPhoto, prenom, depart, destination, prix, heureDepart, heureArrivee,placeTotale from(
+			SELECT trajet.idTrajet as idTrajet,c.idsoustrajet as idsoustraj, urlPhoto,prenom,a.nomVille as depart ,b.nomVille as destination,d.prixCumule as prix ,c.heureDepart as heureDepart, d.heureArrivee as heureArrivee FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
 			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
 			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
 			inner join ville as a on a.idVille=c.idVilleDepart 
 			inner join ville as b on b.idVille=d.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and d.prixCumule<=? and c.regulier=? and c.dateDepart=? and suppression=0 and placeTotale>0 and d.idTrajet NOT IN (
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and d.prixCumule<=? and c.regulier=? and c.dateDepart=? and suppression=0 and c.idsousTrajet in ( SELECT idsoustraj FROM (
+			SELECT s.idTrajet,s.idsousTrajet as idsoustraj, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur),trajet.placeTotale FROM soustrajet as s1 
+				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
+				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
+				inner join `soustrajetutilisateur` as stu2 on s8.idsousTrajet=stu2.sousTrajet_idsousTrajet 
+				INNER JOIN soustrajet as s on s.idTrajet=s1.idTrajet 
+				inner join `soustrajetutilisateur` as stu3 on s.idsousTrajet=stu3.sousTrajet_idsousTrajet 
+				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
+				inner join ville as a on a.idVille=s1.idVilleDepart 
+				inner join ville as b on b.idVille=s8.idVilleArrivee 
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur))>0) col2)
+				and d.idTrajet NOT IN (
 			SELECT trajet.idTrajet as idTrajet FROM trajet inner join soustrajet as c on trajet.idTrajet=c.idTrajet 
 			inner join soustrajet as d on trajet.idTrajet=d.idTrajet 
 			inner join soustrajet as e on trajet.idTrajet=e.idTrajet 
@@ -50,8 +100,22 @@ class modele_resTrajet extends connexion
 			inner join ville as a on a.idVille=c.idVilleDepart 
 			inner join ville as b on b.idVille=d.idVilleArrivee 
 			inner join ville as f on f.idVille=e.idVilleArrivee 
-			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?))order by '."{$order}");
-		$tableauIds=array($depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date);
+			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and f.nomVille LIKE ?"%" and d.prixCumule-e.prixCumule<= ? and c.regulier=? and c.dateDepart=?)
+
+			)e inner join (
+			SELECT s.idTrajet as idTrajete,s.idsousTrajet as idsoustraje, COUNT(DISTINCT stu3.utilisateur_idutilisateur), trajet.placeTotale-count(DISTINCT stu3.utilisateur_idutilisateur) as placeTotale,trajet.placeTotale as totale FROM soustrajet as s1 
+				INNER join `soustrajetutilisateur` as stu1 on s1.idsousTrajet=stu1.sousTrajet_idsousTrajet 
+				INNER join soustrajet as s8 on s8.idTrajet=s1.idTrajet
+				inner join `soustrajetutilisateur` as stu2 on s8.idsousTrajet=stu2.sousTrajet_idsousTrajet 
+				INNER JOIN soustrajet as s on s.idTrajet=s1.idTrajet 
+				inner join `soustrajetutilisateur` as stu3 on s.idsousTrajet=stu3.sousTrajet_idsousTrajet 
+				INNER join trajet as trajet on trajet.idTrajet=s.idTrajet 
+				inner join ville as a on a.idVille=s1.idVilleDepart 
+				inner join ville as b on b.idVille=s8.idVilleArrivee 
+				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet HAVING (totale-count(DISTINCT stu3.utilisateur_idutilisateur))>0)b on idsoustraj=idsoustraje
+
+		)order by '."{$order}"); 
+		$tableauIds=array($depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination,$depart,$destination,$depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee;
 	}

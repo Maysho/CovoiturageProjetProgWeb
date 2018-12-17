@@ -87,10 +87,10 @@ class vue_resTrajet extends VueGenerique
   		if ($value==1) {
 
   			echo '<div class="row removeResTrajet">
-	  		<a class="liensanscouleur row border border-dark justify-content-between col-md-8" href="'.$donnee['idTrajet'].'">';
+	  		<a class="liensanscouleur row border border-dark justify-content-between col-md-8" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'">';
   		}
   		else
-  			echo '<div class="row justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-md-6" href="index.php?module=mod_trajet&id='.$donnee['idTrajet'].'"> '
+  			echo '<div class="row justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-md-6" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
   		?>
 	  			<div class="col-2">
 	  				<img src="home.jpg" style="width: 100px;">

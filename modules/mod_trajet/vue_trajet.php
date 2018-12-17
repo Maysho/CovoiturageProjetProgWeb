@@ -209,5 +209,212 @@ class vue_Trajet extends VueGenerique
 
 		<?php
 	}
+	public function afficheTrajet($value='')
+	{
+		?>
+		<h1>Le trajet</h1>
+		<div class='row ' >
+			<div class="border border-dark col-md-6 row justify-content-between">
+				<div class="col-6">
+					<div class="row descriptionTxt" >
+						<span>Depart</span>
+						<div class="mr-auto"></div>
+						<span>Paris, 89+ dniezo</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Arrive</span>
+						<div class="mr-auto"></div>
+						<span>Paris, 89+ dniezo</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Date Depart</span>
+						<div class="mr-auto"></div>
+						<span>15/12/2018</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Date Arrive</span>
+						<div class="mr-auto"></div>
+						<span>15/12/2018</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Immatriculation</span>
+						<div class="mr-auto"></div>
+						<span>A156ZEAZEAZEA</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>CritAir</span>
+						<div class="mr-auto" ></div>
+						<span>1</span>
+					</div>
+
+				</div>
+				<div class="col offset-2">
+					<div>
+						<img src="home.jpg" class=" col-12" >
+					</div>
+					<div class="justify-content-center row">
+						<button class="btn">button</button>
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+		<div class='row ' >
+			<div class="border border-dark col-md-6 row justify-content-between">
+				<div class="col-md-2 col-6 row align-items-center">
+						<img src="home.jpg" class="img-fluid" >
+						
+				</div>
+				<div class="col-6">
+					<div class="row descriptionTxt" >
+						<span>yolo bonjour</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Ce trajet est cool puisque iozerhiofrezhiomvrhezivhjropimjuvorpeùzjorpveùzjopvreùzojp f,reffffffff,,,,,,,,,,ffffffffffffffff eiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</span>
+						<span></span>
+					</div>
+				</div>
+
+				
+			</div>
+
+		</div>
+		<div class='row ' >
+			<div class="border border-dark col-md-6 row justify-content-between">
+				<div class="col-12">
+			<h2>Itineraire</h2>
+			</div>
+				<div class="col">
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border">
+							<span>c</span>
+						</div>
+						<div class="col-2 border-dark border" >
+							<span>p</span>
+						</div>
+						<div class="col-2 border-dark border">
+							<span>p</span>
+						</div>
+						<div class="col-2 border-dark border">
+							<span>p</span>
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border ">
+							<div class="bordered ">
+								<span> heure</span>
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0">
+							<img src="home.jpg" class="img-fluid">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0" >
+							<span>passager</span>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0">
+							<span>passager</span>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0">
+							<span>passager</span>
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+							<div class="bordered"">
+								<span> heure</span>
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0 box" >
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+							<div class="bordered" style="margin-left: 7px;height: 100%; padding-bottom: 12.9%;">
+								<span> heure</span>
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0 box">
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+							<div class="bordered" style="margin-left: 7px;height: 100%">
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0">
+						</div>	
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Ce trajet est cool puisque iozerhiofrezhiomvrhezivhjropimjuvorpeùzjorpveùzjopvreùzojp f,reffffffff,,,,,,,,,,ffffffffffffffff eiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</span>
+						<span></span>
+					</div>
+				</div>
+
+				
+			</div>
+
+		</div>
+		<?php
+	}
 }
-?>
