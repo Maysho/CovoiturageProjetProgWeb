@@ -31,7 +31,7 @@ class cont_resTrajet
 	{
 		$regulier=0;
 		if (isset($_POST['regulier'])) {
-			$regulier=1;
+			$regulier=true;
 		}
 		if (!isset($_POST['depart'])|| !isset($_POST['destination'])) {
 			header("Location: index.php");

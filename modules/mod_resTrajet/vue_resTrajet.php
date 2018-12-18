@@ -52,7 +52,7 @@ class vue_resTrajet extends VueGenerique
 				</div>
 				<div class="form-row d-none" id="regulierForm"> 
 				    	<div class="form-check"> 
-				    		<input class="form-check-input" type="checkbox" id="gridCheck" name="regulier" value="<?php echo $regulier; ?>"> 
+				    		<input class="form-check-input" type="checkbox" id="gridCheck" name="regulier" <?php echo $regulier==true?"checked":""; ?> value="<?php echo $regulier; ?>"> 
 				    		<label class="form-check-label" for="gridCheck"> regulier </label>
 				    	</div> 
 				    </div>
@@ -80,9 +80,12 @@ class vue_resTrajet extends VueGenerique
 	  		</div>
   		</div>
   		<?php
+  		$i=0;
   		while($donnee = $tab1->fetch()) // on effectue une boucle pour obtenir les données
 		{
 		    //array_push($array, $donnee['nomVille']." ".$donnee['codePostal']); // et on ajoute celles-ci à notre tableau
+		if ($i<25) {
+			# code...
 		
   		if ($value==1) {
 
@@ -122,9 +125,9 @@ class vue_resTrajet extends VueGenerique
   		</div>
   		
   		
-  		<?php }?>
+  		<?php }$i++;}?>
   		</div>
-  		<div class="justify-content-center row">
+  		<div class="justify-content-center row <?php echo $value==1?'col-md-8':'';?>">
   			<button id="buttonAffichePlus">en afficher plus</button>
   		</div>
   		<?php

@@ -122,7 +122,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 				WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and s1.heureDepart<=s.heureDepart and s8.heureDepart>=s.heureDepart and s1.idTrajet=s.idTrajet and s8.idTrajet=s.idTrajet GROUP BY stu3.sousTrajet_idsousTrajet )b group by idTrajete)g on idTrajet=idTrajete
 
 		)order by '."{$order}"); 
-		$tableauIds=array($depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination,$depart,$destination,$depart,$destination,$prix+20,1,$date,$depart,$destination,$depart,$destination,$depart,$prix+20,1,$date,$depart,$destination);
+		$tableauIds=array($depart,$destination,$prix+20,$regulier,$date,$depart,$destination,$depart,$prix+20,$regulier,$date,$depart,$destination,$depart,$destination,$depart,$destination,$prix+20,$regulier,$date,$depart,$destination,$depart,$destination,$depart,$prix+20,$regulier,$date,$depart,$destination);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee;
 	}
