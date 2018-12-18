@@ -13,11 +13,11 @@ function removeAide() {
 }
 
 $("#rechercheDepart").autocomplete({
-      source: "scriptphp/chercheVille.php"
-    });
+  source: "scriptphp/chercheVille.php"
+});
 $("#rechercheArrive").autocomplete({
-      source: "scriptphp/chercheVille.php"
-    });
+  source: "scriptphp/chercheVille.php"
+});
 
 /*function ville(variable) {
  $.get('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après

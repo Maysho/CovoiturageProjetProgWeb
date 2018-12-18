@@ -6,7 +6,7 @@ $modele_trajet=new modele_trajet();
 // print_r($_FILES);
 
 if( isset($_POST['soustrajet']) && isset($_POST['descriptionTrajet']) && isset($_POST['placeTotale'])){
-	if($modele_trajet->verifCreationTrajet3($_POST['soustrajet'], $_POST['descriptionTrajet'],$_POST['placeTotale'])){
+	if($modele_trajet->creationTrajet($_POST['soustrajet'], $_POST['descriptionTrajet'],$_POST['placeTotale'])){
 		echo "ok";
 	}
 }

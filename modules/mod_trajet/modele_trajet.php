@@ -77,9 +77,10 @@ class modele_trajet extends connexion {
 	}
 
 
-	public function verifCreationTrajet3($soustrajets, $descriptionTrajet, $placeTotale){
+	public function creationTrajet($soustrajets, $descriptionTrajet, $placeTotale){
 		
-		
+		$placeTotale++;
+
 		if( $this->verifChamps($soustrajets, $placeTotale) ){
 			echo $this->msg;
 			exit(1);
@@ -120,7 +121,9 @@ class modele_trajet extends connexion {
 			':idConducteur' => $idConducteur,
 			':placeTotale' => $placeTotale
 		));
+
 		$somme =0;
+
 		foreach ($soustrajets as $key => $value) {
 
 			list($nomVille, $codePostal)= explode(",", $value['idVilleD']);
@@ -192,6 +195,38 @@ class modele_trajet extends connexion {
 		 		':regulier'=> $reg
 		 	));
 	 	}	
+
+
+	 	$reqGetIdSousTrajet= self::$bdd->prepare('SELECT idsousTrajet from soustrajet where idTrajet = ? ');
+	 	$reqGetIdSousTrajet->execute(array($idTrajet));
+	 	$reponseReqGetIdSousTrajet = ($reqGetIdSousTrajet->fetchAll());
+	 	
+	 	foreach ($reponseReqGetIdSousTrajet as $key => $value) {
+	 		$reqInsert=self::$bdd->prepare('
+	 			INSERT INTO soustrajetutilisateur (
+	 				utilisateur_idutilisateur,
+	 				sousTrajet_idsousTrajet,
+	 				valide,
+	 				prixPayer
+	 			) VALUES (
+	 				:utilisateur_idutilisateur,
+	 				:sousTrajet_idsousTrajet,
+	 				:valide,
+	 				:prixPayer
+	 			)
+	 		');
+
+	 		$reqInsert->execute(array(
+	 			':utilisateur_idutilisateur' => $idConducteur,
+ 				':sousTrajet_idsousTrajet' => $value['idsousTrajet'],
+ 				':valide' => true,
+ 				':prixPayer' =>0.0
+	 		));
+
+	 	}
+
+
+
 	}
 
 	public function verifChamps($soustrajets, $placeTotale){
@@ -201,7 +236,7 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."30- Utilisateur non connecté"."\n";
 			$error = true;
 		}
-		if( $placeTotale < 1){
+		if( $placeTotale < 2 && $placeTotale < 9){
 			$this->msg=$this->msg."31- Erreur de saisie PlaceTotale"."\n";
 			$error = true;	
 		}
@@ -248,14 +283,10 @@ class modele_trajet extends connexion {
 				$error = true;	
 			}
 
-
 			//ville existante
-
-
-
-
 			$i++;
 		}
+
 		foreach ($soustrajets as $key => $value) {
 			if($value['idVilleD'] != null && $value['idVilleA'] != null){
 				if(!preg_match('#[,]#',  $value['idVilleD']) && !preg_match('#[,]#',  $value['idVilleA'])){
@@ -288,9 +319,6 @@ class modele_trajet extends connexion {
 				$this->msg=$this->msg."351- Erreur Champs Ville non défini" ."\n";
 				$error = true;	
 			}
-			// if($idVille $idVille2){
-
-			// }
 		}
 
 		return $error;
