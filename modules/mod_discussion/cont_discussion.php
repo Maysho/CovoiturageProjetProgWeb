@@ -15,7 +15,7 @@
 		public function discussion($idUser){
 
 			$interlocuteurs=$this->modele->interlocuteurs($idUser);
-			$msg=$this->modele->messages($idUser,5);
+			$msg=$this->modele->messages($idUser,4);
 			$this->vue->discussion($interlocuteurs, $msg);
 		}
 

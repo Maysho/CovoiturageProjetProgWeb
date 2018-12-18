@@ -16,11 +16,11 @@ include_once 'vue_generique.php';
 				<section class="col-md-9">
 
 					<div class="row">
-						<div class="col-md-2 pre-scrollable">
+						<div  class="col-md-2 pre-scrollable">
 <?php
 			for($i=0; $i<count($interlocuteurs); $i++){
 ?>
-							<p><?php echo $interlocuteurs[$i]['prenom'] ?></p>
+							<p id="<?php echo $interlocuteurs[$i]['idInterlocuteur'];?>" class="interlocuteurs"><?php echo $interlocuteurs[$i]['prenom'] ?></p>
 							<hr>
 <?php							
 			}
@@ -28,8 +28,8 @@ include_once 'vue_generique.php';
 
 													</div>
 
-						<div class="col-md-9 pre-scrollable">
-<?php
+						<div id="messages" class="col-md-9 pre-scrollable">
+<?php echo "test"/*
 			for($i=0; $i<count($msg); $i++){
 
 				if($i !== 0)
@@ -47,7 +47,7 @@ include_once 'vue_generique.php';
 							</div>
 							
 <?php							
-			}
+			}*/
 ?>
 						</div>
 
@@ -60,7 +60,6 @@ include_once 'vue_generique.php';
 						
 				</section>
 			</div>
-			
 <?php
 		}
 	}

@@ -20,7 +20,7 @@ $("#rechercheArrive").autocomplete({
     });
 
 /*function ville(variable) {
- $.get('scriptphp/chercheVille.php', // Un script PHP que l'on va créer juste après
+ $.get('scriptphp/chercheVille.php', // Un script PHP que 'on va créer juste après
             
             { term: variable.val()}
                 
@@ -46,6 +46,25 @@ $("#rechercheArrive").autocomplete({
          });
   
 }*/
+
+$('.interlocuteurs').on('click', function(e){
+
+  e.preventDefault();
+  var obj = $(this);
+  alert("id = "+obj.attr("id"));
+  
+    $.post('scriptphp/afficheMessages.php', 
+    {
+      idInterlocuteur: obj.attr("id")},
+
+      function(data,statut){
+        alert(data);
+      }
+    );
+
+  });
+
+
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
   $(".d-none").toggleClass("d-none d-block");

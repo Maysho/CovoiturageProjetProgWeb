@@ -44,5 +44,18 @@ include_once __DIR__ . '/../../connexion.php';
 			return $selectPreparee->fetchAll();	
 
 		}
+
+		public function checkDiscuValide($idUser, $idInterlocuteur){
+
+			$selectPreparee=self::$bdd->prepare('
+				SELECT count(idUtilisateur1) AS nbDiscu FROM discussion WHERE (idUtilisateur1 = ? AND idUtilisateur2 = ?) OR (idUtilisateur2 = ? AND idUtilisateur1 = ? )
+				'
+			);
+			$tableauIds=array($idUser, $idInterlocuteur, $idUser, $idInterlocuteur);
+			$selectPreparee->execute($tableauIds);
+			$nbDiscu=$selectPreparee->fetch();
+		
+			return ($nbDiscu['nbDiscu'] == 0)? false : true;
+		}
 	}
 ?>
