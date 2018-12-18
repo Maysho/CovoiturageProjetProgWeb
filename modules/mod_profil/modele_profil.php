@@ -16,17 +16,17 @@ include_once __DIR__ . '/../../connexion.php';
 		public function recupereInfoUtilisateur($idUser, $estPagePerso){
 			
 			if($estPagePerso){
-				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$selectPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
 				$tableauIds=array($idUser);
-				$selecPreparee->execute($tableauIds);
-				return $selecPreparee->fetch();
+				$selectPreparee->execute($tableauIds);
+				return $selectPreparee->fetch();
 			}
 
 			else{
-				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$selectPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
 				$tableauIds=array($idUser);
-				$selecPreparee->execute($tableauIds);
-				return $selecPreparee->fetch();
+				$selectPreparee->execute($tableauIds);
+				return $selectPreparee->fetch();
 			}
 
 		}
@@ -36,10 +36,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function recupereInfoUtilisateurModif($idUser){
 			
-				$selecPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+				$selectPreparee=self::$bdd->prepare('SELECT nom, prenom, dateDeNaissance, sexe, adresseMail, description, urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
 				$tableauIds=array($idUser);
-				$selecPreparee->execute($tableauIds);
-				return $selecPreparee->fetch();
+				$selectPreparee->execute($tableauIds);
+				return $selectPreparee->fetch();
 		}
 
 
@@ -56,7 +56,9 @@ include_once __DIR__ . '/../../connexion.php';
 			if(isset($result['sexe']))
 				$result['sexe']=$result['sexe'] == 0 ? 'femme' : 'homme';
 
-			$result['dateDeNaissance']=self::traduitAge($result['dateDeNaissance']);
+			if(isset($result['dateDeNaissance']))
+				$result['dateDeNaissance']=self::traduitAge($result['dateDeNaissance']);
+
 			return $result;
 		}
 
@@ -64,10 +66,12 @@ include_once __DIR__ . '/../../connexion.php';
 
 
 		private function traduitAge($dateDeNaissance){
+			
 			$datetime1 = new DateTime(date("Y-m-d"));
 			$datetime2 = new DateTime($dateDeNaissance);
 			$age = $datetime2->diff($datetime1);
 			return  $age->format('%y');
+			
 		}
 
 
@@ -75,10 +79,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function commentaires($idUser){
 
-			$selecPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
+			$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
 			$tableauIds=array($idUser);
-			$selecPreparee->execute($tableauIds);
-			return $selecPreparee->fetchAll();
+			$selectPreparee->execute($tableauIds);
+			return $selectPreparee->fetchAll();
 		}
 
 
@@ -86,10 +90,10 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function nbTrajetsEtNote($idUser){
 
-			$selecPreparee=self::$bdd->prepare('SELECT count(*) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? ');
+			$selectPreparee=self::$bdd->prepare('SELECT count(*) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? ');
 			$tableauIds=array($idUser);
-			$selecPreparee->execute($tableauIds);
-			return $selecPreparee->fetch();
+			$selectPreparee->execute($tableauIds);
+			return $selectPreparee->fetch();
 		}
 
 
@@ -118,7 +122,8 @@ include_once __DIR__ . '/../../connexion.php';
 				$this->msg=$this->msg."10-";
 				$erreur = true;
 			}
-			if(self::traduitAge($date)<18){
+
+			if($date != null && self::traduitAge($date)<18){
 				$this->msg=$this->msg."11-";
 				$erreur = true;
 			}
@@ -159,10 +164,14 @@ include_once __DIR__ . '/../../connexion.php';
 
 
 
-		private function insertModifProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto){
+		private function updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto){
 			$insertPrepare=self::$bdd->prepare('UPDATE utilisateur SET adresseMail =:mail, nom=:nom, prenom=:prenom, sexe=:sexe, dateDeNaissance=:datenaiss, description=:descri, urlPhoto=:urlphoto WHERE idUtilisateur=:iduser');
+			if($date != null)
 			$tableauVal=array('mail'=>$email, 'nom'=>$nom, 'prenom'=>$prenom, 'sexe'=>$sexe, 'datenaiss'=>$date, 'descri'=>$description, 'iduser'=>$idUser, 'urlphoto'=>$urlPhoto);
+			else
+				$tableauVal=array('mail'=>$email, 'nom'=>$nom, 'prenom'=>$prenom, 'sexe'=>$sexe, 'datenaiss'=>null, 'descri'=>$description, 'iduser'=>$idUser, 'urlphoto'=>$urlPhoto);
 			$insertPrepare->execute($tableauVal);
+
 		}
 
 
@@ -171,13 +180,12 @@ include_once __DIR__ . '/../../connexion.php';
 
 		private function enregistrePhotoProfil($idUser){
 
-			$selecPreparee=self::$bdd->prepare('SELECT urlPhoto from utilisateur where idUtilisateur=?');
+			$selectPreparee=self::$bdd->prepare('SELECT urlPhoto from utilisateur where idUtilisateur=?');
 			$tableauIds=array($idUser);
-			$selecPreparee->execute($tableauIds);
-			$resultselect=$selecPreparee->fetch();
+			$selectPreparee->execute($tableauIds);
+			$resultselect=$selectPreparee->fetch();
 
 			$ancienUrl=null;
-
 
 			if($resultselect['urlPhoto']!=null)
 				$ancienUrl=$resultselect['urlPhoto'];
@@ -185,12 +193,11 @@ include_once __DIR__ . '/../../connexion.php';
 			if($_FILES['photoprofil']['size']>0){
 				unlink($ancienUrl);
 				$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
-				$_FILES['photoprofil']['name']=$idUser.'.'.$extension_upload;
-				$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$_FILES['photoprofil']['name']);
+				$nomFich=$idUser.'.'.$extension_upload;
+				$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$nomFich);
 
 				if($result)
-					return "sources/images/photoProfil/".$_FILES['photoprofil']['name'];
-
+					return "sources/images/photoProfil/".$nomFich;
 			}
 			else 
 				return $ancienUrl;
@@ -206,7 +213,7 @@ include_once __DIR__ . '/../../connexion.php';
 			$email = htmlspecialchars($_POST['Email']);
 			$emailConfirm = htmlspecialchars($_POST['confirmationEmail']);
 			$date = $_POST['datedenaissance'];
-			$sexe = $_POST['sexe'];
+			$sexe = isset($_POST['sexe'])?$_POST['sexe'] : null;
 			$description = htmlspecialchars($_POST['description']);
 
 			if(self::erreurDansModif($email, $emailConfirm, $nom, $prenom, $sexe, $date, $description) || self::erreurDansUploadImage()){
@@ -216,16 +223,16 @@ include_once __DIR__ . '/../../connexion.php';
 			}
 
 			else if($email == null){
-					$selecPreparee=self::$bdd->prepare('SELECT adresseMail FROM utilisateur WHERE idUtilisateur=? ');
+					$selectPreparee=self::$bdd->prepare('SELECT adresseMail FROM utilisateur WHERE idUtilisateur=? ');
 					$tableauIds=array($idUser);
-					$selecPreparee->execute($tableauIds);
-					$tab=$selecPreparee->fetch();
+					$selectPreparee->execute($tableauIds);
+					$tab=$selectPreparee->fetch();
 					$email=$tab['adresseMail'];
 			}
 
 			
 			$urlPhoto = self::enregistrePhotoProfil($idUser);			
-			self::insertModifProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
+			self::updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
 				
 		}
 

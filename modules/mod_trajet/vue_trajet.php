@@ -38,12 +38,10 @@ class vue_Trajet extends VueGenerique
 								    <label for="arrive">... Pour aller à...</label>
 								    <input type="text" name="arrive" id="arrive" class="form-control ville"  placeholder="Ville d'Arrivée">
 								</div >
-								<input type="button" class="btn-group" id="btnAjoutEtape" value="Ajouter une Etape" name="btnAjoutEtape">
+								<button class="btn btn-info btn-lg" id="btnAjoutEtape" name="btnAjoutEtape">Ajouter une Etape <i class="far fa-flag"></i></button>
 								
 								<div class="form-group text-left">
-									<label>Frequence :</label>
-								    <label class="offset-1"><input type="radio" name="regulier" id="regulier" checked>Occasionnel</label>
-								    <label class="offset-1"><input type="radio" name="regulier" id="regulier">Régulier</label>
+									<label class="offset-md-10"><input type="checkbox" name="regulier" id="regulier">Régulier</label>
 								</div>	
 							</div>
 			  				<div class="col-md-6"> 
@@ -60,31 +58,52 @@ class vue_Trajet extends VueGenerique
 		  						<label>Aller-Retour<input type="checkbox" name="allerRetour"></label>
 		  					</div> --> 
 		  				</div>
-		  				<div class="text-left form-group " >
-		  					<label class="col-sm-2">Date de l'aller</label>
-		  						<input class="col-md-2 col-xs-6" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
-		  					<label class="offset-1 col-sm-1">Heure</label>
-		  						<input  type="time" class="col-xs-12" id="heureDepart" value="<?php echo date('h:i') ?>">
+		  				<div class="text-left form-group row" >
+		  					<div class="col-md-5">
+			  					<label class="col-md-5"><i class="fab fa-font-awesome-flag"></i> Date de l'aller</label>
+		  						<input class="offset-md-1" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
+							</div>
+
+							<div class="col-md-7">
+			  					<label class="offset-1">Heure <i class="far fa-clock"></i></label>
+		  						<input  type="time" id="heureDepart" class="offset-md-1" value="<?php echo date('h:i') ?>">
+	  						</div>
 		  				</div>
 		  				
 						<div class="text-left form-group" id="checkpoint" hidden>
-		  					<div class="form-group" id="checkpoint1" >
-		  						<label class="col-sm-2">Date Etape</label>
-			  						<input type="date" class="col-sm-2 col-xs-6" id="date0" value="<?php echo date('Y-m-d') ?>">
-			  					<label class="offset-1 col-sm-1">Heure</label>
-									<input  type="time" class="col-xs-12 " id="heure0" value="<?php echo date('h:i') ?>">
-			  					<label class="offset-1 col-sm-1">prix</label>
-			  						<input class="col-md-1 col-sm-6" id="prix0" value="0">
+		  					<div class="form-group row checkpoint" id="checkpoint0" >
+		  						<div class="col-md-5">
+			  						<label class=""><i class="fab fa-font-awesome-flag"></i> Date Etape</label>
+			  						<input type="date" class="offset-md-2" id="date0" value="<?php echo date('Y-m-d') ?>">
+		  						</div>
+
+		  						<div class="col-md-3">
+				  					<label class="offset-">Heure <i class="far fa-clock"></i></label>
+									<input  type="time" id="heure0" class="offset-md-1" value="<?php echo date('h:i') ?>">
+								</div>
+
+								<div class="col-md-4">
+				  					<label class="">prix</label>
+		  							<input class="" id="prix0" value="0">
+	  							</div>
 		  					</div>
 		  				</div> 
 
-		  				<div class="text-left form-group">
-		  					<label class="col-sm-2">Date Arrivee</label>
-		  						<input type="date" class="col-sm-2 col-xs-6" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
-		  					<label class="offset-1 col-sm-1" >Heure</label>
-								<input  type="time" id="heureArrivee" class="col-xs-12 " value="<?php echo date('h:i') ?>">
-		  					<label class="offset-1 col-sm-1">prix</label>
-		  						<input class="col-sm-1 col-xs-6" id="prixArrivee" value="0">
+		  				<div class="text-left form-group row">
+							<div class="col-md-5">
+			  					<label class="col-md-5"> <i class="fab fa-font-awesome-flag"></i> Date Arrivee</label>
+		  						<input type="date" class="offset-md-1" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
+	  						</div>
+
+	  						<div class="col-md-3">
+			  					<label class="" >Heure <i class="far fa-clock"></i></label>
+								<input  type="time" id="heureArrivee" class="" value="<?php echo date('h:i') ?>">
+							</div>
+
+							<div class="col-md-4">
+			  					<label class="">prix</label>
+		  						<input class="" id="prixArrivee" value="0">
+	  						</div>
 		  				</div> 
 
 		  				<!-- <div class="text-left form-group" hidden>
@@ -203,7 +222,7 @@ class vue_Trajet extends VueGenerique
 		  			<div class="row">
 					    <label><input type="checkbox" name="notificationJoin">Me prévenir lorsqu'un passager s'inscrit au trajet</label>
 					</div>
-		  			<button id="envoiTrajet" class="btn btn-primary">C'est parti!</button>
+		  			<button id="envoiTrajet" class="btn btn-primary">C'est parti! <i class="fas fa-car-side"></i></button>
 	  		</section>
 	  	</div>
 

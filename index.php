@@ -78,9 +78,17 @@ switch ($module){
 		$affichageForm=$mod_profil->getAffichage();
 
 	break;
+
+	case "mod_discussion":
+	include_once 'modules/'.$module.'/'.$module.".php";
+		$mod_discussion=new modDiscussion();
+		$mod_discussion->init();
+		$affichageForm=$mod_discussion->getAffichage();
+
+	break;
 	default
 :
-//die("Interdiction d’acces a ce module");
+die("Page inaccessible");
 }
 
 ?>
