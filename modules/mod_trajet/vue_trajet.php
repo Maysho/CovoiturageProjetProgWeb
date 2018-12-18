@@ -167,12 +167,14 @@ class vue_Trajet extends VueGenerique
 
 								  					<div class="row offset-md-1">
 								  						<label class="col-md-2" for="hybride">Hybride</label>	
-								  						<input class="col-md-2 offset-md-4 form-control" type="checkbox" id="hybride" name="hybride">
+								  						<div class="row offset-md-5">
+								  							<input type="checkbox" id="hybride" name="hybride">
+								  						</div>
 								  					</div>
 
 								  					<div class="row offset-md-1">
 														<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
-														<img id="thumbnail"class="col-md-5" src="photos/Black.png" alt="Photo du vehicule">
+														<img id="defaultThumb"class="col-md-5 thumb img-fluid" src="photos/Black.png" alt="Photo du vehicule">
 														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
 														<input class="offset-md-5" type="file" id="photoCar"name="photoCar">
 <!-- 

@@ -15,56 +15,60 @@ class modele_trajet extends connexion {
 	}
 
 
-	// private function enregistrePhoto(){
-
-	// 		$ancienUrl=$resultselect['urlPhoto'];
-
-	// 	if($_FILES['photoprofil']['size']>0){
-	// 		unlink($ancienUrl);
-	// 		$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
-	// 		$_FILES['photoprofil']['name']=$idUser.'.'.$extension_upload;
-	// 		$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$_FILES['photoprofil']['name']);
-
-	// 		if($result)
-	// 			return "sources/images/photoProfil/".$_FILES['photoprofil']['name'];
-
-	// 	}
-	// 	else 
-	// 		return $ancienUrl;
-	// }
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
+		
+		// if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
+		// 	echo $this->msg;
+		// 	exit(1);
+		// }
 
-		$reg = $hybride == "on" ?  1 :  0; 
+		$reg = $hybride == "true" ?  1 :  0; 
 
 		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
 
+		$url =null;
+
+		if(!empty( $_FILES ) ){
+			if($_FILES['photo']['size']>0){
+				$extension_upload = strtolower(  substr( strrchr($_FILES['photo']['name'], '.')  ,1)  );
+				$nomFich=$idConducteur.'Vehicule'.'.'.$extension_upload;
+				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
+				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
+				if($result)
+					$url = "sources/images/photoProfil/".$nomFich;
+			}
+		}
+
 		$reqAddCar=self::$bdd->prepare("
 			INSERT INTO vehicule (
-			immatriculation,
-			critair,
-			hybride
+				immatriculation,
+				critair,
+				hybride,
+				urlPhoto
 			) VALUES (
-			:immatriculation,
-			:critair,
-			:hybride
+				:immatriculation,
+				:critair,
+				:hybride,
+				:urlPhoto
 			)
 		");
 
 		$reqAddCar->execute(array(
 			":immatriculation" => $immatriculation,
 			":critair" => $critair,
-			":hybride" => $reg
+			":hybride" => $reg,
+			":urlPhoto" => $url
 		));
 
 
 		$reqAddCarUser=self::$bdd->prepare("
 			INSERT INTO vehiculeutilisateur (
-			idUtilisateur,
-			immatriculation
+				idUtilisateur,
+				immatriculation
 			) VALUES (
-			:idUtilisateur,
-			:immatriculation
+				:idUtilisateur,
+				:immatriculation
 			)
 		");
 

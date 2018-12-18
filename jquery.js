@@ -87,58 +87,19 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
    });
 });
 
-
-
+      
 $('#addCar').on('click', function(e){
   e.preventDefault();
-  alert("dans lafocntione");
+
   var immatriculation= $(document).find('#immatriculation').val();
   var critair=$(document).find('#critair').val();
   var hybride=$(document).find('#hybride').is(":checked");
-  // console.log(immatriculation);
-  // console.log(critair);
-  // console.log(hybride);
   var formData = new FormData();
+
   formData.append("photo", $("#photoCar")[0].files[0]);
   formData.append("immatriculation", immatriculation);
-  $.ajax({
-    url:'scriptphp/formTrajet.php',
-    type:'POST',    
-    contentType: false,
-    processData: false,
-    method: 'POST',
-    type: 'POST', // For jQuery < 1.9
-    data:{
-      immatriculation : immatriculation,
-      critair: critair,
-      hybride: hybride,
-      formData
-    },
-    success : function(txt){
-       // window.location='/CovoiturageProjetProgWeb/index.php' 
-       console.log(txt);
-       alert("dans le ajax" + txt);
-    },
-    error: function(){
-      alert("fail");
-    }
-  });
-
-});
-
-      /*
-$('#addCar').on('click', function(e){
-  e.preventDefault();
-  alert("dans lafocntione");
-  var immatriculation= $(document).find('#immatriculation').val();
-  var critair=$(document).find('#critair').val();
-  var hybride=$(document).find('#hybride').val();
-  // console.log(immatriculation);
-  // console.log(critair);
-  // console.log(hybride);
-  var formData = new FormData();
-  formData.append("photo", $("#photoCar")[0].files[0]);
-  formData.append("immatriculation", immatriculation);
+  formData.append("critair", critair);
+  formData.append("hybride", hybride);
   $.ajax({
     url:'scriptphp/formTrajet.php',
     type:'POST',    
@@ -148,17 +109,14 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
-       // window.location='/CovoiturageProjetProgWeb/index.php' 
        console.log(txt);
-       alert("dans le ajax" + txt);
     },
     error: function(){
       alert("fail");
     }
   });
-
 });
-*/
+
 
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
@@ -266,9 +224,7 @@ $('#envoiTrajet').on("click",function(e){
       alert("fail");
     }
   });
-  
 });
-
 
 
 $(function(){
@@ -380,29 +336,26 @@ $(function(){
     }
   });
 
-  // $('#test').on("change", function(){
-  //      var reader = new FileReader(); 
-  //      reader.onload = function (e) { 
-  //          $('#imagepreview').attr('src', e.target.result); 
-  //      }
-  // });
-  
-  $(document).ready(function(){
+});
+
+$(document).ready(function(){
     $('#photoCar').on('change', function(){ //on file input change
       if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
         {
-        $('#thumbnail').html(''); //clear html of output element
+        // $('#thumbnail').html(''); //clear html of output element
         var data = $(this)[0].files; //this file data
-        
+
         $.each(data, function(index, file){ //loop though each file
           if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
             var fRead = new FileReader(); //new filereader
             fRead.onload = (function(file){ //trigger function on successful read
-            return function(e) {
-              var img = $('<img/>').addClass('thumb').attr('src', e.target.result); //create image element 
-              $('#thumbnail').append(img); //append image to output element
-            };
-              })(file);
+              return function(e) {
+                // var img = $('<img/>').addClass('thumb img-fluid').attr('src', e.target.result); //create image element 
+                // console.log(img);
+                // $('#thumbnail').append(img); //append image to output element
+                $('#defaultThumb').attr('src', e.target.result);
+              };
+            })(file);
             fRead.readAsDataURL(file); //URL representing the file's data.
           }
         });
@@ -411,9 +364,7 @@ $(function(){
         alert("Your browser doesn't support File API!"); //if File API is absent
       }
     });
-    });
-});
-
+  });
 
 
 //FUNCTION
@@ -444,28 +395,3 @@ function verifError(data){
     $('#divEmailInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ cette adresse email est deja utilisee</small>');
   }
 }
-
-
-// function previewFile() {
-//   var preview = document.querySelector('img');
-//   var file    = document.querySelector('input[type=file]').files[0];
-//   var reader  = new FileReader();
-
-//   reader.addEventListener("load", function () {
-//     preview.src = reader.result;
-//   }, false);
-
-//   if (file) {
-//     reader.readAsDataURL(file);
-//   }
-// }
-
-// function showImage(input) { 
-//          if (input.files && input.files[0]) { 
-//          var reader = new FileReader(); 
-//          reader.onload = function (e) { 
-//                  $('#imagepreview').attr('src', e.target.result); 
-//          }
-//          reader.readAsDataURL(input.files[0]); 
-//       } 
-// } 
