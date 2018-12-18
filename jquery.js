@@ -47,18 +47,18 @@ $("#rechercheArrive").autocomplete({
   
 }*/
 
+
 $('.interlocuteurs').on('click', function(e){
 
   e.preventDefault();
   var obj = $(this);
-  alert("id = "+obj.attr("id"));
   
     $.post('scriptphp/afficheMessages.php', 
     {
       idInterlocuteur: obj.attr("id")},
 
       function(data,statut){
-        alert(data);
+        $("#messages").html(data)
       }
     );
 

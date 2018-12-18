@@ -16,38 +16,34 @@ include_once 'vue_generique.php';
 				<section class="col-md-9">
 
 					<div class="row">
-						<div  class="col-md-2 pre-scrollable">
+						<div id="interlocuteurs"  class="col-md-2 pre-scrollable">
 <?php
 			for($i=0; $i<count($interlocuteurs); $i++){
 ?>
-							<p id="<?php echo $interlocuteurs[$i]['idInterlocuteur'];?>" class="interlocuteurs"><?php echo $interlocuteurs[$i]['prenom'] ?></p>
-							<hr>
-<?php							
+				<p id="<?php echo $interlocuteurs[$i]['idInterlocuteur']; ?>" class="interlocuteurs"><?php echo $interlocuteurs[$i]['prenom']; ?></p>
+			<hr>
+<?php	
 			}
 ?>
-
-													</div>
+						</div>
 
 						<div id="messages" class="col-md-9 pre-scrollable">
-<?php echo "test"/*
-			for($i=0; $i<count($msg); $i++){
-
-				if($i !== 0)
-					echo "<hr>";
+<?php
+			for($i=0; $i<count($msg);$i++){
 ?>
+				<hr>
 
-							<div class="row">
-								<div class="col-3">
-									<label class="col-12"><?php echo $msg[$i]['prenom']?></label>
-									<label class="col-12"><?php echo $msg[$i]['date']?></label>
-								</div>
-								
-									<label class="col-9"><?php echo $msg[$i]['contenuMessage'] ?></label>
-								
-							</div>
-							
-<?php							
-			}*/
+				<div class="row">
+					<div class="col-3">
+						<label class="col-12"><?php echo $msg[$i]["prenom"]; ?></label>
+						<label class="col-12"><?php echo $msg[$i]["date"]; ?></label>
+					</div>
+					
+						<label class="col-9"><?php echo$msg[$i]["contenuMessage"]; ?></label>
+					
+				</div>
+<?php	
+			}
 ?>
 						</div>
 

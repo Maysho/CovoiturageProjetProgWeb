@@ -14,26 +14,22 @@ $modele = new ModeleDiscussion;
 			$msg=$modele->messages($idUser, $idInterlocuteur);
 
 			for($i=0; $i<count($msg); $i++){
-
 				
-
-				/*if($i !== 0){
-					echo	'<hr>
+				echo	'<hr>
 
 
-							<div class="row">
-								<div class="col-3">
-									<label class="col-12">'.$msg[$i]["prenom"].'</label>
-									<label class="col-12">'.$msg[$i]["date"].'</label>
-								</div>
-								
-									<label class="col-9">'.$msg[$i]["contenuMessage"].'></label>
-								
-							</div>';
-				}*/
+						<div class="row">
+							<div class="col-3">
+								<label class="col-12">'.$msg[$i]["prenom"].'</label>
+								<label class="col-12">'.$msg[$i]["date"].'</label>
+							</div>
+							
+								<label class="col-9">'.$msg[$i]["contenuMessage"].'</label>
+							
+						</div>';
+				
 			}
 							
-		}
-		
+		}		
 	}
 ?>
