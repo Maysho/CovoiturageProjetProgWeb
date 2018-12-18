@@ -59,8 +59,8 @@ class vue_connexion extends VueGenerique
 			          <img src='profildefault.jpg' class='imagenav'>
 			        </a>
 			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-			          <a class='dropdown-item' href='#'>Discussion</a>
-			          <a class='dropdown-item' href='#'>Profil</a>
+			          <a class='dropdown-item' href='?module=mod_discussion'>Discussion</a>
+			          <a class='dropdown-item' href='?module=mod_profil'>Profil</a>
 			          <div class='dropdown-divider'></div>
 			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
 			        </div>
