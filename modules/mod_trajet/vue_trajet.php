@@ -209,13 +209,27 @@ class vue_Trajet extends VueGenerique
 
 		<?php
 	}
-	public function afficheTrajet($value='')
+	public function afficheTrajet($value)
 	{
+		
+		if ($value==1) {
+			echo "<div class='row'>";
+		}
+		else
+			echo "<div class='row justify-content-center'>";
 		?>
 		<h1>Le trajet</h1>
-		<div class='row ' >
-			<div class="border border-dark col-md-6 row justify-content-between">
-				<div class="col-6">
+</div>
+<?php if ($value==1) {
+	echo "<div class='row' >
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+	}else
+		echo "<div class='row justify-content-center' >
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+
+		
+			?>
+				<div class="col-md-6">
 					<div class="row descriptionTxt" >
 						<span>Depart</span>
 						<div class="mr-auto"></div>
@@ -260,18 +274,26 @@ class vue_Trajet extends VueGenerique
 			</div>
 
 		</div>
-		<div class='row ' >
-			<div class="border border-dark col-md-6 row justify-content-between">
-				<div class="col-md-2 col-6 row align-items-center">
+		<?php
+		if ($value==1) {
+			echo "<div class='row' >
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+		}
+		else
+			echo "<div class='row justify-content-center' >
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+		?>
+		
+				<div class="col-md-2 col-4 row align-items-center">
 						<img src="home.jpg" class="img-fluid" >
 						
 				</div>
-				<div class="col-6">
+				<div class="col-8 col-md-10">
 					<div class="row descriptionTxt" >
 						<span>yolo bonjour</span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>Ce trajet est cool puisque iozerhiofrezhiomvrhezivhjropimjuvorpeùzjorpveùzjopvreùzojp f,reffffffff,,,,,,,,,,ffffffffffffffff eiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</span>
+						<span class="col-12">Ce trajet est cool puisque iozerhiofrezh iomvrhezivhj ropimjuvorpeùzjor pveùzjopvreùzojp f,reffffffff,,,,,,, ,,,ffffffffffffffff eiiiiiiiiiiiiiiiii iiiiiiiiiiiii iiiiiiiiiiii</span>
 						<span></span>
 					</div>
 				</div>
@@ -280,8 +302,18 @@ class vue_Trajet extends VueGenerique
 			</div>
 
 		</div>
-		<div class='row ' >
-			<div class="border border-dark col-md-6 row justify-content-between">
+		<?php
+			if ($value==1) {
+				echo "<div class='row' >
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+			}
+			else
+				echo "<div class='row justify-content-center' >
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+
+
+		?>
+		
 				<div class="col-12">
 			<h2>Itineraire</h2>
 			</div>
@@ -405,13 +437,50 @@ class vue_Trajet extends VueGenerique
 						<div class="col-2 border-dark border border-top-0">
 						</div>	
 					</div>
-					<div class="row descriptionTxt" >
-						<span>Ce trajet est cool puisque iozerhiofrezhiomvrhezivhjropimjuvorpeùzjorpveùzjopvreùzojp f,reffffffff,,,,,,,,,,ffffffffffffffff eiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</span>
-						<span></span>
-					</div>
 				</div>
 
 				
+			</div>
+
+		</div>
+		<?php
+		if ($value==1) {
+			echo "<div class='row'>
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+		}
+		else
+			echo "<div class='row justify-content-center'>
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+		?>
+		
+				<div class="col-12">
+					<h2>Commentaire</h2>
+				</div>
+
+				<div class="row"> 
+				<div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;">
+					<img src="home.jpg" class="img-fluid">
+				</div>
+				<div class="col">
+					<span> je suis le commentaire de dfddddddddddd ddddddddddddddd ddddddddddddddd dddddddddddd dddddddddddd ddddddddddddd dddddddddddddd ddddddddddddd ddddddddddd dddddddddddd sssssssssss ssssssssssssssssss ssssssssssssssss ssssssssssss sssssssssss</span>
+				</div>	
+				</div>
+
+				<div class="row">
+
+				<div class="col-3 col-md-2 offset-md-1">
+					<img src="home.jpg" class="img-fluid">
+				</div>
+				<div class="col">
+					<textarea type="textarea" class="col" form="" name="commentaire" style="resize: none;"> </textarea>
+				</div>	
+				<div class="col-md-3 col-6 offset-md-9 offset-7">
+					<input type="submit" class="col" name="">
+				</div>				
+				</div>
+				</div>
+
+
 			</div>
 
 		</div>
