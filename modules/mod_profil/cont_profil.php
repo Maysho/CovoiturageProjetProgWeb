@@ -15,7 +15,8 @@
 		public function accueilProfil($idUser, $estConnecter){
 			
 			$estPagePerso=false;
-
+			//$estPagePerso=true;
+			//$estConnecter=true;
 			if($estConnecter)
 				$estPagePerso=$this->modele->estPagePerso($idUser);
 			
@@ -36,7 +37,7 @@
 
 		public function modifierProfil($idUser, $estConnecter){
 
-			/*$estPagePerso=false;
+			$estPagePerso=false;
 
 			if(!$estConnecter)
 				die("Page inaccessible");
@@ -45,7 +46,7 @@
 
 			if(!$estPagePerso)
 				die("Page inaccessible");
-*/
+
 			$donnees=$result=$this->modele->recupereInfoUtilisateurModif($idUser);
 
 			$this->vue->modificationDeProfil($idUser, $donnees);
@@ -53,7 +54,7 @@
 
 		public function recupereModifProfil($idUser, $estConnecter){
 
-			/*$estPagePerso=false;
+			$estPagePerso=false;
 
 			if(!$estConnecter)
 				die("Page inaccessible");
@@ -62,7 +63,7 @@
 
 			if(!$estPagePerso)
 				die("Page inaccessible");
-*/
+
 		/*	$prenom = htmlspecialchars($_POST['prenom']);
 			$nom = htmlspecialchars($_POST['nom']);
 			$email = htmlspecialchars($_POST['Email']);
