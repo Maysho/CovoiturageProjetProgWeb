@@ -40,6 +40,9 @@ class mod_connexion extends VueGenerique
 				else
 					$this->controleur->AfficheMotDePasseOublier(0);
 				break;
+			case 'ChercheMotDePasseOublie':
+				$this->controleur->ChercheMotDePasseOublie();
+				break;
 			case 'ChercheMotDePasseOublier':
 				$this->controleur->ChercheMotDePasseOublier();
 				break;

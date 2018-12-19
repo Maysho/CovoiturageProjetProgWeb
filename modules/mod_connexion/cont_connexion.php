@@ -49,9 +49,7 @@ class cont_connexion
 
 		if (!empty($_GET["email"])&& $this->modele->verifieMail($_GET["email"])) {
 			$_SESSION['emailChangement']=$_GET["email"];
-			$this->modele->envoieMailMdp($_SESSION['emailChangement']);
-			self::affichePageToken(0,$_SESSION['emailChangement']);
-
+			self::affichePageToken(0,$_GET["email"]);
 		}
 		else
 			self::AfficheMotDePasseOublier(1);
@@ -104,6 +102,18 @@ class cont_connexion
 	public function AfficheMotDePasseOublier($val)
 	{
 		$this->vue->motDePasseOublier($val);
+	}
+	public function ChercheMotDePasseOublie($value='')
+	{
+		if (!empty($_GET["email"])&& $this->modele->verifieMail($_GET["email"])) {
+			
+			$this->modele->envoieMailMdp($_GET["email"]);
+			header("Location: index.php?module=mod_connexion&action=ChercheMotDePasseOublier&email=".$_GET["email"]);
+
+		}
+		else
+			self::AfficheMotDePasseOublier(1);
+		
 	}
 
 

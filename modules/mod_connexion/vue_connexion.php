@@ -190,12 +190,12 @@ class vue_connexion extends VueGenerique
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Mot de passe oublier</h2>
-  		<form method="GET" action="index.php?module=mod_connexion&action=ChercheMotDePasseOublier">
+  		<form method="GET" action="index.php?module=mod_connexion&action=ChercheMotDePasseOublie">
 			  <div class="form-group" id="divEmailInscription">
 			    <label for="emailInscription">Renseignez l’adresse e-mail de votre compte :</label>
 			    <input type="email" required name="email" class="form-control" id="emailInscription"  placeholder="adresse mail">
 			    <input type="hidden" name="module" value="mod_connexion" />
-			    <input type="hidden" name="action" value="ChercheMotDePasseOublier" /><?php 
+			    <input type="hidden" name="action" value="ChercheMotDePasseOublie" /><?php 
 			    if($value==1)
 			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>';
 			    ?>
