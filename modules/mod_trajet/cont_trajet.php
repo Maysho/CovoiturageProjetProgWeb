@@ -15,10 +15,13 @@ class cont_trajet
 	}
 
 	public function formTrajet(){
-		if(isset($_SESSION['id']))
-			$this->vue->formCreation();
-		else
+		if(isset($_SESSION['id'])){
+			$listeVehicule = $this->modele->getListeVehicule();
+			$this->vue->formCreation($listeVehicule);
+		}
+		else{
 			header("Location: index.php?module=mod_connexion");
+		}
 	}
 
 }?>

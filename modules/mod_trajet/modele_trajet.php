@@ -13,7 +13,17 @@ class modele_trajet extends connexion {
 		$trajet->init();
 		$this->msg="";
 	}
+	public function getListeVehicule(){
 
+		$idUser = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
+
+		$reqGetListeCar = self::$bdd->prepare("
+			SELECT *  from vehicule inner join vehiculeutilisateur on vehicule.immatriculation =vehiculeutilisateur.immatriculation where idUtilisateur = ?
+		");
+		$reqGetListeCar->execute(array($idUser));
+		$liste= $reqGetListeCar->fetchAll();
+		return $liste;
+	}
 
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
@@ -36,7 +46,7 @@ class modele_trajet extends connexion {
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
 				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
 				if($result)
-					$url = "sources/images/photoProfil/".$nomFich;
+					$url = "sources/images/photoVehicule/".$nomFich;
 			}
 		}
 

@@ -10,7 +10,7 @@ class vue_Trajet extends VueGenerique
 	function __construct(){
 		parent::__construct();
 	}
-	public function formCreation(){
+	public function formCreation($listeVehicule){
 		date_default_timezone_set('Europe/Paris');
 		?>
 
@@ -45,7 +45,7 @@ class vue_Trajet extends VueGenerique
 								</div>	
 							</div>
 			  				<div class="col-md-6"> 
-			  					<img class="col-md-12" alt="Map de la France" src="photos/Black.png">
+			  					<img class="col-md-12 img-thumbnail" alt="Map de la France" src="photos/Black.png">
 			  				</div>
 		  				</div>
 		  				<hr>
@@ -112,7 +112,7 @@ class vue_Trajet extends VueGenerique
 		  					<label>Heure</label>
 								<input class="col-md-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
 		  					<label>prix</label>
-		  						<input class="col-md-1" name="prix" value="0">
+		  						<input class="col-md-1" name="prix" value="0"	>
 		  				</div> -->
 		  				<hr>
 		  			</div>
@@ -123,12 +123,15 @@ class vue_Trajet extends VueGenerique
 			  					<div class="text-left">
 			  						<div class="row">
 									    <label class="col-md-4" for="idVehicule">Mon Vehicule</label>
-									    <!-- <input class="offset-1 col-md-6 form-control" type="text"  name=""  id="emailInscription"  placeholder="Ajouter un Vehicule"> -->
-									    
 										<select class="offset-md-1 col-md-6 text-center form-control" id="idVehicule">
 										    <option value="">--Please choose an option--</option>
-										<!--     <option value="">Ajouter Un Véhicule</option>
-										    <option value="1">Ajouter Un Véhicule</option> -->
+											<?php 
+											foreach ($listeVehicule as $key => $value) {
+											?>
+												<option value="<?php echo $key ?>"><?php echo $value['immatriculation'] ?> </option>	
+											<?php
+											}
+											?>
 										</select>
 									</div>
 
@@ -177,13 +180,6 @@ class vue_Trajet extends VueGenerique
 														<img id="defaultThumb"class="col-md-5 thumb img-fluid" src="photos/Black.png" alt="Photo du vehicule">
 														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
 														<input class="offset-md-5" type="file" id="photoCar"name="photoCar">
-<!-- 
-														<input type="file" id="file-input" multiple />
-														<div id="thumb-output"></div>
- -->
-														<!-- <input type="file" onchange="previewFile()"><br>
-														<img src="" height="200" alt="Image preview..."> -->
-														<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
 
 													</div>
 									  				
@@ -209,7 +205,7 @@ class vue_Trajet extends VueGenerique
 								</div >
 							</div>
 			  				<div class="col-md-6"> 
-	  							<img class="col-md-12" alt="Voiture" src="photos/Black.png">
+	  							<img class="col-md-12 img-thumbnail" alt="Voiture" src="<?php if($listeVehicule[$key]['urlPhoto'] != null) echo $listeVehicule[$key]['urlPhoto']; else echo "/photos/Black.png"; ?>">
 	  						</div>
 		  				</div>
 		  				<div class="row">
@@ -222,7 +218,7 @@ class vue_Trajet extends VueGenerique
 						</div > 
 						<hr>
 		  			</div>
-		  			<div class="row">
+		  			<div class="container row">
 					    <label><input type="checkbox" name="notificationJoin">Me prévenir lorsqu'un passager s'inscrit au trajet</label>
 					</div>
 		  			<button id="envoiTrajet" class="btn btn-primary">C'est parti! <i class="fas fa-car-side"></i></button>
