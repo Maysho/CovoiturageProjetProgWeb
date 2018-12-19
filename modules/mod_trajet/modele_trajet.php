@@ -42,7 +42,7 @@ class modele_trajet extends connexion {
 		if(!empty( $_FILES ) ){
 			if($_FILES['photo']['size']>0){
 				$extension_upload = strtolower(  substr( strrchr($_FILES['photo']['name'], '.')  ,1)  );
-				$nomFich=$idConducteur.'Vehicule'.'.'.$extension_upload;
+				$nomFich=$idConducteur.'_'.$immatriculation.'.'.$extension_upload;
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
 				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
 				if($result)
@@ -96,6 +96,7 @@ class modele_trajet extends connexion {
 		$placeTotale++;
 
 		if( $this->verifChamps($soustrajets, $placeTotale) ){
+			http_response_code(400);
 			echo $this->msg;
 			exit(1);
 		}
@@ -202,8 +203,7 @@ class modele_trajet extends connexion {
 		 		':idVilleDepart'=>$value['idVilleD'],
 		 		':idVilleArrivee'=>$value['idVilleA'],
 		 		':heureArrivee'=>$value['heureArrivee'],
-		 		':idVehiculeConducteur'=>1,
-		 		// ':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg
