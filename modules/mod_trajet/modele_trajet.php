@@ -13,58 +13,72 @@ class modele_trajet extends connexion {
 		$trajet->init();
 		$this->msg="";
 	}
+	public function getListeVehicule(){
 
+		$idUser = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
 
-	// private function enregistrePhoto(){
+		$reqGetListeCar = self::$bdd->prepare("
+			SELECT *  from vehicule inner join vehiculeutilisateur on vehicule.immatriculation =vehiculeutilisateur.immatriculation where idUtilisateur = ?
+		");
+		$reqGetListeCar->execute(array($idUser));
+		$liste= $reqGetListeCar->fetchAll();
+		return $liste;
+	}
 
-	// 		$ancienUrl=$resultselect['urlPhoto'];
-
-	// 	if($_FILES['photoprofil']['size']>0){
-	// 		unlink($ancienUrl);
-	// 		$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
-	// 		$_FILES['photoprofil']['name']=$idUser.'.'.$extension_upload;
-	// 		$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$_FILES['photoprofil']['name']);
-
-	// 		if($result)
-	// 			return "sources/images/photoProfil/".$_FILES['photoprofil']['name'];
-
-	// 	}
-	// 	else 
-	// 		return $ancienUrl;
-	// }
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
+		
+		// if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
+		// 	echo $this->msg;
+		// 	exit(1);
+		// }
 
-		$reg = $hybride == "on" ?  1 :  0; 
+		$reg = $hybride == "true" ?  1 :  0; 
 
 		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
 
+		$url =null;
+
+		if(!empty( $_FILES ) ){
+			if($_FILES['photo']['size']>0){
+				$extension_upload = strtolower(  substr( strrchr($_FILES['photo']['name'], '.')  ,1)  );
+				$nomFich=$idConducteur.'_'.$immatriculation.'.'.$extension_upload;
+				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
+				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
+				if($result)
+					$url = "sources/images/photoVehicule/".$nomFich;
+			}
+		}
+
 		$reqAddCar=self::$bdd->prepare("
 			INSERT INTO vehicule (
-			immatriculation,
-			critair,
-			hybride
+				immatriculation,
+				critair,
+				hybride,
+				urlPhoto
 			) VALUES (
-			:immatriculation,
-			:critair,
-			:hybride
+				:immatriculation,
+				:critair,
+				:hybride,
+				:urlPhoto
 			)
 		");
 
 		$reqAddCar->execute(array(
 			":immatriculation" => $immatriculation,
 			":critair" => $critair,
-			":hybride" => $reg
+			":hybride" => $reg,
+			":urlPhoto" => $url
 		));
 
 
 		$reqAddCarUser=self::$bdd->prepare("
 			INSERT INTO vehiculeutilisateur (
-			idUtilisateur,
-			immatriculation
+				idUtilisateur,
+				immatriculation
 			) VALUES (
-			:idUtilisateur,
-			:immatriculation
+				:idUtilisateur,
+				:immatriculation
 			)
 		");
 
@@ -77,10 +91,12 @@ class modele_trajet extends connexion {
 	}
 
 
-	public function verifCreationTrajet3($soustrajets, $descriptionTrajet, $placeTotale){
+	public function creationTrajet($soustrajets, $descriptionTrajet, $placeTotale){
 		
-		
+		$placeTotale++;
+
 		if( $this->verifChamps($soustrajets, $placeTotale) ){
+			http_response_code(400);
 			echo $this->msg;
 			exit(1);
 		}
@@ -120,7 +136,9 @@ class modele_trajet extends connexion {
 			':idConducteur' => $idConducteur,
 			':placeTotale' => $placeTotale
 		));
+
 		$somme =0;
+
 		foreach ($soustrajets as $key => $value) {
 
 			list($nomVille, $codePostal)= explode(",", $value['idVilleD']);
@@ -185,13 +203,44 @@ class modele_trajet extends connexion {
 		 		':idVilleDepart'=>$value['idVilleD'],
 		 		':idVilleArrivee'=>$value['idVilleA'],
 		 		':heureArrivee'=>$value['heureArrivee'],
-		 		':idVehiculeConducteur'=>1,
-		 		// ':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg
 		 	));
 	 	}	
+
+
+	 	$reqGetIdSousTrajet= self::$bdd->prepare('SELECT idsousTrajet from soustrajet where idTrajet = ? ');
+	 	$reqGetIdSousTrajet->execute(array($idTrajet));
+	 	$reponseReqGetIdSousTrajet = ($reqGetIdSousTrajet->fetchAll());
+	 	
+	 	foreach ($reponseReqGetIdSousTrajet as $key => $value) {
+	 		$reqInsert=self::$bdd->prepare('
+	 			INSERT INTO soustrajetutilisateur (
+	 				utilisateur_idutilisateur,
+	 				sousTrajet_idsousTrajet,
+	 				valide,
+	 				prixPayer
+	 			) VALUES (
+	 				:utilisateur_idutilisateur,
+	 				:sousTrajet_idsousTrajet,
+	 				:valide,
+	 				:prixPayer
+	 			)
+	 		');
+
+	 		$reqInsert->execute(array(
+	 			':utilisateur_idutilisateur' => $idConducteur,
+ 				':sousTrajet_idsousTrajet' => $value['idsousTrajet'],
+ 				':valide' => true,
+ 				':prixPayer' =>0.0
+	 		));
+
+	 	}
+
+
+
 	}
 
 	public function verifChamps($soustrajets, $placeTotale){
@@ -201,7 +250,7 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."30- Utilisateur non connecté"."\n";
 			$error = true;
 		}
-		if( $placeTotale < 1){
+		if( $placeTotale < 2 && $placeTotale < 9){
 			$this->msg=$this->msg."31- Erreur de saisie PlaceTotale"."\n";
 			$error = true;	
 		}
@@ -248,14 +297,10 @@ class modele_trajet extends connexion {
 				$error = true;	
 			}
 
-
 			//ville existante
-
-
-
-
 			$i++;
 		}
+
 		foreach ($soustrajets as $key => $value) {
 			if($value['idVilleD'] != null && $value['idVilleA'] != null){
 				if(!preg_match('#[,]#',  $value['idVilleD']) && !preg_match('#[,]#',  $value['idVilleA'])){
@@ -288,9 +333,6 @@ class modele_trajet extends connexion {
 				$this->msg=$this->msg."351- Erreur Champs Ville non défini" ."\n";
 				$error = true;	
 			}
-			// if($idVille $idVille2){
-
-			// }
 		}
 
 		return $error;
