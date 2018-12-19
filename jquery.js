@@ -1,4 +1,6 @@
 var key = 0 ;
+var tab;
+var nbAffiche=0;
 
 $( window ).resize(function() {
   if ($(window).width() <768) {
@@ -50,14 +52,18 @@ $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
   $(".d-none").toggleClass("d-none d-block");
   $("#buttonAgranditForm").toggleClass("d-block d-none");
-
 });
 
 $(document).on('click', '#buttonRapetisseForm', function(event) {
   event.preventDefault();
    $(".d-block").toggleClass("d-block d-none");
   $("#buttonAgranditForm").toggleClass("d-none d-block");
+
   });
+
+$("#buttonTrieRes1").change(function(event) {
+  alert("fez");
+});
 
 $("#inscription").submit(function(e){ // On sélectionne le formulaire par son identifiant
     e.preventDefault();
@@ -85,6 +91,43 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
    ).fail(function(data,statut,xhr) {
      verifError(data.responseText);
    });
+});
+$("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le formulaire par son identifiant
+    e.preventDefault();
+    $.post('scriptphp/formulaireDeRecherche.php', // Un script PHP que l'on va créer juste après
+            
+        $("#formulaireDeRechercheResultat").serialize()
+    ,
+
+    function(data,statut){
+      alert(data);
+      tab=JSON.parse(data);
+      nbAffiche=25;
+      afficheRes();
+        
+    },
+    'text'
+   ).fail(function(data,statut,xhr) {
+     verifError(data.responseText);
+   });
+});
+
+
+function afficheRes(){
+  removeResTrajet();
+  console.log($("divHauteRes").attr("class"));
+  nbResAAfficher=tab.length<nbAffiche?tab.length:nbAffiche;
+  for (var i = 0; i < nbResAAfficher; i++) {
+  
+  $('#contenu').append('<div class="'+$("#divHauteRes").attr("class")+' removeResTrajet"> <a class="liensanscouleur '+$("#divHauteRes2").attr("class")+'" href="index.php?module=mod_trajet&id='+tab[i]["idTrajet"]+'"> <div class="col-2"> <img src="home.jpg" style="width: 100px"> <span class="">'+tab[i]["prenom"]+'</span> </div> <div class="col-6 row offset-1 justify-content-between" > <div class=" justify-content-between row container"> <span class="col-12 col-md-6">'+tab[i]["depart"]+'</span> <span class="col-6 text-right">'+tab[i]["heureDepart"]+'</span></div><div class="align-items-end justify-content-between row container"><span class="col-12 col-md-6" style="padding-right: 3px">'+tab[i]["destination"]+'</span> <span class="col-6 text-right">'+tab[i]["heureArrivee"]+'</span> </div> </div> <div class="col-2 row offset-1 justify-content-end "> <div class="row justify-content-end col-12"> <span class="align-top">'+tab[i]["placeTotale"]+'</span> </div> <div class="row align-content-end justify-content-end col-12" > <span class="align-text-bottomme">'+tab[i]["prix"]+'€</span> </div> </div> </a> </div>');
+
+  }
+}
+
+$('#buttonAffichePlus').on('click',function(event) {
+  event.preventDefault();
+  nbAffiche+=10;
+  afficheRes();
 });
 
       
@@ -371,6 +414,10 @@ $(document).ready(function(){
 function removeWarningForm(){
   $('.warning').remove();
 }
+function removeResTrajet(){
+  $('.removeResTrajet').remove();
+}
+
 function verifError(data){
   if (data.includes("00")) {
     $('#divEmailInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>');

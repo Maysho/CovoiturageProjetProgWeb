@@ -12,11 +12,6 @@ class mod_trajet extends VueGenerique{
 	function __construct(){
 		$this->controleur=new cont_trajet();
 	}
-
-	public function afficheNav(){
-		$this->controleur->nav();
-	}
-
 	public function init(){
 		$this->controleur->formTrajet();
 	}

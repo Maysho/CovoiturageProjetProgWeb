@@ -227,5 +227,281 @@ class vue_Trajet extends VueGenerique
 
 		<?php
 	}
+	public function afficheTrajet($value)
+	{
+		
+		if ($value==1) {
+			echo "<div class='row'>";
+		}
+		else
+			echo "<div class='row justify-content-center'>";
+		?>
+		<h1>Le trajet</h1>
+</div>
+<?php if ($value==1) {
+	echo "<div class='row' >
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+	}else
+		echo "<div class='row justify-content-center' >
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+
+		
+			?>
+				<div class="col-md-6">
+					<div class="row descriptionTxt" >
+						<span>Depart</span>
+						<div class="mr-auto"></div>
+						<span>Paris, 89+ dniezo</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Arrive</span>
+						<div class="mr-auto"></div>
+						<span>Paris, 89+ dniezo</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Date Depart</span>
+						<div class="mr-auto"></div>
+						<span>15/12/2018</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Date Arrive</span>
+						<div class="mr-auto"></div>
+						<span>15/12/2018</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Immatriculation</span>
+						<div class="mr-auto"></div>
+						<span>A156ZEAZEAZEA</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>CritAir</span>
+						<div class="mr-auto" ></div>
+						<span>1</span>
+					</div>
+
+				</div>
+				<div class="col offset-2">
+					<div>
+						<img src="home.jpg" class=" col-12" >
+					</div>
+					<div class="justify-content-center row">
+						<button class="btn">button</button>
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+		<?php
+		if ($value==1) {
+			echo "<div class='row' >
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+		}
+		else
+			echo "<div class='row justify-content-center' >
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+		?>
+		
+				<div class="col-md-2 col-4 row align-items-center">
+						<img src="home.jpg" class="img-fluid" >
+						
+				</div>
+				<div class="col-8 col-md-10">
+					<div class="row descriptionTxt" >
+						<span>yolo bonjour</span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span class="col-12">Ce trajet est cool puisque iozerhiofrezh iomvrhezivhj ropimjuvorpeùzjor pveùzjopvreùzojp f,reffffffff,,,,,,, ,,,ffffffffffffffff eiiiiiiiiiiiiiiiii iiiiiiiiiiiii iiiiiiiiiiii</span>
+						<span></span>
+					</div>
+				</div>
+
+				
+			</div>
+
+		</div>
+		<?php
+			if ($value==1) {
+				echo "<div class='row' >
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+			}
+			else
+				echo "<div class='row justify-content-center' >
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+
+
+		?>
+		
+				<div class="col-12">
+			<h2>Itineraire</h2>
+			</div>
+				<div class="col">
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border">
+							<span>c</span>
+						</div>
+						<div class="col-2 border-dark border" >
+							<span>p</span>
+						</div>
+						<div class="col-2 border-dark border">
+							<span>p</span>
+						</div>
+						<div class="col-2 border-dark border">
+							<span>p</span>
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border ">
+							<div class="bordered ">
+								<span> heure</span>
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0">
+							<img src="home.jpg" class="img-fluid">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0" >
+							<span>passager</span>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0">
+							<span>passager</span>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0">
+							<span>passager</span>
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+							<div class="bordered"">
+								<span> heure</span>
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0 box" >
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+							<div class="bordered" style="margin-left: 7px;height: 100%; padding-bottom: 12.9%;">
+								<span> heure</span>
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0 box">
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0 border-bottom-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+						<i class="far fa-circle">Nom Arret</i>
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-bottom-0 border-top-0">
+						</div>	
+					</div>
+					<div class="row " >
+						<div class="col-4 border-dark border">
+							<div class="bordered" style="margin-left: 7px;height: 100%">
+							</div>
+						</div>
+						<div class="col-2 border-dark border border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0" >
+						</div>
+						<div class="col-2 border-dark border border-top-0">
+						</div>
+						<div class="col-2 border-dark border border-top-0">
+						</div>	
+					</div>
+				</div>
+
+				
+			</div>
+
+		</div>
+		<?php
+		if ($value==1) {
+			echo "<div class='row'>
+			<div class='border border-dark col-md-8 row justify-content-between'>";
+		}
+		else
+			echo "<div class='row justify-content-center'>
+			<div class='border border-dark col-md-6 row justify-content-between'>";
+		?>
+		
+				<div class="col-12">
+					<h2>Commentaire</h2>
+				</div>
+
+				<div class="row"> 
+				<div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;">
+					<img src="home.jpg" class="img-fluid">
+				</div>
+				<div class="col">
+					<span> je suis le commentaire de dfddddddddddd ddddddddddddddd ddddddddddddddd dddddddddddd dddddddddddd ddddddddddddd dddddddddddddd ddddddddddddd ddddddddddd dddddddddddd sssssssssss ssssssssssssssssss ssssssssssssssss ssssssssssss sssssssssss</span>
+				</div>	
+				</div>
+
+				<div class="row">
+
+				<div class="col-3 col-md-2 offset-md-1">
+					<img src="home.jpg" class="img-fluid">
+				</div>
+				<div class="col">
+					<textarea type="textarea" class="col" form="" name="commentaire" style="resize: none;"> </textarea>
+				</div>	
+				<div class="col-md-3 col-6 offset-md-9 offset-7">
+					<input type="submit" class="col" name="">
+				</div>				
+				</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		<?php
+	}
 }
-?>
