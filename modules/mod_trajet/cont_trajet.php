@@ -15,15 +15,13 @@ class cont_trajet
 	}
 
 	public function formTrajet(){
-		$this->vue->formCreation();
+		if(isset($_SESSION['id'])){
+			$listeVehicule = $this->modele->getListeVehicule();
+			$this->vue->formCreation($listeVehicule);
+		}
+		else{
+			header("Location: index.php?module=mod_connexion");
+		}
 	}
 
-	/*public function verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf){
-		$this->modele->verifieInscription($email,$emailConf,$nom,$prenom,$mdp,$mdpConf);
-	}
-
-	public function AffichePageTrajet()
-	{
-		$this->vue->pageTrajet();
-	}*/
 }?>
