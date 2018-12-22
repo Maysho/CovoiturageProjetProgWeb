@@ -42,6 +42,6 @@ class cont_trajet
 			header("Location: index.php?module=mod_connexion");
 		}
 
-	}
+	}*/
 
 }?>
