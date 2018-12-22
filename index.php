@@ -102,9 +102,9 @@ die("Page inaccessible");
   		<?php 
 			//$CompMenu->affiche();
 
-			include_once 'modules/mod_connexion/mod_connexion.php';
-			$mod_connexion=new mod_connexion();
-			$mod_connexion->afficheNav();
+			include_once 'modules/mod_nav/mod_nav.php';
+			$mod_nav=new mod_nav();
+			$mod_nav->afficheNav();
 			?>
 		</header>
 		<section>

@@ -126,9 +126,9 @@ class modele_connexion extends connexion
 			$token=$token.$lettrePossible[rand(0,61)];
 		}
 		$insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET token = :token WHERE adresseMail=:adresseMail');
-        $insertPreparee -> execute(array('token'=>$token,'adresseMail'=>$email));
-        mail($email, 'Mot de passe oublier covoiturage', $token."
-            index.php?email=adabilly%40iut.univ-paris8.fr&module=mod_connexion&action=ChercheMotDePasseOublier", "From: covoiturage@hotm.fr");
+		$insertPreparee -> execute(array('token'=>$token,'adresseMail'=>$email));
+		mail($email, 'Mot de passe oublier covoiturage', $token."
+			index.php?email=".$email."&module=mod_connexion&action=ChercheMotDePasseOublier", "From: covoiturage@hotm.fr");
 	}
 	public function verifieMail($email)
 	{
@@ -164,6 +164,17 @@ class modele_connexion extends connexion
 		if (!($mdp==$mdpConf)) {
 			return false;
 		}
+		
+		return true;
+	}
+	public function verifieTokenDansMDP($token, $id)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE token=? and idUtilisateur=?');
+		$tableauIds=array($token,$id);
+		$selecPreparee->execute($tableauIds);
+		$tab= $selecPreparee->fetch();
+		if(empty($tab[0]))
+			return false;
 		return true;
 	}
 	public function recupereID($email)
