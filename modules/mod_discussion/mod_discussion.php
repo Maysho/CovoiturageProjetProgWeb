@@ -19,8 +19,8 @@ class ModDiscussion extends VueGenerique
 			$this->controleur->discussion($_SESSION['id']);
 
 		else
-			//die("page inaccessible");
-			$this->controleur->discussion(2);
+			die("page inaccessible");
+			
 	}
 }
 ?>
