@@ -164,6 +164,17 @@ class modele_connexion extends connexion
 		if (!($mdp==$mdpConf)) {
 			return false;
 		}
+		
+		return true;
+	}
+	public function verifieTokenDansMDP($token, $id)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT idUtilisateur FROM utilisateur WHERE token=? and idUtilisateur=?');
+		$tableauIds=array($token,$id);
+		$selecPreparee->execute($tableauIds);
+		$tab= $selecPreparee->fetch();
+		if(empty($tab[0]))
+			return false;
 		return true;
 	}
 	public function recupereID($email)

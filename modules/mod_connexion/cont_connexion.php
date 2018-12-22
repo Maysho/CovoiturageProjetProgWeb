@@ -61,8 +61,8 @@ class cont_connexion
 		if (empty($_SESSION['emailChangement'])) {
 			self::AfficheMotDePasseOublier(1);
 		}
-		elseif (isset($_POST['token'])  && $this->modele->verifieToken($_SESSION['emailChangement'],$_POST["token"])) {
-			header("Location: index.php?module=mod_connexion&action=ChangementMDP");
+		elseif (isset($_POST['token'])  && $this->modele->verifieToken(htmlspecialchars($_SESSION['emailChangement']),htmlspecialchars($_POST["token"]))) {
+			self::ChangementMDP(htmlspecialchars($_POST["token"]));
 		}
 		else
 			self::affichePageToken(1);
@@ -71,28 +71,32 @@ class cont_connexion
 	{
 		$this->vue->pageToken($value);
 	}
-	public function ChangementMDP()
+	public function ChangementMDP($token)
 	{
 		if (empty($_SESSION['emailChangement'])) {
 			self::AfficheMotDePasseOublier(1);
 		}
 		else{
-			$this->vue->affichePageChangementMPD(0);
+			$this->vue->affichePageChangementMPD(0,$token);
 		
 		}
 	}
 	public function VerifieMPD()
 	{
-		if (isset($_POST['mdp'])&&isset($_POST['mdpconf']) && $this->modele->verifieMDP($_POST['mdp'],$_POST['mdpconf'])) {
+		if (isset($_POST['mdp'])&&isset($_POST['mdpconf'])&& isset($_POST['token']) && $this->modele->verifieMDP(htmlspecialchars($_POST['mdp']),htmlspecialchars($_POST['mdpconf']))) {
 			$id=$this->modele->recupereID($_SESSION['emailChangement']);
 			unset($_SESSION['emailChangement']);
 			if($id>=0){
-				$this->modele->changeMDP($_POST['mdp'],$id);				
+				if ($this->modele->verifieTokenDansMDP(htmlspecialchars($_POST['token']),$id)) {
+					$this->modele->changeMDP($_POST['mdp'],$id);	
+				}
+				else
+					$this->vue->affichePageChangementMPD(1,null);		
 			}
 			$this->vue->pageConnexion(0);
 		}
 		else
-			$this->vue->affichePageChangementMPD(1);
+			$this->vue->affichePageChangementMPD(1,null);
 	}
 	public function deconnexion($value='')
 	{

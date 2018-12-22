@@ -296,6 +296,42 @@ class modele_trajet extends connexion {
 		return $error;
 			
 	}
+	public function recupSDepartSArrivee($id)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT MIN(s1.idsousTrajet),MAX(s1.idsousTrajet) FROM soustrajet as s1  WHERE s1.idTrajet=? GROUP by s1.idTrajet');
+		$tableauIds=array($id);
+		$selecPreparee->execute($tableauIds);
+		return $selecPreparee->fetch();
+	}
+	public function recupInfoTrajet($id,$tabs1s2)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateDepart,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sDebut.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
+		$tableauIds=array($id,$tabs1s2[0],$tabs1s2[1]);
+		$selecPreparee->execute($tableauIds);
+		return $selecPreparee->fetch();
+	}
+	public function recupUser($id)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT * FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? ORDER BY `sousTrajet_idsousTrajet` ASC');
+		$tableauIds=array($id);
+		$selecPreparee->execute($tableauIds);
+		return $selecPreparee->fetchAll();
+	}
+	public function recupInfoSousTrajet($id)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT * FROM soustrajet where soustrajet.idTrajet=?');
+		$tableauIds=array($id);
+		$selecPreparee->execute($tableauIds);
+
+		return( $selecPreparee->fetchAll());
+	}
+	public function commentaires($idTrajet){
+
+		$selectPreparee=self::$bdd->prepare('SELECT prenom ,urlPhoto, idAuteur, date, note, commenter.description FROM trajet INNER JOIN commenter on trajet.idTrajet = commenter.idTrajet inner join utilisateur on utilisateur.idUtilisateur=idAuteur WHERE trajet.idTrajet=? order by date DESC');
+		$tableauIds=array($idTrajet);
+		$selectPreparee->execute($tableauIds);
+		return $selectPreparee->fetchAll();
+	}
 }
 
 

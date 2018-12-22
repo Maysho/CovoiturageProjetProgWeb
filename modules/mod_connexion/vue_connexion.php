@@ -158,7 +158,7 @@ class vue_connexion extends VueGenerique
 
 <?php
   	}
-  	public function affichePageChangementMPD($value)
+  	public function affichePageChangementMPD($value,$token)
   	{
   		?><div class="row">
 
@@ -169,7 +169,10 @@ class vue_connexion extends VueGenerique
 			    <label for="mdp">Mot de passe</label>
 			    <input type="password" required name="mdp" class="form-control" id="mdp"  placeholder="Code...">
 			    <label for="mdpconf">Mot de passe</label>
-			    <input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Code..."><?php 
+			    <input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Code...">
+			    <input type="hidden" name="token" value="<?php echo $token ?>">
+			    <?php 
+			   
 			    if($value==1)
 			    	echo '<small id="warningemaildif" class=" form-text warning"> /!\\ un champ est incorrect</small>';
 			    ?>

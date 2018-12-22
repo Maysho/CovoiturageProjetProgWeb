@@ -105,10 +105,7 @@ h2{
     margin-left: 7px;
 }
 
-/*
- * Row with equal height columns
- * --------------------------------------------------
- */
+
 .box{
     position: relative;
     width: 100px;       /* desired width */
@@ -119,10 +116,6 @@ h2{
     padding-top: 100%;  /* ratio of 1:1*/
 }
 
-/*
- * Styles copied from the Grid example to make grid rows & columns visible.
- */
-/*
- * Callout styles copied from Bootstrap's main docs.
- */
-/* Common styles for all types */
+span{
+     word-wrap: break-word;
+}

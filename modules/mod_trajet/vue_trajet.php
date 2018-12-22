@@ -228,9 +228,8 @@ class vue_Trajet extends VueGenerique
 
 		<?php
 	}
-	public function afficheTrajet($value)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom)
 	{
-		
 		if ($value==1) {
 			echo "<div class='row'>";
 		}
@@ -252,41 +251,49 @@ class vue_Trajet extends VueGenerique
 					<div class="row descriptionTxt" >
 						<span>Depart</span>
 						<div class="mr-auto"></div>
-						<span>Paris, 89+ dniezo</span>
+						<span><?php echo $infoTrajet[0];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Arrive</span>
 						<div class="mr-auto"></div>
-						<span>Paris, 89+ dniezo</span>
+						<span><?php echo $infoTrajet[1];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Date Depart</span>
 						<div class="mr-auto"></div>
-						<span>15/12/2018</span>
+						<span><?php echo $infoTrajet[2];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Date Arrive</span>
 						<div class="mr-auto"></div>
-						<span>15/12/2018</span>
+						<span><?php echo $infoTrajet[3];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Immatriculation</span>
 						<div class="mr-auto"></div>
-						<span>A156ZEAZEAZEA</span>
+						<span><?php echo $infoTrajet[4];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>CritAir</span>
 						<div class="mr-auto" ></div>
-						<span>1</span>
+						<span><?php echo $infoTrajet[5];?></span>
+					</div>
+					<div class="row descriptionTxt" >
+						<span>Hybride</span>
+						<div class="mr-auto" ></div>
+						<span><?php echo $infoTrajet[6];?></span>
 					</div>
 
 				</div>
 				<div class="col offset-2">
 					<div>
-						<img src="home.jpg" class=" col-12" >
+						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[8];?>" alt="photoVehicule" class=" col-12" >
 					</div>
 					<div class="justify-content-center row">
-						<button class="btn">button</button>
+						<div class="col-12 justify-content-center row">
+						<span><?php echo $infoTrajet[12]."€";?></span>
+						</div>
+						<button class="btn" data-id="<?php echo $infoTrajet[13];?> ">button</button>
 					</div>
 				</div>
 				
@@ -304,15 +311,15 @@ class vue_Trajet extends VueGenerique
 		?>
 		
 				<div class="col-md-2 col-4 row align-items-center">
-						<img src="home.jpg" class="img-fluid" >
+						<img src="<?php echo empty($infoTrajet[8] )?'home.jpg':$infoTrajet[8];  ?>" class="img-fluid" >
 						
 				</div>
 				<div class="col-8 col-md-10">
 					<div class="row descriptionTxt" >
-						<span>yolo bonjour</span>
+						<span><?php echo $infoTrajet[9]." "; echo $infoTrajet[10];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span class="col-12">Ce trajet est cool puisque iozerhiofrezh iomvrhezivhj ropimjuvorpeùzjor pveùzjopvreùzojp f,reffffffff,,,,,,, ,,,ffffffffffffffff eiiiiiiiiiiiiiiiii iiiiiiiiiiiii iiiiiiiiiiii</span>
+						<span class="col-12"><?php echo $infoTrajet[11];?></span>
 						<span></span>
 					</div>
 				</div>
@@ -322,6 +329,11 @@ class vue_Trajet extends VueGenerique
 
 		</div>
 		<?php
+		var_dump($user);
+		var_dump(array_column($user, 'utilisateur_idutilisateur'));
+		var_dump(array_column($user, 'sousTrajet_idsousTrajet'));
+		$idUtilisateur=array_column($user, 'utilisateur_idutilisateur');
+		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
 			if ($value==1) {
 				echo "<div class='row' >
 			<div class='border border-dark col-md-8 row justify-content-between'>";
@@ -330,7 +342,25 @@ class vue_Trajet extends VueGenerique
 				echo "<div class='row justify-content-center' >
 			<div class='border border-dark col-md-6 row justify-content-between'>";
 
+		/*while($compteur<$nbSousTrajet) {
+			for ($i=0; $i < $infoTrajet[15]; $i++) { 
+					$tab=array();
+							if (isset($idSousTrajets[$compteur+$i+$trouve])&&$idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet) {
+								$val=$compteur+$i+$trouve;
+								echo "<span>$idUtilisateur[$val]</span>";
+								$suite=$suite+1;
+							}
+							else {}
+							
+								# code...
+							
+						  
+						
+						
+							
 
+						 }$trouve=$suite-1;$compteur=$compteur+1;
+						}*/
 		?>
 		
 				<div class="col-12">
@@ -344,34 +374,51 @@ class vue_Trajet extends VueGenerique
 						<div class="col-2 border-dark border">
 							<span>c</span>
 						</div>
-						<div class="col-2 border-dark border" >
+						
+
+					<?php  $compteur =0; $trouve=0; $nbSousTrajet=($idS[1]-$idS[0])+1; 
+					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
+					 	# code...
+					  ?>
+					<div class="col-2 border-dark border" >
 							<span>p</span>
 						</div>
-						<div class="col-2 border-dark border">
-							<span>p</span>
-						</div>
-						<div class="col-2 border-dark border">
-							<span>p</span>
-						</div>	
-					</div>
+						
+					<?php } echo "</div>";
+
+					while($compteur<$nbSousTrajet) { ?>
+			
 					<div class="row " >
 						<div class="col-4 border-dark border ">
 							<div class="bordered ">
-								<span> heure</span>
+								<span> <?php echo $tabSt[$compteur]['heureDepart']?></span>
 							</div>
 						</div>
-						<div class="col-2 border-dark border border-bottom-0">
+						<!-- <div class="col-2 border-dark border border-bottom-0">
 							<img src="home.jpg" class="img-fluid">
+						</div> -->
+						<?php $idsoustrajet=$idS[0]+$compteur;
+						$suite=0;
+						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
+							echo "<div class='col-2 border-dark border border-bottom-0' >";
+							if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet && isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]!=$infoTrajet[14]) {
+								$val=$compteur+$i+$trouve;
+								echo "<span>$idUtilisateur[$val]</span>";
+								$suite=$suite+1;
+							}
+							else if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet &&isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]==$infoTrajet[14]) {
+								echo "<img src='home.jpg' class='img-fluid'>";
+							}
+							else{
+								//echo $trouve.", ".$compteur.", ".$i ;
+							}
+							
+						  ?>
+						
+						
+							
 						</div>
-						<div class="col-2 border-dark border border-bottom-0" >
-							<span>passager</span>
-						</div>
-						<div class="col-2 border-dark border border-bottom-0">
-							<span>passager</span>
-						</div>
-						<div class="col-2 border-dark border border-bottom-0">
-							<span>passager</span>
-						</div>	
+						<?php }$trouve=$suite;$compteur=$compteur+1;?>
 					</div>
 					<div class="row " >
 						<div class="col-4 border-dark border">
@@ -379,13 +426,19 @@ class vue_Trajet extends VueGenerique
 						</div>
 						<div class="col-2 border-dark border border-bottom-0 border-top-0">
 						</div>
+						<?php
+						for ($i=1; $i <$infoTrajet[15] ; $i++) { 
+					 	# code...
+					  ?>
 						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
 						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>	
+						
+					<?php } ?>
+						
+						
 					</div>
+					<?php  
+					}?><!-- 
 					<div class="row " >
 						<div class="col-4 border-dark border">
 							<div class="bordered"">
@@ -456,7 +509,7 @@ class vue_Trajet extends VueGenerique
 						<div class="col-2 border-dark border border-top-0">
 						</div>	
 					</div>
-				</div>
+				</div> -->
 
 				
 			</div>
@@ -474,23 +527,27 @@ class vue_Trajet extends VueGenerique
 		
 				<div class="col-12">
 					<h2>Commentaire</h2>
-				</div>
-
-				<div class="row"> 
+				</div><?php
+				for ($i=0; $i < count($tabCom); $i++) { 
+					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
+?>				<div class="row col-12"> 
 				<div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;">
-					<img src="home.jpg" class="img-fluid">
+					<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
+					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
 				</div>
-				<div class="col">
-					<span> je suis le commentaire de dfddddddddddd ddddddddddddddd ddddddddddddddd dddddddddddd dddddddddddd ddddddddddddd dddddddddddddd ddddddddddddd ddddddddddd dddddddddddd sssssssssss ssssssssssssssssss ssssssssssssssss ssssssssssss sssssssssss</span>
+				<div class="col-7 col-md-9">
+					<span><?php echo $tabCom[$i]['description']; ?></span>
 				</div>	
 				</div>
-
-				<div class="row">
+<?php	   				
+	   			}?>
+				<div class="row col-12">
 
 				<div class="col-3 col-md-2 offset-md-1">
 					<img src="home.jpg" class="img-fluid">
 				</div>
-				<div class="col">
+				
+				<div class="col-7 col-md-9">
 					<textarea type="textarea" class="col" form="" name="commentaire" style="resize: none;"> </textarea>
 				</div>	
 				<div class="col-md-3 col-6 offset-md-9 offset-7">
@@ -503,6 +560,8 @@ class vue_Trajet extends VueGenerique
 			</div>
 
 		</div>
+		
 		<?php
+		
 	}
 }
