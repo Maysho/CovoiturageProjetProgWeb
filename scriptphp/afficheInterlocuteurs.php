@@ -9,8 +9,15 @@ $modele = new ModeleDiscussion;
 
 		for($i=0; $i<count($interlocuteurs); $i++){
 ?>
-			<p id="<?php echo $interlocuteurs[$i]['idInterlocuteur']; ?>" class="interlocuteurs"><?php echo $interlocuteurs[$i]['prenom']; ?></p>
-			<hr>
+			<div class="row">
+				<p id="<?php echo $interlocuteurs[$i]['idInterlocuteur']; ?>" class=" col-md-9 interlocuteurs"><?php echo $interlocuteurs[$i]['prenom']; ?></p>
+<?php
+		$nbMessagesNonLu=$modele->nbMessagesNonLuInterlocuteur($idUser, $interlocuteurs[$i]['idInterlocuteur']);
+		if($nbMessagesNonLu!=0)
+			echo "<p class='col-md-3'>$nbMessagesNonLu</p>";
+?>
+				<hr>
+			</div>
 <?php
 			
 						

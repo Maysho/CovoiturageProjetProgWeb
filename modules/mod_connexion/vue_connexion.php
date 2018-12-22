@@ -48,6 +48,9 @@ class vue_connexion extends VueGenerique
 			  <div class='mr-auto'></div>
 			    <ul class='navbar-nav '>
 			      <li class='nav-item'>
+			      	<a id='messagesNonLus' class='nav-link' href='?module=mod_discussion'></a>
+			      </li>
+			      <li class='nav-item'>
 			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>

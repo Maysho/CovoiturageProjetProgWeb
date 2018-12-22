@@ -453,18 +453,136 @@ function verifError(data){
   }
 }
 
-$('.interlocuteurs').on('click', function(e){
 
-  e.preventDefault();
-  var obj = $(this);
+
+
+
+
+function chargeInterlocuteurs(){
+  $('.interlocuteurs').on('click', function(e){
+   
+    e.preventDefault();
+    
+    var obj = $(this);
+
+    $('textarea#idInterlocuteurEnCours').val(obj.attr("id"));
+
+      $.post('scriptphp/afficheMessages.php', 
+      {
+        idInterlocuteur: obj.attr("id")},
+
+        function(data,statut){
+          $("#messages").html(data)
+          $("#messages").scrollTop(999999);
+        }
+      );
+
+  });
+}
+
+$('.interlocuteurs').ready(function(e){
+  chargeInterlocuteurs();
+});
+
+
+function envoyerMessage(){
   
-    $.post('scriptphp/afficheMessages.php', 
-    {
-      idInterlocuteur: obj.attr("id")},
+  var msg = $('textarea#MsgAEnvoyer').val();
+  if(msg != ""){
+    var interlocuteur = $('textarea#idInterlocuteurEnCours').val();
+    $('textarea#MsgAEnvoyer').val('');
 
-      function(data,statut){
-        $("#messages").html(data)
+    $.post('scriptphp/envoyerMessage.php',
+
+     {
+      message: msg,
+      idInterlocuteur: interlocuteur
+     },
+      function(){
       }
     );
 
+    $.post('scriptphp/afficheMessages.php', 
+    {
+      idInterlocuteur: interlocuteur
+    },
+
+      function(data,statut){
+        $("#messages").html(data)
+        $("#messages").scrollTop(999999);
+      }
+    );
+
+  }
+}
+
+$('#EnvoieMsg').on('click', function(e){
+  envoyerMessage();
 });
+
+$('#MsgAEnvoyer').keyup(function(e){
+  if(e.keyCode == 13){
+    envoyerMessage();
+  }
+});
+
+function afficheMessagesEtInterlocuteurs(){
+  var interlocuteur;
+
+  $.post('scriptphp/afficheInterlocuteurs.php',
+      {},
+      function(data,statut){
+        $('#interlocuteurs').html(data)
+        chargeInterlocuteurs();
+      }
+    );
+
+    interlocuteur = $('textarea#idInterlocuteurEnCours').val();
+    $.post('scriptphp/afficheMessages.php', 
+    {
+      idInterlocuteur: interlocuteur
+    },
+
+      function(data,statut){
+        var elem = $("#messages");
+        var maxScrollTopOld = elem[0].scrollHeight - elem.outerHeight();
+
+        $("#messages").html(data)
+
+        var elem = $("#messages");
+        var maxScrollTopNew = elem[0].scrollHeight - elem.outerHeight();
+
+        if($("#messages").scrollTop().valueOf()==0 || maxScrollTopOld!=maxScrollTopNew){
+          $("#messages").scrollTop(999999);
+        }
+      }
+    );
+}
+
+
+
+$('#messages').ready(function(e){
+
+  afficheMessagesEtInterlocuteurs();
+
+  setInterval(function() {
+
+    afficheMessagesEtInterlocuteurs();   
+  }, 1000);
+});
+
+$('#messagesNonLus').ready(function(e){
+  setInterval(function(){
+    $.post('scriptphp/messagesNonLus.php',
+      {},
+      function(data,statut){
+        if(data!=0)
+          $('#messagesNonLus').text(data);
+        
+          else
+            $('#messagesNonLus').text('');
+      });
+  },1000);
+});
+
+

@@ -5,13 +5,12 @@ $modele = new ModeleDiscussion;
 
 	$idInterlocuteur=isset($_POST['idInterlocuteur']) ? $_POST['idInterlocuteur'] : null;
 
-	$idUser = $_SESSION['id'];
 	if ($idInterlocuteur !== null){
+		$idUser = $_SESSION['id'];
 
-		$idValide = $modele->checkDiscuValide($idUser, $idInterlocuteur);
-
-		if($idValide){
+		if($modele->checkDiscuValide($idUser, $idInterlocuteur)){
 			$msg=$modele->messages($idUser, $idInterlocuteur);
+			$modele->messageLu($idUser, $idInterlocuteur);
 
 			for($i=0; $i<count($msg); $i++){
 				

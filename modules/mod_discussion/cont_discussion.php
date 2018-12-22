@@ -1,4 +1,4 @@
-<?php
+	<?php
 	
 	require_once 'modele_discussion.php';
 	require_once 'vue_discussion.php';
@@ -15,7 +15,8 @@
 		public function discussion($idUser){
 
 			$interlocuteurs=$this->modele->interlocuteurs($idUser);
-			$msg=$this->modele->messages($idUser,$interlocuteurs[0]['idInterlocuteur']);
+			$idInterlocuteur= isset($interlocuteurs[1]['idInterlocuteur'])?$interlocuteurs[1]['idInterlocuteur']:null;
+			$msg=$this->modele->messages($idUser,$idInterlocuteur);
 			$this->vue->discussion($interlocuteurs, $msg);
 		}
 

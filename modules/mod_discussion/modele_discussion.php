@@ -29,15 +29,15 @@ include_once __DIR__ . '/../../connexion.php';
 		public function messages($idUser, $idInterlocuteur){
 			$selectPreparee=self::$bdd->prepare('
 
-				SELECT contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, date FROM discussion
+				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, date FROM discussion
 				WHERE idUtilisateur1=? AND idUtilisateur2=?
 
 				UNION
 
-				SELECT contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, date FROM discussion
+				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, date FROM discussion
 				WHERE idUtilisateur2=? AND idUtilisateur1=?
 
-				ORDER BY date
+				ORDER BY idDiscussion
 				');
 			$tableauIds=array($idUser, $idInterlocuteur, $idUser, $idInterlocuteur);
 			$selectPreparee->execute($tableauIds);
@@ -57,5 +57,58 @@ include_once __DIR__ . '/../../connexion.php';
 		
 			return ($nbDiscu['nbDiscu'] == 0)? false : true;
 		}
+
+		public function insererMessage($idUser, $idInterlocuteur, $message){
+
+			$idUtilisateur1;
+			$idUtilisateur2;
+
+			$selectPreparee=self::$bdd->prepare('
+				SELECT count(idUtilisateur1) AS nbDiscu FROM discussion WHERE idUtilisateur1 = ? AND idUtilisateur2 = ? LIMIT 1'
+			);
+			$tableauIds=array($idUser, $idInterlocuteur);
+			$selectPreparee->execute($tableauIds);
+			$discuValide=$selectPreparee->fetch();
+
+			if($discuValide['nbDiscu'] != 0){
+				$idUtilisateur1=$idUser;
+				$idUtilisateur2=$idInterlocuteur;
+			}
+			else{
+				$idUtilisateur1=$idInterlocuteur;
+				$idUtilisateur2=$idUser;
+			}
+
+			$insertPrepare=self::$bdd->prepare('INSERT INTO discussion VALUES (DEFAULT, ?, ?, ?, ?, now(), 0)');
+			$tabValues=array($idUtilisateur1, $idUtilisateur2, $message, $idUser);
+			$insertPrepare->execute($tabValues);
+		}
+
+		public function messageLu($idUser, $idInterlocuteur){
+			$updatePrepare=self::$bdd->prepare('UPDATE discussion SET lu=1 WHERE ((idUtilisateur1 = ? AND idUtilisateur2 = ?) OR (idUtilisateur1 = ? AND idUtilisateur2 = ?)) AND idUtilisateurParle = ? AND lu = 0'
+			);
+
+			$tabValues=array($idUser, $idInterlocuteur, $idInterlocuteur, $idUser, $idInterlocuteur);
+			$updatePrepare->execute($tabValues);
+		}
+
+		public function nbMessagesNonLus($idUser){
+			$selectPreparee=self::$bdd->prepare('SELECT count(*) AS nb FROM discussion WHERE (idUtilisateur1=? OR idUtilisateur2=?) AND idUtilisateurParle != ? AND lu = 0');
+			$tabValues=array($idUser, $idUser, $idUser);
+			$selectPreparee->execute($tabValues);
+			$nbMsgNnLus=$selectPreparee->fetch();
+			return $nbMsgNnLus['nb'];
+
+		}
+
+		public function nbMessagesNonLuInterlocuteur($idUser, $idInterlocuteur){
+			$selectPreparee=self::$bdd->prepare('SELECT count(*) AS nb FROM discussion WHERE ((idUtilisateur1 = ? AND idUtilisateur2 = ?) OR (idUtilisateur1 = ? AND idUtilisateur2 = ?)) AND idUtilisateurParle = ? AND lu = 0');
+			
+			$tabValues=array($idUser, $idInterlocuteur, $idInterlocuteur, $idUser, $idInterlocuteur);
+			$selectPreparee->execute($tabValues);
+			$nbMsgNnLus=$selectPreparee->fetch();
+			return $nbMsgNnLus['nb'];
+		}
 	}
+		
 ?>
