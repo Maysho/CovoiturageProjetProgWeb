@@ -16,51 +16,48 @@ include_once 'vue_generique.php';
 				<section class="col-md-9">
 
 					<div class="row">
-						<div class="col-md-2 pre-scrollable">
+						<textarea id="idInterlocuteurEnCours"  hidden=""><?php echo $interlocuteurs[0]['idInterlocuteur']; ?></textarea>
+						<div id="interlocuteurs"  class="col-md-2 pre-scrollable scroll-bottom">
 <?php
-			for($i=0; $i<count($interlocuteurs); $i++){
+			/*for($i=0; $i<count($interlocuteurs); $i++){
 ?>
-							<p><?php echo $interlocuteurs[$i]['prenom'] ?></p>
-							<hr>
-<?php							
-			}
+				<p id="<?php echo $interlocuteurs[$i]['idInterlocuteur']; ?>" class="interlocuteurs"><?php echo $interlocuteurs[$i]['prenom']; ?></p>
+			<hr>
+<?php	
+			}*/
 ?>
+						</div>
 
-													</div>
-
-						<div class="col-md-9 pre-scrollable">
+						<div id="messages" class="col-md-9 pre-scrollable scroll-bottom">
 <?php
-			for($i=0; $i<count($msg); $i++){
-
-				if($i !== 0)
-					echo "<hr>";
+			/*for($i=0; $i<count($msg);$i++){
 ?>
+				<hr>
 
-							<div class="row">
-								<div class="col-3">
-									<label class="col-12"><?php echo $msg[$i]['prenom']?></label>
-									<label class="col-12"><?php echo $msg[$i]['date']?></label>
-								</div>
-								
-									<label class="col-9"><?php echo $msg[$i]['contenuMessage'] ?></label>
-								
-							</div>
-							
-<?php							
-			}
+				<div class="row">
+					<div class="col-3">
+						<label class="col-12"><?php echo $msg[$i]["prenom"]; ?></label>
+						<label class="col-12"><?php echo $msg[$i]["date"]; ?></label>
+					</div>
+					
+						<label class="col-9"><?php echo$msg[$i]["contenuMessage"]; ?></label>
+					
+				</div>
+<?php	
+			}*/
 ?>
 						</div>
 
 					</div>
 
 					<div class="row">
-						<textarea class="col-md-7 offset-md-2 form-control" maxlength="250" rows="1" style="resize: none"></textarea>
-						<button class="btn btn-primary col-md-2">Envoyer</button>
+							<textarea id="MsgAEnvoyer" class="col-md-7 offset-md-2 form-control" maxlength="250" rows="1" style="resize: none"></textarea>
+							<input id="EnvoieMsg" class="btn btn-primary col-md-2" type="submit"></input>
+						
 					</div>
 						
 				</section>
 			</div>
-			
 <?php
 		}
 	}

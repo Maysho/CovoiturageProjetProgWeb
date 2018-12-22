@@ -105,6 +105,12 @@ h2{
     margin-left: 7px;
 }
 
+.pre-scrollable{
+	min-height:340px;
+	max-height:340px;
+	overflow-y:scroll;
+}
+
 /*
  * Row with equal height columns
  * --------------------------------------------------
