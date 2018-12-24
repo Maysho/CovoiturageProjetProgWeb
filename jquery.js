@@ -458,7 +458,7 @@ function verifError(data){
 
 
 
-function chargeInterlocuteurs(){
+function chargeMessagesInterlocuteurs(){
   $('.interlocuteurs').on('click', function(e){
    
     e.preventDefault();
@@ -472,8 +472,7 @@ function chargeInterlocuteurs(){
         idInterlocuteur: obj.attr("id")},
 
         function(data,statut){
-          $("#messages").html(data)
-          $("#messages").scrollTop(999999);
+          afficheMessages(data, true);
         }
       );
 
@@ -481,7 +480,7 @@ function chargeInterlocuteurs(){
 }
 
 $('.interlocuteurs').ready(function(e){
-  chargeInterlocuteurs();
+  chargeMessagesInterlocuteurs();
 });
 
 
@@ -498,8 +497,7 @@ function envoyerMessage(){
       message: msg,
       idInterlocuteur: interlocuteur
      },
-      function(){
-      }
+      function(){}
     );
 
     $.post('scriptphp/afficheMessages.php', 
@@ -533,7 +531,7 @@ function afficheMessagesEtInterlocuteurs(){
       {},
       function(data,statut){
         $('#interlocuteurs').html(data)
-        chargeInterlocuteurs();
+        chargeMessagesInterlocuteurs();
       }
     );
 
@@ -544,7 +542,14 @@ function afficheMessagesEtInterlocuteurs(){
     },
 
       function(data,statut){
-        var elem = $("#messages");
+        
+        afficheMessages(data, false);
+      }
+    );
+}
+
+function afficheMessages(data, chargeMessagesInterlocuteurs){
+  var elem = $("#messages");
         var maxScrollTopOld = elem[0].scrollHeight - elem.outerHeight();
 
         $("#messages").html(data)
@@ -552,28 +557,23 @@ function afficheMessagesEtInterlocuteurs(){
         var elem = $("#messages");
         var maxScrollTopNew = elem[0].scrollHeight - elem.outerHeight();
 
-        if($("#messages").scrollTop().valueOf()==0 || maxScrollTopOld!=maxScrollTopNew){
+        if(chargeMessagesInterlocuteurs || maxScrollTopOld!=maxScrollTopNew)
           $("#messages").scrollTop(999999);
-        }
-      }
-    );
 }
 
 
 
 $('#messages').ready(function(e){
-
   afficheMessagesEtInterlocuteurs();
-
+ 
   setInterval(function() {
-
+   
     afficheMessagesEtInterlocuteurs();   
-  }, 1000);
+  }, 100000);
 });
 
-$('#messagesNonLus').ready(function(e){
-  setInterval(function(){
-    $.post('scriptphp/messagesNonLus.php',
+function messagesNonLu(){
+  $.post('scriptphp/messagesNonLus.php',
       {},
       function(data,statut){
         if(data!=0)
@@ -581,7 +581,13 @@ $('#messagesNonLus').ready(function(e){
         
           else
             $('#messagesNonLus').text('');
-      });
+  });
+}
+
+$('#messagesNonLus').ready(function(e){
+    messagesNonLu();
+  setInterval(function(){
+    messagesNonLu();
   },1000);
 });
 

@@ -16,7 +16,7 @@ $modele = new ModeleDiscussion;
 		if($nbMessagesNonLu!=0)
 			echo "<p class='col-md-3'>$nbMessagesNonLu</p>";
 ?>
-				<hr>
+				<hr class="col-md-10">
 			</div>
 <?php
 			
