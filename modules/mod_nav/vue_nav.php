@@ -37,8 +37,8 @@ class vue_nav extends VueGenerique
 ";
 	}
 	public function navConnecte(){
-
-   		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
+?>
+   		<nav class='navbar navbar-expand-md navbar-light bg-light'>
 			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
@@ -56,7 +56,7 @@ class vue_nav extends VueGenerique
 			    </ul>
 			    <div class='nav-item dropdown'>
 			        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-			          <img src='profildefault.jpg' class='imagenav'>
+			          <img src='home.jpg' class='imagenav'>
 			        </a>
 			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 			          <a class='dropdown-item' href='?module=mod_discussion'>Discussion</a>
@@ -67,8 +67,8 @@ class vue_nav extends VueGenerique
 			      </div>
 			  </div>
 			</nav>
-";
-   	
+
+   	<?php
   	}
 }
 ?>

@@ -15,7 +15,7 @@ class cont_trajet
 	}
 
 	public function formTrajet(){
-		if(isset($_SESSION['id'])){
+		
 	        if (isset($_GET['action']) && htmlspecialchars($_GET['action'])=="afficheTrajet") {
 	        	$idS=$this->modele->recupSDepartSArrivee(htmlspecialchars($_GET['id']));
 	        	$tabInfoTrajet=$this->modele->recupInfoTrajet(htmlspecialchars($_GET['id']),$idS);
@@ -25,14 +25,15 @@ class cont_trajet
 	            $this->vue->afficheTrajet(isset($_SESSION['id'])?1:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire);
 	        }
 	        else{
-	           
+	           if(isset($_SESSION['id'])){
 				$listeVehicule = $this->modele->getListeVehicule();
 				$this->vue->formCreation($listeVehicule);
-			}
-		}else{
+				}else{
 				header("Location: index.php?module=mod_connexion");
 		
         }
+			}
+		
     }
 	public function AffichePageTrajet($value='')
 	{

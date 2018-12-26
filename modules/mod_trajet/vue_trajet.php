@@ -298,13 +298,46 @@ class vue_Trajet extends VueGenerique{
 						<div class="col-12 justify-content-center row">
 						<span><?php echo $infoTrajet[12]."€";?></span>
 						</div>
-						<button class="btn" data-id="<?php echo $infoTrajet[13];?> ">button</button>
+						<button class="btn" data-toggle="modal" data-target="#partieInscription" data-id="<?php echo $infoTrajet[13];?> ">button</button>
 					</div>
 				</div>
 				
 			</div>
 
 		</div>
+
+
+		<div class="modal" id="partieInscription">
+			<div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title">Choisissez votre trajet</h4>
+			        <button type="button" class="close" data-dismiss="modal">
+			          <span>&times;</span>
+			        </button>            
+			      </div>
+			      <div class="modal-body">
+			        <?php 
+			        //var_dump($tabSt);
+
+			        for ($i=0; $i <count($tabSt) ; $i++) { 
+			        	
+			        	echo '<div class="row"><div class="col-6"><label for="st'.$i.'" >'.$tabSt[$i][12].'</label></div><div class="col-6"><input type="checkbox" id="st'.$i.'" value='.$i.' class="checkerInscription"></div></div>';
+
+			        	
+			        }
+
+			        ?>
+
+			        <span id="prixInscription">0€</span>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+			      </div>
+			    </div>
+			  </div>
+		</div>
+
 		<?php
 		if ($value==1) {
 			echo "<div class='row' >
@@ -443,78 +476,7 @@ class vue_Trajet extends VueGenerique{
 						
 					</div>
 					<?php  
-					}?><!-- 
-					<div class="row " >
-						<div class="col-4 border-dark border">
-							<div class="bordered"">
-								<span> heure</span>
-							</div>
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0 box" >
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-							<div class="bordered" style="margin-left: 7px;height: 100%; padding-bottom: 12.9%;">
-								<span> heure</span>
-							</div>
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0 box">
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-							<div class="bordered" style="margin-left: 7px;height: 100%">
-							</div>
-						</div>
-						<div class="col-2 border-dark border border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0" >
-						</div>
-						<div class="col-2 border-dark border border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0">
-						</div>	
-					</div>
-				</div> -->
+					}?>
 
 				
 			</div>
@@ -532,10 +494,10 @@ class vue_Trajet extends VueGenerique{
 		
 				<div class="col-12">
 					<h2>Commentaire</h2>
-				</div><?php
+				</div><div id="espaceCommentaire"><?php
 				for ($i=0; $i < count($tabCom); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
-?>				<div class="row col-12"> 
+?>				<div class="row col-12" > 
 				<div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;">
 					<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
 					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
@@ -546,6 +508,7 @@ class vue_Trajet extends VueGenerique{
 				</div>
 <?php	   				
 	   			}?>
+	   		</div>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
 
 				<div class="col-3 col-md-2 offset-md-1">
@@ -553,14 +516,15 @@ class vue_Trajet extends VueGenerique{
 				</div>
 				
 				<div class="col-7 col-md-9">
-					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" style="resize: none;"> </textarea>
+					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"style="resize: none;"> </textarea>
 				</div>
 				<div class="col-3 col-md-2 offset-md-1">
 					<label  for="note">note:</label>
-					<input class ="col-12  col-md-6" type="text" id="note"name="note">
+					<input class ="col-12  col-md-6" type="text" id="note" name="note">
 				</div>	
+				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
 				<div class="col-md-3 col-6 offset-md-9 offset-7">
-					<input type="submit" class="col" name="">
+					<input type="submit" class="col" name="submit">
 				</div>				
 				</form>
 				</div>

@@ -92,6 +92,7 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
          });
        });
 $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le formulaire par son identifiant
+  alert("uidzeui");
   e.preventDefault();
     $.post('scriptphp/formulaireDeRecherche.php', // Un script PHP que l'on va créer juste après
 
@@ -113,6 +114,7 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
 
 $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
+  $('#messageErreurCom').remove();
     $.post('scriptphp/formulaireDeCommentaire.php', // Un script PHP que l'on va créer juste après
 
       $("#formCommentairePageTrajet").serialize()
@@ -120,14 +122,13 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
 
       function(data,statut){
         alert(data);
-        tab=JSON.parse(data);
-        nbAffiche=25;
-        afficheRes();
+        $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-9"><span>'+$("#contenuCom").val()+'</span></div></div>');
 
       },
       'text'
       ).fail(function(data,statut,xhr) {
-        verifError(data.responseText);
+        console.log(data.responseText);
+        $('#formCommentairePageTrajet').append('<div class="row justify-content-end col-12" id="messageErreurCom"><small class="align-right form-text warning"> '+data.responseText+'</small></div>');
       });
     });
 
@@ -603,4 +604,22 @@ $('#messagesNonLus').ready(function(e){
   },1000);
 });
 
+valeurChange=-1;
+$(".checkerInscription").on('change', function(event) {
+  if ($(this).val()==valeurChange) {
+    valeurChange=-1;
+    $('.checkerInscription').prop( "checked", false );
+  }
+  else if (valeurChange<0) {
+    valeurChange=$(this).val();
+  }
+  else{
+    for (var i = valeurChange; i < $(this).val(); i++) {
+      val="#st"+i;
+      $(val).prop( "checked", true);
+        
+    }
 
+  }
+  
+});

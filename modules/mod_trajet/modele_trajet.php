@@ -361,7 +361,7 @@ class modele_trajet extends connexion {
 	}
 	public function recupInfoSousTrajet($id)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT * FROM soustrajet where soustrajet.idTrajet=?');
+		$selecPreparee=self::$bdd->prepare('SELECT * FROM soustrajet inner join ville as v1 on v1.idVille=idVilleDepart inner join ville as v2 on v2.idVille=idVilleArrivee where soustrajet.idTrajet=? order by soustrajet.idsousTrajet');
 		$tableauIds=array($id);
 		$selecPreparee->execute($tableauIds);
 
@@ -373,6 +373,43 @@ class modele_trajet extends connexion {
 		$tableauIds=array($idTrajet);
 		$selectPreparee->execute($tableauIds);
 		return $selectPreparee->fetchAll();
+	}
+	public function ajouteCommentaire($note,$commentaire,$idTrajet)
+	{
+		if (!isset($_SESSION['id'])) {
+			header('Location: index.php?module=mod_connexion');
+		}
+		if(!is_numeric($note) || $note>20 || $note<0 || empty($commentaire)){
+			http_response_code(400);
+			echo "le message ou la note est incorrect";
+			exit(1);
+		}
+		//TODO faire une verif si on est inscrit au trajet mdr
+
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM commenter where idAuteur=? and idTrajet=? ');
+		$tableauIds=array($_SESSION['id'],$idTrajet);
+		$selecPrepareeUnique->execute($tableauIds);
+		$unique=$selecPrepareeUnique->fetch();
+		if (empty($unique['idAuteur'])==0) {
+			http_response_code(401);
+			echo "vous avez déjà rentré un commentaire";
+			exit(1);
+		}
+
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT idConducteur,urlPhoto FROM trajet inner join utilisateur on idConducteur=idUtilisateur where idTrajet=? ');
+		$tableauIds=array($idTrajet);
+		$selecPrepareeUnique->execute($tableauIds);
+		$utilisateur=$selecPrepareeUnique->fetch();
+		if (empty($utilisateur['idConducteur'])) {
+			http_response_code(402);
+			echo "une erreur est survenu";
+			exit(1);
+		}
+
+		$insertPreparee=self::$bdd->prepare('INSERT INTO commenter(idAuteur,idTrajet,description,date,note,idUtilisateur) values(:id1,:id2,:descript,:date,:note,:idUtilisateur)');
+		$insertPreparee -> execute(array('id1'=>$_SESSION['id'],'id2'=>$idTrajet,'descript'=>$commentaire,'date'=>date("Y-m-d"),'note'=>$note,'idUtilisateur'=>$utilisateur['idConducteur']));
+
+		echo json_encode($utilisateur); 
 	}
 }
 
