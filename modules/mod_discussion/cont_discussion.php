@@ -20,5 +20,9 @@
 			$this->vue->discussion($interlocuteurs, $msg);
 		}
 
+		public function envoieMsgDepuisProfil($idUser, $idInterlocuteur){
+			$this->modele->envoieMsgDepuisProfil($idUser, $idInterlocuteur);
+		}
+
 	}
 ?>

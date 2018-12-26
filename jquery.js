@@ -588,7 +588,7 @@ $('#messages').ready(function(e){
   setInterval(function() {
    
     afficheMessagesEtInterlocuteurs();   
-  }, 100000);
+  }, 1000);
 });
 
 function messagesNonLu(){

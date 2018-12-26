@@ -61,9 +61,44 @@ include_once 'vue_generique.php';
 								<label class="col-md-12">Note moyenne : <?php echo $moyenne; ?></label>
 							</div>
 
-<?php	if($estPagePerso)							
-			echo '			<a class="col-md-2 order-1 order-md-3" href="?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif"><button type="button" class="btn 	btn-primary col-md-12">Modifier le profil</button></a>';
-?>						</div>
+<?php	if($estPagePerso)			
+			echo '<a class="btn btn-primary col-md-2 order-1 order-md-3" href="?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif" role="button">Modifier le profil</a>';
+		else{
+?>
+							<a class="btn btn-primary col-md-2 order-1 order-md-3" href="#" data-toggle="modal" data-target="#exampleModal" role="button">
+								Envoyer un message
+							</a>
+
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalLabel">Envoyer un message</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+
+							      	<form method="POST" class="col-12" id="envoyerMessage" enctype="multipart/form-data" action="<?php echo '?module=mod_discussion&idprofil='.$idUser; ?>">
+										
+										<textarea class="form-control" rows="3" maxlength="255" form="envoyerMessage" name="message" style="resize: none"	></textarea>
+									</form>
+							        
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+							        <button type="submit" class="btn btn-primary" form="envoyerMessage">Envoyer</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+<?php
+
+		}
+?>
+						</div>
 					
 
 					

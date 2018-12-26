@@ -84,6 +84,12 @@ include_once __DIR__ . '/../../connexion.php';
 			$insertPrepare->execute($tabValues);
 		}
 
+		public function envoieMsgDepuisProfil($idUser, $idInterlocuteur){
+			$msg=htmlspecialchars($_POST['message']);
+			if($msg != "")
+				$this->insererMessage($idUser, $idInterlocuteur, $msg);
+		}
+
 		public function messageLu($idUser, $idInterlocuteur){
 			$updatePrepare=self::$bdd->prepare('UPDATE discussion SET lu=1 WHERE ((idUtilisateur1 = ? AND idUtilisateur2 = ?) OR (idUtilisateur1 = ? AND idUtilisateur2 = ?)) AND idUtilisateurParle = ? AND lu = 0'
 			);
