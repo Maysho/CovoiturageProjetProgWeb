@@ -111,6 +111,25 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
       });
     });
 
+$("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
+  e.preventDefault();
+    $.post('scriptphp/formulaireDeCommentaire.php', // Un script PHP que l'on va créer juste après
+
+      $("#formCommentairePageTrajet").serialize()
+      ,
+
+      function(data,statut){
+        alert(data);
+        tab=JSON.parse(data);
+        nbAffiche=25;
+        afficheRes();
+
+      },
+      'text'
+      ).fail(function(data,statut,xhr) {
+        verifError(data.responseText);
+      });
+    });
 
 function afficheRes(){
   removeResTrajet();
@@ -275,7 +294,7 @@ $(function(){
 
   // ajout des champs etapes
   $("#btnAjoutEtape").on("click",function(){
-
+    console.log(key);
     // On copie le template et on le rend visible la premiere fois 
     if( $('.tpl').length == 1){
       var cont= $('#etape').clone(); //partie itineraire
