@@ -321,15 +321,21 @@ class vue_Trajet extends VueGenerique{
 			        //var_dump($tabSt);
 
 			        for ($i=0; $i <count($tabSt) ; $i++) { 
-			        	
-			        	echo '<div class="row"><div class="col-6"><label for="st'.$i.'" >'.$tabSt[$i][12].'</label></div><div class="col-6"><input type="checkbox" id="st'.$i.'" value='.$i.' class="checkerInscription"></div></div>';
-
-			        	
-			        }
+                        if ($i==(count($tabSt)-1)) {
+                        	echo '<div class="row"><div class="col-6">';
+                        }
+                        else
+                        	echo '<div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+                        if($i==0){
+                        echo '<label for="st'.$i.'" >'.$tabSt[$i][12].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+                        }
+                        
+                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][35].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" id="st'.$i.'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
+                    }
 
 			        ?>
 
-			        <span id="prixInscription">0€</span>
+			        <span id="prixInscription">0</span><span>€</span>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>

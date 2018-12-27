@@ -110,7 +110,9 @@ h2{
  * Row with equal height columns
  * --------------------------------------------------
  */
-
+.checkermed{
+    margin-top: -7px;
+}
 .box{
     position: relative;
     width: 100px;       /* desired width */

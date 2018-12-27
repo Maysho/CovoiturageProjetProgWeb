@@ -609,16 +609,53 @@ $(".checkerInscription").on('change', function(event) {
   if ($(this).val()==valeurChange) {
     valeurChange=-1;
     $('.checkerInscription').prop( "checked", false );
+    $('#prixInscription').text("0");
   }
   else if (valeurChange<0) {
     valeurChange=$(this).val();
+    $('#prixInscription').text(parseInt($('#prixInscription').text(),10)+parseInt($(this).attr('data-prix'),10));
   }
-  else{
-    for (var i = valeurChange; i < $(this).val(); i++) {
+  else if(!($(this).prop('checked'))){
+    $('.checkerInscription').prop( "checked", false );
+    var prix=0;
+    if (valeurChange<$(this).val()) {
+      for (var i = valeurChange; i <= $(this).val()-1; i++) {
+        val="#st"+i;
+        $(val).prop( "checked", true);
+        prix+=parseInt($(val).attr('data-prix'),10);
+          
+      }
+    }
+    else{
+      for (var i = valeurChange; i > $(this).val(); i--) {
       val="#st"+i;
       $(val).prop( "checked", true);
+      prix+=parseInt($(val).attr('data-prix'),10);
         
     }
+    }
+    $('#prixInscription').text(prix);
+  }
+  else {
+    var prix=0;
+    $('.checkerInscription').prop( "checked", false );
+    if (valeurChange<$(this).val()) {
+      for (var i = valeurChange; i <= $(this).val(); i++) {
+        val="#st"+i;
+        $(val).prop( "checked", true);
+        prix+=parseInt($(val).attr('data-prix'),10);
+          
+      }
+    }
+    else{
+      for (var i = valeurChange; i >= $(this).val(); i--) {
+      val="#st"+i;
+      $(val).prop( "checked", true);
+      prix+=parseInt($(val).attr('data-prix'),10);
+        
+    }
+    }
+    $('#prixInscription').text(prix);
 
   }
   
