@@ -413,7 +413,7 @@ class vue_Trajet extends VueGenerique{
 				<div class="col">
 					<div class="row " >
 						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
+						<i class="far fa-circle"><?php  echo $tabSt[0][12]?></i>
 						</div>
 						<div class="col-2 border-dark border">
 							<span>c</span>
@@ -466,7 +466,7 @@ class vue_Trajet extends VueGenerique{
 					</div>
 					<div class="row " >
 						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
+						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][35]?></i>
 						</div>
 						<div class="col-2 border-dark border border-bottom-0 border-top-0">
 						</div>
