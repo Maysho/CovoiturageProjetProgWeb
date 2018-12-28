@@ -92,6 +92,7 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
          });
        });
 $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le formulaire par son identifiant
+  alert("uidzeui");
   e.preventDefault();
     $.post('scriptphp/formulaireDeRecherche.php', // Un script PHP que l'on va créer juste après
 
@@ -113,6 +114,7 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
 
 $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
+  $('#messageErreurCom').remove();
     $.post('scriptphp/formulaireDeCommentaire.php', // Un script PHP que l'on va créer juste après
 
       $("#formCommentairePageTrajet").serialize()
@@ -120,14 +122,41 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
 
       function(data,statut){
         alert(data);
-        tab=JSON.parse(data);
-        nbAffiche=25;
-        afficheRes();
 
+        $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="home.jpg" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
+		$("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
+		  e.preventDefault();
+		  
+		  alert("on rentre");
+    $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
+
+      {
+      	idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+      }
+      ,
+
+      function(data,statut){
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+      	$('#supprimerCom').parent().parent().parent().remove();
+             /*window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#desinscriptionAuTrajet').attr('data-id'));*/
+
+             //window.location.replace('index.php?module=mod_connexion');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         });
+         
+       });	
       },
       'text'
       ).fail(function(data,statut,xhr) {
-        verifError(data.responseText);
+        console.log(data.responseText);
+        $('#formCommentairePageTrajet').append('<div class="row justify-content-end col-12" id="messageErreurCom"><small class="align-right form-text warning"> '+data.responseText+'</small></div>');
       });
     });
 
@@ -470,6 +499,19 @@ function verifError(data){
   if (data.includes("06")) {
     $('#divEmailInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ cette adresse email est deja utilisee</small>');
   }
+  if (data.includes("07")) {
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ petit malin tu as changer du code</small>');
+  }
+  if (data.includes("08")) {
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ desole mais le trajet n\' est pas celui que vous avez choisi initialement et il est plein</small>');
+  }
+  if (data.includes("09")) {
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous vous etes deconnectez</small>');
+  }
+  if (data.includes("10")) {
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous etes deja dans ce trajet</small>');
+  }
+
 }
 
 
@@ -603,4 +645,167 @@ $('#messagesNonLus').ready(function(e){
   },1000);
 });
 
+valeurChange=-1;
+$(".checkerInscription").on('change', function(event) {
+  if ($(this).val()==valeurChange) {
+    valeurChange=-1;
+    $('.checkerInscription').prop( "checked", false );
+    $('#prixInscription').text("0");
+  }
+  else if (valeurChange<0) {
+    valeurChange=$(this).val();
+    $('#prixInscription').text(parseInt($('#prixInscription').text(),10)+parseInt($(this).attr('data-prix'),10));
+  }
+  else if(!($(this).prop('checked'))){
+    $('.checkerInscription').prop( "checked", false );
+    var prix=0;
+    if (valeurChange<$(this).val()) {
+      for (var i = valeurChange; i <= $(this).val()-1; i++) {
+        val="#st"+i;
+        $(val).prop( "checked", true);
+        prix+=parseInt($(val).attr('data-prix'),10);
+          
+      }
+    }
+    else{
+      for (var i = valeurChange; i > $(this).val(); i--) {
+      val="#st"+i;
+      $(val).prop( "checked", true);
+      prix+=parseInt($(val).attr('data-prix'),10);
+        
+    }
+    }
+    $('#prixInscription').text(prix);
+  }
+  else {
+    var prix=0;
+    $('.checkerInscription').prop( "checked", false );
+    if (valeurChange<$(this).val()) {
+      for (var i = valeurChange; i <= $(this).val(); i++) {
+        val="#st"+i;
+        $(val).prop( "checked", true);
+        prix+=parseInt($(val).attr('data-prix'),10);
+          
+      }
+    }
+    else{
+      for (var i = valeurChange; i >= $(this).val(); i--) {
+      val="#st"+i;
+      $(val).prop( "checked", true);
+      prix+=parseInt($(val).attr('data-prix'),10);
+        
+    }
+    }
+    $('#prixInscription').text(prix);
 
+  }
+  
+});
+
+$("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
+  e.preventDefault();
+  
+  alert("on rentre");
+  var compteur=0;
+  var tabVille=[];
+  for (var i = 0; i < parseInt($(this).attr('data-nbPlace'),10); i++) {
+  	val="#st"+i;
+  	if ($(val).prop("checked")) {
+	tabVille[compteur]=$(val).attr('data-idville');
+	compteur++;
+  	}
+  }
+  
+    if (tabVille.length !=0) {
+    $.post('scriptphp/formulaireDinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
+
+      {
+      	tabId:tabVille,
+      	idTrajet:$('#sinscrireAuTrajet').attr('data-id')
+      }
+      ,
+
+      function(data,statut){
+        console.log(data);
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+             window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#sinscrireAuTrajet').attr('data-id'));
+
+             //window.location.replace('index.php?module=mod_connexion');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         	alert(data.responseText);
+          verifError(data.responseText);
+         });
+         }
+       });
+
+$("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formulaire par son identifiant
+  e.preventDefault();
+  
+  alert("on rentre");
+
+
+  
+
+    $.post('scriptphp/desinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
+
+      {
+      	idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+      }
+      ,
+
+      function(data,statut){
+        alert(data);
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+             window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#desinscriptionAuTrajet').attr('data-id'));
+
+             //window.location.replace('index.php?module=mod_connexion');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         	alert(data.responseText);
+          verifError(data.responseText);
+         });
+         
+       });
+
+$("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
+  e.preventDefault();
+  
+  alert("on rentre");
+
+
+
+
+    $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
+
+      {
+      	idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+      }
+      ,
+
+      function(data,statut){
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+            $('#supprimerCom').parent().parent().parent().remove();//.parent().parent().parent().parent().attr("background-color", 'blue');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         });
+         
+       });

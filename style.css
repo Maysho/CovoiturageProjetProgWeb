@@ -110,7 +110,9 @@ h2{
  * Row with equal height columns
  * --------------------------------------------------
  */
-
+.checkermed{
+    margin-top: -7px;
+}
 .box{
     position: relative;
     width: 100px;       /* desired width */
@@ -124,6 +126,15 @@ h2{
 
 span{
      word-wrap: break-word;
+}
+#dropcom::after{
+    display: none;
+}
+#dropcom{
+    color: black;
+}
+.detailTrajet{
+    margin: 0;
 }
 
 /*

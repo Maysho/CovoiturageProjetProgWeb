@@ -233,9 +233,9 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer)
 	{
-		if ($value==1) {
+		if ($value>=1) {
 			echo "<div class='row'>";
 		}
 		else
@@ -243,7 +243,7 @@ class vue_Trajet extends VueGenerique{
 		?>
 		<h1>Le trajet</h1>
 </div>
-<?php if ($value==1) {
+<?php if ($value>=1) {
 	echo "<div class='row' >
 			<div class='border border-dark col-md-8 row justify-content-between'>";
 	}else
@@ -296,17 +296,71 @@ class vue_Trajet extends VueGenerique{
 					</div>
 					<div class="justify-content-center row">
 						<div class="col-12 justify-content-center row">
-						<span><?php echo $infoTrajet[12]."€";?></span>
+						<span><?php if($estDansTrajet) echo $PrixAPayer."€";else echo $infoTrajet[12]."€";?></span>
 						</div>
-						<button class="btn" data-id="<?php echo $infoTrajet[13];?> ">button</button>
+						<?php if ($value==0) {
+							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet" data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
+						}else {
+							if ($estDansTrajet) {
+								echo '<button class="btn" id="desinscriptionAuTrajet" data-id="'.$infoTrajet[13].'">se desinscrire du trajet</button>';
+							}
+							else
+								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
+						}
+?>
 					</div>
 				</div>
 				
 			</div>
 
 		</div>
+
+
+		<div class="modal" id="partieInscription">
+			<div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title">Choisissez votre trajet</h4>
+			        <button type="button" class="close" data-dismiss="modal">
+			          <span>&times;</span>
+			        </button>            
+			      </div>
+			      <form method="GET" action="#" id="envoieInscriptionTrajet" data-nbPlace="<?php echo count($tabSt) ?>">
+			      <div class="modal-body" id="bodyInscriptionTrajet">
+			        <?php
+			        
+			        //var_dump($tabSt);
+			        
+			         
+			        for ($i=0; $i <count($tabSt) ; $i++) { 
+                        if ($i==(count($tabSt)-1)) {
+                        	echo '<div class="row"><div class="col-6">';
+                        }
+                        else
+                        	echo '<div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+                        if($i==0){
+                        echo '<label for="st'.$i.'" >'.$tabSt[$i][12].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+                        }
+                        
+                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][35].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" n id="st'.$i.'" data-idVille="'.$tabSt[$i][34].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
+                    }
+
+			        ?>
+			        <div class="row justify-content-end">
+			        <span id="prixInscription">0</span><span>€</span>
+			        </div>
+			      </div>
+			      <div class="modal-footer justify-content-between">
+			        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+			        <input type="submit" name="envoie" class="btn" value="Valider" id="envoieInscription">
+			      </div>
+			  </form>
+			    </div>
+			  </div>
+		</div>
+
 		<?php
-		if ($value==1) {
+		if ($value>=1) {
 			echo "<div class='row' >
 			<div class='border border-dark col-md-8 row justify-content-between'>";
 		}
@@ -316,7 +370,8 @@ class vue_Trajet extends VueGenerique{
 		?>
 		
 				<div class="col-md-2 col-4 row align-items-center">
-						<img src="<?php echo empty($infoTrajet[8] )?'home.jpg':$infoTrajet[8];  ?>" class="img-fluid" >
+					<?php $lien='?module=mod_profil&idprofil='.$infoTrajet[14].'&ongletprofil=profil'?>
+						<a href="<?php echo $lien; ?>"><img src="<?php echo empty($infoTrajet[8] )?'home.jpg':$infoTrajet[8];  ?>" class="img-fluid" ></a>
 						
 				</div>
 				<div class="col-8 col-md-10">
@@ -339,7 +394,7 @@ class vue_Trajet extends VueGenerique{
 		var_dump(array_column($user, 'sousTrajet_idsousTrajet'));*/
 		$idUtilisateur=array_column($user, 'utilisateur_idutilisateur');
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
-			if ($value==1) {
+			if ($value>=1) {
 				echo "<div class='row' >
 			<div class='border border-dark col-md-8 row justify-content-between'>";
 			}
@@ -373,8 +428,9 @@ class vue_Trajet extends VueGenerique{
 			</div>
 				<div class="col">
 					<div class="row " >
-						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
+						<div class="col-4 border-dark border row justify-content-between detailTrajet">
+						<i class="far fa-circle"><?php  echo $tabSt[0][12]?></i>
+						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<div class="col-2 border-dark border">
 							<span>c</span>
@@ -396,7 +452,7 @@ class vue_Trajet extends VueGenerique{
 					<div class="row " >
 						<div class="col-4 border-dark border ">
 							<div class="bordered ">
-								<span> <?php echo $tabSt[$compteur]['heureDepart']?></span>
+								
 							</div>
 						</div>
 						<!-- <div class="col-2 border-dark border border-bottom-0">
@@ -406,9 +462,10 @@ class vue_Trajet extends VueGenerique{
 						$suite=0;
 						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
 							echo "<div class='col-2 border-dark border border-bottom-0' >";
+							$val=$compteur+$i+$trouve;
 							if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet && isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]!=$infoTrajet[14]) {
 								$val=$compteur+$i+$trouve;
-								echo "<span>$idUtilisateur[$val]</span>";
+								echo "<span>$idUtilisateur[$val] </span>";
 								$suite=$suite+1;
 							}
 							else if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet &&isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]==$infoTrajet[14]) {
@@ -423,11 +480,14 @@ class vue_Trajet extends VueGenerique{
 						
 							
 						</div>
-						<?php }$trouve=$suite;$compteur=$compteur+1;?>
+						<?php }$trouve=$trouve+$suite;$compteur=$compteur+1;
+						?>
+
 					</div>
 					<div class="row " >
-						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
+						<div class="col-4 border-dark border row justify-content-between detailTrajet">
+						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][35]?></i>
+						<span> <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
 						</div>
 						<div class="col-2 border-dark border border-bottom-0 border-top-0">
 						</div>
@@ -437,91 +497,23 @@ class vue_Trajet extends VueGenerique{
 					  ?>
 						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
 						</div>
+
 						
 					<?php } ?>
 						
 						
 					</div>
 					<?php  
-					}?><!-- 
-					<div class="row " >
-						<div class="col-4 border-dark border">
-							<div class="bordered"">
-								<span> heure</span>
-							</div>
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0 box" >
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-							<div class="bordered" style="margin-left: 7px;height: 100%; padding-bottom: 12.9%;">
-								<span> heure</span>
-							</div>
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0 box">
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0" >
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0 border-bottom-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-						<i class="far fa-circle">Nom Arret</i>
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>	
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border">
-							<div class="bordered" style="margin-left: 7px;height: 100%">
-							</div>
-						</div>
-						<div class="col-2 border-dark border border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0" >
-						</div>
-						<div class="col-2 border-dark border border-top-0">
-						</div>
-						<div class="col-2 border-dark border border-top-0">
-						</div>	
-					</div>
-				</div> -->
+
+							
+					}?>
 
 				
 			</div>
-
 		</div>
-		<?php
-		if ($value==1) {
+		</div>
+		<?php 
+		if ($value>=1) {
 			echo "<div class='row'>
 			<div class='border border-dark col-md-8 row justify-content-between'>";
 		}
@@ -532,37 +524,62 @@ class vue_Trajet extends VueGenerique{
 		
 				<div class="col-12">
 					<h2>Commentaire</h2>
-				</div><?php
+				</div><div id="espaceCommentaire"><?php
 				for ($i=0; $i < count($tabCom); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
-?>				<div class="row col-12"> 
+?>				<div class="row col-12" > 
 				<div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;">
 					<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
 					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
 				</div>
-				<div class="col-7 col-md-9">
+				<?php if ($tabCom[$i]['idAuteur']!=$value) {
+					
+				?>
+				<div class="col-8 col-md-9">
 					<span><?php echo $tabCom[$i]['description']; ?></span>
 				</div>	
+				<?php } else{?>
+				<div class="col-7 col-md-8">
+					<span><?php echo $tabCom[$i]['description']; ?></span>
+				</div>
+				<div class="col-1">
+					<a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+			        
+					<i class="fas fa-bars"></i>
+					</a>
+					<div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton">
+					    <a class="dropdown-item " id="supprimerCom" href="#">supprimer</a>
+
+					  </div>
+				</div>
+			<?php }?>
 				</div>
 <?php	   				
 	   			}?>
+	   		</div>
+	   		<?php if ($estDansTrajet) {
+	   			# code...
+	   		?>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
 
 				<div class="col-3 col-md-2 offset-md-1">
 					<img src="home.jpg" class="img-fluid">
 				</div>
 				
-				<div class="col-7 col-md-9">
-					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" style="resize: none;"> </textarea>
+				<div class="col-8 col-md-9">
+					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"style="resize: none;"> </textarea>
 				</div>
-				<div class="col-3 col-md-2 offset-md-1">
+				<div class="col-3 col-md-3 offset-md-1">
 					<label  for="note">note:</label>
-					<input class ="col-12  col-md-6" type="text" id="note"name="note">
+					<input class ="col-12 col-md-6" type="text" id="note" name="note">
 				</div>	
+				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
 				<div class="col-md-3 col-6 offset-md-9 offset-7">
-					<input type="submit" class="col" name="">
+					<input type="submit" class="col" name="submit">
 				</div>				
 				</form>
+			<?php }?>
 				</div>
 
 
@@ -571,4 +588,10 @@ class vue_Trajet extends VueGenerique{
 		</div>
 <?php
 }
+	public function afficheHeure($heureAvecSec)
+	{
+		$heure=explode(':', $heureAvecSec);
+		return " ".$heure[0].':'.$heure[1];
+	}
+
 }
