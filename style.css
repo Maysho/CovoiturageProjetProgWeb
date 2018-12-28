@@ -133,6 +133,9 @@ span{
 #dropcom{
     color: black;
 }
+.detailTrajet{
+    margin: 0;
+}
 
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.

@@ -428,8 +428,9 @@ class vue_Trajet extends VueGenerique{
 			</div>
 				<div class="col">
 					<div class="row " >
-						<div class="col-4 border-dark border">
+						<div class="col-4 border-dark border row justify-content-between detailTrajet">
 						<i class="far fa-circle"><?php  echo $tabSt[0][12]?></i>
+						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<div class="col-2 border-dark border">
 							<span>c</span>
@@ -451,7 +452,7 @@ class vue_Trajet extends VueGenerique{
 					<div class="row " >
 						<div class="col-4 border-dark border ">
 							<div class="bordered ">
-								<span> <?php echo self::afficheHeure($tabSt[$compteur]['heureDepart'])?></span>
+								
 							</div>
 						</div>
 						<!-- <div class="col-2 border-dark border border-bottom-0">
@@ -461,9 +462,10 @@ class vue_Trajet extends VueGenerique{
 						$suite=0;
 						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
 							echo "<div class='col-2 border-dark border border-bottom-0' >";
+							$val=$compteur+$i+$trouve;
 							if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet && isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]!=$infoTrajet[14]) {
 								$val=$compteur+$i+$trouve;
-								echo "<span>$idUtilisateur[$val]</span>";
+								echo "<span>$idUtilisateur[$val] </span>";
 								$suite=$suite+1;
 							}
 							else if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet &&isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]==$infoTrajet[14]) {
@@ -478,13 +480,14 @@ class vue_Trajet extends VueGenerique{
 						
 							
 						</div>
-						<?php }$trouve=$suite;$compteur=$compteur+1;
+						<?php }$trouve=$trouve+$suite;$compteur=$compteur+1;
 						?>
 
 					</div>
 					<div class="row " >
-						<div class="col-4 border-dark border">
+						<div class="col-4 border-dark border row justify-content-between detailTrajet">
 						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][35]?></i>
+						<span> <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
 						</div>
 						<div class="col-2 border-dark border border-bottom-0 border-top-0">
 						</div>
@@ -501,21 +504,13 @@ class vue_Trajet extends VueGenerique{
 						
 					</div>
 					<?php  
-					if ($compteur==$nbSousTrajet) {?>
-							<div class="row">
-								<div class="col-4 border-dark border ">
-									<div class="">
-										<span> <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
-									</div>
-							</div>
-						</div>
-					<?php	}
+
 							
 					}?>
 
 				
 			</div>
-
+		</div>
 		</div>
 		<?php 
 		if ($value>=1) {
