@@ -23,7 +23,7 @@ class vue_nav extends VueGenerique
 			    <ul class='navbar-nav '>
 			      
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Rechercher <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php'>Rechercher <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
 			        <a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
@@ -51,7 +51,7 @@ class vue_nav extends VueGenerique
 			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Rechercher</a>
+			        <a class='nav-link' href='index.php'>Rechercher</a>
 			      </li>
 			    </ul>
 			    <div class='nav-item dropdown'>

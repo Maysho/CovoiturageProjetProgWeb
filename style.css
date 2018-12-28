@@ -127,6 +127,12 @@ h2{
 span{
      word-wrap: break-word;
 }
+#dropcom::after{
+    display: none;
+}
+#dropcom{
+    color: black;
+}
 
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.

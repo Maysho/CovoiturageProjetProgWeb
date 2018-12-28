@@ -22,7 +22,16 @@ class cont_trajet
 	        	$tabUser=$this->modele->recupUser(htmlspecialchars($_GET['id']));
 	        	$tabinfoSTrajet=$this->modele->recupInfoSousTrajet(htmlspecialchars($_GET['id']));
 	        	$tabCommentaire=$this->modele->commentaires(htmlspecialchars($_GET['id']));
-	            $this->vue->afficheTrajet(isset($_SESSION['id'])?1:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire);
+	        	$estDansTrajet=false;
+	        	if (isset($_SESSION['id'])) {
+	        		$estDansTrajet=$this->modele->estDansTrajet(htmlspecialchars($_GET['id']));
+	        	}
+	        	
+	        	$prixAPayer=0;
+	        	if (isset($_SESSION['id'])&&$estDansTrajet) {
+	        		$prixAPayer=$this->modele->recupPrixAPayer(htmlspecialchars($_GET['id']));
+	        	}
+	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0]);
 	        }
 	        else{
 	           if(isset($_SESSION['id'])){
