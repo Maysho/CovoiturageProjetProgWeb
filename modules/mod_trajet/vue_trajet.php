@@ -233,7 +233,7 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValide)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValidee)
 	{
 		if ($value>=1) {
 			echo "<div class='row col-md-8'>";
@@ -305,11 +305,11 @@ class vue_Trajet extends VueGenerique{
 						<span><?php if($estDansTrajet) echo $PrixAPayer."€";else echo $infoTrajet[12]."€";?></span>
 						</div>
 						<?php 
-
+						echo $trajetValidee;
 						if ($value==0 && !$peutEtreValide) {
 							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet" data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
 						}else {
-							if ($trajetValide) {
+							if ($trajetValidee) {
 								# code...
 							}
 
