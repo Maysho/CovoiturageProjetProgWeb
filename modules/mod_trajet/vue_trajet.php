@@ -236,19 +236,25 @@ class vue_Trajet extends VueGenerique{
 	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValide)
 	{
 		if ($value>=1) {
-			echo "<div class='row'>";
+			echo "<div class='row col-md-8'>";
 		}
 		else
-			echo "<div class='row justify-content-center'>";
+			echo "<div class='row col-md-6 justify-content-center'>";
+		
+		if ($value>=1) {
+			echo "<div class='row col-12'>";
+		}
+		else
+			echo "<div class='row col-12 justify-content-center'>";
 		?>
 		<h1>Le trajet</h1>
 </div>
 <?php if ($value>=1) {
-	echo "<div class='row' >
-			<div class='border border-dark col-md-8 row justify-content-between'>";
+	echo "<div class='row col-12' >
+			<div class='border border-dark col-12 row justify-content-between'>";
 	}else
-		echo "<div class='row justify-content-center' >
-			<div class='border border-dark col-md-6 row justify-content-between'>";
+		echo "<div class='row col-12 justify-content-center' >
+			<div class='border border-dark col-12 row justify-content-between'>";
 
 		
 			?>
@@ -377,12 +383,12 @@ class vue_Trajet extends VueGenerique{
 
 		<?php
 		if ($value>=1) {
-			echo "<div class='row' >
-			<div class='border border-dark col-md-8 row justify-content-between'>";
+			echo "<div class='row col-12' >
+			<div class='border border-dark col-12 row justify-content-between'>";
 		}
 		else
-			echo "<div class='row justify-content-center' >
-			<div class='border border-dark col-md-6 row justify-content-between'>";
+			echo "<div class='row col-12 justify-content-center' >
+			<div class='border border-dark col-12 row justify-content-between'>";
 		?>
 		
 				<div class="col-md-2 col-4 row align-items-center">
@@ -411,32 +417,14 @@ class vue_Trajet extends VueGenerique{
 		$idUtilisateur=array_column($user, 'utilisateur_idutilisateur');
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
 			if ($value>=1) {
-				echo "<div class='row' >
-			<div class='border border-dark col-md-8 row justify-content-between'>";
+				echo "<div class='row col-12' >
+			<div class='border border-dark col-12 row justify-content-between'>";
 			}
 			else
-				echo "<div class='row justify-content-center' >
-			<div class='border border-dark col-md-6 row justify-content-between'>";
+				echo "<div class='row col-12 justify-content-center' >
+			<div class='border border-dark col-12 row justify-content-between'>";
 
-		/*while($compteur<$nbSousTrajet) {
-			for ($i=0; $i < $infoTrajet[15]; $i++) { 
-					$tab=array();
-							if (isset($idSousTrajets[$compteur+$i+$trouve])&&$idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet) {
-								$val=$compteur+$i+$trouve;
-								echo "<span>$idUtilisateur[$val]</span>";
-								$suite=$suite+1;
-							}
-							else {}
-							
-								# code...
-							
-						  
-						
-						
-							
 
-						 }$trouve=$suite-1;$compteur=$compteur+1;
-						}*/
 		?>
 		
 				<div class="col-12">
@@ -532,12 +520,12 @@ class vue_Trajet extends VueGenerique{
 		if ($trajetValide) {
 		
 		if ($value>=1) {
-			echo "<div class='row'>
-			<div class='border border-dark col-md-8 row justify-content-between'>";
+			echo "<div class='row col-12'>
+			<div class='border border-dark col-12 row justify-content-between'>";
 		}
 		else
-			echo "<div class='row justify-content-center'>
-			<div class='border border-dark col-md-6 row justify-content-between'>";
+			echo "<div class='row col-12 justify-content-center'>
+			<div class='border border-dark col-12 row justify-content-between'>";
 		?>
 		
 				<div class="col-12">
@@ -604,6 +592,7 @@ class vue_Trajet extends VueGenerique{
 			</div>
 
 		</div>
+	</div>
 <?php
 	}
 }

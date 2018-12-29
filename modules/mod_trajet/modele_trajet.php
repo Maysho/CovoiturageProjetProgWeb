@@ -456,7 +456,19 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 			echo "10-";
 			return true;
 		}
-
+		$prixApayer=0;
+		foreach ($tabIdVille as $key => $value) {
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT prix FROM soustrajet WHERE soustrajet.idTrajet=? and idVilleArrivee=?');
+			$selecPrepareeUnique->execute(array($idTrajet,$value));
+			$prixApayer=$selecPrepareeUnique->fetch()[0]+$prixApayer;
+		}
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT credit FROM utilisateur where idUtilisateur=?');
+		$selecPrepareeUnique->execute(array($_SESSION['id']));
+		$argent=$selecPrepareeUnique->fetch()[0];
+		if ($prixApayer>$argent) {
+			echo "11-";
+			return true;
+		}
 		return false;	
 	}
 	public function InscriptionTrajet($tabIdVille, $idTrajet)
@@ -466,7 +478,6 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 			exit(1);
 		}
 		
-		
 
 		foreach ($tabIdVille as $key => $value) {
 
@@ -474,10 +485,10 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 			$selecPrepareeUnique->execute(array($idTrajet,$value));
 			$idst=$selecPrepareeUnique->fetch();
 
-
-
 			$insertPreparee=self::$bdd->prepare('INSERT INTO soustrajetutilisateur(utilisateur_idutilisateur,sousTrajet_idsousTrajet,valide,prixPayer) values(:idUser,:idsousTrajet,0,:prix)');
 			$insertPreparee -> execute(array('idUser'=>$_SESSION['id'],'idsousTrajet'=>$idst['idsousTrajet'],'prix'=>$idst['prix']));
+			$updatePrepareee=self::$bdd->prepare('UPDATE utilisateur set credit=credit-? where idUtilisateur=?');
+			$updatePrepareee -> execute(array($idst['prix'],$_SESSION['id']));
 		}
 
 		echo "success";
@@ -501,6 +512,11 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 	}
 	public function desinscriptionTrajet($idTrajet)
 	{
+		$prix=self::recupPrixAPayer($idTrajet);
+
+		$updatePrepareee=self::$bdd->prepare('UPDATE utilisateur set credit=credit+? where idUtilisateur=?');
+		$updatePrepareee -> execute(array($prix[0],$_SESSION['id']));
+
 		$deletePreparee=self::$bdd->prepare('DELETE soustrajetutilisateur FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet where utilisateur_idutilisateur=? and idTrajet=? ');
 		$deletePreparee -> execute(array($_SESSION['id'],$idTrajet));
 		echo "success";

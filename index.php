@@ -100,15 +100,28 @@ die("Page inaccessible");
   	<div class="container-fluid">
 	<header>
   		<?php 
-			//$CompMenu->affiche();
+
 
 			include_once 'modules/mod_nav/mod_nav.php';
 			$mod_nav=new mod_nav();
 			$mod_nav->afficheNav();
+
 			?>
 		</header>
-		<section>
-			<?php echo "$affichageForm";?>
+		<?php if (isset($_SESSION['id'])) {
+		echo'<section class="row col-12">';
+}
+else
+echo'<section class="row col-12 justify-content-center">';
+?>
+			<?php 
+			include_once 'composants/compTest/CompTest.php';
+  			$CompTest=new CompTest();
+			if (isset($_SESSION['id'])) {
+				$CompTest->affiche();
+			}
+			
+			echo "$affichageForm";?>
 		</section>
 
 
