@@ -32,7 +32,7 @@ class cont_trajet
 	        	$trajetValide=false;
 	        	if (isset($_SESSION['id'])&&$estDansTrajet) {
 	        		$prixAPayer=$this->modele->recupPrixAPayer(htmlspecialchars($_GET['id']));
-
+	        		
 	        		$trajetValide=$this->modele->trajetValide(htmlspecialchars($_GET['id']));
 	        		
 	        	}

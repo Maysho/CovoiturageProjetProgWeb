@@ -510,6 +510,13 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetch();
 	}
+	public function recupPrixAPayerU($idTrajet,$idUser)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT sum(prixPayer) FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
+		$tableauIds=array($idTrajet, $idUser);
+		$selecPreparee->execute($tableauIds);
+		return $selecPreparee->fetch()[0];
+	}
 	public function desinscriptionTrajet($idTrajet)
 	{
 		$prix=self::recupPrixAPayer($idTrajet);
@@ -549,8 +556,20 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$conducteur=self::conducteur($idTrajet);
 		if ($_SESSION['id']==$conducteur) {
 	   
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT utilisateur_idutilisateur from soustrajetutilisateur inner join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=?');
+			$selecPrepareeUnique->execute(array($idTrajet));
+			$idUtilisateur=$selecPrepareeUnique->fetchAll();
+			foreach ($idUtilisateur as $key => $value) {
+				$prix=self::recupPrixAPayerU($idTrajet,$value[0]);
+				$updatePreparee=self::$bdd->prepare('UPDATE utilisateur set  credit=credit+? where idUtilisateur=?');
+				$updatePreparee -> execute(array($prix,$value[0]));
+			}
+
+
 			$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set valide=1, prixPayer=0 where sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
 			$updatePreparee -> execute(array($idTrajet));
+
+			
 		}
 		else{
 		$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set valide=1 where utilisateur_idutilisateur=? and sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
@@ -571,7 +590,11 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$tableauIds=array($idSt1[0]);
 		$selecPreparee->execute($tableauIds);
 		$res=$selecPreparee->fetch();
-		return ($res[0]-date('H:i:s')<=1) and ($res[1]==date('Y-m-d')) ;
+
+		$date1 = new DateTime($res[1]." ".$res[0]);
+		$date2 = new DateTime(date('Y-m-d H:i:s'));
+
+		return ( ( $date1 <= $date2)) ;
 
 	}
 	public function trajetValide($idTrajet)
