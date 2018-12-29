@@ -32,10 +32,6 @@ class modele_resTrajet extends connexion
 			left join soustrajetutilisateur as stu on stu.sousTrajet_idsousTrajet=soustrajet.idsousTrajet
 			WHERE a.nomVille LIKE ?"%" and b.nomVille LIKE ?"%" and prix<=? and regulier=? and dateDepart=? and suppression=0  GROUP BY trajet.idTrajet
 HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
-			
-
-
-
 			UNION (
 
 	SELECT idTrajet, urlPhoto, prenom, depart, destination, prix, heureDepart, heureArrivee,placeTotale from(

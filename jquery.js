@@ -511,6 +511,9 @@ function verifError(data){
   if (data.includes("10")) {
     $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous etes deja dans ce trajet</small>');
   }
+  if (data.includes("11")) {
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous n\'avez pas assez d\'argent sur votre compte</small>');
+  }
 
 }
 
@@ -701,10 +704,9 @@ $(".checkerInscription").on('change', function(event) {
   }
   
 });
-
 $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
-  
+
   alert("on rentre");
   var compteur=0;
   var tabVille=[];
@@ -726,7 +728,7 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
       ,
 
       function(data,statut){
-        console.log(data);
+        alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
              window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#sinscrireAuTrajet').attr('data-id'));
@@ -809,3 +811,27 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
          });
          
        });
+$('#validationAuTrajet').on('click', function(event) {
+  event.preventDefault();
+  alert("rentre");
+  $.post('scriptphp/validationAuTrajet.php', // Un script PHP que l'on va créer juste après
+
+      {
+        idTrajet:$('#validationAuTrajet').attr('data-id')
+      }
+      ,
+
+      function(data,statut){
+        alert(data);
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+            window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#validationAuTrajet').attr('data-id'));//.parent().parent().parent().parent().attr("background-color", 'blue');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         });
+});

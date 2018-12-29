@@ -13,13 +13,13 @@ class VueAccueil extends VueGenerique
 
 	public function affiche($connecte){
    		if ($connecte) {
-   			echo "<div class='row '>
-  		<section class='border border-dark justify-content-md-start justify-content-lg-center col-md-9'>";
+   			echo "<div class='row col-md-8'>
+  		<section class='border border-dark justify-content-md-start justify-content-lg-center col-12'>";
    		}
    
   		else
-  			echo "<div class='row justify-content-md-center'>
-  		<section class='border border-dark justify-content-md-start justify-content-lg-center col-md-7'>";
+  			echo "<div class='row justify-content-md-center col-md-6'>
+  		<section class='border border-dark justify-content-md-start justify-content-lg-center col-12'>";
   		?>
   		<div class='row justify-content-end'>
   			<button class='btn btn-primary' style='margin-right: 3%'>lala</button>
