@@ -520,6 +520,52 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$idUtilisateur=$selecPrepareeUnique->fetchAll();
 		return !empty($idUtilisateur);
 	}
+	public function conducteur($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT idConducteur from trajet where idTrajet=?');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetch();
+		return $idUtilisateur[0];
+		
+	}
+	public function valideTrajet($idTrajet)
+	{
+		$conducteur=self::conducteur($idTrajet);
+		if ($_SESSION['id']==$conducteur) {
+	   
+			$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set valide=1, prixPayer=0 where sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
+			$updatePreparee -> execute(array($idTrajet));
+		}
+		else{
+		$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set valide=1 where utilisateur_idutilisateur=? and sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
+		$updatePreparee -> execute(array($_SESSION['id'],$idTrajet));
+		$prix=self::recupPrixAPayer($idTrajet);
+		
+		$updatePreparee=self::$bdd->prepare('update utilisateur set credit=credit+? where idUtilisateur=?');
+		$updatePreparee -> execute(array($prix[0],$conducteur));
+		$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set prixPayer=0 where utilisateur_idutilisateur=? and sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
+		$updatePreparee -> execute(array($_SESSION['id'],$idTrajet));
+		}
+		echo "success";
+	}
+	public function peutEtreValide($idTrajet)
+	{
+		$idSt1=self::recupSDepartSArrivee($idTrajet);
+		$selecPreparee=self::$bdd->prepare('SELECT heureDepart, dateDepart FROM soustrajet where soustrajet.idsousTrajet=? ');
+		$tableauIds=array($idSt1[0]);
+		$selecPreparee->execute($tableauIds);
+		$res=$selecPreparee->fetch();
+		return ($res[0]-date('H:i:s')<=1) and ($res[1]==date('Y-m-d')) ;
+
+	}
+	public function trajetValide($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet= ? and soustrajetutilisateur.valide=true and soustrajetutilisateur.utilisateur_idutilisateur=?');
+		$selecPrepareeUnique->execute(array($idTrajet,$_SESSION['id']));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return !empty($idUtilisateur);
+	}
 }
 
 

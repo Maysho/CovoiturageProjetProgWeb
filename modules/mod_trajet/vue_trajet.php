@@ -65,7 +65,7 @@ class vue_Trajet extends VueGenerique{
 
 				  					<div class="col-md-3 row form-group text-center">
 				  						<label class="col-md-4">Heure <i class="far fa-clock"></i></label>
-				  						<input class="offset-md-2 col-md-4 form-control" type="time" id="heureDepart" value="<?php echo date('h:i') ?>">
+				  						<input class="offset-md-2 col-md-4 form-control" type="time" id="heureDepart" value="<?php echo date('H:i') ?>">
 				  					</div>
 				  				</div>
 				  				
@@ -233,7 +233,7 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValide)
 	{
 		if ($value>=1) {
 			echo "<div class='row'>";
@@ -298,14 +298,30 @@ class vue_Trajet extends VueGenerique{
 						<div class="col-12 justify-content-center row">
 						<span><?php if($estDansTrajet) echo $PrixAPayer."€";else echo $infoTrajet[12]."€";?></span>
 						</div>
-						<?php if ($value==0) {
+						<?php 
+
+						if ($value==0 && !$peutEtreValide) {
 							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet" data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
 						}else {
-							if ($estDansTrajet) {
+							if ($trajetValide) {
+								# code...
+							}
+
+							else if ($estDansTrajet && !$peutEtreValide && $value!=$infoTrajet[14]) {
 								echo '<button class="btn" id="desinscriptionAuTrajet" data-id="'.$infoTrajet[13].'">se desinscrire du trajet</button>';
 							}
-							else
+							else if (!$estDansTrajet && $peutEtreValide) {
+								# code...
+							}
+							else if($peutEtreValide){
+								echo '<button class="btn" id="validationAuTrajet" data-id="'.$infoTrajet[13].'">valider ce trajet</button>';
+							}
+							else if ($value==$infoTrajet[14]) {
+								# code...
+							}
+							else{
 								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
+							}
 						}
 ?>
 					</div>
@@ -433,7 +449,7 @@ class vue_Trajet extends VueGenerique{
 						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<div class="col-2 border-dark border">
-							<span>c</span>
+							<!-- <span>c</span> -->
 						</div>
 						
 
@@ -442,7 +458,7 @@ class vue_Trajet extends VueGenerique{
 					 	# code...
 					  ?>
 					<div class="col-2 border-dark border" >
-							<span>p</span>
+							<!-- <span>p</span> -->
 						</div>
 						
 					<?php } echo "</div>";
@@ -513,6 +529,8 @@ class vue_Trajet extends VueGenerique{
 		</div>
 		</div>
 		<?php 
+		if ($trajetValide) {
+		
 		if ($value>=1) {
 			echo "<div class='row'>
 			<div class='border border-dark col-md-8 row justify-content-between'>";
@@ -587,6 +605,7 @@ class vue_Trajet extends VueGenerique{
 
 		</div>
 <?php
+	}
 }
 	public function afficheHeure($heureAvecSec)
 	{

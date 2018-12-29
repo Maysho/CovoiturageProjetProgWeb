@@ -23,15 +23,26 @@ class cont_trajet
 	        	$tabinfoSTrajet=$this->modele->recupInfoSousTrajet(htmlspecialchars($_GET['id']));
 	        	$tabCommentaire=$this->modele->commentaires(htmlspecialchars($_GET['id']));
 	        	$estDansTrajet=false;
+	        	$trajetpeutEtreValide=false;
 	        	if (isset($_SESSION['id'])) {
 	        		$estDansTrajet=$this->modele->estDansTrajet(htmlspecialchars($_GET['id']));
 	        	}
 	        	
 	        	$prixAPayer=0;
+	        	$trajetValide=false;
 	        	if (isset($_SESSION['id'])&&$estDansTrajet) {
 	        		$prixAPayer=$this->modele->recupPrixAPayer(htmlspecialchars($_GET['id']));
+
+	        		$trajetValide=$this->modele->trajetValide(htmlspecialchars($_GET['id']));
+	        		
 	        	}
-	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0]);
+				$trajetpeutEtreValide=$this->modele->peutEtreValide(htmlspecialchars($_GET['id']));
+	        	
+
+	        	$trajetAeteValide=$this->modele->aEteValide(htmlspecialchars($_GET['id']));
+
+
+	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$trajetAeteValide,$trajetpeutEtreValide,$trajetValide);
 	        }
 	        else{
 	           if(isset($_SESSION['id'])){
