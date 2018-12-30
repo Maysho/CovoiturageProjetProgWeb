@@ -233,16 +233,16 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValidee)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers)
 	{
 		if ($value>=1) {
-			echo "<div class='row col-md-8'>";
+			echo "<div class='col-md-8'>";
 		}
 		else
 			echo "<div class='row col-md-6 justify-content-center'>";
 		
 		if ($value>=1) {
-			echo "<div class='row col-12'>";
+			echo "<div class='col-12'>";
 		}
 		else
 			echo "<div class='row col-12 justify-content-center'>";
@@ -250,7 +250,7 @@ class vue_Trajet extends VueGenerique{
 		<h1>Le trajet</h1>
 </div>
 <?php if ($value>=1) {
-	echo "<div class='row col-12' >
+	echo "<div class='col-12' >
 			<div class='border border-dark col-12 row justify-content-between'>";
 	}else
 		echo "<div class='row col-12 justify-content-center' >
@@ -305,7 +305,7 @@ class vue_Trajet extends VueGenerique{
 						<span><?php if($estDansTrajet) echo $PrixAPayer."€";else echo $infoTrajet[12]."€";?></span>
 						</div>
 						<?php 
-						echo $trajetValidee;
+						echo $nbPers;
 						if ($value==0 && !$peutEtreValide) {
 							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet" data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
 						}else {
@@ -322,8 +322,8 @@ class vue_Trajet extends VueGenerique{
 							else if($peutEtreValide){
 								echo '<button class="btn" id="validationAuTrajet" data-id="'.$infoTrajet[13].'">valider ce trajet</button>';
 							}
-							else if ($value==$infoTrajet[14]) {
-								# code...
+							else if ($value==$infoTrajet[14] && $nbPers<=1) {
+								echo '<button class="btn" id="validationAuTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
 							}
 							else{
 								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
@@ -383,7 +383,7 @@ class vue_Trajet extends VueGenerique{
 
 		<?php
 		if ($value>=1) {
-			echo "<div class='row col-12' >
+			echo "<div class='col-12' >
 			<div class='border border-dark col-12 row justify-content-between'>";
 		}
 		else
@@ -417,7 +417,7 @@ class vue_Trajet extends VueGenerique{
 		$idUtilisateur=array_column($user, 'utilisateur_idutilisateur');
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
 			if ($value>=1) {
-				echo "<div class='row col-12' >
+				echo "<div class='col-12' >
 			<div class='border border-dark col-12 row justify-content-between'>";
 			}
 			else
@@ -520,7 +520,7 @@ class vue_Trajet extends VueGenerique{
 		if ($trajetValide) {
 		
 		if ($value>=1) {
-			echo "<div class='row col-12'>
+			echo "<div class=' col-12'>
 			<div class='border border-dark col-12 row justify-content-between'>";
 		}
 		else

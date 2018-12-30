@@ -110,7 +110,7 @@ die("Page inaccessible");
 		</header>
 		<?php if (isset($_SESSION['id'])) {
 		echo'<section class="row col-12">';
-		echo "<aside class='row col-3'>";
+		echo "<aside class='col-3'>";
 }
 else
 echo'<section class="row col-12 justify-content-center">';

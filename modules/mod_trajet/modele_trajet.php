@@ -605,6 +605,14 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$idUtilisateur=$selecPrepareeUnique->fetchAll();
 		return !empty($idUtilisateur);
 	}
+	public function nbPersDansTrajet($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT count(DISTINCT utilisateur_idutilisateur) FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet= ? ');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetch();
+		return $idUtilisateur[0];
+	}
 }
 
 

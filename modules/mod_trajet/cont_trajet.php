@@ -40,9 +40,9 @@ class cont_trajet
 	        	
 
 	        	$trajetAeteValide=$this->modele->aEteValide(htmlspecialchars($_GET['id']));
+	        	$nbPersDansTrajet=$this->modele->nbPersDansTrajet(htmlspecialchars($_GET['id']));
 
-
-	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$trajetAeteValide,$trajetpeutEtreValide,$trajetValide);
+	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$trajetAeteValide,$trajetpeutEtreValide,$trajetValide,$nbPersDansTrajet);
 	        }
 	        else{
 	           if(isset($_SESSION['id'])){
