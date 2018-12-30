@@ -44,6 +44,9 @@ class ModProfil extends VueGenerique
 					$this->controleur->recupereModifProfil($idUser, $estConnecter);
 					break;
 
+				case 'vehicules':
+					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
+					break;
 				default:
 					# code...
 					break;

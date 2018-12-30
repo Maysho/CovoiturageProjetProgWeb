@@ -125,14 +125,14 @@ class vue_Trajet extends VueGenerique{
 				  									<select class="offset-md-1 col-md-6 text-center form-control" id="idVehicule">
 				  										<?php if(empty($listeVehicule)) {
 				  										?>
-			  											<option value="">--Please choose an option--</option>
+			  											<option class="voitureSelection" value="-1">--Please choose an option--</option>
 				  										<?php
 				  										}
 				  										 ?>
 				  										<?php 
 				  										foreach ($listeVehicule as $key => $value) {
 				  											?>
-			  											<option <?php if($key == 0) echo "selected";?> class="bidule" data-url="<?php echo $value['urlPhoto']?>" value="<?php echo $key ?>"><?php echo $value['immatriculation'] ?> </option>	
+			  											<option <?php if($key == 1) echo "selected";?> class="voitureSelection" data-url="<?php echo $value['urlPhoto']?>" value="<?php echo $key ?>"><?php echo $value['immatriculation'] ?> </option>	
 				  											<?php
 				  										}
 				  										?>

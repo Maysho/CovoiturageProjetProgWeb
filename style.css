@@ -137,6 +137,11 @@ span{
     margin: 0;
 }
 
+.photoVoitureProfil{
+    width: 30vw;
+    height: 30vh;
+}
+
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.
  */
