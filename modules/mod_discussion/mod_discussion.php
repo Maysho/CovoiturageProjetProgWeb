@@ -21,7 +21,6 @@ class ModDiscussion extends VueGenerique
 				$idInterlocuteur=$_GET['idprofil'];
 				if($idUser != $idInterlocuteur){
 					$this->controleur->envoieMsgDepuisProfil($_SESSION['id'], $_GET['idprofil']);
-					header("Location: ?module=mod_profil&idprofil=$idInterlocuteur&ongletprofil=profil");
 				}
 			}
 			else

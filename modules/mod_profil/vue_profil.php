@@ -5,7 +5,7 @@ include_once 'vue_generique.php';
 
 		function __construct(){}
 
-		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser){
+		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser, $resultat){
 
 			
 			echo '<div class="row">';
@@ -39,8 +39,15 @@ include_once 'vue_generique.php';
 						
 					
 						<div class="row col-auto">
-							<img class="col-md-2 order-0 " src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
-
+<?php
+		if(isset($donnerAAfficher['urlPhoto'])){
+?>
+							<img class="col-md-2 order-0 img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
+<?php
+		}
+		else
+			echo '<img class="col-md-2 order-0 img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
+?>
 							<div class="row col-md-4 order-2 order-md-1">
 								<label class="col-md-12"> Prénom : <?php echo $donnerAAfficher['prenom']; ?> </label>	
 								<label class="col-md-12"> Nom : <?php echo $donnerAAfficher['nom']; ?></label>
@@ -61,20 +68,80 @@ include_once 'vue_generique.php';
 								<label class="col-md-12">Note moyenne : <?php echo $moyenne; ?></label>
 							</div>
 
-<?php	if($estPagePerso)			
-			echo '<a class="btn btn-primary col-md-2 order-1 order-md-3" href="?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif" role="button">Modifier le profil</a>';
-		else{
-?>
-							<a class="btn btn-primary col-md-2 order-1 order-md-3" href="#" data-toggle="modal" data-target="#exampleModal" role="button">
-								Envoyer un message
-							</a>
+<?php	if($estPagePerso){	
+			echo '
+							<div class=" col-md-2 order-1 order-md-3">
+							
+								<a class="btn btn-primary col-12" href="?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif" role="button">
+									Modifier le profil
+								</a>
+								<a class="btn btn-primary col-12" href="#" data-toggle="modal" data-target="#changementMDPModal" role="button">
+									Changer de mot de passe
+								</a>
 
+							</div>';
+?>
 							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal fade" id="changementMDPModal" tabindex="-1" role="dialog" aria-labelledby="changementMDPModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content">
 							      <div class="modal-header">
-							        <h5 class="modal-title" id="exampleModalLabel">Envoyer un message</h5>
+							        <h5 class="modal-title" id="changementMDPModalLabel">Modifier le mot de passe</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+
+							      	<form method="POST" class="col-12" id="changeMdpProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodifmdp'; ?>">
+										
+										<div class="row form-group">
+											<label for="mdpActuel" class="">Mot de passe actuel :</label>
+											<input id="mdpActuel" class="form-control" type="password" name="ancienMdp" required="">
+<?php
+		if($resultat == 1)
+			echo'                           <p id="msgErreurSaisieMdp" class="form-text warning" >/!\ Le mot de passe saisi est incorrect</p>';					
+?>
+										</div>
+										<hr>
+										<div class="row form-group">
+											<label for="nouveauMdp" class="">Nouveau mot de passe :</label>
+											<input id="nouveauMdp" data-toggle="conditionsMdp" data-placement="bottom" title="Le mot de passe doit contenir au moins 8 caracteres dont une lettre en minuscule, une lettre majuscule, un chiffre et doit être différent de votre mot de passe actuel" class="form-control" type="password" name="nouveauMdp" required="">
+											<p id="msgErreurNouveauMdp" class="form-text warning"></p>
+										</div>
+
+										<div class="row form-group">
+											<label for="confirmationNouveauMdp" class="">Confimartion mot de passe :</label>
+											<input id="confirmationNouveauMdp" class="form-control" type="password" name="nouveauMdpConf" required="">
+											<p id="msgErreurConfNouveauMdp" class="form-text warning"></p>
+										</div>
+										
+									</form>
+							        
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+							        <button disabled="" id="boutonModifierMotDePasse" type="submit" class="btn btn-primary" form="changeMdpProfil">Modifier mot de passe</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+				
+<?php
+		}
+		else if($estConnecter){
+?>							
+							<div class="col-md-2 order-1 order-md-3">
+							<a class="btn btn-primary col-12" href="#" data-toggle="modal" data-target="#envoieMsgModal" role="button">
+								Envoyer un message
+							</a>
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="envoieMsgModal" tabindex="-1" role="dialog" aria-labelledby="envoieMsgModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="envoieMsgModalLabel">Envoyer un message</h5>
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							          <span aria-hidden="true">&times;</span>
 							        </button>
@@ -83,13 +150,13 @@ include_once 'vue_generique.php';
 
 							      	<form method="POST" class="col-12" id="envoyerMessage" enctype="multipart/form-data" action="<?php echo '?module=mod_discussion&idprofil='.$idUser; ?>">
 										
-										<textarea class="form-control" rows="3" maxlength="255" form="envoyerMessage" name="message" style="resize: none"	></textarea>
+										<textarea id="zoneEnvoieMsgProfil" class="form-control" rows="3" maxlength="255" form="envoyerMessage" name="message" style="resize: none"	></textarea>
 									</form>
 							        
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-							        <button type="submit" class="btn btn-primary" form="envoyerMessage">Envoyer</button>
+							        <button disabled="" id="boutonEnvoieMsgProfil" type="submit" class="btn btn-primary" form="envoyerMessage">Envoyer</button>
 							      </div>
 							    </div>
 							  </div>
@@ -99,13 +166,19 @@ include_once 'vue_generique.php';
 		}
 ?>
 						</div>
-					
+
 
 					
 						<div class="col-md-auto">
 							<label class="">Description : </label>
 							<label class=" col-md-12 border border-primary rounded"><?php echo $donnerAAfficher['description']; ?></label>
 						</div>
+
+<?php
+		if(($resultat == 0 || $resultat == 2 || $resultat == 3) && $resultat != null){
+			echo "		<p hidden id='resultat' id_val='$resultat'></p>";
+		}
+?>
 					</section>
 					
 <?php
@@ -160,7 +233,17 @@ include_once 'vue_generique.php';
 						<form method="POST" class="col-12" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
 							<div class="row form-group">
 								<label class="col-md-4">Photo de profil (5Mo max): </label>
-								<img class="col-md-4" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
+
+<?php
+		if(isset($donnees['urlPhoto'])){
+?>
+							<img class="col-md-4 img-fluid" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
+<?php
+		}
+		else
+			echo 			'<img class="col-md-4 img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
+?>
+								
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
 								<input class="col-md-4" type="file" name="photoprofil" >
 								<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->

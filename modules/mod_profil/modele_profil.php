@@ -79,7 +79,7 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function commentaires($idUser){
 
-			$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
+			$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date_format(date,"%d/%m/%Y") AS date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
 			$tableauIds=array($idUser);
 			$selectPreparee->execute($tableauIds);
 			return $selectPreparee->fetchAll();
@@ -236,5 +236,54 @@ include_once __DIR__ . '/../../connexion.php';
 				
 		}
 
+		public function verifieModificationMdp($idUser){
+			$resultat;
+			$ancienMdp;
+
+			if(isset($_POST['ancienMdp']) && isset($_POST['nouveauMdp']) && isset($_POST['nouveauMdpConf'])){
+				$ancienMdp=htmlspecialchars($_POST['ancienMdp']);
+				if($this->ancienMdpEstValide($idUser, $ancienMdp)){
+					if($this->nouveauMdpEstValide($_POST['nouveauMdp'], $_POST['nouveauMdpConf'])){
+						$this->modifierMdp($idUser, $_POST['nouveauMdp']);
+						return 0;
+					}
+					else return 2;
+				}
+				else return 1;		
+			}
+			else return 2;
+		}
+
+		private function ancienMdpEstValide($idUser, $mdp){
+			$selectPreparee=self::$bdd->prepare('SELECT motDePasse AS mdp FROM utilisateur WHERE idUtilisateur=?');
+			$tableauVal = array($idUser);
+			$selectPreparee->execute($tableauVal);
+			$mdpBD=$selectPreparee->fetch();
+			$mdpBD=$mdpBD['mdp'];
+
+			$mdpHash=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
+
+			if($mdpBD==$mdpHash)
+				return true;
+			else
+				return false;
+		}
+
+		private function nouveauMdpEstValide($mdp,$mdpConf){
+
+			if (!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})#', $mdp)) 
+				return false;
+			
+			if ($mdp!=$mdpConf) 
+				return false;
+			
+			return true;
+		}
+
+		private function modifierMdp($idUser, $mdp){
+			$updatePreparee=self::$bdd->prepare('UPDATE utilisateur SET motDePasse = :mdp WHERE idUtilisateur=:id');
+			$mdpHash=crypt($mdp, '$6$rounds=5000$usesomesillystringforsalt$');
+			$updatePreparee -> execute(array('mdp'=>$mdpHash,'id'=>$idUser));
+		}
 	}
 ?>

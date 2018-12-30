@@ -109,6 +109,10 @@ h2{
     display:inline-table;	
 }
 
+.pre-scrollable{
+    height:340px;
+}
+
 
 /*
  * Row with equal height columns

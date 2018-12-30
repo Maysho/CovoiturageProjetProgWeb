@@ -86,8 +86,12 @@ include_once __DIR__ . '/../../connexion.php';
 
 		public function envoieMsgDepuisProfil($idUser, $idInterlocuteur){
 			$msg=htmlspecialchars($_POST['message']);
-			if($msg != "")
+			if($msg != ""){
 				$this->insererMessage($idUser, $idInterlocuteur, $msg);
+				return 3;
+			}
+			else return 2;
+
 		}
 
 		public function messageLu($idUser, $idInterlocuteur){

@@ -473,8 +473,11 @@ function verifError(data){
 }
 
 
-
-
+/******************************************************************************************************************************
+**
+**Page de discussion
+**
+******************************************************************************************************************************/
 
 
 function chargeMessagesInterlocuteurs(){
@@ -498,8 +501,11 @@ function chargeMessagesInterlocuteurs(){
   });
 }
 
-$('.interlocuteurs').ready(function(e){
-  chargeMessagesInterlocuteurs();
+$(document).ready(function(e){
+  if($('.interlocuteurs').length){
+    chargeMessagesInterlocuteurs();
+  }
+
 });
 
 
@@ -582,13 +588,16 @@ function afficheMessages(data, chargeMessagesInterlocuteurs){
 
 
 
-$('#messages').ready(function(e){
-  afficheMessagesEtInterlocuteurs();
- 
-  setInterval(function() {
+$(document).ready(function(e){
+
+  if($('#messages').length){
+
+    afficheMessagesEtInterlocuteurs();
    
-    afficheMessagesEtInterlocuteurs();   
-  }, 1000);
+    setInterval(function() {
+      afficheMessagesEtInterlocuteurs();   
+    }, 1000);
+  }
 });
 
 function messagesNonLu(){
@@ -603,11 +612,155 @@ function messagesNonLu(){
   });
 }
 
-$('#messagesNonLus').ready(function(e){
+$(document).ready(function(e){
+
+  if($('#messagesNonLus').length){
+
     messagesNonLu();
-  setInterval(function(){
-    messagesNonLu();
-  },1000);
+
+    setInterval(function(){
+      messagesNonLu();
+    },1000);
+  }
 });
 
+/******************************************************************************************************************************
+**
+**Changement mot de passe depuis le profil
+**
+******************************************************************************************************************************/
+
+
+var nouveauMdpEstValide=false;
+var ancienMdpDiffNouveau=false;
+var verifOk=false;
+var msgErreurNouveauMdp="/!\\ Le mot de passe doit contenir au moins 8 caracteres dont une lettre en minuscule, une lettre majuscule, un chiffre et doit être différent de votre mot de passe actuel";
+var msgErreurConfNouveauMdp="/!\\ Erreur dans la confirmation du mot de passe";
+
+var regexMdp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
+
+$("#mdpActuel").on('input', function(e){
+  e.preventDefault();
+  if(this.value != $("#nouveauMdp").val()){
+    ancienMdpDiffNouveau=true;
+    if(nouveauMdpEstValide)
+      $("#msgErreurNouveauMdp").text("");
+  }
+  else{
+    ancienMdpDiffNouveau=false;
+    if($("#nouveauMdp").val()!=""){
+      $("#msgErreurNouveauMdp").text(msgErreurNouveauMdp);
+    }
+  }
+});
+
+$("#nouveauMdp").on('input',function(e){
+  e.preventDefault();
+  var mdp = this.value;
+  if(regexMdp.test(mdp)){
+    nouveauMdpEstValide=true;
+    if(this.value!=$("#mdpActuel").val())
+      $("#msgErreurNouveauMdp").text("");
+  }
+  else{
+    nouveauMdpEstValide=false;
+    $("#msgErreurNouveauMdp").text(msgErreurNouveauMdp);
+  }
+  if(this.value!=$("#mdpActuel").val()){
+    ancienMdpDiffNouveau=true;
+    if(nouveauMdpEstValide)
+      $("#msgErreurNouveauMdp").text("");
+  }
+  else{
+    ancienMdpDiffNouveau=false;
+    $("#msgErreurNouveauMdp").text(msgErreurNouveauMdp);
+  }
+  if(this.value==$("#confirmationNouveauMdp").val()){
+    verifOk=true;
+    $("#msgErreurConfNouveauMdp").text("");
+  }
+  else{
+    verifOk=false;
+    if($("#confirmationNouveauMdp").val()!="")
+      $("#msgErreurConfNouveauMdp").text(msgErreurConfNouveauMdp);
+  }
+});
+
+$("#confirmationNouveauMdp").on('input',function(e){
+  e.preventDefault();
+  if(this.value == $("#nouveauMdp").val()){
+    verifOk=true;
+    $("#msgErreurConfNouveauMdp").text("");
+  }
+  else{
+    verifOk=false;
+    if($("#nouveauMdp").val()!="")
+      $("#msgErreurConfNouveauMdp").text(msgErreurConfNouveauMdp);
+  }
+});
+
+
+$(document).ready(function(e){
+  if($("#boutonModifierMotDePasse").length){
+
+    setInterval(function(){
+      if(nouveauMdpEstValide && ancienMdpDiffNouveau && verifOk)
+        $("#boutonModifierMotDePasse").prop("disabled", false);
+      else
+        $("#boutonModifierMotDePasse").prop("disabled", true);
+    },100);
+
+  }
+});
+
+$(document).ready(function(e){
+  if($("#msgErreurSaisieMdp").length){
+    $("#changementMDPModal").modal();
+  }
+  else if($("#resultat").length){
+    if($("#resultat").attr('id_val')==0){
+      alert("Mot de passe modifié avec succes!");
+    }
+    else if($("#resultat").attr('id_val')==2){
+       alert("Une erreur c'est produite veuillez réessayer");
+    }
+    else if($("#resultat").attr('id_val')==3){
+       alert("Message envoyer avec succes!");
+    }
+  }
+});
+
+
+var zoneEnvoieNonVide=false;
+
+$("#zoneEnvoieMsgProfil").on('input',function(e){
+  //e.preventDefault();
+  
+  if(this.value != ""){
+    zoneEnvoieNonVide=true;
+  }
+  else{
+    zoneEnvoieNonVide=false;
+  }
+});
+
+$('#zoneEnvoieMsgProfil').keyup(function(e){
+  if(e.keyCode == 13 && zoneEnvoieNonVide){
+    $("#boutonEnvoieMsgProfil").trigger('click');
+  }
+});
+
+$(document).ready(function(e){
+  if($("#zoneEnvoieMsgProfil").length){
+
+    setInterval(function(){
+      if(zoneEnvoieNonVide)
+         $("#boutonEnvoieMsgProfil").prop("disabled", false);
+      else
+         $("#boutonEnvoieMsgProfil").prop("disabled", true);
+
+
+    },100);
+  }
+});
 
