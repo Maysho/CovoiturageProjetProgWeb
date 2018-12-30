@@ -83,5 +83,13 @@
 
 			header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
 		}
+
+		public function afficheListeVehicule($idUser){
+
+			$donnees=$this->modele->getListeVehicules($idUser);
+
+			$this->vue->afficheListeVehicule($idUser, $donnees);
+
+		}
 	}
 ?>

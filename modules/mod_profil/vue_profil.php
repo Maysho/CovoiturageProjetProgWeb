@@ -186,5 +186,74 @@ include_once 'vue_generique.php';
 			</div>
 <?php
 		}
+
+		function afficheListeVehicule($idUser, $donnees){
+			?>
+			<div class="offset-md-2 col-md-8 text-center">
+				<section>
+				<h2>Mes voitures</h2>
+				<hr>
+				<div>
+					<table>
+					<tbody>
+					<?php
+					foreach ($donnees as $key => $value) {
+					
+						if($key%2 == 0){
+						?>
+						<tr>
+							<th> 
+								<img class="photoVoitureProfil" src="<?php echo $value['urlPhoto']?>">	
+							</th>
+							<th>
+								<p class="text-center" >Immatriculation <?php echo $value['immatriculation']?></p>
+								<?php
+								if ($value['hybride'] == 1)
+								?>
+								<p class="text-center" >Hybride</p>
+								<?php
+								?>
+								<p class="text-center" > Crit'air <?php echo $value['critair']?></p>
+								<button class="btn btn-primary">Supprimer le véhicule</button>
+							</th>
+						</tr>
+
+						<?php
+						}
+						else{
+						?>
+						<tr>
+							
+							<th>
+								<p class="text-center" >Immatriculation <?php echo $value['immatriculation']?></p>
+								
+								<?php
+								if ($value['hybride'] == 1)
+								?>
+								<p class="text-center" >Hybride</p>
+								<?php
+								?>
+								<p class="text-center" > Crit'air <?php echo $value['critair']?></p>
+								<button class="btn btn-primary">Supprimer le véhicule</button>
+							</th>
+
+							<th> 
+								<img class="photoVoitureProfil" src="<?php echo $value['urlPhoto']?>">	
+							</th>
+						</tr>
+
+						<?php
+						}
+					}
+					?>
+					</tbody>
+					</table>
+
+				</div>
+				<hr>
+				</section>
+			</div>
+			<?php 
+		}
 	}
 ?>
