@@ -75,7 +75,7 @@ class vue_connexion extends VueGenerique
   	}
   	public function pageConnexion($error=0)
   	{
-  		echo '<div class="row">
+  		echo '<div class="row col-12">
 
   		<section class="order-md-0 order-2 justify-content-md-start justify-content-lg-center offset-1 col-md-4 ">
   		<h2>S\'inscrire</h2>
@@ -138,7 +138,7 @@ class vue_connexion extends VueGenerique
   	}
   	public function pageToken($value)
   	{
-  		?><div class="row">
+  		?><div class="row col-12">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Renseigner le code reçu par email</h2>
@@ -163,7 +163,7 @@ class vue_connexion extends VueGenerique
   	}
   	public function affichePageChangementMPD($value,$token)
   	{
-  		?><div class="row">
+  		?><div class="row col-12">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Renseigner le nouveau Mot de Passe</h2>
@@ -192,7 +192,7 @@ class vue_connexion extends VueGenerique
   	}
   	public function motDePasseOublier($value)
   	{
-  		?><div class="row">
+  		?><div class="row col-12">
 
   		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Mot de passe oublier</h2>

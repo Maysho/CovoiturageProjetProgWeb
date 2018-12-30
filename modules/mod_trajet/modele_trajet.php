@@ -354,14 +354,14 @@ class modele_trajet extends connexion {
 	}
 	public function recupUser($id)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT * FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? ORDER BY `sousTrajet_idsousTrajet` ASC');
+		$selecPreparee=self::$bdd->prepare('SELECT * FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? ORDER BY `sousTrajet_idsousTrajet`, utilisateur_idutilisateur');
 		$tableauIds=array($id);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetchAll();
 	}
 	public function recupInfoSousTrajet($id)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT * FROM soustrajet where soustrajet.idTrajet=?');
+		$selecPreparee=self::$bdd->prepare('SELECT * FROM soustrajet inner join ville as v1 on v1.idVille=idVilleDepart inner join ville as v2 on v2.idVille=idVilleArrivee where soustrajet.idTrajet=? order by soustrajet.idsousTrajet');
 		$tableauIds=array($id);
 		$selecPreparee->execute($tableauIds);
 
@@ -373,6 +373,237 @@ class modele_trajet extends connexion {
 		$tableauIds=array($idTrajet);
 		$selectPreparee->execute($tableauIds);
 		return $selectPreparee->fetchAll();
+	}
+	public function ajouteCommentaire($note,$commentaire,$idTrajet)
+	{
+		if (!isset($_SESSION['id'])) {
+			header('Location: index.php?module=mod_connexion');
+		}
+		if(!is_numeric($note) || $note>20 || $note<0 || empty($commentaire)){
+			http_response_code(400);
+			echo "le message ou la note est incorrect";
+			exit(1);
+		}
+		//TODO faire une verif si on est inscrit au trajet mdr
+
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM commenter where idAuteur=? and idTrajet=? ');
+		$tableauIds=array($_SESSION['id'],$idTrajet);
+		$selecPrepareeUnique->execute($tableauIds);
+		$unique=$selecPrepareeUnique->fetch();
+		if (empty($unique['idAuteur'])==0) {
+			http_response_code(401);
+			echo "vous avez déjà rentré un commentaire";
+			exit(1);
+		}
+
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT idConducteur,urlPhoto FROM trajet inner join utilisateur on idConducteur=idUtilisateur where idTrajet=? ');
+		$tableauIds=array($idTrajet);
+		$selecPrepareeUnique->execute($tableauIds);
+		$utilisateur=$selecPrepareeUnique->fetch();
+		if (empty($utilisateur['idConducteur'])) {
+			http_response_code(402);
+			echo "une erreur est survenu";
+			exit(1);
+		}
+
+		$insertPreparee=self::$bdd->prepare('INSERT INTO commenter(idAuteur,idTrajet,description,date,note,idUtilisateur) values(:id1,:id2,:descript,:date,:note,:idUtilisateur)');
+		$insertPreparee -> execute(array('id1'=>$_SESSION['id'],'id2'=>$idTrajet,'descript'=>$commentaire,'date'=>date("Y-m-d"),'note'=>$note,'idUtilisateur'=>$utilisateur['idConducteur']));
+
+		echo json_encode($utilisateur); 
+	}
+
+	public function VerifError($tabIdVille, $idTrajet)
+	{
+		if (count($tabIdVille)==0) {
+			echo "07-";
+			return true;
+		}
+		if ($idTrajet<0) {
+			echo "07-";
+			return true;
+		}
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT idVilleArrivee FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet where trajet.idTrajet=? ');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idVille=$selecPrepareeUnique->fetchAll();
+		foreach ($tabIdVille as $key => $value) {
+			if ( !in_array($value, array_column($idVille, 'idVilleArrivee'))) {
+				echo "07-";
+				return true;
+			}
+		}
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT trajet.idTrajet as idTrajet, trajet.placeTotale as t, idVilleArrivee FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet 
+			inner join ville as a on a.idVille=soustrajet.idVilleArrivee
+			left join soustrajetutilisateur as stu on stu.sousTrajet_idsousTrajet=soustrajet.idsousTrajet
+			WHERE trajet.idTrajet=? group by soustrajet.idsousTrajet
+HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idVille=$selecPrepareeUnique->fetchAll();
+		foreach ($tabIdVille as $key => $value) {
+			if ( !in_array($value, array_column($idVille, 'idVilleArrivee'))) {
+				echo "08-";
+				return true;
+			}
+		}
+		if (!isset($_SESSION['id'])) {
+			echo "09-";
+			return true;
+		}
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet=? and utilisateur_idutilisateur=?');
+		$selecPrepareeUnique->execute(array($idTrajet,$_SESSION['id']));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		if (!empty($idUtilisateur)) {
+			echo "10-";
+			return true;
+		}
+		$prixApayer=0;
+		foreach ($tabIdVille as $key => $value) {
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT prix FROM soustrajet WHERE soustrajet.idTrajet=? and idVilleArrivee=?');
+			$selecPrepareeUnique->execute(array($idTrajet,$value));
+			$prixApayer=$selecPrepareeUnique->fetch()[0]+$prixApayer;
+		}
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT credit FROM utilisateur where idUtilisateur=?');
+		$selecPrepareeUnique->execute(array($_SESSION['id']));
+		$argent=$selecPrepareeUnique->fetch()[0];
+		if ($prixApayer>$argent) {
+			echo "11-";
+			return true;
+		}
+		return false;	
+	}
+	public function InscriptionTrajet($tabIdVille, $idTrajet)
+	{
+		if(self::VerifError($tabIdVille, $idTrajet)){
+			http_response_code(400);
+			exit(1);
+		}
+		
+
+		foreach ($tabIdVille as $key => $value) {
+
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM soustrajet WHERE soustrajet.idTrajet=? and idVilleArrivee=?');
+			$selecPrepareeUnique->execute(array($idTrajet,$value));
+			$idst=$selecPrepareeUnique->fetch();
+
+			$insertPreparee=self::$bdd->prepare('INSERT INTO soustrajetutilisateur(utilisateur_idutilisateur,sousTrajet_idsousTrajet,valide,prixPayer) values(:idUser,:idsousTrajet,0,:prix)');
+			$insertPreparee -> execute(array('idUser'=>$_SESSION['id'],'idsousTrajet'=>$idst['idsousTrajet'],'prix'=>$idst['prix']));
+			$updatePrepareee=self::$bdd->prepare('UPDATE utilisateur set credit=credit-? where idUtilisateur=?');
+			$updatePrepareee -> execute(array($idst['prix'],$_SESSION['id']));
+		}
+
+		echo "success";
+	}
+	public function estDansTrajet($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet=? and utilisateur_idutilisateur=?');
+		$selecPrepareeUnique->execute(array($idTrajet,$_SESSION['id']));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return !empty($idUtilisateur);
+
+		
+	}
+	public function recupPrixAPayer($idTrajet)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT sum(prixPayer) FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
+		$tableauIds=array($idTrajet, $_SESSION['id']);
+		$selecPreparee->execute($tableauIds);
+		return $selecPreparee->fetch();
+	}
+	public function recupPrixAPayerU($idTrajet,$idUser)
+	{
+		$selecPreparee=self::$bdd->prepare('SELECT sum(prixPayer) FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
+		$tableauIds=array($idTrajet, $idUser);
+		$selecPreparee->execute($tableauIds);
+		return $selecPreparee->fetch()[0];
+	}
+	public function desinscriptionTrajet($idTrajet)
+	{
+		$prix=self::recupPrixAPayer($idTrajet);
+
+		$updatePrepareee=self::$bdd->prepare('UPDATE utilisateur set credit=credit+? where idUtilisateur=?');
+		$updatePrepareee -> execute(array($prix[0],$_SESSION['id']));
+
+		$deletePreparee=self::$bdd->prepare('DELETE soustrajetutilisateur FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet where utilisateur_idutilisateur=? and idTrajet=? ');
+		$deletePreparee -> execute(array($_SESSION['id'],$idTrajet));
+		echo "success";
+	}
+	public function supCom($idTrajet)
+	{
+		$deletePreparee=self::$bdd->prepare('DELETE FROM commenter where idAuteur=? and idTrajet=?');
+		$deletePreparee -> execute(array($_SESSION['id'],$idTrajet));
+		echo "success";
+	}
+
+	public function aEteValide($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet= ? and soustrajetutilisateur.valide=true');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return !empty($idUtilisateur);
+	}
+	public function conducteur($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT idConducteur from trajet where idTrajet=?');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetch();
+		return $idUtilisateur[0];
+		
+	}
+	public function valideTrajet($idTrajet)
+	{
+		$conducteur=self::conducteur($idTrajet);
+		if ($_SESSION['id']==$conducteur) {
+	   
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT utilisateur_idutilisateur from soustrajetutilisateur inner join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=?');
+			$selecPrepareeUnique->execute(array($idTrajet));
+			$idUtilisateur=$selecPrepareeUnique->fetchAll();
+			foreach ($idUtilisateur as $key => $value) {
+				$prix=self::recupPrixAPayerU($idTrajet,$value[0]);
+				$updatePreparee=self::$bdd->prepare('UPDATE utilisateur set  credit=credit+? where idUtilisateur=?');
+				$updatePreparee -> execute(array($prix,$value[0]));
+			}
+
+
+			$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set valide=1, prixPayer=0 where sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
+			$updatePreparee -> execute(array($idTrajet));
+
+			
+		}
+		else{
+		$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set valide=1 where utilisateur_idutilisateur=? and sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
+		$updatePreparee -> execute(array($_SESSION['id'],$idTrajet));
+		$prix=self::recupPrixAPayer($idTrajet);
+		
+		$updatePreparee=self::$bdd->prepare('update utilisateur set credit=credit+? where idUtilisateur=?');
+		$updatePreparee -> execute(array($prix[0],$conducteur));
+		$updatePreparee=self::$bdd->prepare('update soustrajetutilisateur set prixPayer=0 where utilisateur_idutilisateur=? and sousTrajet_idsousTrajet in (select idsousTrajet from soustrajet where idTrajet=?)');
+		$updatePreparee -> execute(array($_SESSION['id'],$idTrajet));
+		}
+		echo "success";
+	}
+	public function peutEtreValide($idTrajet)
+	{
+		$idSt1=self::recupSDepartSArrivee($idTrajet);
+		$selecPreparee=self::$bdd->prepare('SELECT heureDepart, dateDepart FROM soustrajet where soustrajet.idsousTrajet=? ');
+		$tableauIds=array($idSt1[0]);
+		$selecPreparee->execute($tableauIds);
+		$res=$selecPreparee->fetch();
+
+		$date1 = new DateTime($res[1]." ".$res[0]);
+		$date2 = new DateTime(date('Y-m-d H:i:s'));
+
+		return ( ( $date1 <= $date2)) ;
+
+	}
+	public function trajetValide($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet= ? and soustrajetutilisateur.valide=true and soustrajetutilisateur.utilisateur_idutilisateur=?');
+		$selecPrepareeUnique->execute(array($idTrajet,$_SESSION['id']));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return !empty($idUtilisateur);
 	}
 }
 

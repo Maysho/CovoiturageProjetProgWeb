@@ -49,6 +49,7 @@ class ModProfil extends VueGenerique
 					$this->controleur->recupereModifProfil($idUser, $estConnecter);
 					break;
 
+
 				case 'recupmodifmdp':
 					$this->controleur->recupereModifMdp($idUser, $estConnecter);
 					break;
@@ -58,6 +59,10 @@ class ModProfil extends VueGenerique
 						$resultat=$_GET['resultat'];
 						$this->controleur->accueilProfil($idUser, $estConnecter, $resultat);
 					}
+					break;
+
+				case 'vehicules':
+					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
 					break;
 
 				default:

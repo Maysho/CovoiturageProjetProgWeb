@@ -89,5 +89,13 @@
 			else
 				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=2");
 		}
+
+		public function afficheListeVehicule($idUser){
+
+			$donnees=$this->modele->getListeVehicules($idUser);
+
+			$this->vue->afficheListeVehicule($idUser, $donnees);
+
+		}
 	}
 ?>

@@ -23,7 +23,7 @@ class vue_nav extends VueGenerique
 			    <ul class='navbar-nav '>
 			      
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Rechercher <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php'>Rechercher <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
 			        <a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
@@ -37,8 +37,8 @@ class vue_nav extends VueGenerique
 ";
 	}
 	public function navConnecte(){
-
-   		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
+?>
+   		<nav class='navbar navbar-expand-md navbar-light bg-light'>
 			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
@@ -54,12 +54,12 @@ class vue_nav extends VueGenerique
 			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Rechercher</a>
+			        <a class='nav-link' href='index.php'>Rechercher</a>
 			      </li>
 			    </ul>
 			    <div class='nav-item dropdown'>
 			        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-			          <img src='profildefault.jpg' class='imagenav'>
+			          <img src='home.jpg' class='imagenav'>
 			        </a>
 			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 			          <a class='dropdown-item' href='?module=mod_discussion'>Discussion</a>
@@ -70,8 +70,8 @@ class vue_nav extends VueGenerique
 			      </div>
 			  </div>
 			</nav>
-";
-   	
+
+   	<?php
   	}
 }
 ?>

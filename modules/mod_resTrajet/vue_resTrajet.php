@@ -14,13 +14,17 @@ class vue_resTrajet extends VueGenerique
 	public function affichePage($value=-1,$tab1,$depart,$destination,$date,$prix,$type,$regulier)
 	{
 		?>
-		<div id="contenu" >
   		<?php
   		if ($value==1) {
-  			echo "<div id='divHauteRes' class='row'><div id='divHauteRes2' class=' col-md-8 row justify-content-between border border-dark'>";
+  			echo "<div class='col row col-md-8'>";
   		}
   		else
-  			echo "<div class='row justify-content-center' id='divHauteRes'> <div id='divHauteRes2' class=' col-md-6 row justify-content-between border border-dark'>";
+  			echo "<div class='col row col-md-6'>";
+  		if ($value==1) {
+  			echo "<div id='contenu' class='col-12 row '> <div id='divHauteRes' class='row col-12'><div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
+  		}
+  		else
+  			echo "<div id='contenu' class='col-12 row'> <div class='row col-12 justify-content-center' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		?>
   			<form id='formulaireDeRechercheResultat' class="col-12">
   			<div class='form-row justify-content-around' id="formPrincipal" >
@@ -89,11 +93,11 @@ class vue_resTrajet extends VueGenerique
 		
   		if ($value==1) {
 
-  			echo '<div class="row removeResTrajet">
-	  		<a class="liensanscouleur row border border-dark justify-content-between col-md-8" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'">';
+  			echo '<div class="row col-12 removeResTrajet">
+	  		<a class="liensanscouleur row border border-dark justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'">';
   		}
   		else
-  			echo '<div class="row justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-md-6" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
+  			echo '<div class="row col-12 justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
   		?>
 	  			<div class="col-2">
 	  				<img src="home.jpg" style="width: 100px;">
@@ -126,8 +130,15 @@ class vue_resTrajet extends VueGenerique
   		
   		
   		<?php }$i++;}?>
+  		
   		</div>
-  		<div class="justify-content-center row <?php echo $value==1?'col-md-8':'';?>">
+  		<?php
+  		if ($value==1) {
+  			echo " <div class='justify-content-center row col-12'> ";
+  		}
+  		else 
+  			echo " <div class='justify-content-center row col-12'> ";?>
+  		
   			<button id="buttonAffichePlus">en afficher plus</button>
   		</div>
   		<?php
