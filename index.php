@@ -110,17 +110,37 @@ die("Page inaccessible");
 		</header>
 		<?php if (isset($_SESSION['id'])) {
 		echo'<section class="row col-12">';
+		echo "<aside class='row col-3'>";
 }
 else
 echo'<section class="row col-12 justify-content-center">';
 ?>
+
 			<?php 
+
 			include_once 'composants/compTest/CompTest.php';
   			$CompTest=new CompTest();
 			if (isset($_SESSION['id'])) {
 				$CompTest->affiche();
 			}
-			
+			include_once 'composants/compCommentaire/compCommentaire.php';
+  			$compCommentaire=new compCommentaire();
+			if (isset($_SESSION['id'])) {
+				$compCommentaire->affiche();
+			}
+			include_once 'composants/compCommentaire/compCommentaire.php';
+  			$compCommentaire=new compCommentaire();
+			if (isset($_SESSION['id'])) {
+				$compCommentaire->affiche();
+			}
+			include_once 'composants/compCommentaire/compCommentaire.php';
+  			$compCommentaire=new compCommentaire();
+			if (isset($_SESSION['id'])) {
+				$compCommentaire->affiche();
+			}
+			if (isset($_SESSION['id'])) {
+			echo "</aside>";
+		}
 			echo "$affichageForm";?>
 		</section>
 
