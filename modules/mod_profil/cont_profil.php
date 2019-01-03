@@ -12,7 +12,7 @@
 			$this->vue=new VueProfil();
 		}
 
-		public function accueilProfil($idUser, $estConnecter){
+		public function accueilProfil($idUser, $estConnecter, $resultat){
 			
 			$estPagePerso=false;
 			//$estPagePerso=true;
@@ -29,7 +29,7 @@
 			$result=$this->modele->traduitResultatRequete($result);
 			$nbTrajetEtNote=$this->modele->nbTrajetsEtNote($idUser);
 			$commentaires=$this->modele->commentaires($idUser);
-			$this->vue->accueilProfil($result, $nbTrajetEtNote['nb'], $nbTrajetEtNote['moyenne'], $commentaires, $estConnecter, $estPagePerso, $idUser);
+			$this->vue->accueilProfil($result, $nbTrajetEtNote['nb'], $nbTrajetEtNote['moyenne'], $commentaires, $estConnecter, $estPagePerso, $idUser, $resultat);
 			
 		}
 
@@ -64,24 +64,30 @@
 			if(!$estPagePerso)
 				die("Page inaccessible");
 
-		/*	$prenom = htmlspecialchars($_POST['prenom']);
-			$nom = htmlspecialchars($_POST['nom']);
-			$email = htmlspecialchars($_POST['Email']);
-			$emailConfirm = htmlspecialchars($_POST['confirmationEmail']);
-			$date = $_POST['datedenaissance'];
-			$sexe = $_POST['sexe'];
-			$description = htmlspecialchars($_POST['description']);
-			*/
-
-
 			$this->modele->verifieModificationProfil($idUser);
-			
-				
-		
-
-
 
 			header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
+		}
+
+		public function recupereModifMdp($idUser, $estConnecter){
+
+			$estPagePerso=false;
+
+			if(!$estConnecter)
+				die("Page inaccessible");
+			else
+				$estPagePerso=$this->modele->estPagePerso($idUser);
+
+			if(!$estPagePerso)
+				die("Page inaccessible");
+
+			$code=$this->modele->verifieModificationMdp($idUser);
+			if($code == 0)
+				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=0");
+			else if($code == 1)
+				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=1");
+			else
+				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=2");
 		}
 
 		public function afficheListeVehicule($idUser){

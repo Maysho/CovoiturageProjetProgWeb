@@ -18,12 +18,13 @@ $modele = new ModeleDiscussion;
 
 
 						<div class="row">
-							<div class="col-3">
-								<label class="col-12">'.$msg[$i]["prenom"].'</label>
-								<label class="col-12">'.$msg[$i]["date"].'</label>
+							<div class="col-md-3 row">
+								<label class="col-5 col-md-12 col-xl-12">'.$msg[$i]["prenom"].'</label>
+								<label class="col-5 col-md-12 col-xl-7">'.$msg[$i]["jour"].'</label>
+								<label class="col-2 col-md-12 col-xl-5">'.$msg[$i]["heure"].'</label>
 							</div>
 							
-								<label class="col-9">'.$msg[$i]["contenuMessage"].'</label>
+								<label class="col-md-9">'.$msg[$i]["contenuMessage"].'</label>
 							
 						</div>';
 				

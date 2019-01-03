@@ -32,7 +32,12 @@ class ModProfil extends VueGenerique
 
 			switch ($ongletProfil) {
 				case 'profil':
-					$this->controleur->accueilProfil($idUser, $estConnecter);
+					if(isset($_GET['resultat'])){
+						$resultat=$_GET['resultat'];
+						$this->controleur->accueilProfil($idUser, $estConnecter, $resultat);
+					}
+					else 
+						$this->controleur->accueilProfil($idUser, $estConnecter, null);
 					break;
 				
 				case 'modif':
@@ -44,11 +49,24 @@ class ModProfil extends VueGenerique
 					$this->controleur->recupereModifProfil($idUser, $estConnecter);
 					break;
 
+
+				case 'recupmodifmdp':
+					$this->controleur->recupereModifMdp($idUser, $estConnecter);
+					break;
+
+				case 'modifMdp':
+					if(isset($_GET['resultat'])){
+						$resultat=$_GET['resultat'];
+						$this->controleur->accueilProfil($idUser, $estConnecter, $resultat);
+					}
+					break;
+
 				case 'vehicules':
 					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
 					break;
+
 				default:
-					# code...
+					die("page inaccessible");
 					break;
 			}
 

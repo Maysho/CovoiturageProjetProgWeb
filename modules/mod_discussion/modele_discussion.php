@@ -29,12 +29,12 @@ include_once __DIR__ . '/../../connexion.php';
 		public function messages($idUser, $idInterlocuteur){
 			$selectPreparee=self::$bdd->prepare('
 
-				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, date FROM discussion
+				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, DATE_FORMAT(date, "%d/%m/%Y") AS jour, DATE_FORMAT(date, "%H:%i") AS heure FROM discussion
 				WHERE idUtilisateur1=? AND idUtilisateur2=?
 
 				UNION
 
-				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, date FROM discussion
+				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, DATE_FORMAT(date, "%d/%m/%Y") AS jour, DATE_FORMAT(date, "%H:%i") AS heure FROM discussion
 				WHERE idUtilisateur2=? AND idUtilisateur1=?
 
 				ORDER BY idDiscussion
@@ -82,6 +82,16 @@ include_once __DIR__ . '/../../connexion.php';
 			$insertPrepare=self::$bdd->prepare('INSERT INTO discussion VALUES (DEFAULT, ?, ?, ?, ?, now(), 0)');
 			$tabValues=array($idUtilisateur1, $idUtilisateur2, $message, $idUser);
 			$insertPrepare->execute($tabValues);
+		}
+
+		public function envoieMsgDepuisProfil($idUser, $idInterlocuteur){
+			$msg=htmlspecialchars($_POST['message']);
+			if($msg != ""){
+				$this->insererMessage($idUser, $idInterlocuteur, $msg);
+				return 3;
+			}
+			else return 2;
+
 		}
 
 		public function messageLu($idUser, $idInterlocuteur){

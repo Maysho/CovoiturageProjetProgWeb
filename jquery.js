@@ -532,11 +532,14 @@ function verifError(data){
 }
 
 
+/******************************************************************************************************************************
+**
+**Page de discussion
+**
+******************************************************************************************************************************/
 
 
-
-
-function chargeInterlocuteurs(){
+function chargeMessagesInterlocuteurs(){
   $('.interlocuteurs').on('click', function(e){
    
     e.preventDefault();
@@ -550,16 +553,18 @@ function chargeInterlocuteurs(){
         idInterlocuteur: obj.attr("id")},
 
         function(data,statut){
-          $("#messages").html(data)
-          $("#messages").scrollTop(999999);
+          afficheMessages(data, true);
         }
       );
 
   });
 }
 
-$('.interlocuteurs').ready(function(e){
-  chargeInterlocuteurs();
+$(document).ready(function(e){
+  if($('.interlocuteurs').length){
+    chargeMessagesInterlocuteurs();
+  }
+
 });
 
 
@@ -576,8 +581,7 @@ function envoyerMessage(){
       message: msg,
       idInterlocuteur: interlocuteur
      },
-      function(){
-      }
+      function(){}
     );
 
     $.post('scriptphp/afficheMessages.php', 
@@ -611,7 +615,7 @@ function afficheMessagesEtInterlocuteurs(){
       {},
       function(data,statut){
         $('#interlocuteurs').html(data)
-        chargeInterlocuteurs();
+        chargeMessagesInterlocuteurs();
       }
     );
 
@@ -622,7 +626,14 @@ function afficheMessagesEtInterlocuteurs(){
     },
 
       function(data,statut){
-        var elem = $("#messages");
+        
+        afficheMessages(data, false);
+      }
+    );
+}
+
+function afficheMessages(data, chargeMessagesInterlocuteurs){
+  var elem = $("#messages");
         var maxScrollTopOld = elem[0].scrollHeight - elem.outerHeight();
 
         $("#messages").html(data)
@@ -630,27 +641,26 @@ function afficheMessagesEtInterlocuteurs(){
         var elem = $("#messages");
         var maxScrollTopNew = elem[0].scrollHeight - elem.outerHeight();
 
-        if($("#messages").scrollTop().valueOf()==0 || maxScrollTopOld!=maxScrollTopNew){
+        if(chargeMessagesInterlocuteurs || maxScrollTopOld!=maxScrollTopNew)
           $("#messages").scrollTop(999999);
-        }
-      }
-    );
 }
 
 
 
-$('#messages').ready(function(e){
-  afficheMessagesEtInterlocuteurs();
+$(document).ready(function(e){
 
-  setInterval(function() {
+  if($('#messages').length){
 
-    afficheMessagesEtInterlocuteurs();   
-  }, 1000);
+    afficheMessagesEtInterlocuteurs();
+   
+    setInterval(function() {
+      afficheMessagesEtInterlocuteurs();   
+    }, 1000);
+  }
 });
 
-$('#messagesNonLus').ready(function(e){
-  setInterval(function(){
-    $.post('scriptphp/messagesNonLus.php',
+function messagesNonLu(){
+  $.post('scriptphp/messagesNonLus.php',
       {},
       function(data,statut){
         if(data!=0)
@@ -658,9 +668,169 @@ $('#messagesNonLus').ready(function(e){
         
           else
             $('#messagesNonLus').text('');
-      });
-  },1000);
+  });
+}
+
+$(document).ready(function(e){
+
+  if($('#messagesNonLus').length){
+
+    messagesNonLu();
+
+    setInterval(function(){
+      messagesNonLu();
+    },1000);
+  }
 });
+
+/******************************************************************************************************************************
+**
+**Changement mot de passe depuis le profil
+**
+******************************************************************************************************************************/
+
+
+var nouveauMdpEstValide=false;
+var ancienMdpDiffNouveau=false;
+var verifOk=false;
+var msgErreurNouveauMdp="/!\\ Le mot de passe doit contenir au moins 8 caracteres dont une lettre en minuscule, une lettre majuscule, un chiffre et doit être différent de votre mot de passe actuel";
+var msgErreurConfNouveauMdp="/!\\ Erreur dans la confirmation du mot de passe";
+
+var regexMdp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
+
+$("#mdpActuel").on('input', function(e){
+  e.preventDefault();
+  if(this.value != $("#nouveauMdp").val()){
+    ancienMdpDiffNouveau=true;
+    if(nouveauMdpEstValide)
+      $("#msgErreurNouveauMdp").text("");
+  }
+  else{
+    ancienMdpDiffNouveau=false;
+    if($("#nouveauMdp").val()!=""){
+      $("#msgErreurNouveauMdp").text(msgErreurNouveauMdp);
+    }
+  }
+});
+
+$("#nouveauMdp").on('input',function(e){
+  e.preventDefault();
+  var mdp = this.value;
+  if(regexMdp.test(mdp)){
+    nouveauMdpEstValide=true;
+    if(this.value!=$("#mdpActuel").val())
+      $("#msgErreurNouveauMdp").text("");
+  }
+  else{
+    nouveauMdpEstValide=false;
+    $("#msgErreurNouveauMdp").text(msgErreurNouveauMdp);
+  }
+  if(this.value!=$("#mdpActuel").val()){
+    ancienMdpDiffNouveau=true;
+    if(nouveauMdpEstValide)
+      $("#msgErreurNouveauMdp").text("");
+  }
+  else{
+    ancienMdpDiffNouveau=false;
+    $("#msgErreurNouveauMdp").text(msgErreurNouveauMdp);
+  }
+  if(this.value==$("#confirmationNouveauMdp").val()){
+    verifOk=true;
+    $("#msgErreurConfNouveauMdp").text("");
+  }
+  else{
+    verifOk=false;
+    if($("#confirmationNouveauMdp").val()!="")
+      $("#msgErreurConfNouveauMdp").text(msgErreurConfNouveauMdp);
+  }
+});
+
+$("#confirmationNouveauMdp").on('input',function(e){
+  e.preventDefault();
+  if(this.value == $("#nouveauMdp").val()){
+    verifOk=true;
+    $("#msgErreurConfNouveauMdp").text("");
+  }
+  else{
+    verifOk=false;
+    if($("#nouveauMdp").val()!="")
+      $("#msgErreurConfNouveauMdp").text(msgErreurConfNouveauMdp);
+  }
+});
+
+
+$(document).ready(function(e){
+  if($("#boutonModifierMotDePasse").length){
+
+    setInterval(function(){
+      if(nouveauMdpEstValide && ancienMdpDiffNouveau && verifOk)
+        $("#boutonModifierMotDePasse").prop("disabled", false);
+      else
+        $("#boutonModifierMotDePasse").prop("disabled", true);
+    },100);
+
+  }
+});
+
+$(document).ready(function(e){
+  if($("#msgErreurSaisieMdp").length){
+    $("#changementMDPModal").modal();
+  }
+  else if($("#resultat").length){
+    if($("#resultat").attr('id_val')==0){
+      alert("Mot de passe modifié avec succes!");
+    }
+    else if($("#resultat").attr('id_val')==2){
+       alert("Une erreur c'est produite veuillez réessayer");
+    }
+    else if($("#resultat").attr('id_val')==3){
+       alert("Message envoyer avec succes!");
+    }
+  }
+});
+
+
+/******************************************************************************************************************************
+**
+**Envoie message depuis profil
+**
+******************************************************************************************************************************/
+
+var zoneEnvoieNonVide=false;
+
+$("#zoneEnvoieMsgProfil").on('input',function(e){
+  //e.preventDefault();
+  
+  if(this.value != ""){
+    zoneEnvoieNonVide=true;
+  }
+  else{
+    zoneEnvoieNonVide=false;
+  }
+});
+
+$('#zoneEnvoieMsgProfil').keyup(function(e){
+  if(e.keyCode == 13 && zoneEnvoieNonVide){
+    $("#boutonEnvoieMsgProfil").trigger('click');
+  }
+});
+
+$(document).ready(function(e){
+  if($("#zoneEnvoieMsgProfil").length){
+
+    setInterval(function(){
+      if(zoneEnvoieNonVide)
+         $("#boutonEnvoieMsgProfil").prop("disabled", false);
+      else
+         $("#boutonEnvoieMsgProfil").prop("disabled", true);
+
+
+    },100);
+  }
+});
+
+
+
 
 valeurChange=-1;
 $(".checkerInscription").on('change', function(event) {
@@ -800,9 +970,6 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
   e.preventDefault();
   
   alert("on rentre");
-
-
-
 
     $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
 
