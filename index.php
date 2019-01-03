@@ -98,51 +98,66 @@ die("Page inaccessible");
 
  
   	<div class="container-fluid">
-	<header>
-  		<?php 
-
+		<header>
+ <?php 
+			//$CompMenu->affiche();
 
 			include_once 'modules/mod_nav/mod_nav.php';
 			$mod_nav=new mod_nav();
 			$mod_nav->afficheNav();
-
-			?>
-		</header>
-		<?php if (isset($_SESSION['id'])) {
-		echo'<section class="row col-12">';
-		echo "<aside class='row col-3'>";
-}
-else
-echo'<section class="row col-12 justify-content-center">';
 ?>
-
-			<?php 
+		</header>
+		
+		<?php if (isset($_SESSION['id'])) {
+			echo '<div class="row">';
+			echo "<aside class='col-md-3' style='display:inline-block'>";
+		}
+		else
+			echo '<div class="row justify-content-center">';
 
 			include_once 'composants/compTest/CompTest.php';
+
   			$CompTest=new CompTest();
 			if (isset($_SESSION['id'])) {
 				$CompTest->affiche();
 			}
+
 			include_once 'composants/compCommentaire/compCommentaire.php';
+
   			$compCommentaire=new compCommentaire();
 			if (isset($_SESSION['id'])) {
 				$compCommentaire->affiche();
 			}
+
 			include_once 'composants/compCommentaire/compCommentaire.php';
+
   			$compCommentaire=new compCommentaire();
 			if (isset($_SESSION['id'])) {
 				$compCommentaire->affiche();
 			}
+
 			include_once 'composants/compCommentaire/compCommentaire.php';
+
   			$compCommentaire=new compCommentaire();
 			if (isset($_SESSION['id'])) {
 				$compCommentaire->affiche();
 			}
+
 			if (isset($_SESSION['id'])) {
-			echo "</aside>";
-		}
-			echo "$affichageForm";?>
+				echo "</aside>";
+			}
+
+			if (isset($_SESSION['id'])) {
+				echo'<section class="col-md-8" style="display:inline-block">';
+			}
+			else{
+				echo'<section class="col-6 row justify-content-center">';
+				
+			}
+				echo "$affichageForm";
+?>
 		</section>
+		</div>
 
 
 	
@@ -150,12 +165,12 @@ echo'<section class="row col-12 justify-content-center">';
 	<footer>Antoine Dabilly</footer>
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="jquery-3.3.1.min.js"  integrity=""  crossorigin=""></script>
+    <script src="jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
     <script src="jquery.js"></script>
     <script src="javascript.js"> </script>
 </body>
