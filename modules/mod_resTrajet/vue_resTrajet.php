@@ -11,7 +11,7 @@ class vue_resTrajet extends VueGenerique
 	{
 		parent::__construct();
 	}
-	public function affichePage($value=-1,$tab1,$depart,$destination,$date,$prix,$type,$regulier)
+	public function affichePage($value=-1,$tab1,$depart,$destination,$date,$prix,$type,$regulier,$favoris=false)
 	{
 		?>
   		<?php
@@ -27,9 +27,15 @@ class vue_resTrajet extends VueGenerique
   		else
   			echo "<div id='contenu' class='col-12'> <div class='col-12 ' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		?>
-  		<div class='row justify-content-end col-12'>
-  			<button id='miseEnFavoris'><i class="far fa-star" id="pasFavoris"></i></button><!-- <i class="fas fa-star"></i> -->
+  		<?php
+  		if ($value==1) {?>
+  			<div class='row justify-content-end col-12'>
+  			<button id='miseEnFavoris'><?php echo $favoris?'<i class="far fa-star" id="pasFavoris"></i>':'<i class="fas fa-star" id="favoris"></i>';?></button><!-- <i class="fas fa-star"></i> -->
   		</div>
+  		<?php 
+  	}
+  		
+  		?>
   			<form id='formulaireDeRechercheResultat' class="col-12">
   			<div class='form-row justify-content-around' id="formPrincipal" >
 				    <div class='form-group container col-md-6' id="villeDepartRecherche">
