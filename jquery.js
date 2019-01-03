@@ -674,7 +674,7 @@ function messagesNonLu(){
 $(document).ready(function(e){
 
   if($('#messagesNonLus').length){
-
+    
     messagesNonLu();
 
     setInterval(function(){

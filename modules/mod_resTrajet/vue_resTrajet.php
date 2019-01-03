@@ -16,15 +16,16 @@ class vue_resTrajet extends VueGenerique
 		?>
   		<?php
   		if ($value==1) {
-  			echo "<div class='col col-md-8'>";
+  			echo "<div><div class='col col-md-12'>";
   		}
-  		else
-  			echo "<div class='col col-md-6'>";
+  		else{
+  			echo "<div class='row justify-content-center col-12'> <div class='col col-md-6 '>";
+  		}
   		if ($value==1) {
   			echo "<div id='contenu' class='col-12  '> <div id='divHauteRes' class='col-12'><div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		}
   		else
-  			echo "<div id='contenu' class='col-12'> <div class='col-12 justify-content-center' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
+  			echo "<div id='contenu' class='col-12'> <div class='col-12 ' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		?>
   			<form id='formulaireDeRechercheResultat' class="col-12">
   			<div class='form-row justify-content-around' id="formPrincipal" >
@@ -142,6 +143,7 @@ class vue_resTrajet extends VueGenerique
   		
   			<button id="buttonAffichePlus">en afficher plus</button>
   		</div>
+  	</div>
   		<?php
 	}
 }

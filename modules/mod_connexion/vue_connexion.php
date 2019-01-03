@@ -77,7 +77,7 @@ class vue_connexion extends VueGenerique
   	{
   		echo '<div class="row col-12">
 
-  		<section class="order-md-0 order-2 justify-content-md-start justify-content-lg-center offset-1 col-md-4 ">
+  		<div class="order-md-0 order-2 justify-content-md-start justify-content-lg-center offset-1 col-md-4 ">
   		<h2>S\'inscrire</h2>
   		<form method="POST" id="inscription">
 			  <div class="form-group" id="divEmailInscription">
@@ -108,9 +108,9 @@ class vue_connexion extends VueGenerique
 		</form>
 
 
-  		</section>
+  		</div>
   		<div class=" col-0 order-md-1 separation border border-dark d-none d-md-block"></div>
-  		<section class=" row order-md-2 order-0 justify-content-md-start justify-content-center align-items-center col-md-4 offset-1 ">
+  		<div class=" row order-md-2 order-0 justify-content-md-start justify-content-center align-items-center col-md-4 offset-1 ">
   		<form id="espaceConnexion" method="post" action="index.php?module=mod_connexion&action=verifConnexion">
   			<h2>Se connecter</h2>
 			  <div class="form-group">
@@ -132,15 +132,15 @@ class vue_connexion extends VueGenerique
 			  <a href="index.php?module=mod_connexion&action=AfficheMotDePasseOublier">mot de passe oublier</a>
 			  </div>
 		</form>
-  		</section>
+  		</div>
   		<div class="col-1"></div>
   		</div>';
   	}
   	public function pageToken($value)
   	{
-  		?><div class="row col-12">
+  		?>
 
-  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
+  		<div class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Renseigner le code reçu par email</h2>
   		<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieToken">';?>
 			  <div class="form-group" id="divEmailInscription">
@@ -156,16 +156,16 @@ class vue_connexion extends VueGenerique
 		</form>
 
 
-  		</section>
   		</div>
+  		
 
 <?php
   	}
   	public function affichePageChangementMPD($value,$token)
   	{
-  		?><div class="row col-12">
+  		?>
 
-  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
+  		<div class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Renseigner le nouveau Mot de Passe</h2>
   		<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieMPD">';?>
 			  <div class="form-group" id="divEmailInscription">
@@ -186,15 +186,15 @@ class vue_connexion extends VueGenerique
 		</form>
 
 
-  		</section>
   		</div>
+  		
 <?php
   	}
   	public function motDePasseOublier($value)
   	{
-  		?><div class="row col-12">
+  		?>
 
-  		<section class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
+  		<div class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
   		<h2>Mot de passe oublier</h2>
   		<form method="GET" action="index.php?module=mod_connexion&action=ChercheMotDePasseOublie">
 			  <div class="form-group" id="divEmailInscription">
@@ -211,8 +211,6 @@ class vue_connexion extends VueGenerique
 			  </div>
 		</form>
 
-
-  		</section>
   		</div>
   		<?php
 

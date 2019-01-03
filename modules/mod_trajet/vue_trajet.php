@@ -236,13 +236,13 @@ class vue_Trajet extends VueGenerique{
 	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers)
 	{
 		if ($value>=1) {
-			echo "<div class='col-md-8'>";
+			echo "<div class='col-12'><div class='col-md-12'>";
 		}
 		else
-			echo "<div class='row col-md-6 justify-content-center'>";
+			echo "<div class='col-12 row justify-content-center'> <div class='row col-md-6 justify-content-center'>";
 		
 
-			echo "<div class='row col-12 justify-content-center'>";
+			echo "<div class='row col-md-12 justify-content-center'>";
 		?>
 		<h1>Le trajet</h1>
 </div>
@@ -589,6 +589,7 @@ class vue_Trajet extends VueGenerique{
 
 		</div>
 	</div>
+</div>
 <?php
 	}
 }
