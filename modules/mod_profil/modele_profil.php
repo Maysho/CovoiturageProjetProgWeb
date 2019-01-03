@@ -59,15 +59,7 @@ class ModeleProfil extends connexion{
 		return  $age->format('%y');
 		
 	}
-
-	public function commentaires($idUser){
-
-		$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
-		$tableauIds=array($idUser);
-		$selectPreparee->execute($tableauIds);
-		return $selectPreparee->fetchAll();
-	}
-
+	
 	public function nbTrajetsEtNote($idUser){
 
 		$selectPreparee=self::$bdd->prepare('SELECT count(*) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? ');
