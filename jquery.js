@@ -674,7 +674,7 @@ function messagesNonLu(){
 $(document).ready(function(e){
 
   if($('#messagesNonLus').length){
-    
+
     messagesNonLu();
 
     setInterval(function(){
@@ -1040,4 +1040,36 @@ $('#retirerTrajet').on('click', function(event) {
          'text'
          ).fail(function(data,statut,xhr) {
          });
+});
+$("#miseEnFavoris").on('click', function(event) {
+  event.preventDefault();
+  if($(this).children().attr('id')=='pasFavoris'){
+    $(this).children().replaceWith('<i class="fas fa-star" id="favoris"></i>');
+
+   
+  }
+  else{
+    $(this).children().replaceWith('<i class="far fa-star" id="pasFavoris"></i>');
+  }
+   $.post('scriptphp/mesFavoris.php', // Un script PHP que l'on va créer juste après
+
+      
+        $("#formulaireDeRechercheResultat").serialize()
+      
+      ,
+
+      function(data,statut){
+        alert(data);
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+            //window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         });
+
 });

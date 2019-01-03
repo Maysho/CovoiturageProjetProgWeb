@@ -180,5 +180,29 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 		echo json_encode($array); 
 		$selecPrepareeUnique->closeCursor();
 	}
+	public function verifieSiExiste($depart='',$destination='',$prix=100000,$type='',$regulier){
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT idfavoris FROM favoris where idUtilisateur=? and villeDepart=? and villeArrivee=? and prix=? and type=? and regulier=?');
+		$selecPrepareeUnique->execute(array($_SESSION['id'],$depart,$destination,$prix,$type,$regulier));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return empty($idUtilisateur);
+	}
+	public function mesFavoris($depart='',$destination='',$prix=100000,$type='',$regulier)
+	{	
+		if (empty($prix) ) {
+			$prix=100000;
+		}
+		if(self::verifieSiExiste($depart,$destination,$prix,$type,$regulier)){
+			$insertPreparee=self::$bdd->prepare('INSERT INTO favoris(idfavoris,idUtilisateur,villeDepart,villeArrivee,prix,type,regulier) values(DEFAULT,:idUtilisateur,:villeDepart,:villeArrivee,:prix,:type,:regulier)');
+			$insertPreparee -> execute(array('idUtilisateur'=>$_SESSION['id'],'villeDepart'=>$depart,'villeArrivee'=>$destination,'prix'=>$prix,'type'=>$type,'regulier'=>$regulier));
+			echo "success";
+		}
+		else{
+			$insertPreparee=self::$bdd->prepare('DELETE FROM favoris  where idUtilisateur=? and villeDepart=? and villeArrivee=? and prix=? and type=? and regulier=?');
+			$insertPreparee->execute(array($_SESSION['id'],$depart,$destination,$prix,$type,$regulier));
+			echo "success";
+		}
+		
+
+	}
 
 }

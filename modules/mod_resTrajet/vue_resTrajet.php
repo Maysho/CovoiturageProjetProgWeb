@@ -27,6 +27,9 @@ class vue_resTrajet extends VueGenerique
   		else
   			echo "<div id='contenu' class='col-12'> <div class='col-12 ' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		?>
+  		<div class='row justify-content-end col-12'>
+  			<button id='miseEnFavoris'><i class="far fa-star" id="pasFavoris"></i></button><!-- <i class="fas fa-star"></i> -->
+  		</div>
   			<form id='formulaireDeRechercheResultat' class="col-12">
   			<div class='form-row justify-content-around' id="formPrincipal" >
 				    <div class='form-group container col-md-6' id="villeDepartRecherche">
