@@ -98,50 +98,66 @@ die("Page inaccessible");
 
  
   	<div class="container-fluid">
-	<header>
-  		<?php 
+		<header>
+ <?php 
 			//$CompMenu->affiche();
 
 			include_once 'modules/mod_nav/mod_nav.php';
 			$mod_nav=new mod_nav();
 			$mod_nav->afficheNav();
-			?>
-		</header>
-		<?php if (isset($_SESSION['id'])) {
-		echo'<section class="row col-12">';
-		echo "<aside class='row col-3'>";
-}
-else
-echo'<section class="row col-12 justify-content-center">';
 ?>
-
-			<?php 
+		</header>
+		
+		<?php if (isset($_SESSION['id'])) {
+			echo '<div class="row">';
+			echo "<aside class='col-md-3' style='display:inline-block'>";
+		}
+		else
+			echo '<div class="row justify-content-center">';
 
 			include_once 'composants/compTest/CompTest.php';
+
   			$CompTest=new CompTest();
 			if (isset($_SESSION['id'])) {
 				$CompTest->affiche();
 			}
+
 			include_once 'composants/compCommentaire/compCommentaire.php';
+
   			$compCommentaire=new compCommentaire();
 			if (isset($_SESSION['id'])) {
 				$compCommentaire->affiche();
 			}
+
 			include_once 'composants/compCommentaire/compCommentaire.php';
+
   			$compCommentaire=new compCommentaire();
 			if (isset($_SESSION['id'])) {
 				$compCommentaire->affiche();
 			}
+
 			include_once 'composants/compCommentaire/compCommentaire.php';
+
   			$compCommentaire=new compCommentaire();
 			if (isset($_SESSION['id'])) {
 				$compCommentaire->affiche();
 			}
+
 			if (isset($_SESSION['id'])) {
-			echo "</aside>";
-		}
-			echo "$affichageForm";?>
+				echo "</aside>";
+			}
+
+			if (isset($_SESSION['id'])) {
+				echo'<section class="col-md-8" style="display:inline-block">';
+			}
+			else{
+				echo'<section class="col-6 row justify-content-center">';
+				
+			}
+				echo "$affichageForm";
+?>
 		</section>
+		</div>
 
 
 	

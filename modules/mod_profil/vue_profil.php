@@ -8,14 +8,8 @@ include_once 'vue_generique.php';
 		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser, $resultat){
 
 			
-			echo '<div class="row">';
-		if($estConnecter)
-			echo '	<p class="col-md-3 text-center"> emplacement aside </p>          
-		
+			
 
-				
-				<div class="col-md-9">';
-		else
 			echo '<div class="col-md-12">';
 
 		if($estPagePerso){
@@ -212,10 +206,8 @@ include_once 'vue_generique.php';
 		function modificationDeProfil($idUser, $donnees){
 ?>
 
-			<div class="row">
-				<p class="col-md-3 text-center"> emplacement aside </p>   
-
-				<div class="col-md-9">
+			
+				<div class="col-md-12">
 					<nav class="navbar navbar-expand-md navbar-dark bg-primary">
 					
 					    <div class="navbar-nav justify-content-between">
@@ -301,7 +293,7 @@ include_once 'vue_generique.php';
 						
 					</section>
 				</div>
-			</div>
+			
 <?php
 		}
 
