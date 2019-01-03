@@ -613,6 +613,13 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$idUtilisateur=$selecPrepareeUnique->fetch();
 		return $idUtilisateur[0];
 	}
+	
+	public function retirerTrajet($idTrajet)
+	{
+		$updatePreparee=self::$bdd->prepare('UPDATE trajet set  suppression=1 where idTrajet=?');
+		$updatePreparee -> execute(array($idTrajet));
+		echo "success";
+	}
 }
 
 

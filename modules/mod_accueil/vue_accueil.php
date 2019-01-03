@@ -45,7 +45,8 @@ class VueAccueil extends VueGenerique
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
 				    	 	<label for="inputState">type de vehicule</label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
-				    	 	<option selected>1</option>
+				    	 	<option selected>Non renseigné</option>
+				    	 	<option>1</option>
 				    	 	<option>2</option>
 				    	 	</select> 
     	 	                </div>

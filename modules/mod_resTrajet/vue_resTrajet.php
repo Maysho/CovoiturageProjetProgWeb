@@ -47,7 +47,8 @@ class vue_resTrajet extends VueGenerique
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
 				    	 	<label for="inputState">type de vehicule</label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
-
+							<option <?php echo $type=="Non renseigné"? "selected":""; ?>>Non renseigné</option>
+				    	 	
 				    	 	<option <?php echo $type=="1"? "selected":""; ?>>1</option>
 				    	 	<option <?php echo $type=="2"? "selected":""; ?>>2</option>
 				    	 	</select> 
