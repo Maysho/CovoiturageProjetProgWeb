@@ -110,7 +110,7 @@ die("Page inaccessible");
 		
 		<?php if (isset($_SESSION['id'])) {
 			echo '<div class="row">';
-			echo "<aside class='col-md-3' style='display:inline-block'>";
+			echo "<aside class='col-md-3' >";
 		}
 		else
 			echo '<div class="row justify-content-center">';
@@ -148,10 +148,10 @@ die("Page inaccessible");
 			}
 
 			if (isset($_SESSION['id'])) {
-				echo'<section class="col-md-8" style="display:inline-block">';
+				echo'<section class="col-md-8" >';
 			}
 			else{
-				echo'<section class="col-6 row justify-content-center">';
+				echo'<section class="col-12 row ">';
 				
 			}
 				echo "$affichageForm";
