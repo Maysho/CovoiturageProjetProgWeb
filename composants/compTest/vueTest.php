@@ -13,7 +13,7 @@ class vueTest
 	public function affiche(){
 
    		?>
-   		<div class="col-12 row composant"><span class="col-12">fburrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrri</span><span class="col-12">fburrrrrrrrrrrrri</span></div>
+   		<div class="col-12 composant"><span class="col-12">fburrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrri</span><span class="col-12">fburrrrrrrrrrrrri</span></div>
    	<?php
   	}
 }

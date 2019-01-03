@@ -180,7 +180,7 @@ include_once 'vue_generique.php';
 				for ($i=0; $i < count($commentaires); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
 ?>
-	   				<section class="border border-dark rounded col-md-12">
+	   				<section class="border border-dark rounded col-md-12" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
 	   					<div class="row">
 	   						<label class="col-md-8">De <a href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?></label>
 	   						<label class="col-md-4">note : <?php echo $commentaires[$i]['note']; ?></label>

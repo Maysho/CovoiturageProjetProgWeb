@@ -3,7 +3,7 @@
 /**
 * 
 */
-class vueCommentaire
+class vueTrajetRecent
 {
 	
 	function __construct()

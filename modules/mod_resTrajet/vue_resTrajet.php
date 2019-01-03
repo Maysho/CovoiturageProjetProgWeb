@@ -16,15 +16,15 @@ class vue_resTrajet extends VueGenerique
 		?>
   		<?php
   		if ($value==1) {
-  			echo "<div class='col row col-md-8'>";
+  			echo "<div class='col col-md-8'>";
   		}
   		else
-  			echo "<div class='col row col-md-6'>";
+  			echo "<div class='col col-md-6'>";
   		if ($value==1) {
-  			echo "<div id='contenu' class='col-12 row '> <div id='divHauteRes' class='row col-12'><div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
+  			echo "<div id='contenu' class='col-12  '> <div id='divHauteRes' class='col-12'><div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		}
   		else
-  			echo "<div id='contenu' class='col-12 row'> <div class='row col-12 justify-content-center' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
+  			echo "<div id='contenu' class='col-12'> <div class='col-12 justify-content-center' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
   		?>
   			<form id='formulaireDeRechercheResultat' class="col-12">
   			<div class='form-row justify-content-around' id="formPrincipal" >
@@ -47,7 +47,8 @@ class vue_resTrajet extends VueGenerique
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
 				    	 	<label for="inputState">type de vehicule</label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
-
+							<option <?php echo $type=="Non renseigné"? "selected":""; ?>>Non renseigné</option>
+				    	 	
 				    	 	<option <?php echo $type=="1"? "selected":""; ?>>1</option>
 				    	 	<option <?php echo $type=="2"? "selected":""; ?>>2</option>
 				    	 	</select> 
@@ -93,11 +94,11 @@ class vue_resTrajet extends VueGenerique
 		
   		if ($value==1) {
 
-  			echo '<div class="row col-12 removeResTrajet">
+  			echo '<div class="col-12 removeResTrajet">
 	  		<a class="liensanscouleur row border border-dark justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'">';
   		}
   		else
-  			echo '<div class="row col-12 justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
+  			echo '<div class="col-12 justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
   		?>
 	  			<div class="col-2">
 	  				<img src="home.jpg" style="width: 100px;">
