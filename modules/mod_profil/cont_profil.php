@@ -1,7 +1,7 @@
 <?php
 	
-	require_once 'modele_profil.php';
-	require_once 'vue_profil.php';
+	include_once 'modele_profil.php';
+	include_once 'vue_profil.php';
 
 	class ContProfil{
 
@@ -96,6 +96,11 @@
 
 			$this->vue->afficheListeVehicule($idUser, $donnees);
 
+		}
+		public function afficheListeFavoris($idUser)
+		{
+			$donnees=$this->modele->getListeFavoris($idUser);
+			$this->vue->afficheListeFavoris($idUser, $donnees);
 		}
 	}
 ?>

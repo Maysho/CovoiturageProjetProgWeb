@@ -15,7 +15,13 @@ class mod_resTrajet extends VueGenerique
 	}
 	public function init()
 	{
-		$this->controleur->affichePage();
+		if (isset($_GET['action'])&& $_GET['action']="afficheFavoris" && isset($_SESSION['id'])) {
+			$this->controleur->afficheFavoris();
+		}
+		else {
+			$this->controleur->affichePage();
+		}
+
 		
 	}
 

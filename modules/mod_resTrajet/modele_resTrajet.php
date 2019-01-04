@@ -16,7 +16,7 @@ class modele_resTrajet extends connexion
 
 	public function donneTrajet($depart='',$destination='',$date,$prix=100000,$type='',$regulier,$order='prix')
 	{
-		if (empty($date)) {//||$date<date('Y-m-d');
+		if (!isset($date) || empty($date)) {//||$date<date('Y-m-d');
 			$date=date('Y-m-d');
 		}
 		if (empty($prix) ) {
@@ -180,6 +180,10 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 		echo json_encode($array); 
 		$selecPrepareeUnique->closeCursor();
 	}
+	public function verifieSiExisteJ($depart='',$destination='',$prix=100000,$type='',$regulier){
+		echo self::verifieSiExiste($depart,$destination,$prix,$type,$regulier);
+	}
+
 	public function verifieSiExiste($depart='',$destination='',$prix=100000,$type='',$regulier){
 		if (empty($prix) ) {
 			$prix=100000;
@@ -205,5 +209,10 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 		
 
 	}
-
+	public function recupInfoFavoris($idfavoris='')
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT * FROM favoris where idUtilisateur=? and idfavoris=?');
+		$selecPrepareeUnique->execute(array($_SESSION['id'],$idfavoris));
+		return $selecPrepareeUnique->fetch();
+	}
 }

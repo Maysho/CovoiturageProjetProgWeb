@@ -260,6 +260,19 @@ class ModeleProfil extends connexion{
 		return $liste;
 
 	}
+	public function getListeFavoris($idUser)
+	{
+		$reqGetListeFavoris = self::$bdd->prepare("SELECT * from favoris  where idUtilisateur = ?");
+		$reqGetListeFavoris->execute(array($idUser));
+		$liste= $reqGetListeFavoris->fetchAll();
+		return $liste;
+	}
+	public function retireFavoris($idFavoris='')
+	{
+		$reqGetListeFavoris = self::$bdd->prepare("DELETE from favoris  where idFavoris = ? and idUtilisateur=?");
+		$reqGetListeFavoris->execute(array($idFavoris,$_SESSION['id']));
+		echo "success";
+	}
 }
 
 ?>

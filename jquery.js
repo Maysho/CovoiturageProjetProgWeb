@@ -112,6 +112,30 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
       });
     });
 
+$("#formulaireDeRechercheResultat").change(function(event) {
+  $.post('scriptphp/verifFavoris.php', // Un script PHP que l'on va créer juste après
+
+      $("#formulaireDeRechercheResultat").serialize()
+      ,
+
+      function(data,statut){
+        if (data.includes("1")) {
+                    
+          $("#miseEnFavoris").children().replaceWith('<i class="far fa-star" id="pasFavoris"></i>');
+   
+        }
+        else{
+          $("#miseEnFavoris").children().replaceWith('<i class="fas fa-star" id="favoris"></i>');
+          
+        }
+
+        
+
+      },
+      'text'
+      )
+    });
+
 $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   $('#messageErreurCom').remove();
@@ -1072,4 +1096,28 @@ $("#miseEnFavoris").on('click', function(event) {
          ).fail(function(data,statut,xhr) {
          });
 
+});
+$(".buttonSuppFavoris").on('click', function(event) {
+  $.post('scriptphp/retireFavoris.php', // Un script PHP que l'on va créer juste après
+
+      {
+        idFavoris:$(this).attr('data-id')
+      }
+      
+      ,
+
+      function(data,statut){
+        alert(data);
+      //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
+      if(data.includes("success")){
+            //window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
+           }
+           else{
+             // Le membre n'a pas été connecté. (data vaut ici "failed")
+           }
+         },
+         'text'
+         ).fail(function(data,statut,xhr) {
+         });
+       $(this).parent().parent().remove();  
 });

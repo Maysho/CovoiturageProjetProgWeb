@@ -5,7 +5,9 @@ include_once 'vue_generique.php';
 
 	class VueDiscussion extends VueGenerique{
 
-		function __construct(){}
+		function __construct(){
+			parent::__construct();
+		}
 
 		public function discussion($interlocuteurs, $msg){
 ?>			    

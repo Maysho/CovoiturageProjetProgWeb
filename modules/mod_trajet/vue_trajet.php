@@ -78,7 +78,7 @@ class vue_Trajet extends VueGenerique{
 
 				  						<div class="col-md-3 row form-group text-center">
 				  							<label class="col-md-4">Heure <i class="far fa-clock"></i></label>
-				  							<input class="offset-md-2 col-md-4 form-control" type="time" id="heure0" value="<?php echo date('h:i') ?>">
+				  							<input class="offset-md-2 col-md-4 form-control" type="time" id="heure0" value="<?php echo date('H:i') ?>">
 				  						</div>
 
 				  						<div class="col-md-4 row form-group text-center">
@@ -96,7 +96,7 @@ class vue_Trajet extends VueGenerique{
 
 				  					<div class="col-md-3 row form-group text-center">
 				  						<label class="col-md-4" >Heure <i class="far fa-clock"></i></label>
-				  						<input class="offset-md-2 col-md-4 form-control" type="time" id="heureArrivee" value="<?php echo date('h:i') ?>">
+				  						<input class="offset-md-2 col-md-4 form-control" type="time" id="heureArrivee" value="<?php echo date('H:i') ?>">
 				  					</div>
 
 				  					<div class="col-md-4 row form-group text-center">

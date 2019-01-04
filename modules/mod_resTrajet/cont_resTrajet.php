@@ -27,6 +27,14 @@ class cont_resTrajet
 
 		
 	}
+	public function afficheFavoris()
+	{
+		if (isset($_GET['id'])) {
+			$info=$this->modele->recupInfoFavoris(htmlspecialchars($_GET['id']));
+			$tab=$this->modele->donneTrajet(htmlspecialchars($info[2]),htmlspecialchars($info[3]),null,htmlspecialchars($info[4]),htmlspecialchars($info[5]),$info[6]);
+			$this->vue->affichePage(1,$tab,htmlspecialchars($info[2]),htmlspecialchars($info[3]),null,htmlspecialchars($info[4]),htmlspecialchars($info[5]),$info[6],0);
+		}
+	}
 	public function affichePage($value='')
 	{
 		$regulier=0;
