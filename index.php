@@ -136,11 +136,11 @@ die("Page inaccessible");
 				$compCommentaire->affiche();
 			}
 
-			include_once 'composants/compCommentaire/compCommentaire.php';
+			include_once 'composants/compFavoris/compFavoris.php';
 
-  			$compCommentaire=new compCommentaire();
+  			$compFavoris=new compFavoris();
 			if (isset($_SESSION['id'])) {
-				$compCommentaire->affiche();
+				$compFavoris->affiche();
 			}
 
 			if (isset($_SESSION['id'])) {

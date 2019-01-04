@@ -98,14 +98,14 @@ include_once __DIR__ .'/../../vue_generique.php';
 		
 		
 ?>
-					<div class="border border-dark rounded col-12">
+					<div class="border border-dark rounded col-12" style="overflow: auto;">
 						<table class="table">
 							<tr class="">
-								<td class=" text-center">Depart</td>
-								<td class=" text-center">Destination</td>
-								<td class=" text-center">Prix</td>
-								<td class=" text-center">Type</td>
-								<td class=" text-center">Régulier</td>
+								<td class=" text-center titreFavoris">Depart</td>
+								<td class=" text-center titreFavoris">Destination</td>
+								<td class=" text-center titreFavoris">Prix</td>
+								<td class=" text-center titreFavoris">Type</td>
+								<td class=" text-center titreFavoris">Régulier</td>
 							</tr>
 						<?php 
 							for ($i=0; $i <count($donnees) ; $i++) { 
@@ -114,7 +114,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 							}
 					
 						?>
-						</a>
+						
 						</table>
 	   				</div>
 	   				

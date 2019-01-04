@@ -108,7 +108,9 @@ h2{
 .btn{
     display:inline-table;	
 }
-
+.titreFavoris{
+    font-weight: bold;
+}
 .pre-scrollable{
     height:340px;
 }
