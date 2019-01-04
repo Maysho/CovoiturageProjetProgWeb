@@ -64,7 +64,10 @@ class ModProfil extends VueGenerique
 				case 'vehicules':
 					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
 					break;
-
+				case 'favoris':
+				
+					$this->controleur-> afficheListeFavoris($_SESSION['id']);
+					break;
 				default:
 					die("page inaccessible");
 					break;

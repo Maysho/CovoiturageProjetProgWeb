@@ -3,13 +3,13 @@
 /**
 * 
 */
-include_once 'vue_generique.php';
-class vue_nav extends VueGenerique
+
+class vue_nav 
 {
 	
 	function __construct()
 	{
-		parent::__construct();
+		
 	}
 	public function navNonConnecte($value='')
 	{

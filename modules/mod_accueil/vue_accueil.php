@@ -8,7 +8,7 @@ class VueAccueil extends VueGenerique
 	
 	function __construct()
 	{
-		# code...
+		parent::__construct();
 	}
 
 	public function affiche($connecte){
@@ -22,7 +22,7 @@ class VueAccueil extends VueGenerique
   		<div class='border border-dark justify-content-md-start justify-content-lg-center col-md-6'>";
   		?>
   		<div class='row justify-content-end'>
-  			<button class='btn btn-primary' style='margin-right: 3%'>lala</button>
+  			<a href="index.php?module=mod_trajet"><button class='btn btn-primary' >proposer</button></a>
   		</div>
   			<form id='formulaireDeRecherche' method="POST" action="index.php?module=mod_resTrajet">
   			<div class='form-row justify-content-around' id="formPrincipal">
@@ -64,7 +64,7 @@ class VueAccueil extends VueGenerique
 				  <div class='row' id="buttonSubmitAccueil">
 				  	<button class='btn btn-secondary d-block' id="buttonAgranditForm">+</button>
 				  	<div class="mr-auto"></div>
-				  <button type='submit' class='btn btn-primary' style='margin-right: 3%'>Sign in</button>
+				  <button type='submit' class='btn btn-primary' style='margin-right: 3%'>rechercher</button>
 				  </div>
 				  <div class="row d-none" id="divbuttonrapetisseform">
 				        <button class="btn btn-secondary" id="buttonRapetisseForm">-</button> 

@@ -27,22 +27,31 @@ class cont_resTrajet
 
 		
 	}
+	public function afficheFavoris()
+	{
+		if (isset($_GET['id'])) {
+			$info=$this->modele->recupInfoFavoris(htmlspecialchars($_GET['id']));
+			$tab=$this->modele->donneTrajet(htmlspecialchars($info[2]),htmlspecialchars($info[3]),null,htmlspecialchars($info[4]),htmlspecialchars($info[5]),$info[6]);
+			$this->vue->affichePage(1,$tab,htmlspecialchars($info[2]),htmlspecialchars($info[3]),null,htmlspecialchars($info[4]),htmlspecialchars($info[5]),$info[6],0);
+		}
+	}
 	public function affichePage($value='')
 	{
 		$regulier=0;
 		if (isset($_POST['regulier'])) {
-			$regulier=true;
+			$regulier=1;
 		}
-		if (!isset($_POST['depart'])|| !isset($_POST['destination'])) {
+		if (!isset($_POST['depart']) || !isset($_POST['destination']) || empty($_POST['depart']) || empty($_POST['destination'])) {
 			header("Location: index.php");
 		}
 		else{
-			$tab=$this->modele->donneTrajet($_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+			$tab=$this->modele->donneTrajet(htmlspecialchars($_POST['depart']),htmlspecialchars($_POST['destination']),htmlspecialchars($_POST['date']),htmlspecialchars($_POST['prix']),htmlspecialchars($_POST['type']),$regulier);
 			if (isset($_SESSION['id'])) {
-				$this->vue->affichePage(1,$tab,$_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+				$favoris=$this->modele->verifieSiExiste(htmlspecialchars($_POST['depart']),htmlspecialchars($_POST['destination']),htmlspecialchars($_POST['prix']),htmlspecialchars($_POST['type']),$regulier);
+				$this->vue->affichePage(1,$tab,htmlspecialchars($_POST['depart']),htmlspecialchars($_POST['destination']),htmlspecialchars($_POST['date']),htmlspecialchars($_POST['prix']),htmlspecialchars($_POST['type']),$regulier,$favoris);
 			}
 			else
-				$this->vue->affichePage(0,$tab,$_POST['depart'],$_POST['destination'],$_POST['date'],$_POST['prix'],$_POST['type'],$regulier);
+				$this->vue->affichePage(0,$tab,htmlspecialchars($_POST['depart']),htmlspecialchars($_POST['destination']),htmlspecialchars($_POST['date']),htmlspecialchars($_POST['prix']),htmlspecialchars($_POST['type']),$regulier);
 		}
 	}
 	
