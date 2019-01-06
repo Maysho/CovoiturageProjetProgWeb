@@ -13,8 +13,8 @@ class vue_Trajet extends VueGenerique{
 				date_default_timezone_set('Europe/Paris');
 				?>
 
-				<div class="offset-0 offset-md-2 col-md-12 text-center">
-					<div>
+				<div class="offset-0 offset-md-2 col-md-8 text-center">
+					<section>
 						<h2>Je propose un Trajet <i class="fas fa-car"></i> </h2>
 						<div>
 							<h2 class="text-left">Itinéraire</h2>
@@ -132,7 +132,7 @@ class vue_Trajet extends VueGenerique{
 				  										<?php 
 				  										foreach ($listeVehicule as $key => $value) {
 				  											?>
-			  											<option <?php if($key == 0) echo "selected";?> class="voitureSelection" data-url="<?php echo $value['urlPhoto']?>" value="<?php echo $value['immatriculation'] ?>"><?php echo $value['immatriculation'] ?> </option>	
+			  											<option <?php if($key == 1) echo "selected";?> class="voitureSelection" data-url="<?php echo $value['urlPhoto']?>" value="<?php echo $value['immatriculation'] ?>"><?php echo $value['immatriculation'] ?> </option>	
 				  											<?php
 				  										}
 				  										?>
@@ -184,6 +184,7 @@ class vue_Trajet extends VueGenerique{
 				  														<img id="defaultThumb"class="col-md-5 thumb img-fluid" src="photos/Black.png" alt="Photo du vehicule">
 				  														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
 				  														<input class="offset-md-5" type="file" id="photoCar"name="photoCar">
+
 				  													</div>
 
 				  													<div class="text-center">
@@ -209,6 +210,7 @@ class vue_Trajet extends VueGenerique{
 				  						</div>
 				  						<div class="col-md-6"> 
 				  							<img class="col-md-12 img-thumbnail img-fluid" id="imgCar"alt="Voiture" src="photos/Black.png">
+				  							<!-- <?php if(isset($listeVehicule[$key]['urlPhoto'])) echo $listeVehicule[$key]['urlPhoto']; else echo "/photos/Black.png"; ?> -->
 				  						</div>
 				  					</div>
 				  					<div class="row">
@@ -221,11 +223,11 @@ class vue_Trajet extends VueGenerique{
 				  					</div > 
 				  					<hr>
 				  				</div>
-				  				<!-- <div class="container row">
+				  				<div class="container row">
 				  					<label><input type="checkbox" name="notificationJoin">Me prévenir lorsqu'un passager s'inscrit au trajet</label>
-				  				</div> -->
+				  				</div>
 				  				<button id="envoiTrajet" class="btn btn-primary">C'est parti! <i class="fas fa-car-side"></i></button>
-				  			</div>
+				  			</section>
 				  		</div>
 
 				  		<?php

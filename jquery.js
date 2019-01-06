@@ -223,19 +223,16 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
+      console.log(txt);
       $('#immatriculation').val("");
       $('#critair').val("0");
       $('#hybride').prop('checked', false);
       $('#defaultThumb').attr('src', 'photos/Black.png');
       $('#photoCar').val("");
-      if (txt =='') {
-        $(document).find("#immatriculationCar").last().append("<option class='voitureSelection' selected data-url='photos/Black.png' value='"+immatriculation+"'>"+ immatriculation +"</option>");
-        $(document).find("#imgCar").attr("src","photos/Black.png");
-      }
-      else{
-        $(document).find("#immatriculationCar").last().append("<option class='voitureSelection' selected data-url='"+txt+"' value='"+immatriculation+"'>"+ immatriculation +"</option>");
-        $(document).find("#imgCar").attr("src",txt);
-      }
+      
+      $(document).find("#immatriculationCar").last().append("<option class='voitureSelection' value="+immatriculation +">"+ immatriculation +"</option>");
+      $(document).find("#imgCar").attr("src",txt);
+
     },
     error: function(){
       alert("fail");
@@ -257,7 +254,7 @@ $('#envoiTrajet').on("click",function(e){
       dateDepart: $(document).find('#dateDepart').val(),
       heureDepart: $(document).find('#heureDepart').val(),
       heureArrivee: $(document).find('#heureArrivee').val(),
-      immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
+      idVehiculeConducteur: $(document).find('#idVehicule').find(':selected').val(),
       prix: $(document).find('#prixArrivee').val(),
       regulier: $(document).find('#regulier').is(":checked")
     };
@@ -277,7 +274,7 @@ $('#envoiTrajet').on("click",function(e){
           dateDepart: $(document).find('#dateDepart').val(),
           heureDepart: $(document).find('#heureDepart').val(),
           heureArrivee: $(document).find('#heure1').val(),
-          immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
+          idVehiculeConducteur: $(document).find('#idVehicule').find(':selected').val(),
           prix: $(document).find('#prix1').val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
@@ -295,7 +292,7 @@ $('#envoiTrajet').on("click",function(e){
           heureDepart: $(document).find(heureDepart).val(),
           heureArrivee: $(document).find('#heureArrivee').val(),
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
-          immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
+          idVehiculeConducteur: $(document).find('#idVehicule').find(':selected').val(),
           prix: $(document).find('#prixArrivee').val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
@@ -315,7 +312,7 @@ $('#envoiTrajet').on("click",function(e){
           heureDepart: $(document).find(heureDepart).val(),
           heureArrivee: $(document).find(heureArrivee).val(),
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
-          immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
+          idVehiculeConducteur: $(document).find('#idVehicule').find(':selected').val(),
           prix: $(document).find(prix).val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
@@ -461,17 +458,11 @@ $(function(){
     }
   });
 
-  $('#immatriculationCar').change(function() {
-    var sources  = $(this).find(':selected').attr("data-url"); 
+  $('#idVehicule').change(function() {
+    var i  =$(this).find(':selected').attr("data-url"); 
     console.log(i)
-    console.log($(this).attr("data-url"));
-    if(sources == ""){
-      $('#imgCar').attr("src","photos/Black.png");
-    }
-    else{
-      $('#imgCar').attr("src",sources);
-    }
-    
+    // console.log($(this).attr("data-url"));
+    $('#imgCar').attr("src",i);
   });
 
 });
@@ -502,13 +493,9 @@ $(document).ready(function(){
         alert("Your browser doesn't support File API!"); //if File API is absent
       }
     });
-    var sources= $(document).find('#immatriculationCar').find(':selected').attr("data-url"); 
-    if( sources == ""){
-      $('#imgCar').attr("src","photos/Black.png");
-    }
-    else{
-      $('#imgCar').attr("src",sources);
-    }
+    var i  =$(this).find(':selected').attr("data-url"); 
+    $('#imgCar').attr("src",i);
+
   });
 
 
