@@ -13,7 +13,7 @@ class vue_Trajet extends VueGenerique{
 				date_default_timezone_set('Europe/Paris');
 				?>
 
-				<div class="offset-0 offset-md-2 col-md-12 text-center">
+				<div class="offset-md-2 col-md-12 text-center">
 					<div>
 						<h2>Je propose un Trajet <i class="fas fa-car"></i> </h2>
 						<div>
@@ -59,7 +59,7 @@ class vue_Trajet extends VueGenerique{
 				  				</div>
 				  				<div class="text-left form-group row" >
 				  					<div class="col-md-4 row form-group text-center">
-				  						<label class="col-md-5"><i style=" color: green;"class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
+				  						<label class="col-md-5"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
 				  						<input class="offset-md-1 col-md-5 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
 				  					</div>
 
@@ -156,8 +156,8 @@ class vue_Trajet extends VueGenerique{
 				  												<div class="modal-body">
 				  													<h3 class="modal-title text-center">Votre nouveau Vehicule</h3>
 				  													<div class="row form-group offset-md-1">
-				  														<label class="col-md-5" for="immatriculation">Immatriculation</label>
-				  														<input class="col-md-5 form-control" type="text" id="immatriculation" placeholder="AA-000-AA">
+				  														<label class="col-md-5" for="idVehiculeConducteur">Immatriculation</label>
+				  														<input class="col-md-5 form-control" type="text" id="idVehiculeConducteur" placeholder="AA-000-AA">
 				  													</div>
 				  													<div class="row offset-md-1">
 				  														<label class="col-md-5" for="critair">Crit'air</label>
@@ -181,9 +181,9 @@ class vue_Trajet extends VueGenerique{
 
 				  													<div class="row offset-md-1">
 				  														<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
-				  														<img id="defaultThumb"class="col-md-5 thumb img-fluid" src="photos/Black.png" alt="Photo du vehicule">
+				  														<img id="defaultThumb" class="col-md-5 thumb img-fluid" src="photos/Black.png" alt="Photo du vehicule"/>
 				  														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
-				  														<input class="offset-md-5" type="file" id="photoCar"name="photoCar">
+				  														<input class="offset-md-5" type="file" id="photoCar" name="photoCar"/>
 				  													</div>
 
 				  													<div class="text-center">
@@ -208,7 +208,7 @@ class vue_Trajet extends VueGenerique{
 				  							</div >
 				  						</div>
 				  						<div class="col-md-6"> 
-				  							<img class="col-md-12 img-thumbnail img-fluid" id="imgCar"alt="Voiture" src="photos/Black.png">
+				  							<img class="col-md-12 img-thumbnail img-fluid" id="imgCar" alt="Voiture" src="photos/Black.png"/>
 				  						</div>
 				  					</div>
 				  					<div class="row">
