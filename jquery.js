@@ -223,23 +223,15 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
-      // console.log(txt);
+      
       $('#immatriculation').val("");
       $('#critair').val("0");
       $('#hybride').prop('checked', false);
       $('#defaultThumb').attr('src', 'photos/Black.png');
       $('#photoCar').val("");
-      // $(document).find('.voitureSelection').last().attr("value");
-      // var voiture= $(document).find('.voitureSelection').last();
-      // if(voiture.attr("value") == -1){
-      //   var ajout = voiture.clone();
-      //   ajout.attr('data-url', '');
-      //   ajout.attr('value', '0');
-      //   ajout.attr('selected', '');
-      //   ajout.html("nouvelle voiture");
-      //   $(document).find('.voitureSelection').append(ajout);
-      // }
-
+      
+      $(document).find("#immatriculationCar").last().append("<option class='voitureSelection' value="+immatriculation +">"+ immatriculation +"</option>");
+      $(document).find("#imgCar").attr("src",txt);
 
     },
     error: function(){

@@ -47,6 +47,7 @@ class modele_trajet extends connexion {
 				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
 				if($result)
 					$url = "sources/images/photoVehicule/".$nomFich;
+					echo $url;
 			}
 		}
 
