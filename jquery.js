@@ -229,11 +229,11 @@ $('#addCar').on('click', function(e){
       $('#defaultThumb').attr('src', 'photos/Black.png');
       $('#photoCar').val("");
       if (txt =='') {
-        $(document).find("#idVehiculeConducteur").last().append("<option class='voitureSelection' selected data-url='photos/Black.png' value='"+immatriculation+"'>"+ immatriculation +"</option>");
+        $(document).find("#immatriculationCar").last().append("<option class='voitureSelection' selected data-url='photos/Black.png' value='"+immatriculation+"'>"+ immatriculation +"</option>");
         $(document).find("#imgCar").attr("src","photos/Black.png");
       }
       else{
-        $(document).find("#idVehiculeConducteur").last().append("<option class='voitureSelection' selected data-url='"+txt+"' value='"+immatriculation+"'>"+ immatriculation +"</option>");
+        $(document).find("#immatriculationCar").last().append("<option class='voitureSelection' selected data-url='"+txt+"' value='"+immatriculation+"'>"+ immatriculation +"</option>");
         $(document).find("#imgCar").attr("src",txt);
       }
     },
@@ -257,7 +257,7 @@ $('#envoiTrajet').on("click",function(e){
       dateDepart: $(document).find('#dateDepart').val(),
       heureDepart: $(document).find('#heureDepart').val(),
       heureArrivee: $(document).find('#heureArrivee').val(),
-      idVehiculeConducteur: $(document).find('#idVehiculeConducteur').find(':selected').val(),
+      immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
       prix: $(document).find('#prixArrivee').val(),
       regulier: $(document).find('#regulier').is(":checked")
     };
@@ -277,7 +277,7 @@ $('#envoiTrajet').on("click",function(e){
           dateDepart: $(document).find('#dateDepart').val(),
           heureDepart: $(document).find('#heureDepart').val(),
           heureArrivee: $(document).find('#heure1').val(),
-          idVehiculeConducteur: $(document).find('#idVehiculeConducteur').find(':selected').val(),
+          immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
           prix: $(document).find('#prix1').val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
@@ -295,7 +295,7 @@ $('#envoiTrajet').on("click",function(e){
           heureDepart: $(document).find(heureDepart).val(),
           heureArrivee: $(document).find('#heureArrivee').val(),
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
-          idVehiculeConducteur: $(document).find('#idVehiculeConducteur').find(':selected').val(),
+          immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
           prix: $(document).find('#prixArrivee').val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
@@ -315,7 +315,7 @@ $('#envoiTrajet').on("click",function(e){
           heureDepart: $(document).find(heureDepart).val(),
           heureArrivee: $(document).find(heureArrivee).val(),
           // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
-          idVehiculeConducteur: $(document).find('#idVehiculeConducteur').find(':selected').val(),
+          immatriculationCar: $(document).find('#immatriculationCar').find(':selected').val(),
           prix: $(document).find(prix).val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
@@ -461,7 +461,7 @@ $(function(){
     }
   });
 
-  $('#idVehiculeConducteur').change(function() {
+  $('#immatriculationCar').change(function() {
     var sources  = $(this).find(':selected').attr("data-url"); 
     console.log(i)
     console.log($(this).attr("data-url"));
@@ -502,7 +502,7 @@ $(document).ready(function(){
         alert("Your browser doesn't support File API!"); //if File API is absent
       }
     });
-    var sources= $(document).find('#idVehiculeConducteur').find(':selected').attr("data-url"); 
+    var sources= $(document).find('#immatriculationCar').find(':selected').attr("data-url"); 
     if( sources == ""){
       $('#imgCar').attr("src","photos/Black.png");
     }

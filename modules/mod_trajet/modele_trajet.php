@@ -183,7 +183,7 @@ class modele_trajet extends connexion {
 					idVilleDepart,
 					idVilleArrivee,
 					heureArrivee,
-					idVehiculeConducteur,
+					immatriculation,
 					prix,
 					prixCumule,
 					regulier
@@ -195,7 +195,7 @@ class modele_trajet extends connexion {
 					:idVilleDepart,
 					:idVilleArrivee,
 					:heureArrivee,
-					:idVehiculeConducteur,
+					:immatriculation,
 					:prix,
 					:prixCumule,
 					:regulier
@@ -209,7 +209,7 @@ class modele_trajet extends connexion {
 		 		':idVilleDepart'=>$value['idVilleD'],
 		 		':idVilleArrivee'=>$value['idVilleA'],
 		 		':heureArrivee'=>$value['heureArrivee'],
-		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':immatriculation'=>$value['immatriculationCar'],
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg
