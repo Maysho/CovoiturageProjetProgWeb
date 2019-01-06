@@ -235,7 +235,7 @@ class modele_trajet extends connexion {
 	 		$reqInsert->execute(array(
 	 			':utilisateur_idutilisateur' => $idConducteur,
  				':sousTrajet_idsousTrajet' => $value['idsousTrajet'],
- 				':valide' => true,
+ 				':valide' => false,
  				':prixPayer' =>0.0
 	 		));
 
@@ -249,27 +249,29 @@ class modele_trajet extends connexion {
 		$error = false;
 
 		if(!isset($critair) || $critair < 0 || $critair > 6){
-			$this->msg=$this->msg."" ."\n";
-			$error= true;
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
 		}
 		if(empty($immatriculation)){
-			$this->msg=$this->msg."" ."\n";
-			$error= true;
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
 		}
 
-		if (strlen($var) > 9 && !preg_match("#^[0-9]{1,4}[A-Z]{1,4}[0-9]{1,2}$#", $immatriculation)) {
-		   	$this->msg=$this->msg."" ."\n";
+		if (  !preg_match("~(\d{3,4}\s*[a-z]{2}\s*(\d{2}|\d[a-z])|[a-z]{2}\s*\d{4}\s*[a-z]{2}|[a-z]{2}\s*\d{3}\s*[a-z])~iu", $immatriculation)) {
+		   	$this->msg=$this->msg."wtf" ."\n";
 			$error = true;	
 		   // echo "ancienne plaque : $var"  ;
+			// echo " nouvelle plaque : $var"   ;
 		}
-		else if  (strlen($var) > 7 && !preg_match("#^[A-Z]{1,2}[0-9]{1,3}[A-Z]{1,2}$#", $immatriculation))  {
-		   	$this->msg=$this->msg."" ."\n";
-			$error = true;	
-		   // echo " nouvelle plaque : $var"   ;
-		}
+		// if (  !preg_match("#^[0-9]{1,4}[A-Z]{1,4}[0-9]{1,2}$#", $immatriculation)  || !preg_match("#^[A-Z]{1,2}[0-9]{1,3}[A-Z]{1,2}$#", $immatriculation) ) {
+		//    	$this->msg=$this->msg."wtf" ."\n";
+		// 	$error = true;	
+		//    // echo "ancienne plaque : $var"  ;
+		// 	// echo " nouvelle plaque : $var"   ;
+		// }
 		if(!isset($hybride)){
-			$this->msg=$this->msg."" ."\n";
-			$error= true;
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
 		}
 		return $error;
 	}
