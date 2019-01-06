@@ -27,13 +27,14 @@ class modele_trajet extends connexion {
 	
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
-		
+		$immatriculation= strtoupper($immatriculation);
+		$immatriculation = str_replace("-", " ", $immatriculation);
 		if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
 			http_response_code(400);
 			echo $this->msg;
 			exit(1);
 		}
-
+		$immatriculation = str_replace(" ", "-", $immatriculation);
 		$reg = $hybride == "true" ?  1 :  0; 
 
 		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
@@ -47,10 +48,13 @@ class modele_trajet extends connexion {
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
 				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
 				if($result)
-					$url = "sources/images/photoVehicule/".$nomFich;
-					echo $url;
+					$url = "sources/images/photoVehicule/".$nomFich;	
+
 			}
+		}else{
+			$url = "photos/Black.png";
 		}
+		echo $url;
 
 		$reqAddCar=self::$bdd->prepare("
 			INSERT INTO vehicule (
@@ -179,7 +183,7 @@ class modele_trajet extends connexion {
 					idVilleDepart,
 					idVilleArrivee,
 					heureArrivee,
-					idVehiculeConducteur,
+					immatriculation,
 					prix,
 					prixCumule,
 					regulier
@@ -191,7 +195,7 @@ class modele_trajet extends connexion {
 					:idVilleDepart,
 					:idVilleArrivee,
 					:heureArrivee,
-					:idVehiculeConducteur,
+					:immatriculation,
 					:prix,
 					:prixCumule,
 					:regulier
@@ -205,7 +209,7 @@ class modele_trajet extends connexion {
 		 		':idVilleDepart'=>$value['idVilleD'],
 		 		':idVilleArrivee'=>$value['idVilleA'],
 		 		':heureArrivee'=>$value['heureArrivee'],
-		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':immatriculation'=>$value['immatriculationCar'],
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg
@@ -238,11 +242,7 @@ class modele_trajet extends connexion {
  				':valide' => false,
  				':prixPayer' =>0.0
 	 		));
-
 	 	}
-
-
-
 	}
 
 	public function verifVehicule($immatriculation, $critair, $hybride){
@@ -329,7 +329,6 @@ class modele_trajet extends connexion {
 				$this->msg=$this->msg."342- Erreur de Format Date" ."\n";
 				$error = true;	
 			}
-
 			//ville existante
 			$i++;
 		}
