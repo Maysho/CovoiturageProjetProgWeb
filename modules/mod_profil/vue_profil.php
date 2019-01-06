@@ -221,9 +221,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 			?>
 			<div class="container">
 				<div class="col-md-9">
-			<?php self::afficheNavProfil(4,$idUser); ?>
-			<!-- <div class="offset-md-2 col-md-8 text-center"> -->
-					<!-- <h2>Mes voitures</h2> -->
+					<?php self::afficheNavProfil(4,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
 						<table class="table">
 							<thead>
@@ -270,17 +268,14 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>		
 							</div>
 						</div>
-						
 						<!-- Modal -->
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog modal-lg">
-
 								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
-
 									<div class="modal-body">
 										<h3 class="modal-title text-center">Votre nouveau Vehicule</h3>
 										<div class="row form-group offset-md-1">
@@ -299,36 +294,29 @@ include_once __DIR__ .'/../../vue_generique.php';
 												<option value="6">Je n'ai pas certifié mon véhicule</option>
 											</select>
 										</div>
-
 										<div class="row offset-md-1">
 											<label class="col-md-2" for="hybride">Hybride</label>	
 											<div class="row offset-md-5">
 												<input type="checkbox" id="hybride" name="hybride">
 											</div>
 										</div>
-
 										<div class="row offset-md-1">
 											<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
 											<img id="defaultThumb" class="col-md-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
 											<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
 											<input class="offset-md-5" type="file" id="photoCar" name="photoCar"/>
 										</div>
-
 										<div class="text-center">
 											<button id="addCar" data-dismiss="modal" class="btn btn-primary"> Ajouter </button>
 										</div>
 									</div>
-
 									<div class="modal-footer">
 										<button class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</div>
-
 							</div>
 						</div>									  
 					</div>
-					
-				<!-- </div> -->
 				</div>
 			</div>
 			<?php 
