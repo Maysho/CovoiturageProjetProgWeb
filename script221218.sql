@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `dutinfopw201623`.`soustrajet` (
   `idVilleDepart` BIGINT(20) NOT NULL,
   `idVilleArrivee` BIGINT(20) NOT NULL,
   `heureArrivee` TIME NOT NULL,
-  `idVehiculeConducteur` BIGINT(20) NOT NULL,
+  `idVehiculeConducteur` VARCHAR(32) NOT NULL,
   `prix` FLOAT NOT NULL,
   `prixCumule` FLOAT NOT NULL,
   `regulier` TINYINT(4) NOT NULL,
