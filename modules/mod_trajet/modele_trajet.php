@@ -24,15 +24,14 @@ class modele_trajet extends connexion {
 		$liste= $reqGetListeCar->fetchAll();
 		return $liste;
 	}
-	
+
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
 		
-		if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
-			http_response_code(400);
-			echo $this->msg;
-			exit(1);
-		}
+		// if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
+		// 	echo $this->msg;
+		// 	exit(1);
+		// }
 
 		$reg = $hybride == "true" ?  1 :  0; 
 
@@ -243,35 +242,6 @@ class modele_trajet extends connexion {
 
 
 
-	}
-
-	public function verifVehicule($immatriculation, $critair, $hybride){
-		$error = false;
-
-		if(!isset($critair) || $critair < 0 || $critair > 6){
-			$this->msg=$this->msg."" ."\n";
-			$error= true;
-		}
-		if(empty($immatriculation)){
-			$this->msg=$this->msg."" ."\n";
-			$error= true;
-		}
-
-		if (strlen($var) > 9 && !preg_match("#^[0-9]{1,4}[A-Z]{1,4}[0-9]{1,2}$#", $immatriculation)) {
-		   	$this->msg=$this->msg."" ."\n";
-			$error = true;	
-		   // echo "ancienne plaque : $var"  ;
-		}
-		else if  (strlen($var) > 7 && !preg_match("#^[A-Z]{1,2}[0-9]{1,3}[A-Z]{1,2}$#", $immatriculation))  {
-		   	$this->msg=$this->msg."" ."\n";
-			$error = true;	
-		   // echo " nouvelle plaque : $var"   ;
-		}
-		if(!isset($hybride)){
-			$this->msg=$this->msg."" ."\n";
-			$error= true;
-		}
-		return $error;
 	}
 
 	public function verifChamps($soustrajets, $placeTotale){

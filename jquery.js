@@ -223,7 +223,7 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
-      console.log(txt);
+      
       $('#immatriculation').val("");
       $('#critair').val("0");
       $('#hybride').prop('checked', false);
