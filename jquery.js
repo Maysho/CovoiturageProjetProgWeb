@@ -229,7 +229,7 @@ $('#addCar').on('click', function(e){
         $(document).find("#imgCar").attr("src",txt);
       }
     },
-    error: function(){
+    error: function(txt){
       alert("fail");
     }
   });
@@ -333,12 +333,13 @@ $('#envoiTrajet').on("click",function(e){
     },
     success : function(txt){
       // window.location='index.php';
+
       console.log("msg :"+txt);
       key = 0;
     },
     error: function(txt){
       alert("fail");
-      console.log("msg :"+txt);
+      alert("msg :"+txt.responseText);
     }
   });
 });

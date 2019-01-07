@@ -31,7 +31,9 @@ class vueCommentaire
    			}
 
    			?>
-
+         <div class="row justify-content-end">
+               <a href="index.php?module=mod_profil&idprofil=<?php echo $tab[0]['idUtilisateur'];?>&ongletprofil=profil#<?php echo $tab[0]['idAuteur'].'Auteur'.$tab[0]['idTrajet'].'Trajet';?>" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">en afficher plus... </a>
+            </div>
    		</div>
    	<?php
    	}

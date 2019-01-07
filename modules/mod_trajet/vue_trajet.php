@@ -433,16 +433,27 @@ class vue_Trajet extends VueGenerique{
 						<i class="far fa-circle"><?php  echo $tabSt[0][12]?></i>
 						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
-						<div class="col-2 border-dark border">
+						<?php if ($infoTrajet[15]>4) {
+						 		echo "<div class='col-1 border-dark border' >";
+						 	}
+						else
+							echo "<div class='col-2 border-dark border' >";
+						?>
+						
 							<span>c</span>
 						</div>
 						
 
 					<?php  $compteur =0;
 					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
-					 	# code...
+					 	if ($infoTrajet[15]>4) {
+						 		echo "<div class='col-1 border-dark border' >";
+						 	}
+						else
+							echo "<div class='col-2 border-dark border' >";
 					  ?>
-					<div class="col-2 border-dark border" >
+
+					
 							 <span>p</span> 
 						</div>
 						
@@ -498,13 +509,18 @@ class vue_Trajet extends VueGenerique{
 						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][35]?></i>
 						<span> <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
 						</div>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0">
-						</div>
+						
 						<?php
-						for ($i=1; $i <$infoTrajet[15] ; $i++) { 
+						for ($i=0; $i <$infoTrajet[15] ; $i++) { 
 					 	# code...
-					  ?>
-						<div class="col-2 border-dark border border-bottom-0 border-top-0" >
+					  
+
+					  if ($infoTrajet[15]>4) {
+						 		echo "<div class='col-1 border-dark border border-bottom-0 border-top-0' >";
+						 	}
+						else
+							echo "<div class='col-2 border-dark border border-bottom-0 border-top-0' >";
+						?>
 						</div>
 
 						
