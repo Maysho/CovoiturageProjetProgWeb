@@ -24,7 +24,7 @@ include_once 'vue_generique.php';
 				</div>
 
 				<div class="row">
-						<textarea id="MsgAEnvoyer" class="col-md-7 offset-md-2 form-control" maxlength="255" rows="1" style="resize: none"></textarea>
+						<textarea id="MsgAEnvoyer" class="col-md-7 offset-md-2 form-control textarea-fixe" maxlength="255" rows="1"></textarea>
 						<input id="EnvoieMsg" class="btn btn-primary col-md-2" type="submit"></input>
 					
 				</div>
