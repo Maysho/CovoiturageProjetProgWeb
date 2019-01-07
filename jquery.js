@@ -148,21 +148,21 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
         alert(data);
 
         $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="home.jpg" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
-		$("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
-		  e.preventDefault();
-		  
-		  alert("on rentre");
+    $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
+      e.preventDefault();
+      
+      alert("on rentre");
     $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
 
       {
-      	idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+        idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
       }
       ,
 
       function(data,statut){
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
-      	$('#supprimerCom').parent().parent().parent().remove();
+        $('#supprimerCom').parent().parent().parent().remove();
              /*window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#desinscriptionAuTrajet').attr('data-id'));*/
 
              //window.location.replace('index.php?module=mod_connexion');
@@ -175,7 +175,7 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
          ).fail(function(data,statut,xhr) {
          });
          
-       });	
+       });  
       },
       'text'
       ).fail(function(data,statut,xhr) {
@@ -223,24 +223,19 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
-      // console.log(txt);
       $('#immatriculation').val("");
       $('#critair').val("0");
       $('#hybride').prop('checked', false);
       $('#defaultThumb').attr('src', 'photos/Black.png');
       $('#photoCar').val("");
-      // $(document).find('.voitureSelection').last().attr("value");
-      // var voiture= $(document).find('.voitureSelection').last();
-      // if(voiture.attr("value") == -1){
-      //   var ajout = voiture.clone();
-      //   ajout.attr('data-url', '');
-      //   ajout.attr('value', '0');
-      //   ajout.attr('selected', '');
-      //   ajout.html("nouvelle voiture");
-      //   $(document).find('.voitureSelection').append(ajout);
-      // }
-
-
+      if (txt =='') {
+        $(document).find("#idVehicule").last().append("<option class='voitureSelection' selected data-url='photos/Black.png' value='"+immatriculation+"'>"+ immatriculation +"</option>");
+        $(document).find("#imgCar").attr("src","photos/Black.png");
+      }
+      else{
+        $(document).find("#idVehicule").last().append("<option class='voitureSelection' selected data-url='"+txt+"' value='"+immatriculation+"'>"+ immatriculation +"</option>");
+        $(document).find("#imgCar").attr("src",txt);
+      }
     },
     error: function(){
       alert("fail");
@@ -467,10 +462,14 @@ $(function(){
   });
 
   $('#idVehicule').change(function() {
-    var i  =$(this).find(':selected').attr("data-url"); 
-    console.log(i)
-    // console.log($(this).attr("data-url"));
-    $('#imgCar').attr("src",i);
+    var sources = $(this).find(':selected').attr("data-url"); 
+    console.log($(this).attr("data-url"));
+    if(sources == ""){
+      $('#imgCar').attr("src","photos/Black.png");
+    }
+    else{
+      $('#imgCar').attr("src",sources);
+    }
   });
 
 });
@@ -501,9 +500,14 @@ $(document).ready(function(){
         alert("Your browser doesn't support File API!"); //if File API is absent
       }
     });
-    var i  =$(this).find(':selected').attr("data-url"); 
-    $('#imgCar').attr("src",i);
 
+    var sources= $(document).find('#idVehicule').find(':selected').attr("data-url"); 
+    if( sources == ""){
+      $('#imgCar').attr("src","photos/Black.png");
+    }
+    else{
+      $('#imgCar').attr("src",sources);
+    }
   });
 
 
@@ -919,19 +923,19 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
   var compteur=0;
   var tabVille=[];
   for (var i = 0; i < parseInt($(this).attr('data-nbPlace'),10); i++) {
-  	val="#st"+i;
-  	if ($(val).prop("checked")) {
-	tabVille[compteur]=$(val).attr('data-idville');
-	compteur++;
-  	}
+    val="#st"+i;
+    if ($(val).prop("checked")) {
+  tabVille[compteur]=$(val).attr('data-idville');
+  compteur++;
+    }
   }
   
     if (tabVille.length !=0) {
     $.post('scriptphp/formulaireDinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
 
       {
-      	tabId:tabVille,
-      	idTrajet:$('#sinscrireAuTrajet').attr('data-id')
+        tabId:tabVille,
+        idTrajet:$('#sinscrireAuTrajet').attr('data-id')
       }
       ,
 
@@ -949,7 +953,7 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
          },
          'text'
          ).fail(function(data,statut,xhr) {
-         	alert(data.responseText);
+          alert(data.responseText);
           verifError(data.responseText);
          });
          }
@@ -966,7 +970,7 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
     $.post('scriptphp/desinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
 
       {
-      	idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+        idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
       }
       ,
 
@@ -984,7 +988,7 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
          },
          'text'
          ).fail(function(data,statut,xhr) {
-         	alert(data.responseText);
+          alert(data.responseText);
           verifError(data.responseText);
          });
          
@@ -998,7 +1002,7 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
     $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
 
       {
-      	idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+        idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
       }
       ,
 

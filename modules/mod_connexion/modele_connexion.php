@@ -90,7 +90,7 @@ class modele_connexion extends connexion
 		$codePostal=preg_grep("#[0-9]+#", explode(",", $ville));
 		$ville=preg_replace("#([0-9]|[,])*#", "", $ville);
 
-		$selecPrepareeUnique=self::$bdd->prepare('SELECT nomVille,codePostal FROM ville where nomVille like "%"?"%" or( codePostal>= ? and codePostal<=?) limit 5');
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT nomVille,codePostal FROM ville where nomVille like upper("%"?"%") or( codePostal>= ? and codePostal<=?) limit 5');
 
 		$codePostals=isset($codePostal[1]) || isset($codePostal[0])?(isset($codePostal[0])?$codePostal[0] :$codePostal[1]):"99999999";
 		$codePostal1=$codePostals;
