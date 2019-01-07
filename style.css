@@ -105,16 +105,21 @@ h2{
     margin-left: 7px;
 }
 
-.btn{
-    display:inline-table;	
-}
 .titreFavoris{
     font-weight: bold;
 }
+
+.btn-profil{
+    white-space: normal;	
+}
+
 .pre-scrollable{
     height:340px;
 }
 
+.textarea-fixe{
+    resize: none;
+}
 
 /*
  * Row with equal height columns

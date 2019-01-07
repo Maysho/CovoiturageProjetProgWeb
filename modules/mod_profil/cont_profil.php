@@ -69,27 +69,6 @@
 			header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
 		}
 
-		public function recupereModifMdp($idUser, $estConnecter){
-
-			$estPagePerso=false;
-
-			if(!$estConnecter)
-				die("Page inaccessible");
-			else
-				$estPagePerso=$this->modele->estPagePerso($idUser);
-
-			if(!$estPagePerso)
-				die("Page inaccessible");
-
-			$code=$this->modele->verifieModificationMdp($idUser);
-			if($code == 0)
-				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=0");
-			else if($code == 1)
-				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=1");
-			else
-				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=modifMdp&resultat=2");
-		}
-
 		public function afficheListeVehicule($idUser){
 			$donnees=$this->modele->getListeVehicules($idUser);
 			$this->vue->afficheListeVehicule($idUser, $donnees);

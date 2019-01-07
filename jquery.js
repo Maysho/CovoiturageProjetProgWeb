@@ -817,21 +817,30 @@ $(document).ready(function(e){
   }
 });
 
-$(document).ready(function(e){
-  if($("#msgErreurSaisieMdp").length){
-    $("#changementMDPModal").modal();
-  }
-  else if($("#resultat").length){
-    if($("#resultat").attr('id_val')==0){
-      alert("Mot de passe modifié avec succes!");
-    }
-    else if($("#resultat").attr('id_val')==2){
-       alert("Une erreur c'est produite veuillez réessayer");
-    }
-    else if($("#resultat").attr('id_val')==3){
-       alert("Message envoyer avec succes!");
-    }
-  }
+$('#changeMdpProfil').submit(function(e){
+  e.preventDefault();
+
+
+  $.post('scriptphp/changeMdpProfil.php',
+     {
+      mdpActuel: $('#mdpActuel').val(),
+      nouveauMdp: $('#nouveauMdp').val(),
+      nouveauMdpConf: $('#confirmationNouveauMdp').val()
+     },
+      function(data){
+        if (data.includes("0")){
+          $("#changementMDPModal").modal('toggle');
+          alert("Le mot de passe a été modifié avec succès !");
+        }
+        else if(data.includes("1")){
+          $('#msgErreurSaisieMdp').text('/!\\ Le mot de passe saisi est incorrect');
+        }
+        else if (data.includes("2")){
+          alert("Une erreur est survenu veuillez réessayer");
+        }
+      }
+    );
+
 });
 
 
@@ -875,7 +884,33 @@ $(document).ready(function(e){
 });
 
 
+$('#envoyerMessage').submit(function(e){
+  e.preventDefault();
 
+
+  $.post('scriptphp/envoieMessageProfil.php',
+     {
+      message: $('#zoneEnvoieMsgProfil').val(),
+      idInterlocuteur: $('#boutonEnvoieMsgProfil').attr('data-id')
+     },
+      function(data){
+        if (data.includes("0")){
+          $("#envoieMsgModal").modal('toggle');
+          $('#zoneEnvoieMsgProfil').val("");
+          alert("Le message a été envoyé avec succès !");
+        }
+        else if(data.includes("1")){
+          alert("Une erreur est survenu veuillez réessayer");
+        }
+      }
+    );
+
+});
+/******************************************************************************************************************************
+**
+**
+**
+******************************************************************************************************************************/
 
 valeurChange=-1;
 $(".checkerInscription").on('change', function(event) {
