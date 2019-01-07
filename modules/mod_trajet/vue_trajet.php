@@ -333,7 +333,6 @@ class vue_Trajet extends VueGenerique{
 			</div>
 
 		</div>
-		
 
 		<div class="modal" id="partieInscription">
 			<div class="modal-dialog">
@@ -348,7 +347,7 @@ class vue_Trajet extends VueGenerique{
 			      <div class="modal-body" id="bodyInscriptionTrajet">
 			        <?php
 			        
-			        //var_dump($tabSt);
+			        //
 			        
 			         
 			        for ($i=0; $i <count($tabSt) ; $i++) { 
@@ -358,10 +357,10 @@ class vue_Trajet extends VueGenerique{
                         else
                         	echo '<div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
                         if($i==0){
-                        echo '<label for="st'.$i.'" >'.$tabSt[$i][12].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+                        echo '<label for="st'.$i.'" >'.$tabSt[$i][13].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
                         }
                         
-                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][35].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" n id="st'.$i.'" data-idVille="'.$tabSt[$i][34].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
+                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" n id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
                     }
 
 			        ?>
@@ -430,7 +429,7 @@ class vue_Trajet extends VueGenerique{
 				<div class="col">
 					<div class="row " >
 						<div class="col-4 border-dark border row justify-content-between detailTrajet">
-						<i class="far fa-circle"><?php  echo $tabSt[0][12]?></i>
+						<i class="far fa-circle"><?php  echo $tabSt[0][13]?></i>
 						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<?php if ($infoTrajet[15]>4) {
@@ -506,7 +505,7 @@ class vue_Trajet extends VueGenerique{
 					</div>
 					<div class="row " >
 						<div class="col-4 border-dark border row justify-content-between detailTrajet">
-						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][35]?></i>
+						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][36]?></i>
 						<span> <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
 						</div>
 						
