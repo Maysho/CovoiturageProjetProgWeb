@@ -24,7 +24,13 @@ class modele_trajet extends connexion {
 		$liste= $reqGetListeCar->fetchAll();
 		return $liste;
 	}
-	
+	public function delVehicule($immatriculation){
+		$reqDelCarUser=self::$bdd->prepare("DELETE FROM vehiculeutilisateur where immatriculation = ? AND idUtilisateur = ?");
+		$reqDelCarUser->execute(array($immatriculation, $_SESSION['id']));
+
+		$reqDelCar=self::$bdd->prepare("DELETE FROM vehicule where immatriculation = ?");
+		$reqDelCar->execute(array($immatriculation));
+	}
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
 		$immatriculation= strtoupper($immatriculation);
@@ -97,18 +103,17 @@ class modele_trajet extends connexion {
 	}
 
 
-	public function creationTrajet($soustrajets, $descriptionTrajet, $placeTotale){
+	public function creationTrajet($soustrajets, $descriptionTrajet, $placeTotale, $dateArrivee){
 		
 		$placeTotale++;
 
-		if( $this->verifChamps($soustrajets, $placeTotale) ){
-			http_response_code(400);
+		if( $this->verifChamps($soustrajets, $placeTotale) && !isset($_SESSION['id'])){
 			echo $this->msg;
+			http_response_code(400);
 			exit(1);
 		}
-
-		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
-			
+		$idConducteur = $_SESSION['id'];
+		
 		$reqGetIdTrajet = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
 		$reponse=($reqGetIdTrajet->fetch());
 		$idTrajet=$reponse['idTrajet'];
@@ -186,7 +191,8 @@ class modele_trajet extends connexion {
 					idVehiculeConducteur,
 					prix,
 					prixCumule,
-					regulier
+					regulier,
+					dateArrivee
  				) VALUES (
  					DEFAULT,
 					:idTrajet,
@@ -198,7 +204,8 @@ class modele_trajet extends connexion {
 					:idVehiculeConducteur,
 					:prix,
 					:prixCumule,
-					:regulier
+					:regulier,
+					:dateArrivee
  				)
  			');
  			
@@ -212,7 +219,8 @@ class modele_trajet extends connexion {
 		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
-		 		':regulier'=> $reg
+		 		':regulier'=> $reg,
+		 		':dateArrivee' => ($key == count($soustrajets)-1 ) ? $dateArrivee : $soustrajets[$key+1]['dateDepart']
 		 	));
 	 	}	
 
@@ -220,7 +228,7 @@ class modele_trajet extends connexion {
 	 	$reqGetIdSousTrajet= self::$bdd->prepare('SELECT idsousTrajet from soustrajet where idTrajet = ? ');
 	 	$reqGetIdSousTrajet->execute(array($idTrajet));
 	 	$reponseReqGetIdSousTrajet = ($reqGetIdSousTrajet->fetchAll());
-	 	
+
 	 	foreach ($reponseReqGetIdSousTrajet as $key => $value) {
 	 		$reqInsert=self::$bdd->prepare('
 	 			INSERT INTO soustrajetutilisateur (
@@ -239,7 +247,7 @@ class modele_trajet extends connexion {
 	 		$reqInsert->execute(array(
 	 			':utilisateur_idutilisateur' => $idConducteur,
  				':sousTrajet_idsousTrajet' => $value['idsousTrajet'],
- 				':valide' => false,
+ 				':valide' => 0,
  				':prixPayer' =>0.0
 	 		));
 	 	}
@@ -252,6 +260,20 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."wtf" ."\n";
 			$error = true;
 		}
+		
+		if(!isset($hybride)){
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
+		}
+
+		if($this->verifImmatriculation($immatriculation)){
+			$error = true;
+		}
+		return $error;
+	}
+
+	public function verifImmatriculation($immatriculation){
+		$error = false;
 		if(empty($immatriculation)){
 			$this->msg=$this->msg."wtf" ."\n";
 			$error = true;
@@ -269,10 +291,6 @@ class modele_trajet extends connexion {
 		//    // echo "ancienne plaque : $var"  ;
 		// 	// echo " nouvelle plaque : $var"   ;
 		// }
-		if(!isset($hybride)){
-			$this->msg=$this->msg."wtf" ."\n";
-			$error = true;
-		}
 		return $error;
 	}
 
@@ -292,6 +310,7 @@ class modele_trajet extends connexion {
 		$date = $soustrajets[0]['dateDepart'];
 		$heure = $soustrajets[0]['heureDepart'];
 		while( $i < count($soustrajets) ){
+			var_dump($date < $soustrajets[$i]['dateDepart']);
 			//prix neg
 			if($soustrajets[$i]['prix'] < 0){
 				$this->msg=$this->msg."32- Erreur sur le prix" ."\n";
@@ -330,6 +349,8 @@ class modele_trajet extends connexion {
 				$error = true;	
 			}
 			//ville existante
+			$date =$soustrajets[$i]['dateDepart'];
+			$heure = $soustrajets[$i]['heureDepart'];
 			$i++;
 		}
 
@@ -379,7 +400,7 @@ class modele_trajet extends connexion {
 	}
 	public function recupInfoTrajet($id,$tabs1s2)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateDepart,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
+		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateArrivee,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
 		$tableauIds=array($id,$tabs1s2[0],$tabs1s2[1]);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetch();
@@ -545,7 +566,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 			(select nomVille from soustrajet as st inner join ville on ville.idVille=st.idVilleDepart where st.idsousTrajet= min( soustrajet.idsousTrajet)) as ville1,
 			(select nomVille from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as ville2,
 			(select dateDepart from soustrajet as st inner join ville on ville.idVille=st.idVilleDepart where st.idsousTrajet= min( soustrajet.idsousTrajet)) as date1,
-			(select dateDepart from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as date2 
+			(select dateArrivee from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as date2 
 			 FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
 		$tableauIds=array($idTrajet, $_SESSION['id']);
 		$selecPreparee->execute($tableauIds);
@@ -633,7 +654,18 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$res=$selecPreparee->fetch();
 
 		$date1 = new DateTime($res[1]." ".$res[0]);
-		$date=date('H')+2;
+		if(date('H')<22){
+			$date=date('H')+2;
+		}
+		elseif (date('H')==22) {
+			$date=00;
+		}
+		elseif (date('H')==23) {
+			$date=01;
+		}
+		else {
+			$date=2;
+		}
 		$date2 = new DateTime(date("Y-m-d $date:i:s"));
 		return ( ( $date1 <= $date2)) ;
 
@@ -691,8 +723,8 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 	}
 	public function retirerTrajet($idTrajet)
 	{
-		$updatePreparee=self::$bdd->prepare('UPDATE trajet set  suppression=1 where idTrajet=?');
-		$updatePreparee -> execute(array($idTrajet));
+		$updatePreparee=self::$bdd->prepare('UPDATE trajet set  suppression=1 where idTrajet=? && idConducteur=?');
+		$updatePreparee -> execute(array($idTrajet, $_SESSION['id']));
 		echo "success";
 	}
 	public function idEtapeTrajet($idTrajet)

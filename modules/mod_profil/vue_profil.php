@@ -330,10 +330,12 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php
 		}
 
+
 		function afficheListeVehicule($idUser, $donnees){
 			?>
-			
-				<div class="col-md-12">
+
+				<div id="vehiculeProfil" class="col-md-12">
+
 					<?php self::afficheNavProfil(4,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
 						<table class="table">
@@ -342,7 +344,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 									<td class=" text-center titreFavoris">Immatriculation</td>
 									<td class=" text-center titreFavoris">Crit'air</td>
 									<td class=" text-center titreFavoris">Hybride</td>
-									<td class=" text-center titreFavoris">Aperçu du Vehicule</td>
+									<td class=" text-center titreFavoris">Vehicule</td>
 									<td></td>
 								</tr>
 							</thead>
@@ -361,11 +363,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 									<?php echo ($value['hybride'] == "1") ?  "Oui" :  "Non"?>
 								</td>
 								<td class=" text-center ">
-									<a href="<?php echo $value['urlPhoto']?>">Voir</a>
+									<a href="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
+									<!-- <img id="myImg" src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
+									
 								</td>
 								<td>
-									<button class="btn btn-primary"><i class="fas fa-edit"></i></button>
-									<button class="btn btn-primary"><i class="fas fa-trash"></i></button>
+									<!-- <button class="btn btn-primary"><i class="fas fa-edit"></i></button> -->
+									<button data-id="<?php echo $value['immatriculation']?>" class="btn btn-primary delCar"><i class="fas fa-trash"></i></button>
 								</td>
 							</tr>
 							<?php
@@ -374,6 +378,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 							</tbody>
 						</table>
 					</div>
+
 					<div class="container">
 						<!-- Trigger the modal with a button -->
 						<div class="row">
@@ -432,6 +437,40 @@ include_once __DIR__ .'/../../vue_generique.php';
 					</div>
 				</div>
 <?php 
+		}
+
+		function afficheHistorique($idUser, $donnees){
+			?>
+			<div id="vehiculeProfil">
+				<div class="col-md-9">
+					<?php self::afficheNavProfil(5,$idUser); ?>
+					<div class="border border-dark rounded col-12" style="overflow: auto;">		
+						<pre>
+						<?php
+						var_dump($donnees)
+						?>
+						</pre>
+					</div>
+				</div>
+			</div>
+			<?php
+		}
+
+		function afficheTrajetsReserves($idUser, $donnees){
+			?>
+			<div id="vehiculeProfil">
+				<div class="col-md-9">
+					<?php self::afficheNavProfil(6,$idUser); ?>
+					<div class="border border-dark rounded col-12" style="overflow: auto;">
+						<pre>
+						<?php
+						var_dump($donnees)
+						?>
+						</pre>
+					</div>
+				</div>
+			</div>
+			<?php
 		}
 	}
 ?>

@@ -206,6 +206,7 @@ $('#addCar').on('click', function(e){
   formData.append("immatriculation", immatriculation);
   formData.append("critair", critair);
   formData.append("hybride", hybride);
+  var page = $("#vehiculeProfil").length;
   $.ajax({
     url:'scriptphp/formTrajet.php',
     type:'POST',    
@@ -215,6 +216,9 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
+      if( page == 1){
+        location.reload();
+      }
       $('#immatriculation').val("");
       $('#critair').val("0");
       $('#hybride').prop('checked', false);
@@ -229,7 +233,7 @@ $('#addCar').on('click', function(e){
         $(document).find("#imgCar").attr("src",txt);
       }
     },
-    error: function(){
+    error: function(txt){
       alert("fail");
     }
   });
@@ -239,6 +243,7 @@ $('#addCar').on('click', function(e){
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
   console.log("Valeur de "+key);
+  var dateArrivee= $('#dateArrivee').val();
   var soustrajets=[];
 
   if( key == 0){
@@ -321,7 +326,6 @@ $('#envoiTrajet').on("click",function(e){
 
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
-  
   $.ajax({
     url:'scriptphp/formTrajet.php',
     type:'POST',
@@ -329,16 +333,18 @@ $('#envoiTrajet').on("click",function(e){
     data: {
       soustrajet: soustrajets,
       descriptionTrajet: descriptionTrajet,
-      placeTotale: placeTotale
+      placeTotale: placeTotale,
+      dateArrivee: dateArrivee
     },
     success : function(txt){
       // window.location='index.php';
+
       console.log("msg :"+txt);
       key = 0;
     },
     error: function(txt){
       alert("fail");
-      console.log("msg :"+txt);
+      alert("msg :"+txt.responseText);
     }
   });
 });
@@ -462,6 +468,25 @@ $(function(){
     else{
       $('#imgCar').attr("src",sources);
     }
+  });
+
+  $('.delCar').click(function(){
+    var immatriculation = $(this).attr('data-id');
+    var row= $(this).parent().parent();
+    $.ajax({
+      url:'scriptphp/formTrajet.php',
+      type:'POST',
+      dataType : 'text',
+      data: {
+        immatriculation: immatriculation
+      },
+      success : function(txt){
+        row.remove();
+      },
+      error: function(txt){
+        alert("fail");
+      }
+    });
   });
 
 });
