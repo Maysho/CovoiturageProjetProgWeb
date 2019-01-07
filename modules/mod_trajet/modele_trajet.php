@@ -108,13 +108,12 @@ class modele_trajet extends connexion {
 		$placeTotale++;
 
 		if( $this->verifChamps($soustrajets, $placeTotale) && !isset($_SESSION['id'])){
-			http_response_code(400);
 			echo $this->msg;
+			http_response_code(400);
 			exit(1);
 		}
-
-		$idConducteur =  $_SESSION['id'] ;
-			
+		$idConducteur = $_SESSION['id'];
+		
 		$reqGetIdTrajet = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
 		$reponse=($reqGetIdTrajet->fetch());
 		$idTrajet=$reponse['idTrajet'];
@@ -229,7 +228,7 @@ class modele_trajet extends connexion {
 	 	$reqGetIdSousTrajet= self::$bdd->prepare('SELECT idsousTrajet from soustrajet where idTrajet = ? ');
 	 	$reqGetIdSousTrajet->execute(array($idTrajet));
 	 	$reponseReqGetIdSousTrajet = ($reqGetIdSousTrajet->fetchAll());
-	 	
+
 	 	foreach ($reponseReqGetIdSousTrajet as $key => $value) {
 	 		$reqInsert=self::$bdd->prepare('
 	 			INSERT INTO soustrajetutilisateur (
@@ -713,8 +712,8 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 	}
 	public function retirerTrajet($idTrajet)
 	{
-		$updatePreparee=self::$bdd->prepare('UPDATE trajet set  suppression=1 where idTrajet=?');
-		$updatePreparee -> execute(array($idTrajet));
+		$updatePreparee=self::$bdd->prepare('UPDATE trajet set  suppression=1 where idTrajet=? && idConducteur=?');
+		$updatePreparee -> execute(array($idTrajet, $_SESSION['id']));
 		echo "success";
 	}
 	public function idEtapeTrajet($idTrajet)
