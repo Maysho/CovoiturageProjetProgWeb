@@ -2,14 +2,6 @@ var key = 0 ;
 var tab;
 var nbAffiche=0;
 
-$( window ).resize(function() {
-  if ($(window).width() <768) {
-    $(".composant" ).hide();
-  }
-  else{
-    $(".composant" ).show();
-  }
-});
 function removeAide() {
   $('.aide').remove();
 }
@@ -918,7 +910,7 @@ $(".checkerInscription").on('change', function(event) {
 });
 $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
-
+  $('#warningInscriptionprob').remove();
   alert("on rentre");
   var compteur=0;
   var tabVille=[];

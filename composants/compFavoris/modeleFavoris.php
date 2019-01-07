@@ -13,7 +13,7 @@ class modeleFavoris extends connexion
 	}
 	public function Favoris($idUser){
 
-		$reqGetListeFavoris = self::$bdd->prepare("SELECT * from favoris  where idUtilisateur = ? order by idfavoris desc limit 3");
+		$reqGetListeFavoris = self::$bdd->prepare("SELECT * from favoris  where idUtilisateur = ? order by idfavoris desc limit 2");
 		$reqGetListeFavoris->execute(array($idUser));
 		$liste= $reqGetListeFavoris->fetchAll();
 		return $liste;
