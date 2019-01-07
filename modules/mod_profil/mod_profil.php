@@ -60,12 +60,18 @@ class ModProfil extends VueGenerique
 						$this->controleur->accueilProfil($idUser, $estConnecter, $resultat);
 					}
 					break;
-
 				case 'vehicules':
 					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
 					break;
+				case 'trajets':
+					$this->controleur-> afficheTrajetsReserves($idUser, $estConnecter);
+					break;
+
+				case 'historique':
+					$this->controleur-> afficheHistorique($idUser, $estConnecter);
+					break;
+
 				case 'favoris':
-				
 					$this->controleur-> afficheListeFavoris($_SESSION['id']);
 					break;
 				default:

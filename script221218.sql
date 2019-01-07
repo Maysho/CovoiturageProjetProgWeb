@@ -180,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `dutinfopw201623`.`soustrajet` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
+ALTER TABLE soustrajet ADD dateArrivee DATE NOT NULL ;
 
 
 -- -----------------------------------------------------
