@@ -222,69 +222,105 @@ include_once __DIR__ .'/../../vue_generique.php';
 
 		function afficheListeVehicule($idUser, $donnees){
 			?>
-			<div class="offset-md-2 col-md-8 text-center">
-				<section>
-				<h2>Mes voitures</h2>
-				<hr>
-				<div>
-					<table>
-					<tbody>
-					<?php
-					foreach ($donnees as $key => $value) {
-					
-						if($key%2 == 0){
-						?>
-						<tr>
-							<th> 
-								<img class="photoVoitureProfil" src="<?php echo $value['urlPhoto']?>">	
-							</th>
-							<th>
-								<p class="text-center" >Immatriculation <?php echo $value['immatriculation']?></p>
-								<?php
-								if ($value['hybride'] == 1)
-								?>
-								<p class="text-center" >Hybride</p>
-								<?php
-								?>
-								<p class="text-center" > Crit'air <?php echo $value['critair']?></p>
-								<button class="btn btn-primary">Supprimer le véhicule</button>
-							</th>
-						</tr>
-
-						<?php
-						}
-						else{
-						?>
-						<tr>
-							
-							<th>
-								<p class="text-center" >Immatriculation <?php echo $value['immatriculation']?></p>
-								
-								<?php
-								if ($value['hybride'] == 1)
-								?>
-								<p class="text-center" >Hybride</p>
-								<?php
-								?>
-								<p class="text-center" > Crit'air <?php echo $value['critair']?></p>
-								<button class="btn btn-primary">Supprimer le véhicule</button>
-							</th>
-
-							<th> 
-								<img class="photoVoitureProfil" src="<?php echo $value['urlPhoto']?>">	
-							</th>
-						</tr>
-
-						<?php
-						}
-					}
-					?>
-					</tbody>
-					</table>
-
+			<div class="container">
+				<div class="col-md-9">
+					<?php self::afficheNavProfil(4,$idUser); ?>
+					<div class="border border-dark rounded col-12" style="overflow: auto;">
+						<table class="table">
+							<thead>
+								<tr class="">
+									<td class=" text-center titreFavoris">Immatriculation</td>
+									<td class=" text-center titreFavoris">Crit'air</td>
+									<td class=" text-center titreFavoris">Hybride</td>
+									<td class=" text-center titreFavoris">Aperçu du Vehicule</td>
+									<td></td>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
+							foreach ($donnees as $key => $value) {
+							?>
+							<tr>
+								<td class=" text-center ">
+									<?php echo $value['immatriculation']?>
+								</td>
+								<td class=" text-center ">
+									<?php echo ($value['critair'] == "6") ? "Non renseigné" : 'Catégorie : '.$value['critair']; ?>
+								</td>
+								<td class=" text-center ">
+									<?php echo ($value['hybride'] == "1") ?  "Oui" :  "Non"?>
+								</td>
+								<td class=" text-center ">
+									<a href="<?php echo $value['urlPhoto']?>">Voir</a>
+								</td>
+								<td>
+									<button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+									<button class="btn btn-primary"><i class="fas fa-trash"></i></button>
+								</td>
+							</tr>
+							<?php
+							}
+							?>
+							</tbody>
+						</table>
+					</div>
+					<div class="container">
+						<!-- Trigger the modal with a button -->
+						<div class="row">
+							<div class="">
+								<button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>		
+							</div>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" role="dialog">
+							<div class="modal-dialog modal-lg">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<h3 class="modal-title text-center">Votre nouveau Vehicule</h3>
+										<div class="row form-group offset-md-1">
+											<label class="col-md-5" for="immatriculation">Immatriculation</label>
+											<input class="col-md-5 form-control" type="text" id="immatriculation" placeholder="AA-000-AA">
+										</div>
+										<div class="row offset-md-1">
+											<label class="col-md-5" for="critair">Crit'air</label>
+											<select class="col-md-5 form-control" id="critair">
+												<option value="0">Vert (0)</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">Je n'ai pas certifié mon véhicule</option>
+											</select>
+										</div>
+										<div class="row offset-md-1">
+											<label class="col-md-2" for="hybride">Hybride</label>	
+											<div class="row offset-md-5">
+												<input type="checkbox" id="hybride" name="hybride">
+											</div>
+										</div>
+										<div class="row offset-md-1">
+											<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
+											<img id="defaultThumb" class="col-md-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
+											<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
+											<input class="offset-md-5" type="file" id="photoCar" name="photoCar"/>
+										</div>
+										<div class="text-center">
+											<button id="addCar" data-dismiss="modal" class="btn btn-primary"> Ajouter </button>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>									  
+					</div>
 				</div>
-				<hr>
-				</section>
 			</div>
 			<?php 
 		}

@@ -24,20 +24,22 @@ class modele_trajet extends connexion {
 		$liste= $reqGetListeCar->fetchAll();
 		return $liste;
 	}
-
+	
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
-		
-		// if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
-		// 	echo $this->msg;
-		// 	exit(1);
-		// }
-
+		$immatriculation= strtoupper($immatriculation);
+		$immatriculation = str_replace("-", " ", $immatriculation);
+		if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
+			http_response_code(400);
+			echo $this->msg;
+			exit(1);
+		}
+		$immatriculation = str_replace(" ", "-", $immatriculation);
 		$reg = $hybride == "true" ?  1 :  0; 
 
 		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
 
-		$url =null;
+		$url = null;
 
 		if(!empty( $_FILES ) ){
 			if($_FILES['photo']['size']>0){
@@ -46,9 +48,13 @@ class modele_trajet extends connexion {
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
 				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
 				if($result)
-					$url = "sources/images/photoVehicule/".$nomFich;
+					$url = "sources/images/photoVehicule/".$nomFich;	
+
 			}
+		}else{
+			$url = "photos/Black.png";
 		}
+		echo $url;
 
 		$reqAddCar=self::$bdd->prepare("
 			INSERT INTO vehicule (
@@ -233,14 +239,41 @@ class modele_trajet extends connexion {
 	 		$reqInsert->execute(array(
 	 			':utilisateur_idutilisateur' => $idConducteur,
  				':sousTrajet_idsousTrajet' => $value['idsousTrajet'],
- 				':valide' => true,
+ 				':valide' => false,
  				':prixPayer' =>0.0
 	 		));
-
 	 	}
+	}
 
+	public function verifVehicule($immatriculation, $critair, $hybride){
+		$error = false;
 
+		if(!isset($critair) || $critair < 0 || $critair > 6){
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
+		}
+		if(empty($immatriculation)){
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
+		}
 
+		if (  !preg_match("~(\d{3,4}\s*[a-z]{2}\s*(\d{2}|\d[a-z])|[a-z]{2}\s*\d{4}\s*[a-z]{2}|[a-z]{2}\s*\d{3}\s*[a-z])~iu", $immatriculation)) {
+		   	$this->msg=$this->msg."wtf" ."\n";
+			$error = true;	
+		   // echo "ancienne plaque : $var"  ;
+			// echo " nouvelle plaque : $var"   ;
+		}
+		// if (  !preg_match("#^[0-9]{1,4}[A-Z]{1,4}[0-9]{1,2}$#", $immatriculation)  || !preg_match("#^[A-Z]{1,2}[0-9]{1,3}[A-Z]{1,2}$#", $immatriculation) ) {
+		//    	$this->msg=$this->msg."wtf" ."\n";
+		// 	$error = true;	
+		//    // echo "ancienne plaque : $var"  ;
+		// 	// echo " nouvelle plaque : $var"   ;
+		// }
+		if(!isset($hybride)){
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
+		}
+		return $error;
 	}
 
 	public function verifChamps($soustrajets, $placeTotale){
@@ -296,7 +329,6 @@ class modele_trajet extends connexion {
 				$this->msg=$this->msg."342- Erreur de Format Date" ."\n";
 				$error = true;	
 			}
-
 			//ville existante
 			$i++;
 		}
