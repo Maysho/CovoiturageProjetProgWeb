@@ -273,6 +273,41 @@ class ModeleProfil extends connexion{
 		$reqGetListeFavoris->execute(array($idFavoris,$_SESSION['id']));
 		echo "success";
 	}
+
+	public function getListeTrajetsReserves($idUser){
+		$reqGetListeCar = self::$bdd->prepare("
+		SELECT *  from soustrajetutilisateur 
+		INNER JOIN vehicule 
+		ON vehicule.immatriculation =vehiculeutilisateur.immatriculation 
+		INNER JOIN soustrajet
+		ON soustrajet.idsousTrajet = soustrajetutilisateur.idsousTrajet
+		INNER JOIN trajet 
+		ON soustrajet.idTrajet = trajet.idTrajet
+		where utilisateur_idutilisateur = ? AND valide = 1 AND soustrajet.dateDepart > ? 
+		");
+		$reqGetListeCar->execute(array($idUser, (date("Y-m-d")) ));
+		$liste= $reqGetListeCar->fetchAll();
+		return $liste;
+	}
+
+	public function getListeHistorique($idUser){
+		$reqGetListeCar = self::$bdd->prepare("
+		SELECT *  from soustrajetutilisateur 
+		INNER JOIN vehicule 
+		ON vehicule.immatriculation =vehiculeutilisateur.immatriculation 
+		INNER JOIN soustrajet
+		ON soustrajet.idsousTrajet = soustrajetutilisateur.idsousTrajet
+		INNER JOIN trajet 
+		ON soustrajet.idTrajet = trajet.idTrajet
+		WHERE utilisateur_idutilisateur = ?
+		ORDER BY 
+		");
+		$reqGetListeCar->execute(array($idUser));
+		$liste= $reqGetListeCar->fetchAll();
+		return $liste;
+	}
+
+	
 }
 
 ?>

@@ -24,7 +24,13 @@ class modele_trajet extends connexion {
 		$liste= $reqGetListeCar->fetchAll();
 		return $liste;
 	}
-	
+	public function delVehicule($immatriculation){
+		$reqDelCarUser=self::$bdd->prepare("DELETE FROM vehiculeutilisateur where immatriculation = ? AND idUtilisateur = ?");
+		$reqDelCarUser->execute(array($immatriculation, $_SESSION['id']));
+
+		$reqDelCar=self::$bdd->prepare("DELETE FROM vehicule where immatriculation = ?");
+		$reqDelCar->execute(array($immatriculation));
+	}
 
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
 		$immatriculation= strtoupper($immatriculation);
@@ -97,20 +103,16 @@ class modele_trajet extends connexion {
 	}
 
 
-	public function creationTrajet($soustrajets, $descriptionTrajet, $placeTotale){
+	public function creationTrajet($soustrajets, $descriptionTrajet, $placeTotale, $dateArrivee){
 		
 		$placeTotale++;
 
 		if( $this->verifChamps($soustrajets, $placeTotale) && !isset($_SESSION['id'])){
-			
 			echo $this->msg;
 			http_response_code(400);
 			exit(1);
 		}
-		
-
 		$idConducteur = $_SESSION['id'];
-		
 		
 		$reqGetIdTrajet = self::$bdd->query('SELECT idTrajet FROM trajet ORDER BY idTrajet desc limit 1');
 		$reponse=($reqGetIdTrajet->fetch());
@@ -189,7 +191,8 @@ class modele_trajet extends connexion {
 					idVehiculeConducteur,
 					prix,
 					prixCumule,
-					regulier
+					regulier,
+					dateArrivee
  				) VALUES (
  					DEFAULT,
 					:idTrajet,
@@ -201,7 +204,8 @@ class modele_trajet extends connexion {
 					:idVehiculeConducteur,
 					:prix,
 					:prixCumule,
-					:regulier
+					:regulier,
+					:dateArrivee
  				)
  			');
  			
@@ -215,7 +219,8 @@ class modele_trajet extends connexion {
 		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
-		 		':regulier'=> $reg
+		 		':regulier'=> $reg,
+		 		':dateArrivee' => ($key == count($soustrajets)-1 ) ? $dateArrivee : $soustrajets[$key+1]['dateDepart']
 		 	));
 	 	}	
 
@@ -240,10 +245,10 @@ class modele_trajet extends connexion {
 	 		');
 
 	 		$reqInsert->execute(array(
-	 			'utilisateur_idutilisateur' => $idConducteur,
- 				'sousTrajet_idsousTrajet' => $value['idsousTrajet'],
- 				'valide' => 0,
- 				'prixPayer' =>0.0
+	 			':utilisateur_idutilisateur' => $idConducteur,
+ 				':sousTrajet_idsousTrajet' => $value['idsousTrajet'],
+ 				':valide' => 0,
+ 				':prixPayer' =>0.0
 	 		));
 	 	}
 	}
@@ -255,6 +260,20 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."wtf" ."\n";
 			$error = true;
 		}
+		
+		if(!isset($hybride)){
+			$this->msg=$this->msg."wtf" ."\n";
+			$error = true;
+		}
+
+		if($this->verifImmatriculation($immatriculation)){
+			$error = true;
+		}
+		return $error;
+	}
+
+	public function verifImmatriculation($immatriculation){
+		$error = false;
 		if(empty($immatriculation)){
 			$this->msg=$this->msg."wtf" ."\n";
 			$error = true;
@@ -272,10 +291,6 @@ class modele_trajet extends connexion {
 		//    // echo "ancienne plaque : $var"  ;
 		// 	// echo " nouvelle plaque : $var"   ;
 		// }
-		if(!isset($hybride)){
-			$this->msg=$this->msg."wtf" ."\n";
-			$error = true;
-		}
 		return $error;
 	}
 
@@ -295,6 +310,7 @@ class modele_trajet extends connexion {
 		$date = $soustrajets[0]['dateDepart'];
 		$heure = $soustrajets[0]['heureDepart'];
 		while( $i < count($soustrajets) ){
+			var_dump($date < $soustrajets[$i]['dateDepart']);
 			//prix neg
 			if($soustrajets[$i]['prix'] < 0){
 				$this->msg=$this->msg."32- Erreur sur le prix" ."\n";
@@ -333,6 +349,8 @@ class modele_trajet extends connexion {
 				$error = true;	
 			}
 			//ville existante
+			$date =$soustrajets[$i]['dateDepart'];
+			$heure = $soustrajets[$i]['heureDepart'];
 			$i++;
 		}
 
