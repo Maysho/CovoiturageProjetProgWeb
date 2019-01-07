@@ -91,12 +91,23 @@
 		}
 
 		public function afficheListeVehicule($idUser){
-
 			$donnees=$this->modele->getListeVehicules($idUser);
-
 			$this->vue->afficheListeVehicule($idUser, $donnees);
 
 		}
+
+		public function afficheTrajetsReserves($idUser){
+			$donnees=$this->modele->getListeTrajetsReserves($idUser);
+			$this->vue->afficheTrajetsReserves($idUser, $donnees);
+
+		}
+
+		public function afficheHistorique($idUser){
+			$donnees=$this->modele->getListeHistorique($idUser);
+			$this->vue->afficheHistorique($idUser, $donnees);
+
+		}
+
 		public function afficheListeFavoris($idUser)
 		{
 			$donnees=$this->modele->getListeFavoris($idUser);
