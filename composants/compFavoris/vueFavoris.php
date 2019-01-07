@@ -30,6 +30,9 @@ class vueFavoris
 
    			?>
             </table>
+            <div class="row justify-content-end">
+               <a href="index.php?module=mod_profil&idprofil=1&ongletprofil=favoris" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">en afficher plus... </a>
+            </div>
 
    		</div>
    	<?php
