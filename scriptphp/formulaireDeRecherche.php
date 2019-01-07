@@ -1,6 +1,6 @@
 <?php  
 session_start();
-include_once __DIR__ . '/../../connexion.php';
+include_once __DIR__ . "/../connexion.php";
 include_once '../modules/mod_resTrajet/modele_resTrajet.php';
 
 $mod_connexion=new modele_resTrajet();
