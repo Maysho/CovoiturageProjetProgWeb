@@ -382,7 +382,7 @@ class modele_trajet extends connexion {
 	}
 	public function recupInfoTrajet($id,$tabs1s2)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateDepart,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
+		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateArrivee,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
 		$tableauIds=array($id,$tabs1s2[0],$tabs1s2[1]);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetch();
@@ -548,7 +548,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 			(select nomVille from soustrajet as st inner join ville on ville.idVille=st.idVilleDepart where st.idsousTrajet= min( soustrajet.idsousTrajet)) as ville1,
 			(select nomVille from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as ville2,
 			(select dateDepart from soustrajet as st inner join ville on ville.idVille=st.idVilleDepart where st.idsousTrajet= min( soustrajet.idsousTrajet)) as date1,
-			(select dateDepart from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as date2 
+			(select dateArrivee from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as date2 
 			 FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
 		$tableauIds=array($idTrajet, $_SESSION['id']);
 		$selecPreparee->execute($tableauIds);
@@ -636,7 +636,18 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$res=$selecPreparee->fetch();
 
 		$date1 = new DateTime($res[1]." ".$res[0]);
-		$date=date('H')+2;
+		if(date('H')<22){
+			$date=date('H')+2;
+		}
+		elseif (date('H')==22) {
+			$date=00;
+		}
+		elseif (date('H')==23) {
+			$date=01;
+		}
+		else {
+			$date=2;
+		}
 		$date2 = new DateTime(date("Y-m-d $date:i:s"));
 		return ( ( $date1 <= $date2)) ;
 

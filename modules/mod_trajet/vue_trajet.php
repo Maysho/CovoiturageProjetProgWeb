@@ -333,7 +333,7 @@ class vue_Trajet extends VueGenerique{
 			</div>
 
 		</div>
-
+		
 
 		<div class="modal" id="partieInscription">
 			<div class="modal-dialog">
