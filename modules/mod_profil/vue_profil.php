@@ -91,6 +91,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		{
 
 ?>
+	<div class="row">
 	<div class="col-12">
 <?php
 
@@ -110,7 +111,8 @@ include_once __DIR__ .'/../../vue_generique.php';
 						<?php 
 							for ($i=0; $i <count($donnees) ; $i++) { 
 								$prix=$donnees[$i][4]!='100000'?$donnees[$i][4]:'';
-								echo " <tr><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][2]."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][3]."</a></td><td class=' text-center'><a class='liensanscouleur'  href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$prix."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][5]."</a></td><td class='row justify-content-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][6]."</a></td><td class=' text-center'><button class='buttonSuppFavoris' data-id='".$donnees[$i][0]."'>X</button></td></tr>";
+								$regulier=$donnees[$i][6]==1?"oui":'non';
+								echo " <tr><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][2]."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][3]."</a></td><td class=' text-center'><a class='liensanscouleur'  href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$prix."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][5]."</a></td><td class='row justify-content-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$regulier."</a></td><td class=' text-center'><button class='buttonSuppFavoris' data-id='".$donnees[$i][0]."'>X</button></td></tr>";
 							}
 					
 						?>
@@ -121,6 +123,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 	   			
 	
 
+			</div>
 			</div>
 <?php		
 		}

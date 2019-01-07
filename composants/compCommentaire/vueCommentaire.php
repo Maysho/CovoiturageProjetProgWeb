@@ -15,7 +15,7 @@ class vueCommentaire
 			# code...
 		
    		?>
-   		<div class="col-12 composant border border-dark">
+   		<div class="col-12 composant border border-dark hidden-md-down">
    			<div class="col-12"> 
    				<h4>Commentaire Recent</h4>
    			</div>

@@ -347,7 +347,7 @@ class modele_trajet extends connexion {
 	}
 	public function recupInfoTrajet($id,$tabs1s2)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateDepart,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sDebut.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
+		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateDepart,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?  ');
 		$tableauIds=array($id,$tabs1s2[0],$tabs1s2[1]);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetch();
@@ -438,6 +438,10 @@ class modele_trajet extends connexion {
 HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$selecPrepareeUnique->execute(array($idTrajet));
 		$idVille=$selecPrepareeUnique->fetchAll();
+		if (empty($idVille)) {
+			echo "08-";
+			return true;
+		}
 		foreach ($tabIdVille as $key => $value) {
 			if ( !in_array($value, array_column($idVille, 'idVilleArrivee'))) {
 				echo "08-";
@@ -505,7 +509,12 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 	}
 	public function recupPrixAPayer($idTrajet)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT sum(prixPayer) FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
+		$selecPreparee=self::$bdd->prepare('SELECT sum(prixPayer),
+			(select nomVille from soustrajet as st inner join ville on ville.idVille=st.idVilleDepart where st.idsousTrajet= min( soustrajet.idsousTrajet)) as ville1,
+			(select nomVille from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as ville2,
+			(select dateDepart from soustrajet as st inner join ville on ville.idVille=st.idVilleDepart where st.idsousTrajet= min( soustrajet.idsousTrajet)) as date1,
+			(select dateDepart from soustrajet as st inner join ville on ville.idVille=st.idVilleArrivee where st.idsousTrajet= max( soustrajet.idsousTrajet)) as date2 
+			 FROM `soustrajetutilisateur` INNER join soustrajet on soustrajetutilisateur.sousTrajet_idsousTrajet=soustrajet.idsousTrajet where soustrajet.idTrajet=? and utilisateur_idutilisateur=? ORDER BY `sousTrajet_idsousTrajet` ASC');
 		$tableauIds=array($idTrajet, $_SESSION['id']);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetch();
@@ -592,8 +601,8 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$res=$selecPreparee->fetch();
 
 		$date1 = new DateTime($res[1]." ".$res[0]);
-		$date2 = new DateTime(date('Y-m-d H:i:s'));
-
+		$date=date('H')+2;
+		$date2 = new DateTime(date("Y-m-d $date:i:s"));
 		return ( ( $date1 <= $date2)) ;
 
 	}
@@ -613,12 +622,54 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$idUtilisateur=$selecPrepareeUnique->fetch();
 		return $idUtilisateur[0];
 	}
-	
+	public function idPersDansTrajetExceptConducteur($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT DISTINCT utilisateur_idutilisateur, urlPhoto FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet inner join utilisateur on utilisateur_idutilisateur=idUtilisateur inner join trajet on soustrajet.idTrajet=trajet.idTrajet WHERE soustrajet.idTrajet= ? and trajet.idConducteur!=soustrajetutilisateur.utilisateur_idutilisateur');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return $idUtilisateur;
+	}
+	public function idConducteurDansTrajet($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT DISTINCT utilisateur_idutilisateur, urlPhoto FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet inner join utilisateur on utilisateur_idutilisateur=idUtilisateur inner join trajet on soustrajet.idTrajet=trajet.idTrajet WHERE soustrajet.idTrajet= ? and trajet.idConducteur=soustrajetutilisateur.utilisateur_idutilisateur');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return $idUtilisateur;
+	}
+	public function EtapePers($idTrajet)
+	{
+		if (self::nbPersDansTrajet($idTrajet)>1) {
+
+			$pers=self::idPersDansTrajetExceptConducteur($idTrajet);
+		}
+		else
+			$pers= array();
+
+		array_push($pers, self::idConducteurDansTrajet($idTrajet)[0]);
+		$tab=array();
+		foreach ($pers as $key => $value) {
+			$selecPrepareeUnique=self::$bdd->prepare('SELECT sousTrajet_idsousTrajet FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet= ? and soustrajetutilisateur.utilisateur_idutilisateur=? ');
+		$selecPrepareeUnique->execute(array($idTrajet, $value[0]));
+		$tab[$value[0]] = $selecPrepareeUnique->fetchAll();
+
+		}
+		return $tab;
+		
+	}
 	public function retirerTrajet($idTrajet)
 	{
 		$updatePreparee=self::$bdd->prepare('UPDATE trajet set  suppression=1 where idTrajet=?');
 		$updatePreparee -> execute(array($idTrajet));
 		echo "success";
+	}
+	public function idEtapeTrajet($idTrajet)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT DISTINCT sousTrajet_idsousTrajet FROM soustrajetutilisateur inner join soustrajet on sousTrajet_idsousTrajet=soustrajet.idsousTrajet 
+			WHERE soustrajet.idTrajet= ? ');
+		$selecPrepareeUnique->execute(array($idTrajet));
+		$idUtilisateur=$selecPrepareeUnique->fetchAll();
+		return $idUtilisateur;
 	}
 }
 

@@ -233,7 +233,7 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet)
 	{
 		if ($value>=1) {
 			echo "<div class='col-12'><div class='col-md-12'>";
@@ -259,22 +259,22 @@ class vue_Trajet extends VueGenerique{
 					<div class="row descriptionTxt" >
 						<span>Depart</span>
 						<div class="mr-auto"></div>
-						<span><?php echo $infoTrajet[0];?></span>
+						<span><?php if($estDansTrajet) echo $villeDepartArrive[1]; else echo $infoTrajet[0];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Arrive</span>
 						<div class="mr-auto"></div>
-						<span><?php echo $infoTrajet[1];?></span>
+						<span><?php if($estDansTrajet) echo $villeDepartArrive[2]; else echo $infoTrajet[1];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Date Depart</span>
 						<div class="mr-auto"></div>
-						<span><?php echo $infoTrajet[2];?></span>
+						<span><?php if($estDansTrajet) echo $villeDepartArrive[3]; else echo $infoTrajet[2];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Date Arrive</span>
 						<div class="mr-auto"></div>
-						<span><?php echo $infoTrajet[3];?></span>
+						<span><?php if($estDansTrajet) echo $villeDepartArrive[4]; else echo $infoTrajet[3];?></span>
 					</div>
 					<div class="row descriptionTxt" >
 						<span>Immatriculation</span>
@@ -320,6 +320,9 @@ class vue_Trajet extends VueGenerique{
 							}
 							else if ($value==$infoTrajet[14] && $nbPers<=1) {
 								echo '<button class="btn" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
+							}
+							elseif ($value==$infoTrajet[14]) {
+								# code...
 							}
 							else{
 								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
@@ -433,21 +436,21 @@ class vue_Trajet extends VueGenerique{
 						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<div class="col-2 border-dark border">
-							<!-- <span>c</span> -->
+							<span>c</span>
 						</div>
 						
 
-					<?php  $compteur =0; $trouve=0; $nbSousTrajet=($idS[1]-$idS[0])+1; 
+					<?php  $compteur =0;
 					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
 					 	# code...
 					  ?>
 					<div class="col-2 border-dark border" >
-							<!-- <span>p</span> -->
+							 <span>p</span> 
 						</div>
 						
 					<?php } echo "</div>";
 
-					while($compteur<$nbSousTrajet) { ?>
+					while($compteur<count($idEtapeTrajet)) { ?>
 			
 					<div class="row " >
 						<div class="col-4 border-dark border ">
@@ -458,29 +461,37 @@ class vue_Trajet extends VueGenerique{
 						<!-- <div class="col-2 border-dark border border-bottom-0">
 							<img src="home.jpg" class="img-fluid">
 						</div> -->
-						<?php $idsoustrajet=$idS[0]+$compteur;
-						$suite=0;
+						<?php $idsoustrajet=$idEtapeTrajet[$compteur][0];
+						
 						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
-							echo "<div class='col-2 border-dark border border-bottom-0' >";
-							$val=$compteur+$i+$trouve;
-							if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet && isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]!=$infoTrajet[14]) {
-								$val=$compteur+$i+$trouve;
-								echo "<span>$idUtilisateur[$val] </span>";
-								$suite=$suite+1;
-							}
-							else if (isset($idSousTrajets[$compteur+$i+$trouve]) && $idSousTrajets[$compteur+$i+$trouve]==$idsoustrajet &&isset($idUtilisateur[$compteur+$i+$trouve]) &&$idUtilisateur[$compteur+$i+$trouve]==$infoTrajet[14]) {
-								echo "<img src='home.jpg' class='img-fluid'>";
-							}
-							else{
-								//echo $trouve.", ".$compteur.", ".$i ;
+						 	if ($infoTrajet[15]>4) {
+						 		echo "<div class='col-1 border-dark border border-bottom-0' >";
+						 	}
+						 	else
+								echo "<div class='col-2 border-dark border border-bottom-0' >";
+							
+							$personneDansCettePlace=self::utilisePlace($personne,$idsoustrajet,$i);
+							if (isset($personneDansCettePlace)) {
+								if ($infoTrajet[14]==$personneDansCettePlace->getId()) {
+									$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
+								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>".$personneDansCettePlace->getId();
+								 } 
+								 elseif ($value==$infoTrajet[14]) {
+								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
+								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>".$personneDansCettePlace->getId();
+								 }
+								 else{
+								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
+								 	echo "<img src='$urlPhoto' class='img-fluid'>".$personneDansCettePlace->getId();
+								 }
 							}
 							
 						  ?>
-						
+						</a>
 						
 							
 						</div>
-						<?php }$trouve=$trouve+$suite;$compteur=$compteur+1;
+						<?php }$compteur=$compteur+1;
 						?>
 
 					</div>
@@ -593,6 +604,15 @@ class vue_Trajet extends VueGenerique{
 <?php
 	}
 }
+	public function utilisePlace($personne,$etape,$place)
+	{
+		foreach ($personne as $key => $value) {
+			if ($value->utilisePlace($etape,$place)) {
+				return $value;
+			}
+		}
+		return null;
+	}
 	public function afficheHeure($heureAvecSec)
 	{
 		$heure=explode(':', $heureAvecSec);
