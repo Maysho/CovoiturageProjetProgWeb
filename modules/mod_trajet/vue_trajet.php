@@ -57,7 +57,7 @@ class vue_Trajet extends VueGenerique{
 				  						<label>Aller-Retour<input type="checkbox" name="allerRetour"></label>
 				  					</div> --> 
 				  				</div>
-				  				<div class="text-left form-group row" >
+				  				<div class="text-left form-group row" id="DateHoraire" >
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-5"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
 				  						<input class="offset-md-1 col-md-5 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
@@ -144,7 +144,7 @@ class vue_Trajet extends VueGenerique{
 				  									<button type="button" class="offset-md-5 col-md-6  btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>
 
 				  									<!-- Modal -->
-				  									<div class="modal fade" id="myModal" role="dialog">
+				  									<div aria-hidden="hidden" class="modal fade" id="myModal" role="dialog">
 				  										<div class="modal-dialog modal-lg">
 
 				  											<!-- Modal content-->
@@ -187,7 +187,7 @@ class vue_Trajet extends VueGenerique{
 				  													</div>
 
 				  													<div class="text-center">
-				  														<button id="addCar" data-dismiss="modal" class="btn btn-primary"> Ajouter </button>
+				  														<button id="addCar" class="btn btn-primary"> Ajouter </button>
 				  													</div>
 				  												</div>
 
