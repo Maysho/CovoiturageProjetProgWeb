@@ -108,26 +108,13 @@ die("Page inaccessible");
 ?>
 		</header>
 		
-		<?php if (isset($_SESSION['id'])) {
-			echo '<div class="row">';
+<?php 	
+		if(isset($_SESSION['id'])) {
+			echo '<div class="row justify-content-center">';
 			echo "<aside class='col-md-3' >";
-		}
+}
 		else
 			echo '<div class="row justify-content-center">';
-
-			include_once 'composants/compTest/CompTest.php';
-
-  			$CompTest=new CompTest();
-			if (isset($_SESSION['id'])) {
-				$CompTest->affiche();
-			}
-
-			include_once 'composants/compCommentaire/compCommentaire.php';
-
-  			$compCommentaire=new compCommentaire();
-			if (isset($_SESSION['id'])) {
-				$compCommentaire->affiche();
-			}
 
 			include_once 'composants/compCommentaire/compCommentaire.php';
 
@@ -141,6 +128,13 @@ die("Page inaccessible");
   			$compFavoris=new compFavoris();
 			if (isset($_SESSION['id'])) {
 				$compFavoris->affiche();
+			}
+
+			include_once 'composants/compNote/compNote.php';
+
+  			$compNote=new compNote();
+			if (isset($_SESSION['id'])) {
+				$compNote->affiche();
 			}
 
 			if (isset($_SESSION['id'])) {
