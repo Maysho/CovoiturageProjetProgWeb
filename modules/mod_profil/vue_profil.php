@@ -52,7 +52,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php	if($estPagePerso)							
 			echo '				<label class="col-md-12">E-mail : '.$donnerAAfficher['adresseMail'].'</label>';
 ?>								<label class="col-md-12">Nombre de trajets effectués : <?php echo $nbTrajet; ?></label>
-								<label class="col-md-12">Note moyenne : <?php echo $moyenne; ?></label>
+								<label class="col-md-12">Note moyenne : <?php if($moyenne!=NULL)echo $moyenne; else echo "Aucune note reçu"; ?></label>
 							</div>
 
 <?php	if($estPagePerso){	

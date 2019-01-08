@@ -13,7 +13,7 @@ class vue_Trajet extends VueGenerique{
 				date_default_timezone_set('Europe/Paris');
 				?>
 
-				<div class="offset-md-2 col-md-12 text-center">
+				<div class="col-md-12 text-center">
 					<div>
 						<h2>Je propose un Trajet <i class="fas fa-car"></i> </h2>
 						<div>
@@ -57,7 +57,7 @@ class vue_Trajet extends VueGenerique{
 				  						<label>Aller-Retour<input type="checkbox" name="allerRetour"></label>
 				  					</div> --> 
 				  				</div>
-				  				<div class="text-left form-group row" >
+				  				<div class="text-left form-group row justify-content-center justify-content-md-start" >
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-5"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
 				  						<input class="offset-md-1 col-md-5 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
@@ -69,7 +69,7 @@ class vue_Trajet extends VueGenerique{
 				  					</div>
 				  				</div>
 				  				
-				  				<div class="text-left form-group" id="checkpoint" hidden>
+				  				<div class="text-left form-group justify-content-center justify-content-md-start" id="checkpoint" hidden>
 				  					<div class="form-group row checkpoint" id="checkpoint0" >
 				  						<div class="col-md-4 row form-group text-center">
 				  							<label class="col-md-5"><i class="fab fa-font-awesome-flag"></i> Date Etape </label>
@@ -88,7 +88,7 @@ class vue_Trajet extends VueGenerique{
 				  					</div>
 				  				</div> 
 
-				  				<div class="form-group text-left row">
+				  				<div class="form-group text-left row justify-content-center justify-content-md-start">
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-5"><i style=" color: red;" class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
 				  						<input type="date" class="offset-md-1 col-md-5 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
