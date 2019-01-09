@@ -491,11 +491,10 @@ $('#retirerTrajet').on('click', function(event) {
 $('#addCar').on('click', function(e){
   e.preventDefault();
 
-  var immatriculation= $(document).find('#immatriculation').val();
+  var immatriculation= $(document).find('#immatriculation').val().replace(/-|\s/g, "");
   var critair=$(document).find('#critair').val();
   var hybride=$(document).find('#hybride').is(":checked");
   var formData = new FormData();
-
   formData.append("photo", $("#photoCar")[0].files[0]);
   formData.append("immatriculation", immatriculation);
   formData.append("critair", critair);

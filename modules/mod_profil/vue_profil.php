@@ -454,8 +454,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 									<td class=" text-center titreFavoris">Date</td>
 									<td class=" text-center titreFavoris">Depart</td>
 									<td class=" text-center titreFavoris">Arrivee</td>
-									<td class=" text-center titreFavoris">Lien</td>
-									<td></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -463,33 +461,31 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<?php
 								foreach ($donnees as $key => $value) {
 								?>
-								<?php
-								// var_dump($value[0])
-								?>
-								<a href="">
-									<tr>
-										<td class=" text-center ">
-											<?php echo $value[0]['dateDepart']?> 
-										</td>
-										<td class=" text-center ">
-											
-											<?php echo $value[0]['nomVille']?> 
-										</td>
-										<td class=" text-center ">
-											<?php echo $value[1]['nomVille']?> 
-										</td>
-										<td class=" text-center ">
-											<?php echo $value[0][1]?> 
-										</td>
-									</tr>
-								</a>
+								
+								<tr>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
+										<?php echo $value[0]['dateDepart']?> 
+										</a>
+									</td>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
+										<?php echo $value[0]['nomVille']?> 
+										</a>
+									</td>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
+										<?php echo $value[1]['nomVille']?> 
+										</a>
+									</td>
+								</tr>
 								<?php
 								}
 								?>
+
+								
 							</tbody>
 						</table>
-						
-						</pre> 
 					</div>
 				</div>
 			</div>
@@ -508,8 +504,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 									<td class=" text-center titreFavoris">Date</td>
 									<td class=" text-center titreFavoris">Depart</td>
 									<td class=" text-center titreFavoris">Arrivee</td>
-									<td class=" text-center titreFavoris">Lien</td>
-									<td></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -520,33 +514,28 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<?php
 								// var_dump($value[0])
 								?>
-								<a href="">
-									<tr>
-										<td class=" text-center ">
-											<?php echo $value[0]['dateDepart']?> 
-										</td>
-										<td class=" text-center ">
-											
-											<?php echo $value[0]['nomVille']?> 
-										</td>
-										<td class=" text-center ">
-											<?php echo $value[1]['nomVille']?> 
-										</td>
-										<td class=" text-center ">
-											<?php echo $value[0][1]?> 
-										</td>
-									</tr>
-								</a>
+								<tr>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
+										<?php echo $value[0]['dateDepart']?> 
+										</a>
+									</td>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
+										<?php echo $value[0]['nomVille']?> 
+										</a>
+									</td>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
+										<?php echo $value[1]['nomVille']?> 
+										</a>
+									</td>
+								</tr>
 								<?php
 								}
 								?>
 							</tbody>
 						</table>
-						<!-- <pre>
-						<?php
-						var_dump($donnees)
-						?>
-						</pre> -->
 					</div>
 				</div>
 			</div>
