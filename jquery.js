@@ -207,6 +207,7 @@ $('#addCar').on('click', function(e){
   formData.append("critair", critair);
   formData.append("hybride", hybride);
   var page = $("#vehiculeProfil").length;
+  $(".warning").remove();
   $.ajax({
     url:'scriptphp/formTrajet.php',
     type:'POST',    
@@ -232,9 +233,12 @@ $('#addCar').on('click', function(e){
         $(document).find("#idVehicule").last().append("<option class='voitureSelection' selected data-url='"+txt+"' value='"+immatriculation+"'>"+ immatriculation +"</option>");
         $(document).find("#imgCar").attr("src",txt);
       }
+      $("#myModal").modal('hide');
     },
     error: function(txt){
       alert("fail");
+      alert("msg"+txt.responseText)
+      verifError(txt.responseText);
     }
   });
 });
@@ -326,6 +330,7 @@ $('#envoiTrajet').on("click",function(e){
 
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
+  $(".warning").remove();
   $.ajax({
     url:'scriptphp/formTrajet.php',
     type:'POST',
@@ -337,14 +342,15 @@ $('#envoiTrajet').on("click",function(e){
       dateArrivee: dateArrivee
     },
     success : function(txt){
-      // window.location='index.php';
+      window.location='index.php';
 
-      console.log("msg :"+txt);
+      // console.log("msg :"+txt);
       key = 0;
     },
     error: function(txt){
       alert("fail");
       alert("msg :"+txt.responseText);
+      verifError(txt.responseText);
     }
   });
 });
@@ -538,40 +544,84 @@ function removeResTrajet(){
 
 function verifError(data){
   if (data.includes("00")) {
-    $('#divEmailInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>');
+    $('#divEmailInscription').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> ce champ est incorrect</small>');
   }
   if (data.includes("01")) {
-    $('#divConfEmail').append('<small id="warningemaildif" class=" form-text warning"> /!\\ les emails sont différents</small>');
+    $('#divConfEmail').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> les emails sont différents</small>');
   }
   if(data.includes("02")){
-    $('#divNomInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>');
+    $('#divNomInscription').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> ce champ est incorrect</small>');
   }
   if(data.includes("03")){
-    $('#divPrenomInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>');
+    $('#divPrenomInscription').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> ce champ est incorrect</small>');
   }
   if (data.includes("04")) {
-    $('#divMDPInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect il doit être au minimum superieur a 8 charactere, contenir une lettre en majuscule, un chiffre et un charactere en minuscule </small>');
+    $('#divMDPInscription').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> ce champ est incorrect il doit être au minimum superieur a 8 charactere, contenir une lettre en majuscule, un chiffre et un charactere en minuscule </small>');
   }
   if(data.includes("05")){
-    $('#divConfMDPInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ ce champ est incorrect</small>');
+    $('#divConfMDPInscription').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> ce champ est incorrect</small>');
   }
   if (data.includes("06")) {
-    $('#divEmailInscription').append('<small id="warningemaildif" class=" form-text warning"> /!\\ cette adresse email est deja utilisee</small>');
+    $('#divEmailInscription').append('<small id="warningemaildif" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> cette adresse email est deja utilisee</small>');
   }
   if (data.includes("07")) {
-    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ petit malin tu as changer du code</small>');
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> petit malin tu as changer du code</small>');
   }
   if (data.includes("08")) {
-    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ desole mais le trajet n\' est pas celui que vous avez choisi initialement et il est plein</small>');
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> desole mais le trajet n\' est pas celui que vous avez choisi initialement et il est plein</small>');
   }
   if (data.includes("09")) {
-    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous vous etes deconnectez</small>');
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> vous vous etes deconnectez</small>');
   }
   if (data.includes("10")) {
-    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous etes deja dans ce trajet</small>');
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> vous etes deja dans ce trajet</small>');
   }
   if (data.includes("11")) {
-    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class=" form-text warning"> /!\\ vous n\'avez pas assez d\'argent sur votre compte</small>');
+    $('#bodyInscriptionTrajet').append('<small id="warningInscriptionprob" class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> vous n\'avez pas assez d\'argent sur votre compte</small>');
+  }
+
+
+  if(data.includes("30")){
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</small>');
+  }
+  if(data.includes("31")){
+    $('#placeTotale').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de saisie PlaceTotale </small>');
+  }
+  if(data.includes("32")){
+    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur sur le prix</small>');
+  }
+  if(data.includes("331")){
+    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Date </small>');
+  }
+  if(data.includes("332")){
+    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Heure </small>');
+  }
+  if(data.includes("341")){
+    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Heure</small>');
+  }
+  if(data.includes("342")){
+    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Date</small>');
+  }
+  if(data.includes("353")){
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </small>');
+  }
+  if(data.includes("351")){
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</small>');
+  }
+  if(data.includes("352")){
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</small>');
+  }
+  if(data.includes("36")){
+    $('#immatriculation').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Immatriculation</small>');
+  }
+  if(data.includes("361")){
+    $('#critair').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Crit air non renseigné</small>');
+  }
+  if(data.includes("362")){
+    $('#hybride').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur renseignement Hybride </small>');
+  }
+  if(data.includes("363")){
+    $('#idVehicule').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur immatriculation</small>');
   }
 
 }

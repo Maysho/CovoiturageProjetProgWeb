@@ -107,7 +107,7 @@ class modele_trajet extends connexion {
 		
 		$placeTotale++;
 
-		if( $this->verifChamps($soustrajets, $placeTotale) && !isset($_SESSION['id'])){
+		if( $this->verifChamps($soustrajets, $placeTotale) || !isset($_SESSION['id'])){
 			echo $this->msg;
 			http_response_code(400);
 			exit(1);
@@ -170,6 +170,10 @@ class modele_trajet extends connexion {
 			$value['idVilleD'] = $idVille1;
 			$value['idVilleA'] = $idVille2;
 
+			$immatriculation= strtoupper($value['idVehiculeConducteur']);
+			$immatriculation = str_replace("-", " ", $immatriculation);
+			$immatriculation = str_replace(" ", "-", $immatriculation);
+
 			if( $value['regulier'] == "true"){
 				$reg = 1;
 			}
@@ -216,7 +220,7 @@ class modele_trajet extends connexion {
 		 		':idVilleDepart'=>$value['idVilleD'],
 		 		':idVilleArrivee'=>$value['idVilleA'],
 		 		':heureArrivee'=>$value['heureArrivee'],
-		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':idVehiculeConducteur'=>$immatriculation,
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg,
@@ -257,16 +261,17 @@ class modele_trajet extends connexion {
 		$error = false;
 
 		if(!isset($critair) || $critair < 0 || $critair > 6){
-			$this->msg=$this->msg."wtf" ."\n";
+			$this->msg=$this->msg."361" ."\n";
 			$error = true;
 		}
 		
 		if(!isset($hybride)){
-			$this->msg=$this->msg."wtf" ."\n";
+			$this->msg=$this->msg."362" ."\n";
 			$error = true;
 		}
 
 		if($this->verifImmatriculation($immatriculation)){
+			$this->msg=$this->msg."36-" ."\n";
 			$error = true;
 		}
 		return $error;
@@ -275,12 +280,10 @@ class modele_trajet extends connexion {
 	public function verifImmatriculation($immatriculation){
 		$error = false;
 		if(empty($immatriculation)){
-			$this->msg=$this->msg."wtf" ."\n";
 			$error = true;
 		}
 
 		if (  !preg_match("~(\d{3,4}\s*[a-z]{2}\s*(\d{2}|\d[a-z])|[a-z]{2}\s*\d{4}\s*[a-z]{2}|[a-z]{2}\s*\d{3}\s*[a-z])~iu", $immatriculation)) {
-		   	$this->msg=$this->msg."wtf" ."\n";
 			$error = true;	
 		   // echo "ancienne plaque : $var"  ;
 			// echo " nouvelle plaque : $var"   ;
@@ -309,50 +312,50 @@ class modele_trajet extends connexion {
 		$i = 0;
 		$date = $soustrajets[0]['dateDepart'];
 		$heure = $soustrajets[0]['heureDepart'];
-		while( $i < count($soustrajets) ){
-			var_dump($date < $soustrajets[$i]['dateDepart']);
-			//prix neg
-			if($soustrajets[$i]['prix'] < 0){
-				$this->msg=$this->msg."32- Erreur sur le prix" ."\n";
-				$error = true;	
-			}
+		// while( $i < count($soustrajets) ){
+		// 	var_dump($date < $soustrajets[$i]['dateDepart']);
+		// 	//prix neg
+		// 	if($soustrajets[$i]['prix'] < 0){
+		// 		$this->msg=$this->msg."32- Erreur sur le prix" ."\n";
+		// 		$error = true;	
+		// 	}
 
-			// verif date et horaire
-			if($date < $soustrajets[$i]['dateDepart']){
-				$date = $soustrajets[$i]['dateDepart'];
-			}else if($date > $soustrajets[$i]['dateDepart']){
-				$this->msg=$this->msg."331- Erreur de conformité Date" ."\n";
-				$error = true;	
-			}else{
-				//heure dans l'ordre
-				// difference minimale de 0  ? 
-				if( $heure < $soustrajets[$i]['heureDepart'] ){
-					$heure = $soustrajets[$i]['heureDepart'];
-				} else if( $heure >= $soustrajets[$i]['heureDepart'] && $soustrajets[$i] != $soustrajets[0]){
-					$this->msg=$this->msg."332- Erreur de conformité Heure " ."\n";
-					$error = true;	
-				}
-			}
-			if($soustrajets[$i]['heureDepart'] == $soustrajets[$i]['heureArrivee']){
-				$this->msg=$this->msg."332- Erreur de conformité Heure " ."\n";
-				$error = true;	
-			}
-			//verifie format heure
-			if(!preg_match('#^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$#', $soustrajets[$i]['heureDepart'] )){
-				$this->msg=$this->msg."341- Erreur de Format Heure" ."\n";
-					$error = true;	
-			}
+		// 	// verif date et horaire
+		// 	if($date < $soustrajets[$i]['dateDepart']){
+		// 		$date = $soustrajets[$i]['dateDepart'];
+		// 	}else if($date > $soustrajets[$i]['dateDepart']){
+		// 		$this->msg=$this->msg."331- Erreur de conformité Date" ."\n";
+		// 		$error = true;	
+		// 	}else{
+		// 		//heure dans l'ordre
+		// 		// difference minimale de 0  ? 
+		// 		if( $heure < $soustrajets[$i]['heureDepart'] ){
+		// 			$heure = $soustrajets[$i]['heureDepart'];
+		// 		} else if( $heure >= $soustrajets[$i]['heureDepart'] && $soustrajets[$i] != $soustrajets[0]){
+		// 			$this->msg=$this->msg."332- Erreur de conformité Heure " ."\n";
+		// 			$error = true;	
+		// 		}
+		// 	}
+		// 	if($soustrajets[$i]['heureDepart'] == $soustrajets[$i]['heureArrivee']){
+		// 		$this->msg=$this->msg."332- Erreur de conformité Heure " ."\n";
+		// 		$error = true;	
+		// 	}
+		// 	//verifie format heure
+		// 	if(!preg_match('#^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$#', $soustrajets[$i]['heureDepart'] )){
+		// 		$this->msg=$this->msg."341- Erreur de Format Heure" ."\n";
+		// 			$error = true;	
+		// 	}
 
-			//verifie format date
-			if(!preg_match('#^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$#', $soustrajets[$i]['dateDepart'])){
-				$this->msg=$this->msg."342- Erreur de Format Date" ."\n";
-				$error = true;	
-			}
-			//ville existante
-			$date =$soustrajets[$i]['dateDepart'];
-			$heure = $soustrajets[$i]['heureDepart'];
-			$i++;
-		}
+		// 	//verifie format date
+		// 	if(!preg_match('#^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$#', $soustrajets[$i]['dateDepart'])){
+		// 		$this->msg=$this->msg."342- Erreur de Format Date" ."\n";
+		// 		$error = true;	
+		// 	}
+		// 	//ville existante
+		// 	$date =$soustrajets[$i]['dateDepart'];
+		// 	$heure = $soustrajets[$i]['heureDepart'];
+		// 	$i++;
+		// }
 
 		foreach ($soustrajets as $key => $value) {
 			if($value['idVilleD'] != null && $value['idVilleA'] != null){
@@ -384,6 +387,12 @@ class modele_trajet extends connexion {
 			}
 			else{
 				$this->msg=$this->msg."351- Erreur Champs Ville non défini" ."\n";
+				$error = true;	
+			}
+			$immatriculation= strtoupper($value['idVehiculeConducteur']);
+			$immatriculation = str_replace("-", " ", $immatriculation);
+			if($this->verifImmatriculation($immatriculation)){
+				$this->msg=$this->msg."363- Erreur immatriculation" ."\n";
 				$error = true;	
 			}
 		}
