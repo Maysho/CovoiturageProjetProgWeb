@@ -58,7 +58,7 @@ class vue_Trajet extends VueGenerique{
 				  					</div> --> 
 				  				</div>
 
-				  				<div class="text-left form-group row justify-content-center justify-content-md-start">
+				  				<div class="text-left form-group row justify-content-center justify-content-md-start"  id="DateHoraire" >
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-5"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
 				  						<input class="offset-md-1 col-md-5 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">

@@ -170,6 +170,10 @@ class modele_trajet extends connexion {
 			$value['idVilleD'] = $idVille1;
 			$value['idVilleA'] = $idVille2;
 
+			$immatriculation= strtoupper($value['idVehiculeConducteur']);
+			$immatriculation = str_replace("-", " ", $immatriculation);
+			$immatriculation = str_replace(" ", "-", $immatriculation);
+
 			if( $value['regulier'] == "true"){
 				$reg = 1;
 			}
@@ -216,7 +220,7 @@ class modele_trajet extends connexion {
 		 		':idVilleDepart'=>$value['idVilleD'],
 		 		':idVilleArrivee'=>$value['idVilleA'],
 		 		':heureArrivee'=>$value['heureArrivee'],
-		 		':idVehiculeConducteur'=>$value['idVehiculeConducteur'],
+		 		':idVehiculeConducteur'=>$immatriculation,
 		 		':prix'=>$value['prix'],
 		 		':prixCumule'=>$somme,
 		 		':regulier'=> $reg,
@@ -267,6 +271,7 @@ class modele_trajet extends connexion {
 		}
 
 		if($this->verifImmatriculation($immatriculation)){
+			$this->msg=$this->msg."36-" ."\n";
 			$error = true;
 		}
 		return $error;
@@ -275,12 +280,10 @@ class modele_trajet extends connexion {
 	public function verifImmatriculation($immatriculation){
 		$error = false;
 		if(empty($immatriculation)){
-			$this->msg=$this->msg."36-" ."\n";
 			$error = true;
 		}
 
 		if (  !preg_match("~(\d{3,4}\s*[a-z]{2}\s*(\d{2}|\d[a-z])|[a-z]{2}\s*\d{4}\s*[a-z]{2}|[a-z]{2}\s*\d{3}\s*[a-z])~iu", $immatriculation)) {
-		   	$this->msg=$this->msg."36-" ."\n";
 			$error = true;	
 		   // echo "ancienne plaque : $var"  ;
 			// echo " nouvelle plaque : $var"   ;
@@ -384,6 +387,12 @@ class modele_trajet extends connexion {
 			}
 			else{
 				$this->msg=$this->msg."351- Erreur Champs Ville non défini" ."\n";
+				$error = true;	
+			}
+			$immatriculation= strtoupper($value['idVehiculeConducteur']);
+			$immatriculation = str_replace("-", " ", $immatriculation);
+			if($this->verifImmatriculation($immatriculation)){
+				$this->msg=$this->msg."363- Erreur immatriculation" ."\n";
 				$error = true;	
 			}
 		}

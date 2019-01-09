@@ -582,7 +582,7 @@ function verifError(data){
 
 
   if(data.includes("30")){
-    $('#departEtape').prepend('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</small>');
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</small>');
   }
   if(data.includes("31")){
     $('#placeTotale').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de saisie PlaceTotale </small>');
@@ -603,13 +603,13 @@ function verifError(data){
     $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Date</small>');
   }
   if(data.includes("353")){
-    $('#departEtape').prepend('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </small>');
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </small>');
   }
   if(data.includes("351")){
-    $('#departEtape').prepend('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</small>');
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</small>');
   }
   if(data.includes("352")){
-    $('#departEtape').prepend('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</small>');
+    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</small>');
   }
   if(data.includes("36")){
     $('#immatriculation').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Immatriculation</small>');
@@ -618,7 +618,10 @@ function verifError(data){
     $('#critair').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Crit air non renseigné</small>');
   }
   if(data.includes("362")){
-    $('#hybride').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur </small>');
+    $('#hybride').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur renseignement Hybride </small>');
+  }
+  if(data.includes("363")){
+    $('#idVehicule').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur immatriculation</small>');
   }
 
 }
