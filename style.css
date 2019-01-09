@@ -121,6 +121,27 @@ h2{
     resize: none;
 }
 
+#footer{
+    background-color: #323232;
+}
+
+.titre-footer{
+    font-size:1.7em;
+}
+
+.lien-footer{
+    display:block;  
+}
+.lien-footer:hover{
+    text-decoration: none;
+    font-weight: bold;
+    color:white;
+}
+
+.text-footer{
+    color: #AAAAAA;
+}
+
 /*
  * Row with equal height columns
  * --------------------------------------------------
