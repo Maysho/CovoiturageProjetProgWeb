@@ -445,11 +445,48 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div class="col-md-9">
 					<?php self::afficheNavProfil(5,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">		
-						<pre>
-						<?php
-						var_dump($donnees)
-						?>
-						</pre>
+						<table class="table">
+							<thead>
+								<tr class="">
+									<td class=" text-center titreFavoris">Date</td>
+									<td class=" text-center titreFavoris">Depart</td>
+									<td class=" text-center titreFavoris">Arrivee</td>
+									<td class=" text-center titreFavoris">Lien</td>
+									<td></td>
+								</tr>
+							</thead>
+							<tbody>
+
+								<?php
+								foreach ($donnees as $key => $value) {
+								?>
+								<?php
+								// var_dump($value[0])
+								?>
+								<a href="">
+									<tr>
+										<td class=" text-center ">
+											<?php echo $value[0]['dateDepart']?> 
+										</td>
+										<td class=" text-center ">
+											
+											<?php echo $value[0]['nomVille']?> 
+										</td>
+										<td class=" text-center ">
+											<?php echo $value[1]['nomVille']?> 
+										</td>
+										<td class=" text-center ">
+											<?php echo $value[0][1]?> 
+										</td>
+									</tr>
+								</a>
+								<?php
+								}
+								?>
+							</tbody>
+						</table>
+						
+						</pre> 
 					</div>
 				</div>
 			</div>
@@ -462,11 +499,51 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div class="col-md-9">
 					<?php self::afficheNavProfil(6,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
-						<pre>
+					<table class="table">
+							<thead>
+								<tr class="">
+									<td class=" text-center titreFavoris">Date</td>
+									<td class=" text-center titreFavoris">Depart</td>
+									<td class=" text-center titreFavoris">Arrivee</td>
+									<td class=" text-center titreFavoris">Lien</td>
+									<td></td>
+								</tr>
+							</thead>
+							<tbody>
+
+								<?php
+								foreach ($donnees as $key => $value) {
+								?>
+								<?php
+								// var_dump($value[0])
+								?>
+								<a href="">
+									<tr>
+										<td class=" text-center ">
+											<?php echo $value[0]['dateDepart']?> 
+										</td>
+										<td class=" text-center ">
+											
+											<?php echo $value[0]['nomVille']?> 
+										</td>
+										<td class=" text-center ">
+											<?php echo $value[1]['nomVille']?> 
+										</td>
+										<td class=" text-center ">
+											<?php echo $value[0][1]?> 
+										</td>
+									</tr>
+								</a>
+								<?php
+								}
+								?>
+							</tbody>
+						</table>
+						<!-- <pre>
 						<?php
 						var_dump($donnees)
 						?>
-						</pre>
+						</pre> -->
 					</div>
 				</div>
 			</div>
