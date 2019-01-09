@@ -274,49 +274,45 @@ class ModeleProfil extends connexion{
 	}
 
 	public function getListeTrajetsReserves($idUser){
+		date_default_timezone_set('Europe/Paris');
+		$date =date('Y-m-d');
 		$reqGetListeCar = self::$bdd->prepare("
-		SELECT idTrajet  from  soustrajet
+		SELECT idTrajet  FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? and valide = 0
+		WHERE utilisateur_idutilisateur = ? AND valide = 0 AND dateDepart > ?
 		GROUP BY idTrajet
+		ORDER BY dateDepart DESC
+		LIMIT 10
 		");
 
-
-		$reqGetListeCar->execute(array($idUser));
+		$reqGetListeCar->execute(array($idUser, $date));
 		$liste= $reqGetListeCar->fetchAll();
 		$tab = array();
-		$res = array();
 		foreach ($liste as $key => $value) {
 			$tab[$value['idTrajet']]=$this->recupSDepartSArrivee($value['idTrajet']) ;
-			
 		}
-
 		return $tab;
 	}
 
 	public function getListeHistorique($idUser){
 		$reqGetListeCar = self::$bdd->prepare("
-		SELECT idTrajet  from  soustrajet
+		SELECT idTrajet  FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
 		WHERE utilisateur_idutilisateur = ? 
 		GROUP BY idTrajet
+		ORDER BY dateDepart DESC
+		LIMIT 10
 		");
-
 
 		$reqGetListeCar->execute(array($idUser));
 		$liste= $reqGetListeCar->fetchAll();
 		$tab = array();
-		$res = array();
 		foreach ($liste as $key => $value) {
 			$tab[$value['idTrajet']]=$this->recupSDepartSArrivee($value['idTrajet']) ;
-			
 		}
-
 		return $tab;
-
-
 	}
 
 	public function recupSDepartSArrivee($id){
@@ -325,7 +321,6 @@ class ModeleProfil extends connexion{
 		$selecPreparee->execute($tableauIds);
 		$tab = $selecPreparee->fetch();
 		
-
 		$tableau=array();
 
 		$selecPreparee=self::$bdd->prepare('
@@ -334,7 +329,7 @@ class ModeleProfil extends connexion{
 		$tableau[0] = $selecPreparee->fetch();
 
 		$selecPreparee=self::$bdd->prepare('
-			SELECT * FROM soustrajet as s1 INNER JOIN soustrajet as s2 INNER JOIN ville  on s1.idVilleDepart = ville.idVille WHERE s1.idsousTrajet = ?');
+			SELECT * FROM soustrajet as s1 INNER JOIN soustrajet as s2 INNER JOIN ville  on s1.idVilleArrivee = ville.idVille WHERE s1.idsousTrajet = ?');
 		$selecPreparee->execute(array($tab[1]));
 		$tableau[1] = $selecPreparee->fetch();
 

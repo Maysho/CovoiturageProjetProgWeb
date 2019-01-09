@@ -35,12 +35,13 @@ class modele_trajet extends connexion {
 	public function ajoutVehicule($immatriculation, $critair, $hybride){
 		$immatriculation= strtoupper($immatriculation);
 		$immatriculation = str_replace("-", " ", $immatriculation);
+		$immatriculation = str_replace(" ", "", $immatriculation);
 		if( $this->verifVehicule($immatriculation, $critair, $hybride) ){
 			http_response_code(400);
 			echo $this->msg;
 			exit(1);
 		}
-		$immatriculation = str_replace(" ", "-", $immatriculation);
+		// $immatriculation = str_replace(" ", "-", $immatriculation);
 		$reg = $hybride == "true" ?  1 :  0; 
 
 		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
