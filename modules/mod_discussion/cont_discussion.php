@@ -19,11 +19,5 @@
 			$msg=$this->modele->messages($idUser,$idInterlocuteur);
 			$this->vue->discussion($interlocuteurs, $msg);
 		}
-
-		public function envoieMsgDepuisProfil($idUser, $idInterlocuteur){
-			$resultat=$this->modele->envoieMsgDepuisProfil($idUser, $idInterlocuteur);
-			header("Location: ?module=mod_profil&idprofil=$idInterlocuteur&ongletprofil=profil&resultat=$resultat");
-		}
-
 	}
 ?>

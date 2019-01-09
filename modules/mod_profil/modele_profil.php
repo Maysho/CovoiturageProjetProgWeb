@@ -85,7 +85,6 @@ class ModeleProfil extends connexion{
 		if (!($emailConfirm==$email)) {
 			$this->msg= $this->msg."01-";
 			$erreur=true;
-
 		}
 		if (!preg_match('#^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$#', $nom)) {
 			$this->msg=$this->msg."02-";
@@ -104,7 +103,7 @@ class ModeleProfil extends connexion{
 			$this->msg=$this->msg."11-";
 			$erreur = true;
 		}
-		if(strlen($description)>1023){
+		if(strlen($description)>1024){
 			$this->msg=$this->msg."12-";
 			$erreur = true;
 		}
@@ -203,11 +202,11 @@ class ModeleProfil extends connexion{
 
 	public function verifieModificationMdp($idUser){
 		$resultat;
-		$ancienMdp;
+		$mdpActuel;
 
-		if(isset($_POST['ancienMdp']) && isset($_POST['nouveauMdp']) && isset($_POST['nouveauMdpConf'])){
-			$ancienMdp=htmlspecialchars($_POST['ancienMdp']);
-			if($this->ancienMdpEstValide($idUser, $ancienMdp)){
+		if(isset($_POST['mdpActuel']) && isset($_POST['nouveauMdp']) && isset($_POST['nouveauMdpConf'])){
+			$mdpActuel=htmlspecialchars($_POST['mdpActuel']);
+			if($this->ancienMdpEstValide($idUser, $mdpActuel)){
 				if($this->nouveauMdpEstValide($_POST['nouveauMdp'], $_POST['nouveauMdpConf'])){
 					$this->modifierMdp($idUser, $_POST['nouveauMdp']);
 					return 0;

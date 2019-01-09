@@ -7,7 +7,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 			parent::__construct();
 		}
 
-		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser,$resultat){
+		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser){
 
 			
 			echo '<div class="col-md-12">';
@@ -18,19 +18,23 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php		
 		}
 ?>
-					<section class="border border-dark rounded">
+					<div class="border border-dark rounded">
 						
 					
 						<div class="row col-auto">
+							<div class="col-md-2 order-0 ">
 							<?php
 		if(isset($donnerAAfficher['urlPhoto'])){
 ?>
-							<img class="col-md-2 order-0 img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
+							
+								<img class="img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
+							
 <?php
 		}
 		else
-			echo '<img class="col-md-2 order-0 img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
+			echo '				<img class="img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
 ?>
+							</div>
 							<div class="row col-md-4 order-2 order-md-1">
 								<label class="col-md-12"> Prénom : <?php echo $donnerAAfficher['prenom']; ?> </label>	
 								<label class="col-md-12"> Nom : <?php echo $donnerAAfficher['nom']; ?></label>
@@ -48,17 +52,17 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php	if($estPagePerso)							
 			echo '				<label class="col-md-12">E-mail : '.$donnerAAfficher['adresseMail'].'</label>';
 ?>								<label class="col-md-12">Nombre de trajets effectués : <?php echo $nbTrajet; ?></label>
-								<label class="col-md-12">Note moyenne : <?php echo $moyenne; ?></label>
+								<label class="col-md-12">Note moyenne : <?php if($moyenne!=NULL)echo $moyenne; else echo "Aucune note reçu"; ?></label>
 							</div>
 
 <?php	if($estPagePerso){	
 			echo '
 							<div class=" col-md-2 order-1 order-md-3">
 							
-								<a class="btn btn-primary col-12" href="?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif" role="button">
+								<a class="btn btn-primary btn-profil btn-block col-md-12" href="?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif" role="button">
 									Modifier le profil
 								</a>
-								<a class="btn btn-primary col-12" href="#" data-toggle="modal" data-target="#changementMDPModal" role="button">
+								<a class="btn btn-primary btn-profil btn-block col-md-12" href="#" data-toggle="modal" data-target="#changementMDPModal" role="button">
 									Changer de mot de passe
 								</a>
 							</div>';
@@ -75,15 +79,16 @@ include_once __DIR__ .'/../../vue_generique.php';
 							      </div>
 							      <div class="modal-body">
 
-							      	<form method="POST" class="col-12" id="changeMdpProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodifmdp'; ?>">
+							      	<form method="POST" class="col-12" id="changeMdpProfil" enctype="multipart/form-data" action="">
 
 										<div class="row form-group">
 											<label for="mdpActuel" class="">Mot de passe actuel :</label>
 											<input id="mdpActuel" class="form-control" type="password" name="ancienMdp" required="">
-<?php
-		if($resultat == 1)
-			echo'                           <p id="msgErreurSaisieMdp" class="form-text warning" >/!\ Le mot de passe saisi est incorrect</p>';					
-?>
+
+
+		
+			                          <p id="msgErreurSaisieMdp" class="form-text warning" ></p>				
+
 										</div>
 										<hr>
 										<div class="row form-group">
@@ -114,7 +119,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		else if($estConnecter){
 ?>							
 							<div class="col-md-2 order-1 order-md-3">
-							<a class="btn btn-primary col-12" href="#" data-toggle="modal" data-target="#envoieMsgModal" role="button">
+							<a class="btn btn-primary btn-profil btn-block col-12" href="#" data-toggle="modal" data-target="#envoieMsgModal" role="button">
 								Envoyer un message
 							</a>
 							</div>
@@ -130,15 +135,17 @@ include_once __DIR__ .'/../../vue_generique.php';
 							      </div>
 							      <div class="modal-body">
 
-							      	<form method="POST" class="col-12" id="envoyerMessage" enctype="multipart/form-data" action="<?php echo '?module=mod_discussion&idprofil='.$idUser; ?>">
+							      	<form method="POST" class="col-12" id="envoyerMessage" enctype="multipart/form-data" action="">
 
-										<textarea id="zoneEnvoieMsgProfil" class="form-control" rows="3" maxlength="255" form="envoyerMessage" name="message" style="resize: none"	></textarea>
+										<textarea id="zoneEnvoieMsgProfil" class="form-control textarea-fixe" rows="3" maxlength="255" form="envoyerMessage" name="message"></textarea>
 									</form>
 
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-							        <button disabled="" id="boutonEnvoieMsgProfil" type="submit" class="btn btn-primary" form="envoyerMessage">Envoyer</button>
+<?php			      
+							echo "        <button disabled='' id='boutonEnvoieMsgProfil' data-id='$idUser' type='submit' class='btn btn-primary' form='envoyerMessage'>Envoyer</button>";
+?>
 							      </div>
 							    </div>
 							  </div>
@@ -153,15 +160,16 @@ include_once __DIR__ .'/../../vue_generique.php';
 						<div class="col-md-auto">
 							<label class="">Description : </label>
 							<label class=" col-md-12 border border-primary rounded"><?php echo $donnerAAfficher['description']; ?></label>
+
 						</div>
-					</section>
+					</div>
 					
 <?php
 
 				for ($i=0; $i < count($commentaires); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
 ?>
-	   				<section class="border border-dark rounded col-md-12" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
+	   				<div class="border border-dark rounded col-md-12" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
 	   					<div class="row">
 	   						<label class="col-md-8">De <a href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?></label>
 	   						<label class="col-md-4">note : <?php echo $commentaires[$i]['note']; ?></label>
@@ -170,11 +178,8 @@ include_once __DIR__ .'/../../vue_generique.php';
 	   						<label class="col-md-12"><?php echo $commentaires[$i]['description']; ?></label>
 	   					</div>
 	   					<?php
-		if(($resultat == 0 || $resultat == 2 || $resultat == 3) && $resultat != null){
-			echo "		<p hidden id='resultat' id_val='$resultat'></p>";
-		}
 ?>
-	   				</section>
+	   				</div>
 <?php	   				
 	   			}
 ?>			
@@ -190,7 +195,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 		{
 
 ?>
-	<div class="row">
 	<div class="col-12">
 <?php
 
@@ -223,7 +227,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 	
 
 			</div>
-			</div>
+			
 <?php		
 		}
 		
@@ -247,7 +251,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		function modificationDeProfil($idUser, $donnees){
 ?>
 
-			<div class="row">
+			
 				
 
 				<div class="col-12">
@@ -313,7 +317,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 
 							<div class="row form-group">
 								<label class="col-md-4">Description : </label>
-								<textarea class="col-md-4 form-control" rows="10" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
+								<textarea class="col-md-4 form-control textarea-fixe" rows="10" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
 							</div>
 
 							<button class="btn btn-primary" type="submit" name="submit">Mettre à jour vos données</button>
@@ -322,15 +326,16 @@ include_once __DIR__ .'/../../vue_generique.php';
 						
 					</section>
 				</div>
-			</div>
+			
 <?php
 		}
 
 
 		function afficheListeVehicule($idUser, $donnees){
 			?>
-			<div id="vehiculeProfil">
-				<div class="col-md-9">
+
+				<div id="vehiculeProfil" class="col-md-12">
+
 					<?php self::afficheNavProfil(4,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
 						<table class="table">
@@ -431,8 +436,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 						</div>									  
 					</div>
 				</div>
-			</div>
-			<?php 
+<?php 
 		}
 
 		function afficheHistorique($idUser, $donnees){
