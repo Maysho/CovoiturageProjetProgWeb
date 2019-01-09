@@ -15,7 +15,7 @@ include_once 'vue_generique.php';
 			<section class="col-md-12">
 
 				<div class="row">
-					<textarea id="idInterlocuteurEnCours"  hidden=""><?php echo $interlocuteurs[0]['idInterlocuteur']; ?></textarea>
+					<textarea id="idInterlocuteurEnCours"  hidden=""><?php if(isset($interlocuteurs[0]['idInterlocuteur']))echo $interlocuteurs[0]['idInterlocuteur']; ?></textarea>
 
 					<div id="interlocuteurs"  class="col-md-2 pre-scrollable scroll-bottom"></div>
 					

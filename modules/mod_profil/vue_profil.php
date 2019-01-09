@@ -159,8 +159,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 					
 						<div class="col-md-auto">
 							<label class="">Description : </label>
-							<label class=" col-md-12 border border-primary rounded"><?php echo $donnerAAfficher['description']; ?></label>
-
+							<div class=" col-md-12 border border-primary rounded">
+								<span><?php echo $donnerAAfficher['description']; ?></span>
+							</div>
 						</div>
 					</div>
 					
@@ -175,7 +176,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 	   						<label class="col-md-4">note : <?php echo $commentaires[$i]['note']; ?></label>
 	   					</div>
 	   					<div class="row">
-	   						<label class="col-md-12"><?php echo $commentaires[$i]['description']; ?></label>
+	   						<div class="col-md-12">
+	   							<span ><?php echo $commentaires[$i]['description']; ?></span>
+	   						</div>
 	   					</div>
 	   					<?php
 ?>
@@ -317,7 +320,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 
 							<div class="row form-group">
 								<label class="col-md-4">Description : </label>
-								<textarea class="col-md-4 form-control textarea-fixe" rows="10" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
+								<textarea class="col-md-4 form-control textarea-fixe" rows="10" maxlength="1024" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
 							</div>
 
 							<button class="btn btn-primary" type="submit" name="submit">Mettre à jour vos données</button>

@@ -104,17 +104,17 @@ die("Page inaccessible");
 
 			include_once 'modules/mod_nav/mod_nav.php';
 			$mod_nav=new mod_nav();
-			$mod_nav->afficheNav();
+			$mod_nav->afficheNav(); 
 ?>
 		</header>
 		
 <?php 	
 		if(isset($_SESSION['id'])) {
-			echo '<div class="row justify-content-center">';
+			echo '<div id="teste" class="row justify-content-center flextest">';
 			echo "<aside class='col-md-3' >";
 }
 		else
-			echo '<div class="row justify-content-center">';
+			echo '<div class="row justify-content-center flextest">';
 
 			include_once 'composants/compCommentaire/compCommentaire.php';
 
@@ -151,12 +151,38 @@ die("Page inaccessible");
 				echo "$affichageForm";
 ?>
 		</section>
-		</div>
+		
 
 
 	
 
-	<footer>Antoine Dabilly</footer>
+		<footer id="footer" class="row col-12 justify-content-center card-footer">
+			<div class="col-md-3">
+				<h3 class="text-footer titre-footer">Qui sommes-nous?</h3>
+				<div class="justify-content-center col-12">
+					<p class="text-footer">Antoine Dabilly</p>
+					<p class="text-footer">William Lin</p>
+					<p class="text-footer">Bastian Padiglione</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h3 class="text-footer titre-footer">Nos outils de developpement</h3>
+				<div class="justify-content-center col-12">
+					<p><a class="text-footer lien-footer" href="https://github.com/Maysho/CovoiturageProjetProgWeb">GitHub</a></p>
+					<p><a class="text-footer lien-footer" href="https://trello.com/">Trello</a></p>
+					<p><a class="text-footer lien-footer" href="https://discordapp.com/">Discord</a></p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h3 class="text-footer titre-footer">Le projet TakeU</h3>
+				<div class="justify-content-center col-12">
+					<p><a class="text-footer lien-footer" href="">A propos du projet</a></p>
+				</div>
+			</div>
+		</footer>
+
+	</div>	
+
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

@@ -157,13 +157,15 @@ class ModeleProfil extends connexion{
 			$ancienUrl=$resultselect['urlPhoto'];
 
 		if($_FILES['photoprofil']['size']>0){
-			unlink($ancienUrl);
+			if($ancienUrl!=null)
+				unlink($ancienUrl);
 			$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
 			$nomFich=$idUser.'.'.$extension_upload;
 			$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$nomFich);
 
-			if($result)
+			if($result){
 				return "sources/images/photoProfil/".$nomFich;
+			}
 		}
 		else 
 			return $ancienUrl;
