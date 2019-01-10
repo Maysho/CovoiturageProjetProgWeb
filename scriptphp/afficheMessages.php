@@ -23,8 +23,10 @@ $modele = new ModeleDiscussion;
 								<label class="col-5 col-md-12 col-xl-7">'.$msg[$i]["jour"].'</label>
 								<label class="col-2 col-md-12 col-xl-5">'.$msg[$i]["heure"].'</label>
 							</div>
-							
-								<label class="col-md-9">'.$msg[$i]["contenuMessage"].'</label>
+							<div class="col-md-9">
+								<span >'.$msg[$i]["contenuMessage"].'</span>
+							</div>
+								
 							
 						</div>';
 				

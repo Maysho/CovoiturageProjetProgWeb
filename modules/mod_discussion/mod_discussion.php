@@ -16,15 +16,7 @@ class ModDiscussion extends VueGenerique
 	public function init(){
 
 		if(isset($_SESSION['id'])){
-			$idUser=$_SESSION['id'];
-			if(isset($_GET['idprofil'])){
-				$idInterlocuteur=$_GET['idprofil'];
-				if($idUser != $idInterlocuteur){
-					$this->controleur->envoieMsgDepuisProfil($_SESSION['id'], $_GET['idprofil']);
-				}
-			}
-			else
-				$this->controleur->discussion($_SESSION['id']);
+			$this->controleur->discussion($_SESSION['id']);
 		}
 
 		else

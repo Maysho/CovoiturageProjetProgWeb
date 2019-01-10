@@ -85,7 +85,6 @@ class ModeleProfil extends connexion{
 		if (!($emailConfirm==$email)) {
 			$this->msg= $this->msg."01-";
 			$erreur=true;
-
 		}
 		if (!preg_match('#^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$#', $nom)) {
 			$this->msg=$this->msg."02-";
@@ -104,7 +103,7 @@ class ModeleProfil extends connexion{
 			$this->msg=$this->msg."11-";
 			$erreur = true;
 		}
-		if(strlen($description)>1023){
+		if(strlen($description)>1024){
 			$this->msg=$this->msg."12-";
 			$erreur = true;
 		}
@@ -158,13 +157,15 @@ class ModeleProfil extends connexion{
 			$ancienUrl=$resultselect['urlPhoto'];
 
 		if($_FILES['photoprofil']['size']>0){
-			unlink($ancienUrl);
+			if($ancienUrl!=null)
+				unlink($ancienUrl);
 			$extension_upload = strtolower(  substr(  strrchr($_FILES['photoprofil']['name'], '.')  ,1)  );
 			$nomFich=$idUser.'.'.$extension_upload;
 			$result=move_uploaded_file($_FILES['photoprofil']['tmp_name'], "sources/images/photoProfil/".$nomFich);
 
-			if($result)
+			if($result){
 				return "sources/images/photoProfil/".$nomFich;
+			}
 		}
 		else 
 			return $ancienUrl;
@@ -203,11 +204,11 @@ class ModeleProfil extends connexion{
 
 	public function verifieModificationMdp($idUser){
 		$resultat;
-		$ancienMdp;
+		$mdpActuel;
 
-		if(isset($_POST['ancienMdp']) && isset($_POST['nouveauMdp']) && isset($_POST['nouveauMdpConf'])){
-			$ancienMdp=htmlspecialchars($_POST['ancienMdp']);
-			if($this->ancienMdpEstValide($idUser, $ancienMdp)){
+		if(isset($_POST['mdpActuel']) && isset($_POST['nouveauMdp']) && isset($_POST['nouveauMdpConf'])){
+			$mdpActuel=htmlspecialchars($_POST['mdpActuel']);
+			if($this->ancienMdpEstValide($idUser, $mdpActuel)){
 				if($this->nouveauMdpEstValide($_POST['nouveauMdp'], $_POST['nouveauMdpConf'])){
 					$this->modifierMdp($idUser, $_POST['nouveauMdp']);
 					return 0;
@@ -275,37 +276,69 @@ class ModeleProfil extends connexion{
 	}
 
 	public function getListeTrajetsReserves($idUser){
+		date_default_timezone_set('Europe/Paris');
+		$date =date('Y-m-d');
 		$reqGetListeCar = self::$bdd->prepare("
-		SELECT *  from soustrajetutilisateur 
-		INNER JOIN vehicule 
-		ON vehicule.immatriculation =vehiculeutilisateur.immatriculation 
-		INNER JOIN soustrajet
-		ON soustrajet.idsousTrajet = soustrajetutilisateur.idsousTrajet
-		INNER JOIN trajet 
-		ON soustrajet.idTrajet = trajet.idTrajet
-		where utilisateur_idutilisateur = ? AND valide = 1 AND soustrajet.dateDepart > ? 
+		SELECT idTrajet  FROM  soustrajet
+		INNER JOIN soustrajetutilisateur
+		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
+		WHERE utilisateur_idutilisateur = ? AND valide = 0 AND dateDepart > ?
+		GROUP BY idTrajet
+		ORDER BY dateDepart DESC
+		LIMIT 10
 		");
-		$reqGetListeCar->execute(array($idUser, (date("Y-m-d")) ));
+
+		$reqGetListeCar->execute(array($idUser, $date));
 		$liste= $reqGetListeCar->fetchAll();
-		return $liste;
+		$tab = array();
+		foreach ($liste as $key => $value) {
+			$tab[$value['idTrajet']]=$this->recupSDepartSArrivee($value['idTrajet']) ;
+		}
+		return $tab;
 	}
 
 	public function getListeHistorique($idUser){
 		$reqGetListeCar = self::$bdd->prepare("
-		SELECT *  from soustrajetutilisateur 
-		INNER JOIN vehicule 
-		ON vehicule.immatriculation =vehiculeutilisateur.immatriculation 
-		INNER JOIN soustrajet
-		ON soustrajet.idsousTrajet = soustrajetutilisateur.idsousTrajet
-		INNER JOIN trajet 
-		ON soustrajet.idTrajet = trajet.idTrajet
-		WHERE utilisateur_idutilisateur = ?
-		ORDER BY 
+		SELECT idTrajet  FROM  soustrajet
+		INNER JOIN soustrajetutilisateur
+		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
+		WHERE utilisateur_idutilisateur = ? 
+		GROUP BY idTrajet
+		ORDER BY dateDepart DESC
+		LIMIT 10
 		");
+
 		$reqGetListeCar->execute(array($idUser));
 		$liste= $reqGetListeCar->fetchAll();
-		return $liste;
+		$tab = array();
+		foreach ($liste as $key => $value) {
+			$tab[$value['idTrajet']]=$this->recupSDepartSArrivee($value['idTrajet']) ;
+		}
+		return $tab;
 	}
+
+	public function recupSDepartSArrivee($id){
+		$selecPreparee=self::$bdd->prepare('SELECT MIN(s1.idsousTrajet) as idDepart ,MAX(s1.idsousTrajet) as idArrivee FROM soustrajet as s1  WHERE s1.idTrajet=? GROUP by s1.idTrajet');
+		$tableauIds=array($id);
+		$selecPreparee->execute($tableauIds);
+		$tab = $selecPreparee->fetch();
+		
+		$tableau=array();
+
+		$selecPreparee=self::$bdd->prepare('
+			SELECT * FROM soustrajet as s1 INNER JOIN soustrajet as s2 INNER JOIN ville on s1.idVilleDepart = ville.idVille  WHERE s1.idsousTrajet = ?');
+		$selecPreparee->execute(array($tab[0]));
+		$tableau[0] = $selecPreparee->fetch();
+
+		$selecPreparee=self::$bdd->prepare('
+			SELECT * FROM soustrajet as s1 INNER JOIN soustrajet as s2 INNER JOIN ville  on s1.idVilleArrivee = ville.idVille WHERE s1.idsousTrajet = ?');
+		$selecPreparee->execute(array($tab[1]));
+		$tableau[1] = $selecPreparee->fetch();
+
+		return $tableau;
+	}
+
+	
 
 	
 }

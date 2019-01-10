@@ -88,9 +88,9 @@ include_once __DIR__ . '/../../connexion.php';
 			$msg=htmlspecialchars($_POST['message']);
 			if($msg != ""){
 				$this->insererMessage($idUser, $idInterlocuteur, $msg);
-				return 3;
+				return 0;
 			}
-			else return 2;
+			else return 1;
 
 		}
 
