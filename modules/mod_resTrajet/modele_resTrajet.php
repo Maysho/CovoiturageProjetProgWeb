@@ -23,8 +23,8 @@ class modele_resTrajet extends connexion
 			$prix=100000;
 		}
 
-		list($depart, $codePostal1)= explode(",", $depart);
-		list($destination, $codePostal2)= explode(",", $destination);
+		$depart= explode(",", $depart)[0];
+		$destination= explode(",", $destination)[0];
 		$selecPreparee=self::$bdd->prepare('SELECT idTrajet, urlPhoto, prenom, depart, destination, prix, heureDepart, heureArrivee,placeTotale from ( 
 			SELECT trajet.idTrajet as idTrajet,utilisateur.urlPhoto,prenom,a.nomVille as depart, b.nomVille as destination,prix,heureDepart,heureArrivee,trajet.placeTotale-count(utilisateur_idutilisateur) as placeTotale, trajet.placeTotale as t FROM trajet inner join soustrajet on trajet.idTrajet=soustrajet.idTrajet 
 			inner join utilisateur on utilisateur.idUtilisateur=trajet.idConducteur 
