@@ -9,9 +9,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 
 		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser){
 
-			
-			echo '<div class="col-md-12">';
-
+?>
+				<div class="col-md-12">
+<?php
 		if($estPagePerso){
 ?>
 					<?php self::afficheNavProfil(1,$idUser); ?>
@@ -26,7 +26,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 							<?php
 		if(isset($donnerAAfficher['urlPhoto'])){
 ?>
-							
 								<img class="img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
 							
 <?php
@@ -40,7 +39,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<label class="col-md-12"> Nom : <?php echo $donnerAAfficher['nom']; ?></label>
 <?php
 		if(isset($donnerAAfficher['dateDeNaissance']))
-			echo '					<label class="col-md-12"> Age : '.$donnerAAfficher['dateDeNaissance'].' ans</label>';
+			echo '				<label class="col-md-12"> Age : '.$donnerAAfficher['dateDeNaissance'].' ans</label>';
 
 		if(isset($donnerAAfficher['sexe']))
 			echo '
@@ -84,11 +83,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 										<div class="row form-group">
 											<label for="mdpActuel" class="">Mot de passe actuel :</label>
 											<input id="mdpActuel" class="form-control" type="password" name="ancienMdp" required="">
-
-
-		
-			                          <p id="msgErreurSaisieMdp" class="form-text warning" ></p>				
-
+			                         		<p id="msgErreurSaisieMdp" class="form-text warning" ></p>				
 										</div>
 										<hr>
 										<div class="row form-group">
@@ -113,15 +108,18 @@ include_once __DIR__ .'/../../vue_generique.php';
 							    </div>
 							  </div>
 							</div>
+						
+					
+				
 
 <?php
 		}
 		else if($estConnecter){
 ?>							
 							<div class="col-md-2 order-1 order-md-3">
-							<a class="btn btn-primary btn-profil btn-block col-12" href="#" data-toggle="modal" data-target="#envoieMsgModal" role="button">
-								Envoyer un message
-							</a>
+								<a class="btn btn-primary btn-profil btn-block col-12" href="#" data-toggle="modal" data-target="#envoieMsgModal" role="button">
+									Envoyer un message
+								</a>
 							</div>
 							<!-- Modal -->
 							<div class="modal fade" id="envoieMsgModal" tabindex="-1" role="dialog" aria-labelledby="envoieMsgModalLabel" aria-hidden="true">
@@ -187,8 +185,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 	   			}
 ?>			
 				</div>
-				
-			</div> 
+
 <?php		
 		}
 
@@ -251,7 +248,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 					
 					</nav> <?php
 		}
-		function modificationDeProfil($idUser, $donnees){
+		function modificationDeProfil($idUser, $donnees, $token){
 ?>
 
 			
@@ -260,8 +257,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div class="col-12">
 					
 					<?php self::afficheNavProfil(3,$idUser); ?>
-					<section class="border border-dark rounded">
+					<div class="border border-dark rounded">
 						<form method="POST" class="col-12" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
+							<input type="hidden" name="token" value="<?php echo $token ?>">
 							<div class="row form-group">
 								<label class="col-md-4">Photo de profil (5Mo max): </label><?php
 		if(isset($donnees['urlPhoto'])){
@@ -274,7 +272,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 ?>
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
 								<input class="col-md-4" type="file" name="photoprofil" >
-								<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
 							</div>
 
 							<div class="row form-group">
@@ -327,7 +324,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 						</form>
 
 						
-					</section>
+					</div>
 				</div>
 			
 <?php

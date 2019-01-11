@@ -5,11 +5,9 @@ include_once 'cont_profil.php';
 class ModProfil extends VueGenerique
 {
 	private $controleur;
+	
 	function __construct(){
-		//$connexion=new connexion();
-		//$connexion->init();
 		$this->controleur=new ContProfil();
-
 	}
 
 
