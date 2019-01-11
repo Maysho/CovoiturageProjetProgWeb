@@ -635,7 +635,6 @@ $('#envoiTrajet').on("click",function(e){
           dateDepart: $(document).find(dateDepart).val(),
           heureDepart: $(document).find(heureDepart).val(),
           heureArrivee: $(document).find('#heureArrivee').val(),
-          // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: $(document).find('#idVehicule').find(':selected').val(),
           prix: $(document).find('#prixArrivee').val(),
           regulier: $(document).find('#regulier').is(":checked")
@@ -656,14 +655,12 @@ $('#envoiTrajet').on("click",function(e){
           dateDepart: $(document).find(dateDepart).val(),
           heureDepart: $(document).find(heureDepart).val(),
           heureArrivee: $(document).find(heureArrivee).val(),
-          // idVehiculeConducteur: $(document).find('#idVehiculeConducteur').val(),
           idVehiculeConducteur: $(document).find('#idVehicule').find(':selected').val(),
           prix: $(document).find(prix).val(),
           regulier: $(document).find('#regulier').is(":checked")
         };
       }
       console.log(soustrajet)
-
       soustrajets[i]= soustrajet;
     }
   }
@@ -671,29 +668,32 @@ $('#envoiTrajet').on("click",function(e){
 
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
-  $(".warning").remove();
-  $.ajax({
-    url:'scriptphp/formTrajet.php',
-    type:'POST',
-    dataType : 'text',
-    data: {
-      soustrajet: soustrajets,
-      descriptionTrajet: descriptionTrajet,
-      placeTotale: placeTotale,
-      dateArrivee: dateArrivee
-    },
-    success : function(txt){
-      window.location='index.php';
-
-      // console.log("msg :"+txt);
-      key = 0;
-    },
-    error: function(txt){
-      alert("fail");
-      alert("msg :"+txt.responseText);
-      verifError(txt.responseText);
-    }
-  });
+  
+  if(confirm("Etes-vous sûr.e de valider ce trajet?")){
+    $(".warning").remove();
+    $.ajax({
+      url:'scriptphp/formTrajet.php',
+      type:'POST',
+      dataType : 'text',
+      data: {
+        soustrajet: soustrajets,
+        descriptionTrajet: descriptionTrajet,
+        placeTotale: placeTotale,
+        dateArrivee: dateArrivee
+      },
+      success : function(txt){
+        window.location='index.php';
+        // console.log("msg :"+txt.responseText);
+        // key = 0;
+      },
+      error: function(txt){
+        // alert("fail");
+        // alert("msg :"+txt.responseText);
+        alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes")
+        verifError(txt.responseText);
+      }
+    });
+  }
 });
 
 
@@ -903,10 +903,10 @@ function verifError(data){
   if(data.includes("32")){
     $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur sur le prix</small>');
   }
-  if(data.includes("331")){
+  if(data.includes("33a")){
     $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Date </small>');
   }
-  if(data.includes("332")){
+  if(data.includes("33b")){
     $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Heure </small>');
   }
   if(data.includes("341")){
