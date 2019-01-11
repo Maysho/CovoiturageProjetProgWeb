@@ -248,7 +248,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 					
 					</nav> <?php
 		}
-		function modificationDeProfil($idUser, $donnees){
+		function modificationDeProfil($idUser, $donnees, $token){
 ?>
 
 			
@@ -257,8 +257,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div class="col-12">
 					
 					<?php self::afficheNavProfil(3,$idUser); ?>
-					<section class="border border-dark rounded">
+					<div class="border border-dark rounded">
 						<form method="POST" class="col-12" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
+							<input type="hidden" name="token" value="<?php echo $token ?>">
 							<div class="row form-group">
 								<label class="col-md-4">Photo de profil (5Mo max): </label><?php
 		if(isset($donnees['urlPhoto'])){
@@ -271,7 +272,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 ?>
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
 								<input class="col-md-4" type="file" name="photoprofil" >
-								<!--<button class="col-md-4 btn btn-primary">Ajouter nouvelle photo</button>-->
 							</div>
 
 							<div class="row form-group">
@@ -324,7 +324,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 						</form>
 
 						
-					</section>
+					</div>
 				</div>
 			
 <?php

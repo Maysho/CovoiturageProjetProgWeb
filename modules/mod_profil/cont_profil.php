@@ -47,9 +47,10 @@
 			if(!$estPagePerso)
 				die("Page inaccessible");
 
-			$donnees=$result=$this->modele->recupereInfoUtilisateurModif($idUser);
+			$donnees=$this->modele->recupereInfoUtilisateurModif($idUser);
+			$token=$this->modele->actualiseToken($idUser);
 
-			$this->vue->modificationDeProfil($idUser, $donnees);
+			$this->vue->modificationDeProfil($idUser, $donnees, $token);
 		}
 
 		public function recupereModifProfil($idUser, $estConnecter){
