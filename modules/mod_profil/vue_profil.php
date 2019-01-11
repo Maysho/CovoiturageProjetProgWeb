@@ -465,8 +465,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<tr>
 									<td class="text-center">
 										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[0]['dateDepart']?> 
+										<?php echo $value[0][2]?> 
 										</a>
+										<?php //var_dump($value[0])?>
 									</td>
 									<td class="text-center">
 										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
@@ -517,7 +518,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<tr>
 									<td class="text-center">
 										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[0]['dateDepart']?> 
+										<?php echo $value[0][2]?> 
 										</a>
 									</td>
 									<td class="text-center">
