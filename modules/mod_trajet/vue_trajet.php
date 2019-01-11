@@ -232,7 +232,7 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token)
 	{
 		if ($value>=1) {
 			echo "<div class='col-12'><div class='col-md-12'>";
@@ -302,7 +302,7 @@ class vue_Trajet extends VueGenerique{
 						</div>
 						<?php 
 						if ($value==0 && !$peutEtreValide) {
-							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet" data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
+							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet"  data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
 						}else {
 							if ($trajetValidee) {
 								# code...
@@ -315,7 +315,7 @@ class vue_Trajet extends VueGenerique{
 								# code...
 							}
 							else if($peutEtreValide){
-								echo '<button class="btn" id="validationAuTrajet" data-id="'.$infoTrajet[13].'">valider ce trajet</button>';
+								echo '<button class="btn" id="validationAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">valider ce trajet</button>';
 							}
 							else if ($value==$infoTrajet[14] && $nbPers<=1) {
 								echo '<button class="btn" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
@@ -324,7 +324,7 @@ class vue_Trajet extends VueGenerique{
 								# code...
 							}
 							else{
-								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
+								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
 							}
 						}
 ?>
