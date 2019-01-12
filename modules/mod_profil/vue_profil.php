@@ -442,7 +442,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		function afficheHistorique($idUser, $donnees){
 			?>
 			<div id="vehiculeProfil">
-				<div class="col-md-9">
+				<div class="col-md-12">
 					<?php self::afficheNavProfil(5,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">		
 						<table class="table">
@@ -493,7 +493,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		function afficheTrajetsReserves($idUser, $donnees){
 			?>
 			<div id="vehiculeProfil">
-				<div class="col-md-9">
+				<div class="col-md-12">
 					<?php self::afficheNavProfil(6,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
 					<table class="table">
