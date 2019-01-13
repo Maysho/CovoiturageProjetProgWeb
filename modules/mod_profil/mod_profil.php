@@ -5,20 +5,14 @@ include_once 'cont_profil.php';
 class ModProfil extends VueGenerique
 {
 	private $controleur;
+	
 	function __construct(){
-		//$connexion=new connexion();
-		//$connexion->init();
 		$this->controleur=new ContProfil();
-
 	}
 
 
 	public function init()
 	{
-
-
-		
-		
 		$idUser=isset($_SESSION['id']) ? $_SESSION['id'] : -1;
 		
 		if(isset($_GET['idprofil'])){
@@ -32,12 +26,8 @@ class ModProfil extends VueGenerique
 
 			switch ($ongletProfil) {
 				case 'profil':
-					if(isset($_GET['resultat'])){
-						$resultat=$_GET['resultat'];
-						$this->controleur->accueilProfil($idUser, $estConnecter, $resultat);
-					}
-					else 
-						$this->controleur->accueilProfil($idUser, $estConnecter, null);
+	
+						$this->controleur->accueilProfil($idUser, $estConnecter);
 					break;
 				
 				case 'modif':
@@ -53,13 +43,6 @@ class ModProfil extends VueGenerique
 				case 'recupmodifmdp':
 					$this->controleur->recupereModifMdp($idUser, $estConnecter);
 					break;
-
-				case 'modifMdp':
-					if(isset($_GET['resultat'])){
-						$resultat=$_GET['resultat'];
-						$this->controleur->accueilProfil($idUser, $estConnecter, $resultat);
-					}
-					break;
 				case 'vehicules':
 					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
 					break;
@@ -72,28 +55,16 @@ class ModProfil extends VueGenerique
 					break;
 
 				case 'favoris':
-					$this->controleur-> afficheListeFavoris($_SESSION['id']);
+					$this->controleur-> afficheListeFavoris($idUser, $estConnecter);
 					break;
 				default:
-					die("page inaccessible");
+					die("Erreur 404");
 					break;
 			}
-
-
-				
 		}
-		
+		else 
+			die("Erreur 403");	
 	}
-
-
-
 }
-
-
-
-
-
-
-
 
 ?>

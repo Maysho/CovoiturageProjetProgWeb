@@ -86,9 +86,10 @@ switch ($module){
 		$affichageForm=$mod_discussion->getAffichage();
 
 	break;
-	default
-:
-die("Page inaccessible");
+	default:
+		http_response_code(404);
+		die("Erreur 404");
+	break;
 }
 
 ?>
