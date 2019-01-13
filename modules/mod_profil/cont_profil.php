@@ -78,7 +78,6 @@
 		public function afficheTrajetsReserves($idUser){
 			$donnees=$this->modele->getListeTrajetsReserves($idUser);
 			$this->vue->afficheTrajetsReserves($idUser, $donnees);
-
 		}
 
 		public function afficheHistorique($idUser){

@@ -461,30 +461,26 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<?php
 								foreach ($donnees as $key => $value) {
 								?>
-								
 								<tr>
 									<td class="text-center">
-										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[0][2]?> 
-										</a>
-										<?php //var_dump($value[0])?>
-									</td>
-									<td class="text-center">
-										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[0]['nomVille']?> 
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
+										<?php echo $value["villeDepart"]["dateDepart"]?> 
 										</a>
 									</td>
 									<td class="text-center">
-										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[1]['nomVille']?> 
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
+										<?php echo $value["villeDepart"]["nomVille"]?> 
 										</a>
 									</td>
-								</tr>
+									<td class="text-center">
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
+										<?php echo $value["villeArrivee"]["nomVille"]?> 
+										</a>
+									</td>
+								</tr> 
 								<?php
 								}
 								?>
-
-								
 							</tbody>
 						</table>
 					</div>
@@ -512,26 +508,23 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<?php
 								foreach ($donnees as $key => $value) {
 								?>
-								<?php
-								// var_dump($value[0])
-								?>
-								<tr>
+						 		<tr>
 									<td class="text-center">
-										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[0][2]?> 
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
+										<?php echo $value["villeDepart"]["dateDepart"]?> 
 										</a>
 									</td>
 									<td class="text-center">
-										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[0]['nomVille']?> 
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
+										<?php echo $value["villeDepart"]["nomVille"]?> 
 										</a>
 									</td>
 									<td class="text-center">
-										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value[0][1]?>">
-										<?php echo $value[1]['nomVille']?> 
+										<a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
+										<?php echo $value["villeArrivee"]["nomVille"]?> 
 										</a>
 									</td>
-								</tr>
+								</tr> 
 								<?php
 								}
 								?>

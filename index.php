@@ -136,6 +136,24 @@ die("Page inaccessible");
 			if (isset($_SESSION['id'])) {
 				$compNote->affiche();
 			}
+			include_once 'composants/compHistorique/compHistorique.php';
+
+  			$compHistorique=new CompHistorique();
+			if (isset($_SESSION['id'])) {
+				$compHistorique->affiche();
+			}
+			include_once 'composants/compTrajetReserve/compTrajetReserve.php';
+
+  			$compTrajetReserve=new CompTrajetReserve();
+			if (isset($_SESSION['id'])) {
+				$compTrajetReserve->affiche();
+			}
+			include_once 'composants/compVehicule/compVehicule.php';
+
+  			$compVehicule=new CompVehicule();
+			if (isset($_SESSION['id'])) {
+				$compVehicule->affiche();
+			}
 
 			if (isset($_SESSION['id'])) {
 				echo "</aside>";
