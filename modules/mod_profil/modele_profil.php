@@ -171,7 +171,15 @@ class ModeleProfil extends connexion{
 			return $ancienUrl;
 	}
 
-	public function verifieModificationProfil( $idUser){
+	public function verifieModificationProfil($idUser){
+
+		$token=htmlspecialchars($_POST['token']);
+
+		if(!$this->verifieToken($idUser, $token)){
+			http_response_code(400);
+			echo 'Une erreur dans le certificat c\'est produite veuillez réessayer';
+			exit(1);
+		}
 
 		$prenom = htmlspecialchars($_POST['prenom']);
 		$nom = htmlspecialchars($_POST['nom']);
@@ -201,6 +209,30 @@ class ModeleProfil extends connexion{
 			
 	}
 
+	public function actualiseToken($idUser)
+    {
+        $lettrePossible = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9');
+        $token="";
+        for ($i=0; $i < 10; $i++) { 
+            $token=$token.$lettrePossible[rand(0,61)];
+        }
+        $insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET token = :token WHERE idUtilisateur=:idUtilisateur');
+        $insertPreparee -> execute(array('token'=>$token,'idUtilisateur'=>$idUser));
+        return $token;
+    }
+
+
+	private function verifieToken($idUser,$token)
+    {
+        $selecPrepareeUnique=self::$bdd->prepare('SELECT token FROM utilisateur where idUtilisateur=? and token=?');
+        $tableauIds=array($idUser,$token);
+        $selecPrepareeUnique->execute($tableauIds);
+        $unique=$selecPrepareeUnique->fetch();
+        if (empty($unique['token'])) {
+            return false;
+        }
+        return true;
+    }
 
 	public function verifieModificationMdp($idUser){
 		$resultat;

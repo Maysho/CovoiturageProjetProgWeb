@@ -29,7 +29,9 @@ class cont_trajet
 	        	$tabCommentaire=$this->modele->commentaires(htmlspecialchars($_GET['id']));
 	        	$estDansTrajet=false;
 	        	$trajetpeutEtreValide=false;
+	        	$token=null;
 	        	if (isset($_SESSION['id'])) {
+	        		$token=$this->modele->actualiseToken($_SESSION['id']);
 	        		$estDansTrajet=$this->modele->estDansTrajet(htmlspecialchars($_GET['id']));
 	        	}
 	        	
@@ -57,7 +59,8 @@ class cont_trajet
 	        		include_once 'personne.php';
 	        		$personne[$value[0]]=new personne($etapePers[$value[0]],$personne,$tabInfoTrajet[15],$value[0],$value[1]);
 	        	}
-	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$prixAPayer,$trajetAeteValide,$trajetpeutEtreValide,$trajetValide,$nbPersDansTrajet,$personne,$idEtapeTrajet);
+	        	
+	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$prixAPayer,$trajetAeteValide,$trajetpeutEtreValide,$trajetValide,$nbPersDansTrajet,$personne,$idEtapeTrajet,$token);
 	        }
 	        else{
 	           if(isset($_SESSION['id'])){

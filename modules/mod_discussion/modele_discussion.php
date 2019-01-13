@@ -78,7 +78,10 @@ include_once __DIR__ . '/../../connexion.php';
 				$idUtilisateur1=$idInterlocuteur;
 				$idUtilisateur2=$idUser;
 			}
-
+			var_dump($idUtilisateur1);
+			var_dump($idUtilisateur2);
+			var_dump($idUser);
+			var_dump($message);
 			$insertPrepare=self::$bdd->prepare('INSERT INTO discussion VALUES (DEFAULT, ?, ?, ?, ?, now(), 0)');
 			$tabValues=array($idUtilisateur1, $idUtilisateur2, $message, $idUser);
 			$insertPrepare->execute($tabValues);

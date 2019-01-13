@@ -12,11 +12,10 @@
 			$this->vue=new VueProfil();
 		}
 
-		public function accueilProfil($idUser, $estConnecter, $resultat){
+		public function accueilProfil($idUser, $estConnecter){
 			
 			$estPagePerso=false;
-			//$estPagePerso=true;
-			//$estConnecter=true;
+
 			if($estConnecter)
 				$estPagePerso=$this->modele->estPagePerso($idUser);
 			
@@ -24,12 +23,12 @@
 			$result=$this->modele->recupereInfoUtilisateur($idUser, $estPagePerso);
 
 			if ($result['nom'] == NULL)
-				die("Page inaccessible");
+				die("Erreur 404");
 
 			$result=$this->modele->traduitResultatRequete($result);
 			$nbTrajetEtNote=$this->modele->nbTrajetsEtNote($idUser);
 			$commentaires=$this->modele->commentaires($idUser);
-			$this->vue->accueilProfil($result, $nbTrajetEtNote['nb'], $nbTrajetEtNote['moyenne'], $commentaires, $estConnecter, $estPagePerso, $idUser, $resultat);
+			$this->vue->accueilProfil($result, $nbTrajetEtNote['nb'], $nbTrajetEtNote['moyenne'], $commentaires, $estConnecter, $estPagePerso, $idUser);
 			
 		}
 
@@ -37,59 +36,66 @@
 
 		public function modifierProfil($idUser, $estConnecter){
 
-			$estPagePerso=false;
+			if($this->verifEstPagePerso($idUser, $estConnecter)){
 
-			if(!$estConnecter)
-				die("Page inaccessible");
-			else
-				$estPagePerso=$this->modele->estPagePerso($idUser);
+				$donnees=$this->modele->recupereInfoUtilisateurModif($idUser);
+				$token=$this->modele->actualiseToken($idUser);
 
-			if(!$estPagePerso)
-				die("Page inaccessible");
-
-			$donnees=$result=$this->modele->recupereInfoUtilisateurModif($idUser);
-
-			$this->vue->modificationDeProfil($idUser, $donnees);
+				$this->vue->modificationDeProfil($idUser, $donnees, $token);
+			}
 		}
 
 		public function recupereModifProfil($idUser, $estConnecter){
 
+			if($this->verifEstPagePerso($idUser, $estConnecter)){
+
+				$this->modele->verifieModificationProfil($idUser);
+
+				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
+			}
+		}
+
+		public function afficheListeVehicule($idUser, $estConnecter){
+			if($this->verifEstPagePerso($idUser, $estConnecter)){
+				$donnees=$this->modele->getListeVehicules($idUser);
+				$this->vue->afficheListeVehicule($idUser, $donnees);
+			}
+
+		}
+
+		public function afficheTrajetsReserves($idUser, $estConnecter){
+			if($this->verifEstPagePerso($idUser, $estConnecter)){
+				$donnees=$this->modele->getListeTrajetsReserves($idUser);
+				$this->vue->afficheTrajetsReserves($idUser, $donnees);
+			}
+		}
+
+		public function afficheHistorique($idUser, $estConnecter){
+			if($this->verifEstPagePerso($idUser, $estConnecter)){
+				$donnees=$this->modele->getListeHistorique($idUser);
+				$this->vue->afficheHistorique($idUser, $donnees);
+			}
+		}
+
+		public function afficheListeFavoris($idUser, $estConnecter){
+			if($this->verifEstPagePerso($idUser, $estConnecter)){
+				$donnees=$this->modele->getListeFavoris($idUser);
+				$this->vue->afficheListeFavoris($idUser, $donnees);
+			}
+		}
+
+		private function verifEstPagePerso($idUser, $estConnecter){
 			$estPagePerso=false;
 
 			if(!$estConnecter)
-				die("Page inaccessible");
+				die("Erreur 403");
 			else
 				$estPagePerso=$this->modele->estPagePerso($idUser);
 
 			if(!$estPagePerso)
-				die("Page inaccessible");
+				die("Erreur 403");
 
-			$this->modele->verifieModificationProfil($idUser);
-
-			header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
-		}
-
-		public function afficheListeVehicule($idUser){
-			$donnees=$this->modele->getListeVehicules($idUser);
-			$this->vue->afficheListeVehicule($idUser, $donnees);
-
-		}
-
-		public function afficheTrajetsReserves($idUser){
-			$donnees=$this->modele->getListeTrajetsReserves($idUser);
-			$this->vue->afficheTrajetsReserves($idUser, $donnees);
-		}
-
-		public function afficheHistorique($idUser){
-			$donnees=$this->modele->getListeHistorique($idUser);
-			$this->vue->afficheHistorique($idUser, $donnees);
-
-		}
-
-		public function afficheListeFavoris($idUser)
-		{
-			$donnees=$this->modele->getListeFavoris($idUser);
-			$this->vue->afficheListeFavoris($idUser, $donnees);
+			return true;
 		}
 	}
 ?>

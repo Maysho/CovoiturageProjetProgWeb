@@ -527,9 +527,10 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		}
 		return false;	
 	}
-	public function InscriptionTrajet($tabIdVille, $idTrajet)
+	public function InscriptionTrajet($tabIdVille, $idTrajet,$token)
 	{
-		if(self::VerifError($tabIdVille, $idTrajet)){
+		if(self::VerifError($tabIdVille, $idTrajet) || !self::verifieToken($_SESSION['id'],$token)){
+
 			http_response_code(400);
 			exit(1);
 		}
@@ -579,7 +580,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		return $selecPreparee->fetch()[0];
 	}
 	public function desinscriptionTrajet($idTrajet)
-	{
+	{	
 		$prix=self::recupPrixAPayer($idTrajet);
 
 		$updatePrepareee=self::$bdd->prepare('UPDATE utilisateur set credit=credit+? where idUtilisateur=?');
@@ -612,8 +613,11 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		return $idUtilisateur[0];
 		
 	}
-	public function valideTrajet($idTrajet)
+	public function valideTrajet($idTrajet,$token)
 	{
+		if (self::verifieToken($_SESSION['id'],$token)) {
+			
+		
 		$conducteur=self::conducteur($idTrajet);
 		if ($_SESSION['id']==$conducteur) {
 	   
@@ -643,6 +647,11 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$updatePreparee -> execute(array($_SESSION['id'],$idTrajet));
 		}
 		echo "success";
+		}
+		else{
+			http_response_code(400);
+			echo "error";
+		}
 	}
 	public function peutEtreValide($idTrajet)
 	{
@@ -734,6 +743,29 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		$idUtilisateur=$selecPrepareeUnique->fetchAll();
 		return $idUtilisateur;
 	}
+	public function actualiseToken($idUser)
+	{
+		$lettrePossible = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9');
+		$token="";
+		for ($i=0; $i < 10; $i++) { 
+			$token=$token.$lettrePossible[rand(0,61)];
+		}
+		$insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET token = :token WHERE idUtilisateur=:idUtilisateur');
+		$insertPreparee -> execute(array('token'=>$token,'idUtilisateur'=>$idUser));
+		return $token;
+	}
+	public function verifieToken($idUser,$token)
+	{
+		$selecPrepareeUnique=self::$bdd->prepare('SELECT token FROM utilisateur where idUtilisateur=? and token=?');
+		$tableauIds=array($idUser,$token);
+		$selecPrepareeUnique->execute($tableauIds);
+		$unique=$selecPrepareeUnique->fetch();
+		if (empty($unique['token'])) {
+			return false;
+		}
+		return true;
+	}
+
 }
 
 

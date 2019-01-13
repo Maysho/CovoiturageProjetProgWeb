@@ -343,7 +343,8 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
     $.post('scriptphp/formulaireDinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
       {
         tabId:tabVille,
-        idTrajet:$('#sinscrireAuTrajet').attr('data-id')
+        idTrajet:$('#sinscrireAuTrajet').attr('data-id'),
+        token:$('#sinscrireAuTrajet').attr('data-token')
       }
       ,
       function(data,statut){
@@ -434,7 +435,8 @@ $('#validationAuTrajet').on('click', function(event) {
   $.post('scriptphp/validationAuTrajet.php', // Un script PHP que l'on va créer juste après
 
     {
-      idTrajet:$('#validationAuTrajet').attr('data-id')
+      idTrajet:$('#validationAuTrajet').attr('data-id'),
+      token:$('#validationAuTrajet').attr('data-token')
     }
     ,
 
@@ -1303,13 +1305,20 @@ $('#envoyerMessage').submit(function(e){
 ******************************************************************************************************************************/
 
 
-$(document).ready(function() {
-
- var docHeight = $(window).height();
+function replaceFooter(){
+  var docHeight = $(window).height();
  var footerHeight = $('#footer').height();
  var footerTop = $('#footer').position().top + footerHeight;
 
  if (footerTop < docHeight) {
   $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
  }
+}
+
+$(document).ready(function() {
+  replaceFooter();
+});
+
+$(window).resize(function(){
+  replaceFooter();
 });
