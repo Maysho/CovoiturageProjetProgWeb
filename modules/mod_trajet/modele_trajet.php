@@ -57,16 +57,13 @@ class modele_trajet extends connexion {
 		}else{
 			$url = "photos/Black.png";
 		}
-		self::$bdd->beginTransaction();
 		$reqAddCar=self::$bdd->prepare('
 			INSERT INTO vehicule(
-			
 				immatriculation,
 				critair,
 				hybride,
 				urlPhoto
 			) VALUES (
-			
 				:immatriculation,
 				:critair,
 				:hybride,
@@ -80,7 +77,6 @@ class modele_trajet extends connexion {
 			":hybride" => $reg,
 			":urlPhoto" => $url
 		));
-		$reqAddCar->closeCursor();
 
 		$reqAddCarUser=self::$bdd->prepare("
 			INSERT INTO vehiculeutilisateur (
@@ -96,10 +92,6 @@ class modele_trajet extends connexion {
 			"idUtilisateur" => $idConducteur,
 			"immatriculation" => $immatriculation
 		));
-		$reqAddCarUser->closeCursor();
-
-		self::$bdd->commit();
-		exit();
 	}
 
 

@@ -53,7 +53,8 @@ class VueTrajetReserve
       <?php
       }else{
       ?>
-         <span>Vous n'avez aucun trajet actif</span>
+      <span>Vous n'avez aucun trajet actif</span>
+         
       <?php
       }
       ?>
