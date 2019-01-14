@@ -98,7 +98,6 @@ class ModeleProfil extends connexion{
 			$this->msg=$this->msg."10-";
 			$erreur = true;
 		}
-
 		if($date != null && self::traduitAge($date)<18){
 			$this->msg=$this->msg."11-";
 			$erreur = true;
@@ -107,7 +106,22 @@ class ModeleProfil extends connexion{
 			$this->msg=$this->msg."12-";
 			$erreur = true;
 		}
+		if(!empty($email) && !$this->emailUnique($email)){
+			$this->msg=$this->msg."13-";
+			$erreur = true;
+		}
 		return $erreur;	
+	}
+
+	private function emailUnique($email){
+		$selectPreparee=self::$bdd->prepare('SELECT adresseMail FROM utilisateur where adresseMail=?');
+		$value=array($email);
+		$selectPreparee->execute($value);
+		$result=$selectPreparee->fetch();
+		if($result['adresseMail']==$email)
+			return false;
+		else 
+			return true;
 	}
 
 	private function erreurDansUploadImage(){
@@ -173,7 +187,13 @@ class ModeleProfil extends connexion{
 
 	public function verifieModificationProfil($idUser){
 
-		$token=htmlspecialchars($_POST['token']);
+		if (isset($_POST['token']))
+			$token=htmlspecialchars($_POST['token']);
+		else{
+			http_response_code(400);
+			echo 'Une erreur dans le certificat c\'est produite veuillez réessayer';
+			exit(1);
+		}
 
 		if(!$this->verifieToken($idUser, $token)){
 			http_response_code(400);
@@ -190,9 +210,7 @@ class ModeleProfil extends connexion{
 		$description = htmlspecialchars($_POST['description']);
 
 		if(self::erreurDansModif($email, $emailConfirm, $nom, $prenom, $sexe, $date, $description) || self::erreurDansUploadImage()){
-			http_response_code(400);
-			echo $this->msg;
-			exit(1);
+			return $this->msg;
 		}
 
 		else if($email == null){
@@ -206,7 +224,7 @@ class ModeleProfil extends connexion{
 		
 		$urlPhoto = self::enregistrePhotoProfil($idUser);			
 		self::updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
-			
+		return NULL;
 	}
 
 	public function actualiseToken($idUser)
