@@ -512,6 +512,7 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
+      console.log(txt);
       if( page == 1){
         location.reload();
       }
@@ -828,7 +829,8 @@ $(function(){
       type:'POST',
       dataType : 'text',
       data: {
-        immatriculation: immatriculation
+        immatriculation: immatriculation,
+        delete : 1
       },
       success : function(txt){
         row.remove();

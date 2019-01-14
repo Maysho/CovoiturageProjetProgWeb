@@ -41,11 +41,8 @@ class modele_trajet extends connexion {
 			echo $this->msg;
 			exit(1);
 		}
-		// $immatriculation = str_replace(" ", "-", $immatriculation);
 		$reg = $hybride == "true" ?  1 :  0; 
-
 		$idConducteur = isset($_SESSION['id']) ? $_SESSION['id'] : -1;
-
 		$url = null;
 
 		if(!empty( $_FILES ) ){
@@ -55,16 +52,13 @@ class modele_trajet extends connexion {
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
 				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
 				if($result)
-					$url = "sources/images/photoVehicule/".$nomFich;	
-
+					$url = "sources/images/photoVehicule/".$nomFich;
 			}
 		}else{
 			$url = "photos/Black.png";
 		}
-		echo $url;
-
-		$reqAddCar=self::$bdd->prepare("
-			INSERT INTO vehicule (
+		$reqAddCar=self::$bdd->prepare('
+			INSERT INTO vehicule(
 				immatriculation,
 				critair,
 				hybride,
@@ -75,7 +69,7 @@ class modele_trajet extends connexion {
 				:hybride,
 				:urlPhoto
 			)
-		");
+		');
 
 		$reqAddCar->execute(array(
 			":immatriculation" => $immatriculation,
@@ -83,7 +77,6 @@ class modele_trajet extends connexion {
 			":hybride" => $reg,
 			":urlPhoto" => $url
 		));
-
 
 		$reqAddCarUser=self::$bdd->prepare("
 			INSERT INTO vehiculeutilisateur (
@@ -96,11 +89,9 @@ class modele_trajet extends connexion {
 		");
 
 		$reqAddCarUser->execute(array(
-			":idUtilisateur" => $idConducteur,
-			":immatriculation" => $immatriculation
+			"idUtilisateur" => $idConducteur,
+			"immatriculation" => $immatriculation
 		));
-
-
 	}
 
 

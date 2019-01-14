@@ -352,6 +352,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 							<?php
 							foreach ($donnees as $key => $value) {
 							?>
+
 							<tr>
 								<td class=" text-center ">
 									<?php echo $value['immatriculation']?>
@@ -377,6 +378,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 							?>
 							</tbody>
 						</table>
+						<?php
+						if(count($donnees)<1){
+						?>
+						<span>Vous n'avez aucun vehicule</span>
+						<?php 	
+						}
+						?>
 					</div>
 
 					<div class="container">
@@ -480,6 +488,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 								?>
 							</tbody>
 						</table>
+						<?php
+						if(count($donnees)<1){
+						?>
+						<span>Vous n'avez aucun trajet récent</span>
+						<?php 	
+						}
+						?>
 					</div>
 				</div>
 			</div>
@@ -492,7 +507,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(6,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
-					<table class="table">
+						<table class="table">
 							<thead>
 								<tr class="">
 									<td class=" text-center titreFavoris">Date</td>
@@ -527,6 +542,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 								?>
 							</tbody>
 						</table>
+						<?php
+						if(count($donnees)<1){
+						?>
+						<span>Vous n'avez aucun trajet en cours</span>
+						<?php 	
+						}
+						?>
 					</div>
 				</div>
 			</div>

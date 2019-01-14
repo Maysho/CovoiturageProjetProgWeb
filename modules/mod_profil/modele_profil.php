@@ -316,7 +316,7 @@ class ModeleProfil extends connexion{
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
 		WHERE utilisateur_idutilisateur = ? AND valide = 0 AND dateDepart >= ?
 		GROUP BY idTrajet
-		ORDER BY dateDepart DESC
+		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 10
 		");
 
@@ -336,7 +336,7 @@ class ModeleProfil extends connexion{
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
 		WHERE utilisateur_idutilisateur = ? 
 		GROUP BY idTrajet
-		ORDER BY dateDepart DESC
+		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 10
 		");
 
@@ -358,16 +358,17 @@ class ModeleProfil extends connexion{
 		$tableau=array();
 
 		$selecPreparee=self::$bdd->prepare('
-			SELECT * FROM soustrajet as s1 INNER JOIN soustrajet as s2 INNER JOIN ville on s1.idVilleDepart = ville.idVille  WHERE s1.idsousTrajet = ?');
+			SELECT * FROM soustrajet as s1  INNER JOIN ville on s1.idVilleDepart = ville.idVille  WHERE s1.idsousTrajet = ?');
 		$selecPreparee->execute(array($tab["idDepart"]));
 		$tableau["villeDepart"] = $selecPreparee->fetch(PDO::FETCH_ASSOC);
 
 		$selecPreparee=self::$bdd->prepare('
-			SELECT * FROM soustrajet as s1 INNER JOIN soustrajet as s2 INNER JOIN ville  on s1.idVilleArrivee = ville.idVille WHERE s1.idsousTrajet = ?');
+			SELECT * FROM soustrajet as s1  INNER JOIN ville  on s1.idVilleArrivee = ville.idVille WHERE s1.idsousTrajet = ?');
 		$selecPreparee->execute(array($tab["idArrivee"]));
 		$tableau["villeArrivee"] = $selecPreparee->fetch(PDO::FETCH_ASSOC);
 
 		return $tableau;
+		// return $tab;
 	}
 
 	
