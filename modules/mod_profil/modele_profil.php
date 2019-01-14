@@ -314,13 +314,13 @@ class ModeleProfil extends connexion{
 		SELECT idTrajet  FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? AND valide = 0 AND dateDepart >= ?
+		WHERE utilisateur_idutilisateur = ? AND valide = 0
 		GROUP BY idTrajet
 		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 10
 		");
 
-		$reqGetListeCar->execute(array($idUser, $date));
+		$reqGetListeCar->execute(array($idUser));
 		$liste= $reqGetListeCar->fetchAll();
 		$tab = array();
 		foreach ($liste as $key => $value) {
@@ -334,7 +334,7 @@ class ModeleProfil extends connexion{
 		SELECT idTrajet  FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? 
+		WHERE utilisateur_idutilisateur = ? and valide=1
 		GROUP BY idTrajet
 		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 10

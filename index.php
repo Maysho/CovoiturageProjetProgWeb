@@ -149,11 +149,11 @@ switch ($module){
 			if (isset($_SESSION['id'])) {
 				$compTrajetReserve->affiche();
 			}
-			include_once 'composants/compVehicule/compVehicule.php';
+			include_once 'composants/compPub/compPub.php';
 
-  			$compVehicule=new CompVehicule();
+  			$CompPub=new CompPub();
 			if (isset($_SESSION['id'])) {
-				$compVehicule->affiche();
+				$CompPub->affiche();
 			}
 
 			if (isset($_SESSION['id'])) {

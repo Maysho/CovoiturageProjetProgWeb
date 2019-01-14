@@ -61,12 +61,12 @@ class vue_Trajet extends VueGenerique{
 				  				<div class="text-left form-group row justify-content-center justify-content-md-start"  id="DateHoraire" >
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-5"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
-				  						<input class="offset-md-1 col-md-5 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
+				  						<input class="offset-md-1 col-md-6 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
 				  					</div>
 
 				  					<div class="col-md-3 row form-group text-center">
 				  						<label class="col-md-4">Heure <i class="far fa-clock"></i></label>
-				  						<input class="offset-md-2 col-md-4 form-control" type="time" id="heureDepart" value="<?php echo date('H:i') ?>">
+				  						<input class="offset-md-2 col-md-6 form-control" type="time" id="heureDepart" value="<?php echo date('H:i') ?>">
 				  					</div>
 				  				</div>
 				  				
@@ -74,17 +74,17 @@ class vue_Trajet extends VueGenerique{
 				  					<div class="form-group row checkpoint" id="checkpoint0" >
 				  						<div class="col-md-4 row form-group text-center">
 				  							<label class="col-md-5"><i class="fab fa-font-awesome-flag"></i> Date Etape </label>
-				  							<input type="date" class="offset-md-1 col-md-5 form-control" id="date0" value="<?php echo date('Y-m-d') ?>">
+				  							<input type="date" class="offset-md-1 col-md-6 form-control" id="date0" value="<?php echo date('Y-m-d') ?>">
 				  						</div>
 
 				  						<div class="col-md-3 row form-group text-center">
 				  							<label class="col-md-4">Heure <i class="far fa-clock"></i></label>
-				  							<input class="offset-md-2 col-md-4 form-control" type="time" id="heure0" value="<?php echo date('H:i') ?>">
+				  							<input class="offset-md-2 col-md-6 form-control" type="time" id="heure0" value="<?php echo date('H:i') ?>">
 				  						</div>
 
 				  						<div class="col-md-4 row form-group text-center">
 				  							<label class="col-md-4">Prix</label>
-				  							<input class="offset-md-1 col-md-2 text-right form-control" id="prix0" value="0">
+				  							<input class="offset-md-1 col-md-3 text-right form-control" id="prix0" value="0">
 				  						</div>
 				  					</div>
 				  				</div> 
@@ -92,17 +92,17 @@ class vue_Trajet extends VueGenerique{
 				  				<div class="form-group text-left row justify-content-center justify-content-md-start">
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-5"><i style=" color: red;" class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
-				  						<input type="date" class="offset-md-1 col-md-5 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
+				  						<input type="date" class="offset-md-1 col-md-6 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
 				  					</div>
 
 				  					<div class="col-md-3 row form-group text-center">
 				  						<label class="col-md-4" >Heure <i class="far fa-clock"></i></label>
-				  						<input class="offset-md-2 col-md-4 form-control" type="time" id="heureArrivee" value="<?php echo date('H:i') ?>">
+				  						<input class="offset-md-2 col-md-6 form-control" type="time" id="heureArrivee" value="<?php echo date('H:i') ?>">
 				  					</div>
 
 				  					<div class="col-md-4 row form-group text-center">
 				  						<label class="col-md-4">Prix</label>
-				  						<input class="offset-md-1 col-md-2 text-right form-control" id="prixArrivee" value="0">
+				  						<input class="offset-md-1 col-md-3 text-right form-control" id="prixArrivee" value="0">
 				  					</div>
 				  				</div> 
 
@@ -294,7 +294,7 @@ class vue_Trajet extends VueGenerique{
 				</div>
 				<div class="col offset-2">
 					<div>
-						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[8];?>" alt="photoVehicule" class=" col-12" >
+						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[7];?>" alt="photoVehicule" class=" col-12" >
 					</div>
 					<div class="justify-content-center row">
 						<div class="col-12 justify-content-center row">

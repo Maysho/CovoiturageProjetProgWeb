@@ -23,7 +23,9 @@ class cont_trajet
 	        		header("Location: index.php");
 	        		exit();
 	        	}
+
 	        	$tabInfoTrajet=$this->modele->recupInfoTrajet(htmlspecialchars($_GET['id']),$idS);
+	        	
 	        	$tabUser=$this->modele->recupUser(htmlspecialchars($_GET['id']));
 	        	$tabinfoSTrajet=$this->modele->recupInfoSousTrajet(htmlspecialchars($_GET['id']));
 	        	$tabCommentaire=$this->modele->commentaires(htmlspecialchars($_GET['id']));
