@@ -2,8 +2,8 @@
 /**
 * 
 */
-include_once 'contTrajetRecent.php';
-class compTrajetRecent
+include_once 'contPub.php';
+class compPub
 {
 	
 	function __construct()
@@ -11,7 +11,7 @@ class compTrajetRecent
 	}
 	public function affiche()
 	{
-		$controleur=new ContTrajetRecent();
+		$controleur=new ContPub();
 		$controleur->affiche();
 	}
 }

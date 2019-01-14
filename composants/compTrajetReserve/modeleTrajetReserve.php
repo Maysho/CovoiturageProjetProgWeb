@@ -13,18 +13,17 @@ class ModeleTrajetReserve extends connexion
 	}
 	public function TrajetReserve($idUser){
 		date_default_timezone_set('Europe/Paris');
-		$date =date('Y-m-d');
 		$reqGetListeCar = self::$bdd->prepare("
 		SELECT idTrajet  FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? AND valide = 0 AND dateDepart >= ?
+		WHERE utilisateur_idutilisateur = ? AND valide = 0
 		GROUP BY idTrajet
 		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 3
 		");
 
-		$reqGetListeCar->execute(array($idUser, $date));
+		$reqGetListeCar->execute(array($idUser));
 		$liste= $reqGetListeCar->fetchAll();
 		$tab = array();
 		foreach ($liste as $key => $value) {

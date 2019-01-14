@@ -16,7 +16,7 @@ class ModeleHistorique extends connexion
 		SELECT idTrajet  FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? 
+		WHERE utilisateur_idutilisateur = ? and valide = 1
 		GROUP BY idTrajet
 		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 3
