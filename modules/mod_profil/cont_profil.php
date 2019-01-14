@@ -22,8 +22,10 @@
 			
 			$result=$this->modele->recupereInfoUtilisateur($idUser, $estPagePerso);
 
-			if ($result['nom'] == NULL)
+			if ($result['nom'] == NULL){
+				http_response_code(404);
 				die("Erreur 404");
+			}
 
 			$result=$this->modele->traduitResultatRequete($result);
 			$nbTrajetEtNote=$this->modele->nbTrajetsEtNote($idUser);
@@ -49,9 +51,18 @@
 
 			if($this->verifEstPagePerso($idUser, $estConnecter)){
 
-				$this->modele->verifieModificationProfil($idUser);
+				$erreur=$this->modele->verifieModificationProfil($idUser);
+				if($erreur==NULL){
+					header("Pragma: no-cache");
+					header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
+				}
+				
+				else{	
+					$donnees=$this->modele->recupereInfoUtilisateurModif($idUser);
+					$token=$this->modele->actualiseToken($idUser);
 
-				header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
+					$this->vue->modificationDeProfil($idUser, $donnees, $token, $erreur);
+				}
 			}
 		}
 
@@ -87,13 +98,17 @@
 		private function verifEstPagePerso($idUser, $estConnecter){
 			$estPagePerso=false;
 
-			if(!$estConnecter)
+			if(!$estConnecter){
+				http_response_code(403);
 				die("Erreur 403");
+			}
 			else
 				$estPagePerso=$this->modele->estPagePerso($idUser);
 
-			if(!$estPagePerso)
+			if(!$estPagePerso){
+				http_response_code(403);
 				die("Erreur 403");
+			}
 
 			return true;
 		}
