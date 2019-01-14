@@ -11,12 +11,14 @@ class VueHistorique
 
 	}
 	public function affiche($donnees){
-		if (count($donnees)>0) {		
-   		?>
-   		<div class="col-12 composant border border-dark hidden-md-down ">
-   			<div class="col-12"> 
-   				<h4>Historique</h4>
+      ?>
+         <div class="col-12 composant border border-dark hidden-md-down ">
+            <div class="col-12"> 
+               <h4>Historique</h4>
    			</div>
+      <?php
+      if (count($donnees)>0) {      
+         ?>
             <table class="table" style="table-layout: fixed; width:100%;">
                      
    			<?php
@@ -50,6 +52,15 @@ class VueHistorique
 
    		</div>
    	<?php
-   	}
-  	}
+      }else{
+      ?>
+         <span>Vous n'avez aucun trajet récent</span>
+      <?php
+      }
+      ?>
+         </div>
+      <?php
+   }
 }
+
+?>

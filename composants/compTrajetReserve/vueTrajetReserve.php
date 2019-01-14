@@ -11,12 +11,14 @@ class VueTrajetReserve
 
 	}
 	public function affiche($donnees){
-		if (count($donnees)>0) {		
-   		?>
+      ?>
    		<div class="col-12 composant border border-dark hidden-md-down ">
-   			<div class="col-12"> 
-   				<h4>TrajetReserve</h4>
+            <div class="col-12"> 
+               <h4>Trajet Reserve</h4>
    			</div>
+      <?php
+      if (count($donnees)>0) {      
+         ?>
             <table class="table" style="table-layout: fixed; width:100%;">
                      
    			<?php
@@ -48,8 +50,16 @@ class VueTrajetReserve
                <a href="index.php?module=mod_profil&idprofil=1&ongletprofil=trajets" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">Tout afficher </a>
             </div>
 
+      <?php
+      }else{
+      ?>
+         <span>Vous n'avez aucun trajet actif</span>
+      <?php
+      }
+      ?>
    		</div>
-   	<?php
-   	}
+      <?php
   	}
 }
+
+?>

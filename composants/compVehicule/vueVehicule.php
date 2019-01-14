@@ -11,12 +11,14 @@ class VueVehicule
 
 	}
 	public function affiche($donnees){
-		if (count($donnees)>0) {		
-   		?>
-   		<div class="col-12 composant border border-dark hidden-md-down ">
+      ?>
+         <div class="col-12 composant border border-dark hidden-md-down ">
    			<div class="col-12"> 
    				<h4>Vehicule</h4>
    			</div>
+      <?php
+      if (count($donnees)>0) {      
+         ?>
             <table class="table" style="table-layout: fixed; width:100%;">
                      
    			<?php
@@ -40,6 +42,15 @@ class VueVehicule
 
    		</div>
    	<?php
-   	}
-  	}
+      }else{
+      ?>
+         <span>Vous n'avez aucun Véhicule</span>
+      <?php
+      }
+      ?>
+         </div>
+      <?php
+   }
 }
+
+?>
