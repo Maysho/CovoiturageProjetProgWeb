@@ -829,7 +829,8 @@ $(function(){
       type:'POST',
       dataType : 'text',
       data: {
-        immatriculation: immatriculation
+        immatriculation: immatriculation,
+        delete : 1
       },
       success : function(txt){
         row.remove();
