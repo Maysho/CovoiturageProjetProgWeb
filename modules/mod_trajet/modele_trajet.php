@@ -50,7 +50,7 @@ class modele_trajet extends connexion {
 				$extension_upload = strtolower(  substr( strrchr($_FILES['photo']['name'], '.')  ,1)  );
 				$nomFich=$idConducteur.'_'.$immatriculation.'.'.$extension_upload;
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
-				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
+				$result=move_uploaded_file($_FILES['photo']['tmp_name'],DIR . "/../../sources/images/photoVehicule/".$nomFich);
 				if($result)
 					$url = "sources/images/photoVehicule/".$nomFich;
 			}
