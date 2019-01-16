@@ -61,6 +61,11 @@ class vue_resTrajet extends VueGenerique
 				    	 	
 				    	 	<option <?php echo $type=="1"? "selected":""; ?>>1</option>
 				    	 	<option <?php echo $type=="2"? "selected":""; ?>>2</option>
+				    	 	<option <?php echo $type=="3"? "selected":""; ?>>3</option>
+				    	 	<option <?php echo $type=="4"? "selected":""; ?>>4</option>
+				    	 	<option <?php echo $type=="5"? "selected":""; ?>>5</option>
+				    	 	<option <?php echo $type=="6"? "selected":""; ?>>6</option>
+				    	 	<option <?php echo $type=="7"? "selected":""; ?>>7</option>
 				    	 	</select> 
     	 	                </div>
 				    

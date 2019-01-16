@@ -47,7 +47,7 @@ class VueTrajetReserve
             ?>
             </table>
             <div class="row justify-content-end">
-               <a href="index.php?module=mod_profil&idprofil=1&ongletprofil=trajets" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">Tout afficher </a>
+               <a href="index.php?module=mod_profil&idprofil=<?php echo $_SESSION['id'];?>&ongletprofil=trajets" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">Tout afficher </a>
             </div>
 
       <?php

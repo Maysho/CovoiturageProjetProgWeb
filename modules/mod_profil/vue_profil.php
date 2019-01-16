@@ -248,12 +248,8 @@ include_once __DIR__ .'/../../vue_generique.php';
 					
 					</nav> <?php
 		}
-		function modificationDeProfil($idUser, $donnees, $token){
+		function modificationDeProfil($idUser, $donnees, $token, $erreur=NULL){
 ?>
-
-			
-				
-
 				<div class="col-12">
 					
 					<?php self::afficheNavProfil(3,$idUser); ?>
@@ -272,31 +268,40 @@ include_once __DIR__ .'/../../vue_generique.php';
 ?>
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
 								<input class="col-md-4" type="file" name="photoprofil" >
+								<?php if(strpos($erreur, '20')!==false) echo "<p class='offset-md-2 col-md-8 form-text warning'>/!\Une erreur dans l'upload de l'image c'est produite!</p>";?>
+								<?php if(strpos($erreur, '21')!==false) echo "<p class='offset-md-2 col-md-8 form-text warning'>/!\Le fichier est trop lourd!</p>";?>
+								<?php if(strpos($erreur, '22')!==false) echo "<p class='text-center offset-md-2 col-md-8 form-text warning'>/!\Le fichier n'a pas la bonne extension!</p>";?>
 							</div>
 
 							<div class="row form-group">
 								<label class="col-md-4">Prenom : </label>
 								<input class="col-md-4 form-control" type="text" name="prenom" value="<?php echo $donnees['prenom']; ?>">
+								<?php if(strpos($erreur, '03')!==false) echo "<p class='col-md-4 form-text warning'>/!\Le prenom doit être composé au minimum de 2 lettres et peut éventuellement être séparé par un tiret</p>";?>
 							</div>
 
 							<div class="row form-group">
 								<label class="col-md-4">Nom : </label>
 								<input class="col-md-4 form-control" type="text" name="nom" value="<?php echo $donnees['nom']; ?>">
+								<?php if(strpos($erreur, '02')!==false) echo "<p class='col-md-4 form-text warning'>/!\Le nom doit être composé au minimum de 2 lettres et peut éventuellement être séparé par un tiret</p>";?>
 							</div>
 
 							<div class="row form-group">
 								<label class="col-md-4">E-mail : </label>
 								<input class="col-md-4 form-control" type="email" name="Email" placeholder="Entrez votre nouvel E-mail">
+								<?php if(strpos($erreur, '00')!==false) echo "<p class='col-md-4 form-text warning'>/!\L'adresse e-mail n'est pas conforme</p>";?>
+								<?php if(strpos($erreur, '13')!==false) echo "<p class='col-md-4 form-text warning'>/!\Cet e-mail existe déjà!</p>";?>
 							</div>
 
 							<div class="row form-group">
 								<label class="col-md-4">E-mail confirmation : </label>
 								<input class="col-md-4 form-control" type="email" name="confirmationEmail" placeholder="Confirmez votre E-mail">
+								<?php if(strpos($erreur, '01')!==false) echo "<p class='col-md-4 form-text warning'>/!\La confirmation d'e-mail ne correspond pas à l'e-mail indiqué</p>";?>
 							</div>
 
 							<div class="row form-group">
 								<label class="col-md-4">Date de naissance : </label>
 								<input class="col-md-4 form-control" type="date" name="datedenaissance" value="<?php echo $donnees['dateDeNaissance']; ?>">
+								<?php if(strpos($erreur, '11')!==false) echo "<p class='col-md-4 form-text warning'>/!\Vous devez avoir au moins 18 ans!</p>";?>
 							</div>
 
 							<div class="row form-group">
@@ -313,11 +318,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 										</div>
 									</div>	
 								</div>
+								<?php if(strpos($erreur, '10')!==false) echo "<p class='col-md-4 form-text warning'>/!\Bonjour helicoptère de combat apache!</p>";?>
 							</div>	
 
 							<div class="row form-group">
 								<label class="col-md-4">Description : </label>
 								<textarea class="col-md-4 form-control textarea-fixe" rows="10" maxlength="1024" form="editProfil" name="description"><?php echo $donnees['description'];?></textarea>
+								<?php if(strpos($erreur, '12')!==false) echo "<p class='col-md-4 form-text warning'>/!\Votre description est trop longue!</p>";?>
 							</div>
 
 							<button class="btn btn-primary" type="submit" name="submit">Mettre à jour vos données</button>
