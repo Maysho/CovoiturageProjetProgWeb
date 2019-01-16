@@ -339,7 +339,7 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
     }
   }
   
-  if (tabVille.length !=0) {
+  if (tabVille.length !=0 && confirm("Etes-vous sûr.e de vous inscrire à ce trajet?")) {
     $.post('scriptphp/formulaireDinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
       {
         tabId:tabVille,
@@ -374,7 +374,7 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
   e.preventDefault();
   
   alert("on rentre");
-
+  if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
   $.post('scriptphp/desinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
     {
       idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
@@ -396,7 +396,8 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
   ).fail(function(data,statut,xhr) {
     alert(data.responseText);
     verifError(data.responseText);
-  });     
+  });
+}
 });
 
 
@@ -432,6 +433,7 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
 $('#validationAuTrajet').on('click', function(event) {
   event.preventDefault();
   alert("rentre");
+  if(confirm("Etes-vous sûr.e de vouloir valider ce trajet?")){
   $.post('scriptphp/validationAuTrajet.php', // Un script PHP que l'on va créer juste après
 
     {
@@ -453,6 +455,7 @@ $('#validationAuTrajet').on('click', function(event) {
   'text'
   ).fail(function(data,statut,xhr) {
   });
+}
 });
 
 
@@ -460,6 +463,7 @@ $('#validationAuTrajet').on('click', function(event) {
 $('#retirerTrajet').on('click', function(event) {
   event.preventDefault();
   alert("rentre");
+  if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
   $.post('scriptphp/retirerTrajet.php', // Un script PHP que l'on va créer juste après
 
     {
@@ -479,6 +483,7 @@ $('#retirerTrajet').on('click', function(event) {
     'text'
   ).fail(function(data,statut,xhr) {
   });
+}
 });
 
 
@@ -1323,4 +1328,21 @@ $(document).ready(function() {
 
 $(window).resize(function(){
   replaceFooter();
+});
+
+/******************************************************************************************************************************
+**
+**Affiche ou desaffiche les composants
+**
+******************************************************************************************************************************/
+
+
+
+$( window ).resize(function() {
+  if ($(window).width() <768) {
+    $(".composant" ).hide();
+  }
+  else{
+    $(".composant" ).show();
+  }
 });
