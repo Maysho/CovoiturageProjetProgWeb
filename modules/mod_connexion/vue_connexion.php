@@ -11,68 +11,6 @@ class vue_connexion extends VueGenerique
 	{
 		parent::__construct();
 	}
-	public function navNonConnecte($value='')
-	{
-		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
-			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
-			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-			    <span class='navbar-toggler-icon'></span>
-			  </button>
-
-			  <div class='collapse navbar-collapse justify-content-end' id='navbarSupportedContent'>
-			    <ul class='navbar-nav '>
-			      
-			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Rechercher <span class='sr-only'>(current)</span></a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_connexion'>Se Connecter</a>
-			      </li>
-			    </ul>
-			  </div>
-			</nav>
-";
-	}
-	public function navConnecte(){
-
-   		echo "<nav class='navbar navbar-expand-md navbar-light bg-light'>
-			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
-			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-			    <span class='navbar-toggler-icon'></span>
-			  </button>
-
-			  <div class='collapse navbar-collapse float-right' id='navbarSupportedContent'>
-			  <div class='mr-auto'></div>
-			    <ul class='navbar-nav '>
-			      <li class='nav-item'>
-			      	<a id='messagesNonLus' class='nav-link' href='?module=mod_discussion'></a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='#'>Rechercher</a>
-			      </li>
-			    </ul>
-			    <div class='nav-item dropdown'>
-			        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-			          <img src='profildefault.jpg' class='imagenav'>
-			        </a>
-			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-			          <a class='dropdown-item' href='?module=mod_discussion'>Discussion</a>
-			          <a class='dropdown-item' href='?module=mod_profil'>Profil</a>
-			          <div class='dropdown-divider'></div>
-			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
-			        </div>
-			      </div>
-			  </div>
-			</nav>
-";
-   	
-  	}
   	public function pageConnexion($error=0)
   	{
   		echo '<div class="row col-12">
@@ -97,8 +35,9 @@ class vue_connexion extends VueGenerique
 			    <input type="text" required name="prenomInscription" class="form-control" id="prenomInscription"  placeholder="Prenom">
 			  </div>
 			  <div class="form-group" id="divMDPInscription">
-			    <label for="exampleInputPassword1">Mot De Passe</label>
-			    <input type="password" required name="MDPInscription" class="form-control" id="MDPInscription" placeholder="Mot De Passe">
+			    <label for="exampleInputPassword1">Mot De Passe <i class="fas fa-question-circle" title="votre mot de passe doit être constitué a minima d\'une minuscule, d\'une majuscule, d\'un chiffre et doit être de longueur 8"></i></label>
+			    <input type="password" title="votre mot de passe doit être constitué a minima d\'une minuscule, d\'une majuscule, d\'un chiffre et doit être de longueur 8 " required name="MDPInscription" class="form-control" id="MDPInscription" placeholder="Mot De Passe">
+			    
 			  </div>
 			  <div class="form-group" id="divConfMDPInscription">
 			    <label for="exampleInputPassword2">Confirmation De Mot De Passe</label>
@@ -169,8 +108,8 @@ class vue_connexion extends VueGenerique
   		<h2>Renseigner le nouveau Mot de Passe</h2>
   		<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieMPD">';?>
 			  <div class="form-group" id="divEmailInscription">
-			    <label for="mdp">Mot de passe</label>
-			    <input type="password" required name="mdp" class="form-control" id="mdp"  placeholder="Code...">
+			    <label for="mdp">Mot de passe <i class="fas fa-question-circle" title="votre mot de passe doit être constitué a minima d\'une minuscule, d\'une majuscule, d\'un chiffre et doit être de longueur 8"></label>
+			    <input type="password" required name="mdp" title="votre mot de passe doit être constitué a minima d\'une minuscule, d\'une majuscule, d\'un chiffre et doit être de longueur 8 " class="form-control" id="mdp"  placeholder="Code...">
 			    <label for="mdpconf">Mot de passe</label>
 			    <input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Code...">
 			    <input type="hidden" name="token" value="<?php echo $token ?>">

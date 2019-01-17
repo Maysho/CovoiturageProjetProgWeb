@@ -14,7 +14,7 @@ $modele = new ModeleDiscussion;
 <?php
 		$nbMessagesNonLu=$modele->nbMessagesNonLuInterlocuteur($idUser, $interlocuteurs[$i]['idInterlocuteur']);
 		if($nbMessagesNonLu!=0)
-			echo "<p class='col-md-3'>$nbMessagesNonLu</p>";
+			echo "<div class='col-md-3 '><span id='messagesNonLus' class='badge badge-danger'>$nbMessagesNonLu</span></div>";
 ?>
 				<hr class="col-md-10">
 			</div>
