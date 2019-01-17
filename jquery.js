@@ -1074,11 +1074,18 @@ function chargeMessagesInterlocuteurs(){
   $('.interlocuteurs').on('click', function(e){
    
     e.preventDefault();
-    
     var obj = $(this);
 
-    $('textarea#idInterlocuteurEnCours').val(obj.attr("id"));
+    interlocuteur = $('textarea#idInterlocuteurEnCours').val();
+   // $("#"+interlocuteur).css('background-color','#d8d8d8');
+   // $("#"+interlocuteur).css('font-weight','normal');
+   $("#"+interlocuteur).css({
+    'background-color':'#d8d8d8',
+    'font-weight':'normal'
+   });
 
+    $('textarea#idInterlocuteurEnCours').val(obj.attr("id"));
+    
     $.post('scriptphp/afficheMessages.php', 
     {
       idInterlocuteur: obj.attr("id")},
@@ -1087,6 +1094,12 @@ function chargeMessagesInterlocuteurs(){
         afficheMessages(data, true);
       }
     );
+    interlocuteur = $('textarea#idInterlocuteurEnCours').val();
+    //$("#"+interlocuteur).css('background-color','#ffffff');
+    $("#"+interlocuteur).css({
+      'background-color':'#ffffff',
+      'font-weight':'bold'
+    });
   });
 }
 
@@ -1151,7 +1164,16 @@ function afficheMessagesEtInterlocuteurs(){
   $.post('scriptphp/afficheInterlocuteurs.php',
     {},
     function(data,statut){
+
       $('#interlocuteurs').html(data)
+
+      interlocuteur = $('textarea#idInterlocuteurEnCours').val();
+      //$("#"+interlocuteur).css('background-color','#ffffff');
+      $("#"+interlocuteur).css({
+      'background-color':'#ffffff',
+      'font-weight':'bold'
+    });
+
       chargeMessagesInterlocuteurs();
     }
   );
@@ -1166,6 +1188,7 @@ function afficheMessagesEtInterlocuteurs(){
       afficheMessages(data, false);
     }
   );
+   
 }
 
 
@@ -1175,6 +1198,7 @@ function afficheMessages(data, chargeMessagesInterlocuteurs){
   var maxScrollTopOld = elem[0].scrollHeight - elem.outerHeight();
 
   $("#messages").html(data)
+
 
   var elem = $("#messages");
   var maxScrollTopNew = elem[0].scrollHeight - elem.outerHeight();

@@ -14,17 +14,16 @@ $modele = new ModeleDiscussion;
 
 			for($i=0; $i<count($msg); $i++){
 				
-				echo	'<hr>
+				if($i>0) echo '';
 
-
-						<div class="row">
+				echo	'<div class="row rounded messages"  >
 							<div class="col-md-3 row">
-								<label class="col-5 col-md-12 col-lg-12 col-xl-12">'.$msg[$i]["prenom"].'</label>
-								<label class="col-5 col-md-12 col-lg-12 col-xl-8">'.$msg[$i]["jour"].'</label>
-								<label class="col-2 col-md-12 col-lg-12 col-xl-4">'.$msg[$i]["heure"].'</label>
+								<label class="col-5 col-md-12 prenomDiscussion">'.$msg[$i]["prenom"].'</label>
+								<label class="col-5 col-md-12 dateHeureDiscussion">'.$msg[$i]["jour"].'</label>
+								<label class="col-2 col-md-12 dateHeureDiscussion">'.$msg[$i]["heure"].'</label>
 							</div>
 							<div class="col-md-9">
-								<span >'.$msg[$i]["contenuMessage"].'</span>
+								<span class="msgLongs">'.$msg[$i]["contenuMessage"].'</span>
 							</div>
 						</div>';
 				
