@@ -178,6 +178,12 @@ span{
     height: 30vh;
 }
 
+#inscriptionbutton{
+    margin-bottom: 5px;
+}
+.composant{
+    overflow: auto;
+}
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.
  */

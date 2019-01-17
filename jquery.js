@@ -726,6 +726,15 @@ $(function(){
       $(document).find('.ville').autocomplete({
         source: "scriptphp/chercheVille.php"
       });
+      $(".ville").on('focusout', function(event) {
+        event.preventDefault();
+        for (var i = 0; i < markers.length; i++) {
+          macarte.removeLayer(markers[i]);
+        }
+
+          actualiseMap();
+
+      });
 
       var cont2= $('#checkpoint').clone(); //partie horaire
       cont2.removeAttr("id");
@@ -750,6 +759,15 @@ $(function(){
       $(document).find('.ville').autocomplete({
         source: "scriptphp/chercheVille.php"
       });
+      $(".ville").on('focusout', function(event) {
+        event.preventDefault();
+        for (var i = 0; i < markers.length; i++) {
+          macarte.removeLayer(markers[i]);
+        }
+
+          actualiseMap();
+
+      });
 
       var fils2= $('#checkpoint0').clone(); //partie horaire
       fils2.attr("id", fils2.attr("id").replace(/\d+/g, key + 1));
@@ -766,6 +784,13 @@ $(function(){
   $(document).find('.ville').autocomplete({
     source: "scriptphp/chercheVille.php"
   });
+  $(".ville").on('keyup', function(event) {
+  event.preventDefault();
+
+
+    actualiseMap();
+
+});
 
   $(document).on('click',".btnSupprEtape",function(){
     if($(this).parent().parent().find("div").length==1 ){
@@ -805,7 +830,9 @@ $(function(){
     }
 
     key--;
+    actualiseMap();
   });
+
 
   //transforme les entrées non numerique  en vide
   $('#placeTotale').on("keyup",function(){
@@ -847,6 +874,93 @@ $(function(){
   });
 });
 
+
+var lat = 48.852969;
+var lon = 2.349903;
+var macarte=null;
+markers=[];
+polyline=null;
+// Fonction d'initialisation de la carte
+function initMap() {
+  // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+
+
+  macarte = L.map('map').setView([lat, lon], 8);
+  // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+  L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    // Il est toujours bien de laisser le lien vers la source des données
+    attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
+    minZoom: 1,
+    maxZoom: 20
+  }).addTo(macarte);
+
+  // Nous parcourons la liste des villes
+                   
+}
+function actualiseMap() {
+  var tabVille=[];
+  tabVille[0]=$("#depart").val();
+  
+  for (var i = 0; i < key+2; i++) {
+    nom="#villeEtape"+i;
+    tabVille[i+1]=$(nom).val();
+  }
+  tabVille[key+2]=$("#arrive").val();
+
+  $.post('scriptphp/actualiseMap.php', // Un script PHP que l'on va créer juste après
+
+    {
+      tabVille:tabVille
+    }
+    ,
+    function(data,statut){
+      tab=JSON.parse(data);
+      for (var i = 0; i < markers.length; i++) {
+        console.log("test");
+        macarte.removeLayer(markers[i]);
+        macarte.removeBounds
+      }
+      if (polyline!=null) {
+        console.log(polyline);
+      macarte.removeLayer(polyline);
+      }
+      markers=[];
+      for (ville in tab) {
+        var marker = L.marker([tab[ville][0], tab[ville][1]]).addTo(macarte);
+        markers[markers.length]=marker;
+        
+      }
+      if (tab.length) {
+      var nvTab=[];
+      var nvTab2=[];
+      compteur=0;
+       for (ville in tab) {
+        nvTab2[compteur]=tab[ville];
+        compteur++;
+      }
+      nvTab[0]=nvTab2;
+      polyline = L.polyline(nvTab, {color: 'red'}).addTo(macarte);
+      macarte.fitBounds(polyline.getBounds());
+    }
+      
+    },
+    'text'
+  ).fail(function(data,statut,xhr) {
+    alert("fail");
+  });
+    
+}
+$(document).ready(function() {
+  if($('#map').length)
+    initMap();
+}); 
+
+$(".ville").on('keyup', function(event) {
+  event.preventDefault();
+  actualiseMap();
+
+});
+ 
 
 
 /******************************************************************************************************************************
