@@ -23,7 +23,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 					
 						<div class="row col-auto">
 							<div class="col-md-2 order-0 ">
-							<?php
+<?php
 		if(isset($donnerAAfficher['urlPhoto'])){
 ?>
 								<img class="img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
@@ -260,7 +260,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<label class="col-md-4">Photo de profil (5Mo max): </label><?php
 		if(isset($donnees['urlPhoto'])){
 ?>
-							<img class="col-md-4 img-fluid" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
+							<div class="col-md-4">
+								<img class="img-fluid" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
+							</div>
 <?php
 		}
 		else
