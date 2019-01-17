@@ -757,6 +757,28 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		}
 		return true;
 	}
+	public function actualiseMap($tabVille)
+	{
+		$ville=array();
+		$compteur=0;
+		foreach ($tabVille as $key => $value) {
+			if (!empty($value)) {
+				$depart= explode(",", $value)[0];
+		
+				$selecPrepare=self::$bdd->prepare('SELECT nomVille, Geo_Point FROM ville where nomVille like upper("%"?"%")');
+				$tableauIds=array($depart);
+				$selecPrepare->execute($tableauIds);
+				$res= $selecPrepare->fetch();
+
+				$ville[$compteur]=explode(",", $res[1]);
+				$compteur=$compteur+1;
+			}
+			else
+				echo $value;
+		}
+		echo json_encode($ville);
+
+	}
 
 }
 

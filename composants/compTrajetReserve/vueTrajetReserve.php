@@ -19,7 +19,7 @@ class VueTrajetReserve
       <?php
       if (count($donnees)>0) {      
          ?>
-            <table class="table" style="table-layout: fixed; width:100%;">
+            <table class="table">
                      
    			<?php
             foreach ($donnees as $key => $value) {
@@ -47,7 +47,7 @@ class VueTrajetReserve
             ?>
             </table>
             <div class="row justify-content-end">
-               <a href="index.php?module=mod_profil&idprofil=<?php echo $_SESSION['id'];?>&ongletprofil=trajets" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">Tout afficher </a>
+               <a href="index.php?module=mod_profil&idprofil=<?php echo $_SESSION['id'];?>&ongletprofil=trajets" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">en afficher plus... </a>
             </div>
 
       <?php

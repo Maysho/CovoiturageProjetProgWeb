@@ -266,7 +266,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php
 		}
 		else
-			echo 			'<img class="col-md-4 img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
+			echo 			'<div class="col-md-4"><img class=" img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil"></div>';
 ?>
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
 								<input class="col-md-4" type="file" name="photoprofil" >

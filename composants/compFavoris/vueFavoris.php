@@ -23,7 +23,7 @@ class vueFavoris
                echo "<span>Vous n'avez mis aucune recherche en favoris</span>";
             }
             else{ ?>
-            <table class="table" style="table-layout: fixed; width:100%;">
+            <table class="table">
                      
    			<?php
 
