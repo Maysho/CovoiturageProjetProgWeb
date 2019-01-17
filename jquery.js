@@ -599,7 +599,7 @@ $('#envoiTrajet').on("click",function(e){
   var soustrajets=[];
 
   if( key == 0){
-    // console.log("pas dde sns")
+    // console.log("pas de soustrajet")
     var soustrajet = { 
       idVilleD : $(document).find('#depart').val(), 
       idVilleA : $(document).find('#arrive').val(),
@@ -610,13 +610,10 @@ $('#envoiTrajet').on("click",function(e){
       prix: $(document).find('#prixArrivee').val(),
       regulier: $(document).find('#regulier').is(":checked")
     };
-    // console.log(soustrajet);
     soustrajets[0]= soustrajet;
 
   }else{
-    // console.log(key)
     for( var i = 0 ; i < key+1 ; i++ ){
-      // console.log(i);
       
       if( i == 0){
         // console.log("premier sous trajet")
@@ -631,7 +628,7 @@ $('#envoiTrajet').on("click",function(e){
           regulier: $(document).find('#regulier').is(":checked")
         };
       }
-      else if( i == key){//dernier
+      else if( i == key){
         // console.log("dernier sous trajet")
         var villeDepart = "#villeEtape"+(i);
         var dateDepart = "#date"+(i);
@@ -672,11 +669,9 @@ $('#envoiTrajet').on("click",function(e){
       soustrajets[i]= soustrajet;
     }
   }
-  console.log(soustrajets)
 
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
-  
   if(confirm("Etes-vous sûr.e de valider ce trajet?")){
     $(".warning").remove();
     $.ajax({
@@ -697,8 +692,9 @@ $('#envoiTrajet').on("click",function(e){
       error: function(txt){
         // alert("fail");
         // alert("msg :"+txt.responseText);
-        alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes")
+        alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes");
         verifError(txt.responseText);
+         console.log(txt.responseText);
       }
     });
   }
@@ -904,46 +900,46 @@ function verifError(data){
 
 
   if(data.includes("30")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</p>');
   }
   if(data.includes("31")){
-    $('#placeTotale').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de saisie PlaceTotale </small>');
+    $('#placeTotale').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de saisie PlaceTotale </p>');
   }
   if(data.includes("32")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur sur le prix</small>');
+    $('#DateHoraire').append('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur sur le prix</p>');
   }
   if(data.includes("33a")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Date </small>');
+    $('#DateHoraire').append('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Date </p>');
   }
   if(data.includes("33b")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Heure </small>');
+    $('#heureDepart').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Heure </p>');
   }
   if(data.includes("341")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Heure</small>');
+    $('#heureDepart').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Heure</p>');
   }
   if(data.includes("342")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Date</small>');
+    $('#DateHoraire').append('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Date</p>');
   }
   if(data.includes("353")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </p>');
   }
   if(data.includes("351")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</p>');
   }
   if(data.includes("352")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</p>');
   }
   if(data.includes("36")){
-    $('#immatriculation').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Immatriculation</small>');
+    $('#immatriculation').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Immatriculation</p>');
   }
   if(data.includes("361")){
-    $('#critair').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Crit air non renseigné</small>');
+    $('#critair').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Crit air non renseigné</p>');
   }
   if(data.includes("362")){
-    $('#hybride').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur renseignement Hybride </small>');
+    $('#hybride').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur renseignement Hybride </p>');
   }
   if(data.includes("363")){
-    $('#idVehicule').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur immatriculation</small>');
+    $('#idVehicule').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur immatriculation</p>');
   }
 
 }
