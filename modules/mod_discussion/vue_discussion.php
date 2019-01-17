@@ -12,14 +12,16 @@ include_once 'vue_generique.php';
 		public function discussion($interlocuteurs, $msg){
 ?>			    
 		
-			<section class="col-md-12">
+			<div class="col-md-12">
+				<p>Pour ajouter un nouveau contact, envoyez lui un message depuis son profil!</p>
 
 				<div class="row">
 					<textarea id="idInterlocuteurEnCours"  hidden=""><?php if(isset($interlocuteurs[0]['idInterlocuteur']))echo $interlocuteurs[0]['idInterlocuteur']; ?></textarea>
-
-					<div id="interlocuteurs"  class="col-md-3 pre-scrollable scroll-bottom"></div>
+					<h4 class="col-md-3 order-1 order-md-1">Contacts:</h4>
+					<h4 class="col-md-9 order-3 order-md-2">Messages:</h4>
+					<div id="interlocuteurs"  class="col-md-3 order-2 order-md-3 pre-scrollable scroll-bottom"></div>
 					
-					<div id="messages" class="col-md-9 pre-scrollable scroll-bottom"></div>
+					<div id="messages" class="col-md-9 order-4 order-md-4 pre-scrollable scroll-bottom"></div>
 
 				</div>
 
@@ -29,7 +31,7 @@ include_once 'vue_generique.php';
 					
 				</div>
 					
-			</section>
+			</div>
 <?php
 		}
 	}
