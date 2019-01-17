@@ -19,7 +19,7 @@ class VueTrajetReserve
       <?php
       if (count($donnees)>0) {      
          ?>
-            <table class="table" style="table-layout: fixed; width:100%;">
+            <table class="table">
                      
    			<?php
             foreach ($donnees as $key => $value) {
