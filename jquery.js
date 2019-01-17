@@ -1089,11 +1089,18 @@ function messagesNonLu(){
   $.post('scriptphp/messagesNonLus.php',
     {},
     function(data,statut){
-      if(data!=0)
+      if(data!=0){
         $('#messagesNonLus').text(data);
+         $('#messagesNonLus').removeClass('badge-light border').addClass('badge-danger');
+         $('#envelopeMsg').removeClass('fa-envelope').addClass('fa-envelope-open');
+
+      }
       
-      else
-        $('#messagesNonLus').text('');
+      else{
+        $('#messagesNonLus').text("0"); 
+        $('#messagesNonLus').removeClass('badge-danger').addClass('badge-light border');
+        $('#envelopeMsg').removeClass('fa-envelope-open').addClass('fa-envelope');
+      }
     }
   );
 }
