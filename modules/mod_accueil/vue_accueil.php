@@ -27,23 +27,23 @@ class VueAccueil extends VueGenerique
   			<form id='formulaireDeRecherche' method="POST" action="index.php?module=mod_resTrajet">
   			<div class='form-row justify-content-around' id="formPrincipal">
 				    <div class='form-group container col-md-6' id="villeDepartRecherche">
-				      <label for='rechercheDepart'>depart</label>
-				      <input type='adresse' class='form-control col-12' name="depart" id='rechercheDepart' placeholder='adresse'  >
+				      <label for='rechercheDepart'>depart </label>
+				      <input type='adresse' class='form-control col-12' name="depart" id='rechercheDepart' placeholder='ville de départ'  >
 				      </div>
 				    <div class='form-group col-md-6' id="villeArriveRecherche">
-				      <label for='rechercheArrive'>destination</label>
-				      <input type='adresse' class='form-control' id='rechercheArrive' name="destination" placeholder='adresse'>
+				      <label for='rechercheArrive'>destination </label>
+				      <input type='adresse' class='form-control' id='rechercheArrive' name="destination" placeholder="ville d'arrivée">
 				    </div>
 				    <div class="form-group col-md-3 partitAjoute d-none"> 
-				    	<label for="inputAddress">date</label>  
+				    	<label for="inputAddress">date </label>  
 				    	<input type="date" class="form-control" id="inputAddress" name='date' placeholder="1234 Main St">  
 				    	 </div> 
 				    	 <div class="form-group col-md-3 partitAjoute d-none">
 				    	 	<label for="inputAddress2">prix</label>    
-				    	 	 <input type="number" class="form-control" id="inputAddress2" name="prix" placeholder="prix">
+				    	 	 <input type="number" class="form-control" id="inputAddress2" name="prix" placeholder="prix maximal">
 				    	 	  </div>  
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
-				    	 	<label for="inputState">type de vehicule</label> 
+				    	 	<label for="inputState">type de vehicule <i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
 				    	 	<option selected>Non renseigné</option>
 				    	 	<option>1</option>
@@ -62,7 +62,7 @@ class VueAccueil extends VueGenerique
 				    	<div class="form-check"> 
 				    		
 				    		<input class="form-check-input" name="regulier" type="checkbox" id="gridCheck"> 
-				    		<label class="form-check-label" for="gridCheck"> regulier </label>
+				    		<label class="form-check-label" for="gridCheck"> regulier <i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
 				    	</div> 
 				    </div>
 				       

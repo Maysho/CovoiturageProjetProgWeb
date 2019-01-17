@@ -784,11 +784,9 @@ $(function(){
   $(document).find('.ville').autocomplete({
     source: "scriptphp/chercheVille.php"
   });
-  $(".ville").on('focusout', function(event) {
+  $(".ville").on('keyup', function(event) {
   event.preventDefault();
-  for (var i = 0; i < markers.length; i++) {
-    macarte.removeLayer(markers[i]);
-  }
+
 
     actualiseMap();
 
@@ -932,6 +930,7 @@ function actualiseMap() {
         markers[markers.length]=marker;
         
       }
+      if (tab.length) {
       var nvTab=[];
       var nvTab2=[];
       compteur=0;
@@ -942,7 +941,7 @@ function actualiseMap() {
       nvTab[0]=nvTab2;
       polyline = L.polyline(nvTab, {color: 'red'}).addTo(macarte);
       macarte.fitBounds(polyline.getBounds());
-
+    }
       
     },
     'text'
@@ -956,11 +955,9 @@ $(document).ready(function() {
     initMap();
 }); 
 
-$(".ville").on('focusout', function(event) {
+$(".ville").on('keyup', function(event) {
   event.preventDefault();
-  
-
-    actualiseMap();
+  actualiseMap();
 
 });
  
