@@ -50,7 +50,7 @@ class modele_trajet extends connexion {
 				$extension_upload = strtolower(  substr( strrchr($_FILES['photo']['name'], '.')  ,1)  );
 				$nomFich=$idConducteur.'_'.$immatriculation.'.'.$extension_upload;
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
-				$result=move_uploaded_file($_FILES['photo']['tmp_name'],$_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/".$nomFich);
+				$result=move_uploaded_file($_FILES['photo']['tmp_name'],DIR . "/../../sources/images/photoVehicule/".$nomFich);
 				if($result)
 					$url = "sources/images/photoVehicule/".$nomFich;
 			}
@@ -100,7 +100,7 @@ class modele_trajet extends connexion {
 		
 		$placeTotale++;
 
-		if( $this->verifChampsTrajet($soustrajets, $placeTotale, $dateArrivee) || !isset($_SESSION['id'])){
+		if( $this->verifChampsTrajet($soustrajets, $placeTotale, $dateArrivee) || !isset($_SESSION['id']) ){
 			echo $this->msg;
 			http_response_code(400);
 			exit(1);
@@ -289,7 +289,7 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."30- Utilisateur non connecté"."\n";
 			$error = true;
 		}
-		if( $placeTotale < 2 && $placeTotale < 9){
+		if( $placeTotale < 2 || $placeTotale > 9){
 			$this->msg=$this->msg."31- Erreur de saisie PlaceTotale"."\n";
 			$error = true;	
 		}
@@ -325,7 +325,17 @@ class modele_trajet extends connexion {
 					}
 				}
 			}
-			
+
+			if(strtotime($soustrajets[$i]['dateDepart']) <= strtotime("yesterday") ){
+				$this->msg=$this->msg."33a- Erreur de conformité Date depart < now " ."\n";
+				$error = true;	
+			}
+
+			if(strtotime($dateArrivee) <= strtotime("yesterday") ){
+				$this->msg=$this->msg."33a- Erreur de conformité Date arrivee < now " ."\n";
+				$error = true;	
+			}
+
 			//verifie format heure
 			if(!preg_match('#^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$#', $soustrajets[$i]['heureDepart'] )){
 				$this->msg=$this->msg."341- Erreur de Format Heure" ."\n";
@@ -340,7 +350,7 @@ class modele_trajet extends connexion {
 		}
 
 		foreach ($soustrajets as $key => $value) {
-			if($value['idVilleD'] != null && $value['idVilleA'] != null){
+			if( !is_null($value['idVilleD']) && !is_null($value['idVilleA']) ){
 				if(!preg_match('#[,]#',  $value['idVilleD']) && !preg_match('#[,]#',  $value['idVilleA'])){
 					$this->msg=$this->msg."353- Erreur Ville" ."\n";
 					$error = true;	
