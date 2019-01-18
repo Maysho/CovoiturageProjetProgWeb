@@ -17,6 +17,7 @@ session_start();
         
     <title>TakeU</title>
   </head>
+  <body>
 
 
 <?php
@@ -114,7 +115,7 @@ switch ($module){
 		
 <?php 	
 		if(isset($_SESSION['id'])) {
-			echo '<div id="teste" class="row justify-content-center flextest">';
+			echo '<div class="row justify-content-center flextest">';
 			echo "<aside class='col-md-3' >";
 }
 		else
