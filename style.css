@@ -231,6 +231,34 @@ span{
 }
 .composant{
     overflow: auto;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.couleurTrajet{
+    background-color: #607d8b0a;
+}
+.btn_credit{
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+.buttonRecherche{
+    margin-right: 1rem;
+    
+}
+#divHauteRes2{
+    padding: 1%;
 }
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.

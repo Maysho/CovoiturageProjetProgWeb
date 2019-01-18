@@ -157,9 +157,12 @@ include_once __DIR__ .'/../../vue_generique.php';
 					
 						<div class="col-md-auto">
 							<label class="">Description : </label>
-							<div class=" col-md-12 border border-primary rounded">
-								<span><?php echo $donnerAAfficher['description']; ?></span>
-							</div>
+							<?php if (!empty($donnerAAfficher['description'])) {
+								echo '<div class=" col-md-12 border border-primary rounded">
+								<span>'.$donnerAAfficher['description'].'</span>
+							</div>';
+							}
+							?>
 						</div>
 					</div>
 					

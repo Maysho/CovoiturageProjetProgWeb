@@ -12,7 +12,7 @@ class ModeleNav extends connexion{
 	}
 	public function recupereInfoUtilisateur($idUser){
 		
-			$selectPreparee=self::$bdd->prepare('SELECT urlPhoto FROM utilisateur WHERE idUtilisateur=? ');
+			$selectPreparee=self::$bdd->prepare('SELECT urlPhoto,credit FROM utilisateur WHERE idUtilisateur=? ');
 			$tableauIds=array($idUser);
 			$selectPreparee->execute($tableauIds);
 			return $selectPreparee->fetch();

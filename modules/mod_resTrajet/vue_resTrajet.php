@@ -21,12 +21,12 @@ class vue_resTrajet extends VueGenerique
   		else{
   			echo "<div class='row justify-content-center col-12'> <div class='col col-md-6 '>";
   		}
-  		if ($value==1) {
-  			echo "<div id='contenu' class='col-12  '> <div id='divHauteRes' class='col-12'><div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
-  		}
-  		else
-  			echo "<div id='contenu' class='col-12'> <div class='col-12 ' id='divHauteRes'> <div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>";
+
+  			
+
   		?>
+  		<div id='contenu' class='col-12'> <div class='col-12 ' id='divHauteRes'> 
+  		<div id='divHauteRes2' class=' col-12 row justify-content-between border border-dark'>
   		<?php
   		if ($value==1) {?>
   			<div class='row justify-content-end col-12'>
@@ -55,7 +55,7 @@ class vue_resTrajet extends VueGenerique
 				    	 	 <input type="text" class="form-control" id="inputAddress2" name="prix" placeholder="Prix maximal" value="<?php echo $prix; ?>">
 				    	 	  </div>  
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
-				    	 	<label for="inputState">type de vehicule <i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
+				    	 	<label for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
 							<option <?php echo $type=="Non renseigné"? "selected":""; ?>>Non renseigné</option>
 				    	 	
@@ -73,7 +73,7 @@ class vue_resTrajet extends VueGenerique
 				<div class="form-row d-none" id="regulierForm"> 
 				    	<div class="form-check"> 
 				    		<input class="form-check-input" type="checkbox" id="gridCheck" name="regulier" <?php echo $regulier==true?"checked":""; ?> value="<?php echo $regulier; ?>"> 
-				    		<label class="form-check-label" for="gridCheck"> regulier <i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
+				    		<label class="form-check-label" for="gridCheck"> regulier<i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
 				    	</div> 
 				    </div>
 				       
@@ -88,7 +88,7 @@ class vue_resTrajet extends VueGenerique
 				    	<option>heureDepart</option>
 				    	<option>prix, heureArrivee</option>
 				    </select>
-				  <button type='submit' class='btn btn-primary' id="buttonResTrajet" style='margin-right: 3%'>Sign in</button>
+				  <button type='submit' class='btn btn-primary buttonRecherche' id="buttonResTrajet" >Sign in</button>
 				  </div>
 				  <div class="row d-none" id="divbuttonrapetisseform">
 				        <button class="btn btn-secondary" id="buttonRapetisseForm">-</button> 

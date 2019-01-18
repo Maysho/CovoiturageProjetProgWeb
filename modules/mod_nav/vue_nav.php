@@ -36,7 +36,7 @@ class vue_nav
 			</nav>
 ";
 	}
-	public function navConnecte($url){
+	public function navConnecte($info){
 ?>
    		<nav class='navbar navbar-expand-md navbar-light bg-light'>
 			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
@@ -44,10 +44,7 @@ class vue_nav
 			    <span class='navbar-toggler-icon'></span>
 			  </button>
 
-			  <a class="btn btn-light border" href="?module=mod_discussion" role="button">
-				<i id="envelopeMsg" class="fas fa-envelope"></i>
-				<span id='messagesNonLus' class="badge border badge-light"></span>
-			  </a>
+			  
 
 			  <a  class='liensanscouleur' href='?module=mod_discussion'></a>
 
@@ -58,12 +55,24 @@ class vue_nav
 			        <a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php' title='permet d"accéder a la page de recherche de trajet'>Rechercher</a>
+			        <a class='nav-link' href='index.php' title="permet d'accéder a la page de recherche de trajet">Rechercher</a>
+			      </li>
+			      <li class="nav-item row align-items-center no-gutters">
+			      	<div class="btn_credit border mr-2">
+				      	<i class="fas fa-money-bill"></i>
+				      	<span class=""><?php echo $info[1]."€";?></span>
+					</div>
+			      </li>
+			      <li class="nav-item">
+			      	<a class="btn btn-light border" href="?module=mod_discussion" role="button">
+						<i id="envelopeMsg" class="fas fa-envelope"></i>
+						<span id='messagesNonLus' class="badge border badge-light"></span>
+			  		</a>
 			      </li>
 			    </ul>
 			    <div class='nav-item dropdown'>
 			        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-			          <img src='<?php echo isset($url[0])? $url[0]:'home.jpg' ?>' class='imagenav'>
+			          <img src='<?php echo isset($info[0])? $info[0]:'home.jpg' ?>' class='imagenav'>
 			        </a>
 			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
 			          <a class='dropdown-item' href='?module=mod_discussion' title="permet d'accéder a la page de discussion">Discussion</a>
