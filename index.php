@@ -17,7 +17,7 @@ session_start();
         
     <title>TakeU</title>
   </head>
-
+<body>
 
 <?php
 //phpinfo();

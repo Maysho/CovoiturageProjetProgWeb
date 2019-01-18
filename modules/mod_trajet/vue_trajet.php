@@ -247,10 +247,10 @@ class vue_Trajet extends VueGenerique{
 </div>
 <?php if ($value>=1) {
 	echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 	}else
 		echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 
 		
 			?>
@@ -315,7 +315,7 @@ class vue_Trajet extends VueGenerique{
 								# code...
 							}
 							else if($peutEtreValide){
-								echo '<button class="btn" id="validationAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">valider ce trajet</button>';
+								echo '<button class="btn" id="validationAuTrajet" data-token="'.$token.'" title="ce bouton permet de valider le trajet et donc de terminer ce trajet pour vous" data-id="'.$infoTrajet[13].'"> valider ce trajet</button>';
 							}
 							else if ($value==$infoTrajet[14] && $nbPers<=1) {
 								echo '<button class="btn" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
@@ -381,11 +381,11 @@ class vue_Trajet extends VueGenerique{
 		<?php
 		if ($value>=1) {
 			echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between '>";
 		}
 		else
 			echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between '>";
 		?>
 		
 				<div class="col-md-2 col-4 row align-items-center">
@@ -415,11 +415,11 @@ class vue_Trajet extends VueGenerique{
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
 			if ($value>=1) {
 				echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 			}
 			else
 				echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 
 
 		?>
