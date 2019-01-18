@@ -376,7 +376,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 									<?php echo ($value['hybride'] == "1") ?  "Oui" :  "Non"?>
 								</td>
 								<td class=" text-center ">
-									<a href="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
+									<a class="btn-photo-vehicule" data-toggle="modal" href="" data-remote='<?php echo "$key";?>' data-target=".modal" data-src="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
 									<!-- <img id="myImg" src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
 									
 								</td>
@@ -390,6 +390,29 @@ include_once __DIR__ .'/../../vue_generique.php';
 							?>
 							</tbody>
 						</table>
+
+						<div class="modal fade" id="photoDuVehicule" tabindex="-1" role="dialog" aria-labelledby="envoieMsgModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="envoieMsgModalLabel">Envoyer un message</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							      	<div class="col-12">
+							      		<img src="" id="img-photo-vehicule" class="img-fluid">
+							      	</div>
+							      	
+
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-primary" data-dismiss="modal">Quitter</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
 						<?php
 						if(count($donnees)<1){
 						?>
@@ -458,6 +481,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 				</div>
 <?php 
 		}
+
 
 		function afficheHistorique($idUser, $donnees){
 			?>

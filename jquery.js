@@ -595,6 +595,19 @@ $(document).ready(function(){
   }
 });
 
+$('.modal').on('show.bs.modal', function (e) {
+
+
+      var button = $(e.relatedTarget);
+      console.log(button);
+      var index = button.attr('class');
+      if (index!=undefined) {
+      if(index.indexOf("btn-photo-vehicule")!=-1)
+        $(this).find('#img-photo-vehicule').attr('src',button.attr('data-src'));
+     
+    }
+      /*$(this).find('.modal-content').load('remote' + index + '.html')*/
+});
 
 /******************************************************************************************************************************
 **
@@ -1493,13 +1506,13 @@ $('#envoyerMessage').submit(function(e){
 //  }
 // }
 
-$(document).ready(function() {
+/*$(document).ready(function() {
   replaceFooter();
 });
 
 $(window).resize(function(){
   replaceFooter();
-});
+});*/
 
 /******************************************************************************************************************************
 **

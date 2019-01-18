@@ -115,12 +115,18 @@ switch ($module){
 		
 <?php 	
 		if(isset($_SESSION['id'])) {
-			echo '<div class="row justify-content-center flextest">';
+			if($module=="mod_accueil")
+				echo '<div class="row justify-content-center flextest frontpage">';
+			else
+				echo '<div class="row justify-content-center flextest">';
 			echo "<aside id='composants' class='col-md-3' >";
 }
-		else
-			echo '<div class="row justify-content-center flextest">';
-
+		else{
+			if($module=="mod_accueil")
+				echo '<div class="row justify-content-center flextest frontpage">';
+			else
+				echo '<div class="row justify-content-center flextest">';
+		}
 			include_once 'composants/compCommentaire/compCommentaire.php';
 
   			$compCommentaire=new compCommentaire();

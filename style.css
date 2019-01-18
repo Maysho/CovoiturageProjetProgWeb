@@ -269,7 +269,9 @@ span{
 /* Common styles for all types */
 
 
-
+#img-photo-vehicule{
+    width: 100%;
+}
 
 
 
@@ -301,7 +303,7 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 /* FOND D ECRAN */
-#frontpage{
+.frontpage{
     background-image: url(imgbg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
