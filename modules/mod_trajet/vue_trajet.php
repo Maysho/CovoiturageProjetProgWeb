@@ -43,8 +43,10 @@ class vue_Trajet extends VueGenerique{
 										<label><input type="checkbox" name="regulier" id="regulier">Régulier</label>
 									</div>	
 								</div>
-								<div class="col-lg-6"> 
-									<img class="col-lg-12 img-thumbnail" alt="Map de la France" src="photos/Black.png">
+
+								<div class="col-md-6" id="map" > 
+									<!-- <img class="col-md-12 img-thumbnail" alt="Map de la France" src="photos/Black.png"> -->
+
 								</div>
 							</div>
 							<hr>

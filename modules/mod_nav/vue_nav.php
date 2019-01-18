@@ -23,7 +23,7 @@ class vue_nav
 			    <ul class='navbar-nav '>
 			      
 			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php'>Rechercher <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php' title='permet d\"accéder a la page de recherche de trajet' >Rechercher<span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
 			        <a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
@@ -49,16 +49,16 @@ class vue_nav
 				<span id='messagesNonLus' class="badge border badge-light"></span>
 			  </a>
 
-			  <a  class='liensanscouleur	' href='?module=mod_discussion'></a>
+			  <a  class='liensanscouleur' href='?module=mod_discussion'></a>
 
 			  <div class='collapse navbar-collapse float-right' id='navbarSupportedContent'>
 			  <div class='mr-auto'></div>
 			    <ul class='navbar-nav '>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_trajet'>Proposer <span class='sr-only'>(current)</span></a>
+			        <a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
 			      </li>
 			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php'>Rechercher</a>
+			        <a class='nav-link' href='index.php' title='permet d"accéder a la page de recherche de trajet'>Rechercher</a>
 			      </li>
 			    </ul>
 			    <div class='nav-item dropdown'>
@@ -66,8 +66,8 @@ class vue_nav
 			          <img src='<?php echo isset($url[0])? $url[0]:'home.jpg' ?>' class='imagenav'>
 			        </a>
 			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-			          <a class='dropdown-item' href='?module=mod_discussion'>Discussion</a>
-			          <a class='dropdown-item' href='?module=mod_profil'>Profil</a>
+			          <a class='dropdown-item' href='?module=mod_discussion' title="permet d'accéder a la page de discussion">Discussion</a>
+			          <a class='dropdown-item' href='?module=mod_profil' title="permet d'accéder a la page de profil">Profil</a>
 			          <div class='dropdown-divider'></div>
 			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
 			        </div>

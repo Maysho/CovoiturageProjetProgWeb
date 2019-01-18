@@ -30,7 +30,7 @@ class vue_resTrajet extends VueGenerique
   		<?php
   		if ($value==1) {?>
   			<div class='row justify-content-end col-12'>
-  			<button id='miseEnFavoris'><?php echo $favoris?'<i class="far fa-star" id="pasFavoris"></i>':'<i class="fas fa-star" id="favoris"></i>';?></button><!-- <i class="fas fa-star"></i> -->
+  			<button id='miseEnFavoris' title="permet de mettre ou retirer un favoris"><?php echo $favoris?'<i class="far fa-star" id="pasFavoris"></i>':'<i class="fas fa-star" id="favoris"></i>';?></button><!-- <i class="fas fa-star"></i> -->
   		</div>
   		<?php 
   	}
@@ -40,22 +40,22 @@ class vue_resTrajet extends VueGenerique
   			<div class='form-row justify-content-around' id="formPrincipal" >
 				    <div class='form-group container col-md-6' id="villeDepartRecherche">
 				      <label for='rechercheDepart'>depart</label>
-				      <input type='adresse' class='form-control col-12' id='rechercheDepart' placeholder='adresse' name='depart' value="<?php echo $depart; ?>"  >
+				      <input type='adresse' class='form-control col-12' id='rechercheDepart' placeholder='ville de départ' name='depart' value="<?php echo $depart; ?>"  >
 				      </div>
 				    <div class='form-group col-md-6' id="villeArriveRecherche">
 				      <label for='rechercheArrive'>destination</label>
-				      <input type='adresse' class='form-control' id='rechercheArrive' placeholder='adresse' name="destination" value="<?php echo $destination; ?>">
+				      <input type='adresse' class='form-control' id='rechercheArrive' placeholder="ville d'arrivé" name="destination" value="<?php echo $destination; ?>">
 				    </div>
 				    <div class="form-group col-md-3 partitAjoute d-none"> 
 				    	<label for="inputAddress">date</label>  
-				    	<input type="date" class="form-control" id="inputAddress" placeholder="1234 Main St" name="date" value="<?php echo $date; ?>">  
+				    	<input type="date" class="form-control" id="inputAddress" placeholder="" name="date" value="<?php echo $date; ?>">  
 				    	 </div> 
 				    	 <div class="form-group col-md-3 partitAjoute d-none">
 				    	 	<label for="inputAddress2">prix</label>    
-				    	 	 <input type="text" class="form-control" id="inputAddress2" name="prix" placeholder="Apartment, studio, or floor" value="<?php echo $prix; ?>">
+				    	 	 <input type="text" class="form-control" id="inputAddress2" name="prix" placeholder="Prix maximal" value="<?php echo $prix; ?>">
 				    	 	  </div>  
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
-				    	 	<label for="inputState">type de vehicule</label> 
+				    	 	<label for="inputState">type de vehicule <i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
 							<option <?php echo $type=="Non renseigné"? "selected":""; ?>>Non renseigné</option>
 				    	 	
@@ -73,7 +73,7 @@ class vue_resTrajet extends VueGenerique
 				<div class="form-row d-none" id="regulierForm"> 
 				    	<div class="form-check"> 
 				    		<input class="form-check-input" type="checkbox" id="gridCheck" name="regulier" <?php echo $regulier==true?"checked":""; ?> value="<?php echo $regulier; ?>"> 
-				    		<label class="form-check-label" for="gridCheck"> regulier </label>
+				    		<label class="form-check-label" for="gridCheck"> regulier <i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
 				    	</div> 
 				    </div>
 				       

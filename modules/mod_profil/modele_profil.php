@@ -329,10 +329,11 @@ class ModeleProfil extends connexion{
 		date_default_timezone_set('Europe/Paris');
 		$date =date('Y-m-d');
 		$reqGetListeCar = self::$bdd->prepare("
-		SELECT idTrajet  FROM  soustrajet
+		SELECT trajet.idTrajet FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? AND valide = 0
+		inner join trajet on soustrajet.idTrajet=trajet.idTrajet 
+		WHERE utilisateur_idutilisateur = ? AND valide = 0 and suppression=0
 		GROUP BY idTrajet
 		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 10
@@ -349,10 +350,11 @@ class ModeleProfil extends connexion{
 
 	public function getListeHistorique($idUser){
 		$reqGetListeCar = self::$bdd->prepare("
-		SELECT idTrajet  FROM  soustrajet
+		SELECT trajet.idTrajet FROM  soustrajet
 		INNER JOIN soustrajetutilisateur
 		ON soustrajetutilisateur.sousTrajet_idsousTrajet = soustrajet.idsousTrajet
-		WHERE utilisateur_idutilisateur = ? and valide=1
+		inner join trajet on soustrajet.idTrajet=trajet.idTrajet 
+		WHERE utilisateur_idutilisateur = ? and valide = 1 and suppression=0
 		GROUP BY idTrajet
 		ORDER BY dateDepart DESC, heureDepart DESC
 		LIMIT 10
