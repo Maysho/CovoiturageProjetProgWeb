@@ -313,4 +313,27 @@ font-family: 'Ubuntu', sans-serif;
     background-color: #aaaaaa;
     border-radius: 1em;
 }
+
+
+
+/*COMPOSANT*/
+
+#composants h4{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#composants{
+    font-size: 14px;
+}
+
+.headline_composant{
+    border:1px solid red;
+}
+
+.component_composant{
+    border:1 px solid red;
+}
+
+
 /*fintest*/

@@ -13,16 +13,16 @@ class VueAccueil extends VueGenerique
 
 	public function affiche($connecte){
    		if ($connecte) {
-   			echo "<div id='frontpage'>
+   			echo "<div id='frontpage' class='no-gutters px-0 '>
   		<div id='search_container' class='border border-dark justify-content-md-start justify-content-lg-center col-12'>";
    		}
    
   		else
-  			echo "<div id='frontpage' class='justify-content-md-center row col'>
+  			echo "<div id='frontpage' class='no-gutters px-0 justify-content-md-center row col'>
   		<div id='search_container' class='border border-dark justify-content-md-start justify-content-lg-center col-md-6'>";
   		?>
   		<div id="divHauteRes2">
-  		<div class='row justify-content-end'>
+  		<div class='row no-gutters justify-content-end'>
   			<a href="index.php?module=mod_trajet"><button class='btn btn-primary buttonRecherche' title="permet d'accéder a la page de proposition de trajet" >Proposer un Trajet</button></a>
   		</div>
   			<form id='formulaireDeRecherche' method="POST" action="index.php?module=mod_resTrajet">
@@ -58,21 +58,21 @@ class VueAccueil extends VueGenerique
     	 	                </div>
 				    
 				</div>
-				<div class="form-row d-none" id="regulierForm"> 
+				<div class="no-gutters d-none" id="regulierForm"> 
 				    	<div class="form-check"> 
 				    		
 				    		<input class="form-check-input" name="regulier" type="checkbox" id="gridCheck"> 
-				    		<label class="form-check-label" for="gridCheck"> Régulier<i class="fas fa-question-circle" title="Veuillez cocher ce champ pour rechercher un trajet régulié"></i></label>
+				    		<label class="form-check-label" for="gridCheck"> Régulier <i class="fas fa-question-circle" title="Veuillez cocher ce champ pour rechercher un trajet régulié"></i></label>
 				    	</div> 
 				    </div>
 				       
 				  
-				  <div class='row' id="buttonSubmitAccueil">
+				  <div class='row no-gutters' id="buttonSubmitAccueil">
 				  	<button class='btn btn-secondary d-block' id="buttonAgranditForm">+</button>
 				  	<div class="mr-auto"></div>
 				  <button type='submit' class='btn btn-primary buttonRecherche'>C'est parti!</button>
 				  </div>
-				  <div class="row d-none" id="divbuttonrapetisseform">
+				  <div class="row no-gutters d-none" id="divbuttonrapetisseform">
 				        <button class="btn btn-secondary" id="buttonRapetisseForm">-</button> 
 				    </div>
 				  
