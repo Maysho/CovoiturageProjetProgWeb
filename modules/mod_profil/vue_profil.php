@@ -184,7 +184,6 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php
 		if($donnerAAfficher['description'] != NULL){
 ?>
-					
 						<div class="col-auto">
 							<label class="label-profil">Description: </label>
 							<div id="description" class="col-md-12 rounded">

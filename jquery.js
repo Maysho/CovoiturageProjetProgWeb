@@ -14,13 +14,13 @@ function removeAide() {
 
 
 $("#rechercheDepart").autocomplete({
-  source: "scriptphp/chercheVille.php"
+  source: "scriptphp/ControleurScript.php?fonction=rechercheVille"
 });
 
 
 
 $("#rechercheArrive").autocomplete({
-  source: "scriptphp/chercheVille.php"
+  source: "scriptphp/ControleurScript.php?fonction=rechercheVille"
 });
 
 
@@ -42,11 +42,12 @@ $(document).on('click', '#buttonRapetisseForm', function(event) {
 
 
 $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le formulaire par son identifiant
-  alert("uidzeui");
+  alert("uidzeuideee");
+  var nomFonction=$("#formulaireDeRechercheResultat").serialize()+"&fonction=rechercheTrajet";
   e.preventDefault();
-  $.post('scriptphp/formulaireDeRecherche.php', // Un script PHP que l'on va créer juste après
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
-    $("#formulaireDeRechercheResultat").serialize()
+    nomFonction
     ,
 
     function(data,statut){
@@ -65,9 +66,10 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
 
 
 $("#formulaireDeRechercheResultat").change(function(event) {
-  $.post('scriptphp/verifFavoris.php', // Un script PHP que l'on va créer juste après
+  var nomFonction=$("#formulaireDeRechercheResultat").serialize()+"&fonction=verifFavoris";
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
-    $("#formulaireDeRechercheResultat").serialize(),
+    nomFonction,
 
     function(data,statut){
       if (data.includes("1")) {
@@ -120,10 +122,11 @@ $("#miseEnFavoris").on('click', function(event) {
   else{
     $(this).children().replaceWith('<i class="far fa-star" id="pasFavoris"></i>');
   }
-  $.post('scriptphp/mesFavoris.php', // Un script PHP que l'on va créer juste après
+  var nomFonction=$("#formulaireDeRechercheResultat").serialize()+"&fonction=mesFavoris";
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
       
-    $("#formulaireDeRechercheResultat").serialize()
+   nomFonction
       
     ,
 
@@ -150,10 +153,11 @@ $("#miseEnFavoris").on('click', function(event) {
 
 
 $(".buttonSuppFavoris").on('click', function(event) {
-  $.post('scriptphp/retireFavoris.php', // Un script PHP que l'on va créer juste après
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {
-      idFavoris:$(this).attr('data-id')
+      idFavoris:$(this).attr('data-id'),
+      fonction:"retireFavoris"
     }
     
     ,
@@ -189,10 +193,10 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
   e.preventDefault();
   removeWarningForm();
   alert("on rentre");
+  var nomFonction=$("#inscription").serialize()+"&fonction=formulaireDinscription";
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
-  $.post('scriptphp/formulaireDinscription.php', // Un script PHP que l'on va créer juste après
-
-    $("#inscription").serialize()
+    nomFonction
     ,
 
     function(data,statut){
@@ -226,9 +230,10 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
 $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   $('#messageErreurCom').remove();
-  $.post('scriptphp/formulaireDeCommentaire.php', // Un script PHP que l'on va créer juste après
+  var nomFonction=$("#formCommentairePageTrajet").serialize()+"&fonction=formulaireDeCommentaire";
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
-    $("#formCommentairePageTrajet").serialize(),
+    nomFonction,
 
     function(data,statut){
       alert(data);
@@ -239,9 +244,10 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
       
         alert("on rentre");
 
-        $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
+        $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
           {
-            idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+            idTrajet:$('#desinscriptionAuTrajet').attr('data-id'),
+            fonction:"supprimerCom"
           }
           ,
 
@@ -340,11 +346,12 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
   }
   
   if (tabVille.length !=0 && confirm("Etes-vous sûr.e de vous inscrire à ce trajet?")) {
-    $.post('scriptphp/formulaireDinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
+    $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
       {
         tabId:tabVille,
         idTrajet:$('#sinscrireAuTrajet').attr('data-id'),
-        token:$('#sinscrireAuTrajet').attr('data-token')
+        token:$('#sinscrireAuTrajet').attr('data-token'),
+        fonction:"formulaireDinscriptionAuTrajet"
       }
       ,
       function(data,statut){
@@ -375,9 +382,10 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
   
   alert("on rentre");
   if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
-  $.post('scriptphp/desinscriptionAuTrajet.php', // Un script PHP que l'on va créer juste après
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
     {
-      idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+      idTrajet:$('#desinscriptionAuTrajet').attr('data-id'),
+      fonction:"desinscriptionAuTrajet"
     }
     ,
     function(data,statut){
@@ -407,10 +415,11 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
   
   alert("on rentre");
 
-  $.post('scriptphp/supprimerCom.php', // Un script PHP que l'on va créer juste après
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {
-      idTrajet:$('#desinscriptionAuTrajet').attr('data-id')
+      idTrajet:$('#desinscriptionAuTrajet').attr('data-id'),
+      fonction:"supprimerCom"
     }
     ,
 
@@ -433,12 +442,13 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
 $('#validationAuTrajet').on('click', function(event) {
   event.preventDefault();
   alert("rentre");
-  if(confirm("Etes-vous sûr.e de vouloir valider ce trajet?")){
-  $.post('scriptphp/validationAuTrajet.php', // Un script PHP que l'on va créer juste après
+  if(confirm("Etes-vous sûr.e de vouloir valider ce trajet ? Ceci complétera ce trajet pour vous et c'est irrémédiable")){
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {
       idTrajet:$('#validationAuTrajet').attr('data-id'),
-      token:$('#validationAuTrajet').attr('data-token')
+      token:$('#validationAuTrajet').attr('data-token'),
+      fonction:"validationAuTrajet"
     }
     ,
 
@@ -464,10 +474,11 @@ $('#retirerTrajet').on('click', function(event) {
   event.preventDefault();
   alert("rentre");
   if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
-  $.post('scriptphp/retirerTrajet.php', // Un script PHP que l'on va créer juste après
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {
-      idTrajet:$('#retirerTrajet').attr('data-id')
+      idTrajet:$('#retirerTrajet').attr('data-id'),
+      fonction:"retirerTrajet"
     }
     ,
     function(data,statut){
@@ -506,10 +517,11 @@ $('#addCar').on('click', function(e){
   formData.append("immatriculation", immatriculation);
   formData.append("critair", critair);
   formData.append("hybride", hybride);
+  formData.append("fonction","formTrajet");
   var page = $("#vehiculeProfil").length;
   $(".warning").remove();
   $.ajax({
-    url:'scriptphp/formTrajet.php',
+    url:'scriptphp/ControleurScript.php',
     type:'POST',    
     contentType: false,
     processData: false,
@@ -599,7 +611,7 @@ $('#envoiTrajet').on("click",function(e){
   var soustrajets=[];
 
   if( key == 0){
-    // console.log("pas dde sns")
+    // console.log("pas de soustrajet")
     var soustrajet = { 
       idVilleD : $(document).find('#depart').val(), 
       idVilleA : $(document).find('#arrive').val(),
@@ -610,13 +622,10 @@ $('#envoiTrajet').on("click",function(e){
       prix: $(document).find('#prixArrivee').val(),
       regulier: $(document).find('#regulier').is(":checked")
     };
-    // console.log(soustrajet);
     soustrajets[0]= soustrajet;
 
   }else{
-    // console.log(key)
     for( var i = 0 ; i < key+1 ; i++ ){
-      // console.log(i);
       
       if( i == 0){
         // console.log("premier sous trajet")
@@ -631,7 +640,7 @@ $('#envoiTrajet').on("click",function(e){
           regulier: $(document).find('#regulier').is(":checked")
         };
       }
-      else if( i == key){//dernier
+      else if( i == key){
         // console.log("dernier sous trajet")
         var villeDepart = "#villeEtape"+(i);
         var dateDepart = "#date"+(i);
@@ -672,22 +681,21 @@ $('#envoiTrajet').on("click",function(e){
       soustrajets[i]= soustrajet;
     }
   }
-  console.log(soustrajets)
 
   var descriptionTrajet =$(document).find("#descriptionTrajet").val();
   var placeTotale=$(document).find("#placeTotale").val();
-  
   if(confirm("Etes-vous sûr.e de valider ce trajet?")){
     $(".warning").remove();
     $.ajax({
-      url:'scriptphp/formTrajet.php',
+      url:'scriptphp/ControleurScript.php',
       type:'POST',
       dataType : 'text',
       data: {
         soustrajet: soustrajets,
         descriptionTrajet: descriptionTrajet,
         placeTotale: placeTotale,
-        dateArrivee: dateArrivee
+        dateArrivee: dateArrivee,
+        fonction:"formTrajet"
       },
       success : function(txt){
         window.location='index.php';
@@ -697,8 +705,9 @@ $('#envoiTrajet').on("click",function(e){
       error: function(txt){
         // alert("fail");
         // alert("msg :"+txt.responseText);
-        alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes")
+        alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes");
         verifError(txt.responseText);
+         console.log(txt.responseText);
       }
     });
   }
@@ -724,13 +733,15 @@ $(function(){
       });
       $("#etape").after(cont);
       $(document).find('.ville').autocomplete({
-        source: "scriptphp/chercheVille.php"
+        source: "scriptphp/ControleurScript.php?fonction=rechercheVille"
+      });
+      $(".ville").on('keyup', function(event) {
+
+
+          actualiseMap();
+
       });
       $(".ville").on('focusout', function(event) {
-        event.preventDefault();
-        for (var i = 0; i < markers.length; i++) {
-          macarte.removeLayer(markers[i]);
-        }
 
           actualiseMap();
 
@@ -757,13 +768,14 @@ $(function(){
       $("#etape").next().append(fils);
       
       $(document).find('.ville').autocomplete({
-        source: "scriptphp/chercheVille.php"
+        source: "scriptphp/ControleurScript.php?fonction=rechercheVille"
       });
-      $(".ville").on('focusout', function(event) {
-        event.preventDefault();
-        for (var i = 0; i < markers.length; i++) {
-          macarte.removeLayer(markers[i]);
-        }
+      $(".ville").on('keyup', function(event) {
+
+          actualiseMap();
+
+      });
+       $(".ville").on('focusout', function(event) {
 
           actualiseMap();
 
@@ -782,15 +794,20 @@ $(function(){
   }); 
 
   $(document).find('.ville').autocomplete({
-    source: "scriptphp/chercheVille.php"
+    source: "scriptphp/ControleurScript.php?fonction=rechercheVille"
   });
   $(".ville").on('keyup', function(event) {
-  event.preventDefault();
 
 
     actualiseMap();
 
 });
+  $(".ville").on('focusout', function(event) {
+
+    actualiseMap();
+
+});
+
 
   $(document).on('click',".btnSupprEtape",function(){
     if($(this).parent().parent().find("div").length==1 ){
@@ -857,12 +874,13 @@ $(function(){
     var immatriculation = $(this).attr('data-id');
     var row= $(this).parent().parent();
     $.ajax({
-      url:'scriptphp/formTrajet.php',
+      url:'scriptphp/ControleurScript.php',
       type:'POST',
       dataType : 'text',
       data: {
         immatriculation: immatriculation,
-        delete : 1
+        delete : 1,
+        fonction:"formTrajet"
       },
       success : function(txt){
         row.remove();
@@ -907,10 +925,11 @@ function actualiseMap() {
   }
   tabVille[key+2]=$("#arrive").val();
 
-  $.post('scriptphp/actualiseMap.php', // Un script PHP que l'on va créer juste après
+  $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {
-      tabVille:tabVille
+      tabVille:tabVille,
+      fonction:"actualiseMap"
     }
     ,
     function(data,statut){
@@ -1018,46 +1037,46 @@ function verifError(data){
 
 
   if(data.includes("30")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Vous n\'etes pas connecté</p>');
   }
   if(data.includes("31")){
-    $('#placeTotale').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de saisie PlaceTotale </small>');
+    $('#placeTotale').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de saisie PlaceTotale </p>');
   }
   if(data.includes("32")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur sur le prix</small>');
+    $('#DateHoraire').append('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur sur le prix</p>');
   }
   if(data.includes("33a")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Date </small>');
+    $('#DateHoraire').append('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Date </p>');
   }
   if(data.includes("33b")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Heure </small>');
+    $('#heureDepart').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de conformité Heure </p>');
   }
   if(data.includes("341")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Heure</small>');
+    $('#heureDepart').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Heure</p>');
   }
   if(data.includes("342")){
-    $('#DateHoraire').append('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Date</small>');
+    $('#DateHoraire').append('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Format Date</p>');
   }
   if(data.includes("353")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Ville </p>');
   }
   if(data.includes("351")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Champs Ville non défini</p>');
   }
   if(data.includes("352")){
-    $('#btnAjoutEtape').before('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</small>');
+    $('#btnAjoutEtape').before('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur de Ville inexistante</p>');
   }
   if(data.includes("36")){
-    $('#immatriculation').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Immatriculation</small>');
+    $('#immatriculation').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Immatriculation</p>');
   }
   if(data.includes("361")){
-    $('#critair').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Crit air non renseigné</small>');
+    $('#critair').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur Crit air non renseigné</p>');
   }
   if(data.includes("362")){
-    $('#hybride').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur renseignement Hybride </small>');
+    $('#hybride').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur renseignement Hybride </p>');
   }
   if(data.includes("363")){
-    $('#idVehicule').after('<small class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur immatriculation</small>');
+    $('#idVehicule').after('<p class="form-text warning"> <i class="fas fa-exclamation-triangle"></i> Erreur immatriculation</p>');
   }
 
 }
@@ -1084,9 +1103,11 @@ function chargeMessagesInterlocuteurs(){
 
     $('textarea#idInterlocuteurEnCours').val(obj.attr("id"));
     
-    $.post('scriptphp/afficheMessages.php', 
+    $.post('scriptphp/ControleurScript.php', 
     {
-      idInterlocuteur: obj.attr("id")},
+      idInterlocuteur: obj.attr("id"),
+      fonction:"afficheMessages"
+    },
 
       function(data,statut){
         afficheMessages(data, true);
@@ -1117,18 +1138,20 @@ function envoyerMessage(){
     var interlocuteur = $('textarea#idInterlocuteurEnCours').val();
     $('textarea#MsgAEnvoyer').val('');
 
-    $.post('scriptphp/envoyerMessage.php',
+    $.post('scriptphp/ControleurScript.php',
 
      {
       message: msg,
-      idInterlocuteur: interlocuteur
+      idInterlocuteur: interlocuteur,
+      fonction:"envoyerMessage"
      },
       function(){}
     );
 
-    $.post('scriptphp/afficheMessages.php', 
+    $.post('scriptphp/ControleurScript.php', 
     {
-      idInterlocuteur: interlocuteur
+      idInterlocuteur: interlocuteur,
+      fonction:"afficheMessages"
     },
 
       function(data,statut){
@@ -1158,8 +1181,8 @@ $('#MsgAEnvoyer').keyup(function(e){
 function afficheMessagesEtInterlocuteurs(){
   var interlocuteur;
 
-  $.post('scriptphp/afficheInterlocuteurs.php',
-    {},
+  $.post('scriptphp/ControleurScript.php',
+    {fonction:"afficheInterlocuteurs"},
     function(data,statut){
 
       $('#interlocuteurs').html(data)
@@ -1175,9 +1198,10 @@ function afficheMessagesEtInterlocuteurs(){
   );
 
   interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-  $.post('scriptphp/afficheMessages.php', 
+  $.post('scriptphp/ControleurScript.php', 
   {
-    idInterlocuteur: interlocuteur
+    idInterlocuteur: interlocuteur,
+    fonction:"afficheMessages"
   },
 
     function(data,statut){
@@ -1220,8 +1244,8 @@ $(document).ready(function(e){
 
 
 function messagesNonLu(){
-  $.post('scriptphp/messagesNonLus.php',
-    {},
+  $.post('scriptphp/ControleurScript.php',
+    {fonction:"messagesNonLus"},
     function(data,statut){
       if(data!=0){
         $('#messagesNonLus').text(data);
@@ -1356,11 +1380,12 @@ $('#changeMdpProfil').submit(function(e){
   e.preventDefault();
 
 
-  $.post('scriptphp/changeMdpProfil.php',
+  $.post('scriptphp/ControleurScript.php',
     {
       mdpActuel: $('#mdpActuel').val(),
       nouveauMdp: $('#nouveauMdp').val(),
-      nouveauMdpConf: $('#confirmationNouveauMdp').val()
+      nouveauMdpConf: $('#confirmationNouveauMdp').val(),
+      fonction:"changeMdpProfil"
     },
     function(data){
       if (data.includes("0")){
@@ -1427,10 +1452,11 @@ $('#envoyerMessage').submit(function(e){
   e.preventDefault();
 
 
-  $.post('scriptphp/envoieMessageProfil.php',
+  $.post('scriptphp/ControleurScript.php',
     {
       message: $('#zoneEnvoieMsgProfil').val(),
-      idInterlocuteur: $('#boutonEnvoieMsgProfil').attr('data-id')
+      idInterlocuteur: $('#boutonEnvoieMsgProfil').attr('data-id'),
+      fonction:"envoieMessageProfil"
     },
     function(data){
       if (data.includes("0")){
@@ -1452,15 +1478,15 @@ $('#envoyerMessage').submit(function(e){
 **
 ******************************************************************************************************************************/
 
-
+/*
 function replaceFooter(){
-  var docHeight = $(window).height();
- var footerHeight = $('#footer').height();
- var footerTop = $('#footer').position().top + footerHeight;
+   var docHeight = $(window).height();
+  var footerHeight = $('#footer').height();
+  var footerTop = $('#footer').position().top + footerHeight;
 
- if (footerTop < docHeight) {
-  $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
- }
+  if (footerTop < docHeight) {
+   $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
+  }
 }
 
 $(document).ready(function() {
@@ -1470,7 +1496,7 @@ $(document).ready(function() {
 $(window).resize(function(){
   replaceFooter();
 });
-
+*/
 /******************************************************************************************************************************
 **
 **Affiche ou desaffiche les composants

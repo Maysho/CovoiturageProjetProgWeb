@@ -17,6 +17,7 @@ session_start();
         
     <title>TakeU</title>
   </head>
+  <body>
 
 
 <?php
@@ -114,8 +115,8 @@ switch ($module){
 		
 <?php 	
 		if(isset($_SESSION['id'])) {
-			echo '<div id="teste" class="row justify-content-center flextest">';
-			echo "<aside class='col-md-3' >";
+			echo '<div class="row justify-content-center flextest">';
+			echo "<aside id='composants' class='col-md-3' >";
 }
 		else
 			echo '<div class="row justify-content-center flextest">';
@@ -164,10 +165,10 @@ switch ($module){
 			}
 
 			if (isset($_SESSION['id'])) {
-				echo'<section class="col-md-8" >';
+				echo'<section class="col-md-8 px-0 no-gutters" >';
 			}
 			else{
-				echo'<section class="col-12 row ">';
+				echo'<section class="col-12 row px-0 no-gutters">';
 				
 			}
 				echo "$affichageForm";

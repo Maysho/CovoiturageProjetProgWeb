@@ -13,13 +13,13 @@ class vue_Trajet extends VueGenerique{
 				date_default_timezone_set('Europe/Paris');
 				?>
 
-				<div class="col-md-12 text-center">
+				<div class="col-lg-12 text-center">
 					<div>
 						<h2>Je propose un Trajet <i class="fas fa-car"></i> </h2>
 						<div>
 							<h2 class="text-left">Itinéraire</h2>
-							<div class="row">
-								<div class="col-md-6"> 
+							<div class="row justify-content-center">
+								<div class="col-lg-6 col-md-8"> 
 									<div class="text-left form-group" id="departEtape">
 										<label for="depart">Je pars de... </label>
 										<input type="text"  name="depart" class="form-control ville" id="depart"  placeholder="Ville de Depart">
@@ -37,14 +37,16 @@ class vue_Trajet extends VueGenerique{
 										<label for="arrive">... Pour aller à...</label>
 										<input type="text" name="arrive" id="arrive" class="form-control ville"  placeholder="Ville d'Arrivée">
 									</div >
-									<button class="btn btn-info btn-lg" id="btnAjoutEtape" name="btnAjoutEtape">Ajouter une Etape <i class="far fa-flag"></i></button>
+									<button class="btn btn-info  btn-md" id="btnAjoutEtape" name="btnAjoutEtape">Ajouter une Etape <i class="far fa-flag"></i></button>
 
 									<div class="form-group text-left">
 										<label><input type="checkbox" name="regulier" id="regulier">Régulier</label>
 									</div>	
 								</div>
+
 								<div class="col-md-6" id="map" > 
 									<!-- <img class="col-md-12 img-thumbnail" alt="Map de la France" src="photos/Black.png"> -->
+
 								</div>
 							</div>
 							<hr>
@@ -58,51 +60,59 @@ class vue_Trajet extends VueGenerique{
 				  					</div> --> 
 				  				</div>
 
-				  				<div class="text-left form-group row justify-content-center justify-content-md-start"  id="DateHoraire" >
-				  					<div class="col-md-4 row form-group text-center">
-				  						<label class="col-md-5"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
-				  						<input class="offset-md-1 col-md-6 form-control" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
-				  					</div>
-
-				  					<div class="col-md-3 row form-group text-center">
-				  						<label class="col-md-4">Heure <i class="far fa-clock"></i></label>
-				  						<input class="offset-md-2 col-md-6 form-control" type="time" id="heureDepart" value="<?php echo date('H:i') ?>">
+				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center"  id="DateHoraire" >
+				  					<div class="col-lg-12">
+				  						<div class="row col-lg-12 px-0 container">
+					  						<div class="col-lg-8 row mx-0 px-0">
+						  						<label class="col-lg-6"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
+						  						<input class="form-control col-lg-6" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
+					  						</div>
+					  						<div class="col-lg-4 row mx-0 px-0">
+						  						<label class="col-lg-6">Heure <i class="far fa-clock"></i></label>
+						  						<input class="form-control col-lg-6" type="time" id="heureDepart" value="<?php echo date('H:i') ?>">
+					  						</div>
+					  					</div>
 				  					</div>
 				  				</div>
 				  				
-				  				<div class="text-left form-group justify-content-center justify-content-md-start" id="checkpoint" hidden>
-				  					<div class="form-group row checkpoint" id="checkpoint0" >
-				  						<div class="col-md-4 row form-group text-center">
-				  							<label class="col-md-5"><i class="fab fa-font-awesome-flag"></i> Date Etape </label>
-				  							<input type="date" class="offset-md-1 col-md-6 form-control" id="date0" value="<?php echo date('Y-m-d') ?>">
+				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center" id="checkpoint" hidden>
+				  					<div id="checkpoint0" class="col-lg-12">
+					  					<div class="col-lg-2 row mx-0 px-0 ml-lg-auto">
+				  							<label class="col-lg-7">Prix</label>
+				  							<input class="form-control col-lg-5" id="prix0" value="0">
 				  						</div>
+					  					<div class="row col-lg-12 px-0 container">
+					  						<div class="col-lg-8 row mx-0 px-0">
+					  							<label class="col-lg-6"><i class="fab fa-font-awesome-flag"></i> Date Etape </label>
+					  							<input type="date" class="col-lg-6 form-control" id="date0" value="<?php echo date('Y-m-d') ?>">
+					  						</div>
 
-				  						<div class="col-md-3 row form-group text-center">
-				  							<label class="col-md-4">Heure <i class="far fa-clock"></i></label>
-				  							<input class="offset-md-2 col-md-6 form-control" type="time" id="heure0" value="<?php echo date('H:i') ?>">
-				  						</div>
-
-				  						<div class="col-md-4 row form-group text-center">
-				  							<label class="col-md-4">Prix</label>
-				  							<input class="offset-md-1 col-md-3 text-right form-control" id="prix0" value="0">
-				  						</div>
+					  						<div class="col-lg-4 row mx-0 px-0">
+					  							<label class="col-lg-6">Heure <i class="far fa-clock"></i></label>
+					  							<input class="col-lg-6 form-control" type="time" id="heure0" value="<?php echo date('H:i') ?>">
+					  						</div>
+					  					</div>
 				  					</div>
 				  				</div> 
 
-				  				<div class="form-group text-left row justify-content-center justify-content-md-start">
-				  					<div class="col-md-4 row form-group text-center">
-				  						<label class="col-md-5"><i style=" color: red;" class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
-				  						<input type="date" class="offset-md-1 col-md-6 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
-				  					</div>
+				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center">
+				  					<div class="col-lg-12">
 
-				  					<div class="col-md-3 row form-group text-center">
-				  						<label class="col-md-4" >Heure <i class="far fa-clock"></i></label>
-				  						<input class="offset-md-2 col-md-6 form-control" type="time" id="heureArrivee" value="<?php echo date('H:i') ?>">
-				  					</div>
+				  						<div class="col-lg-2 row mx-0 px-0 ml-lg-auto">
+					  						<label class="col-lg-7">Prix</label>
+					  						<input class="form-control col-lg-5" id="prixArrivee" value="0">
+					  					</div>
+					  					<div class="row col-lg-12 px-0 container">
+						  					<div class="col-lg-8 row mx-0 px-0">
+						  						<label class="col-lg-6"><i style=" color: red;" class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
+						  						<input type="date" class="col-lg-6 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
+						  					</div>
 
-				  					<div class="col-md-4 row form-group text-center">
-				  						<label class="col-md-4">Prix</label>
-				  						<input class="offset-md-1 col-md-3 text-right form-control" id="prixArrivee" value="0">
+						  					<div class="col-lg-4 row mx-0 px-0">
+						  						<label class="col-lg-6" >Heure <i class="far fa-clock"></i></label>
+						  						<input class="col-lg-6 form-control" type="time" id="heureArrivee" value="<?php echo date('H:i') ?>">
+						  					</div>
+					  					</div>
 				  					</div>
 				  				</div> 
 
@@ -110,20 +120,20 @@ class vue_Trajet extends VueGenerique{
 				  					<label>Date du retour</label>
 				  						<input type="date" name="" value="">
 				  					<label>Heure</label>
-										<input class="col-md-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
+										<input class="col-lg-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
 				  					<label>prix</label>
-				  						<input class="col-md-1" name="prix" value="0"	>
+				  						<input class="col-lg-1" name="prix" value="0"	>
 				  					</div> -->
 				  					<hr>
 				  				</div>
 				  				<div> 
 				  					<h2 class="text-left"> Autres Modalités	</h2>
 				  					<div class="row">
-				  						<div class="col-md-6"> 
+				  						<div class="col-lg-6"> 
 				  							<div class="text-left">
-				  								<div class="row">
-				  									<label class="col-md-4" for="idVehicule">Mon Vehicule</label>
-				  									<select class="offset-md-1 col-md-6 text-center form-control" id="idVehicule">
+				  								<div class="row justify-content-center text-center">
+				  									<label class="col-lg-4 col-md-8" for="idVehicule">Mon Vehicule</label>
+				  									<select class="offset-lg-1 col-lg-6 col-md-8 text-center form-control" id="idVehicule">
 				  										<?php if(empty($listeVehicule)) {
 				  										?>
 			  											<option class="voitureSelection" value="-1">--Please choose an option--</option>
@@ -140,9 +150,9 @@ class vue_Trajet extends VueGenerique{
 				  									</select>
 				  								</div>
 
-				  								<div class="row">
+				  								<div class="row justify-content-center text-center">
 				  									<!-- Trigger the modal with a button -->
-				  									<button type="button" class="offset-md-5 col-md-6  btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>
+				  									<button type="button" class="offset-lg-5 col-lg-6 col-md-8 btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>
 
 				  									<!-- Modal -->
 				  									<div aria-hidden="hidden" class="modal fade" id="myModal" role="dialog">
@@ -156,13 +166,13 @@ class vue_Trajet extends VueGenerique{
 
 				  												<div class="modal-body">
 				  													<h3 class="modal-title text-center">Votre nouveau Vehicule</h3>
-				  													<div class="row form-group offset-md-1">
-				  														<label class="col-md-5" for="immatriculation">Immatriculation</label>
-				  														<input class="col-md-5 form-control" type="text" id="immatriculation" placeholder="AA-000-AA">
+				  													<div class="row form-group offset-lg-1">
+				  														<label class="col-lg-5" for="immatriculation">Immatriculation</label>
+				  														<input class="col-lg-5 form-control" type="text" id="immatriculation" placeholder="AA-000-AA">
 				  													</div>
-				  													<div class="row offset-md-1">
-				  														<label class="col-md-5" for="critair">Crit'air</label>
-				  														<select class="col-md-5 form-control" id="critair">
+				  													<div class="row offset-lg-1">
+				  														<label class="col-lg-5" for="critair">Crit'air</label>
+				  														<select class="col-lg-5 form-control" id="critair">
 				  															<option value="0">Vert</option>
 				  															<option value="1">1</option>
 				  															<option value="2">2</option>
@@ -173,18 +183,18 @@ class vue_Trajet extends VueGenerique{
 				  														</select>
 				  													</div>
 
-				  													<div class="row offset-md-1">
-				  														<label class="col-md-2" for="hybride">Hybride</label>	
-				  														<div class="row offset-md-5">
+				  													<div class="row offset-lg-1">
+				  														<label class="col-lg-2" for="hybride">Hybride</label>	
+				  														<div class="row offset-lg-5">
 				  															<input type="checkbox" id="hybride" name="hybride">
 				  														</div>
 				  													</div>
 
-				  													<div class="row offset-md-1">
-				  														<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
-				  														<img id="defaultThumb" class="col-md-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
+				  													<div class="row offset-lg-1">
+				  														<label class="col-lg-5" for="photoVehicule">Photo du Vehicule</label>
+				  														<img id="defaultThumb" class="col-lg-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
 				  														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
-				  														<input class="offset-md-5" type="file" id="photoCar" name="photoCar"/>
+				  														<input class="offset-lg-5" type="file" id="photoCar" name="photoCar"/>
 				  													</div>
 
 				  													<div class="text-center">
@@ -202,19 +212,19 @@ class vue_Trajet extends VueGenerique{
 				  								</div>
 
 
-				  								<div class="row">
-				  									<label class="col-md-4" for="placeTotale">Nombre de place</label>
-				  									<input class="offset-md-1 col-md-6 text-right form-control" type="text"  name="placeTotale"   id="placeTotale"  value="0">
+				  								<div class="row justify-content-center text-center">
+				  									<label class="col-lg-4 col-md-8" for="placeTotale">Nombre de place</label>
+				  									<input class="offset-lg-1 col-lg-6 col-md-8 text-right form-control" type="text"  name="placeTotale"   id="placeTotale"  value="0">
 				  								</div>
 				  							</div >
 				  						</div>
-				  						<div class="col-md-6"> 
-				  							<img class="col-md-12 img-thumbnail img-fluid" id="imgCar" alt="Voiture" src="photos/Black.png"/>
+				  						<div class="col-lg-6"> 
+				  							<img class="col-lg-12 img-thumbnail img-fluid" id="imgCar" alt="Voiture" src="photos/Black.png"/>
 				  						</div>
 				  					</div>
 				  					<div class="row">
-				  						<div class="col-md-12">
-				  							<div class="text-left form-group">
+				  						<div class="col-lg-12">
+				  							<div class="text-left form-group text-center">
 				  								<label for="descriptionTrajet">Detail du voyage</label>
 				  								<textarea class="form-control" name="descriptionTrajet" id="descriptionTrajet" rows="4"  placeholder="Description du trajet"></textarea>
 				  							</div>
@@ -235,26 +245,26 @@ class vue_Trajet extends VueGenerique{
 	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token)
 	{
 		if ($value>=1) {
-			echo "<div class='col-12'><div class='col-md-12'>";
+			echo "<div class='col-12'><div class='col-lg-12'>";
 		}
 		else
-			echo "<div class='col-12 row justify-content-center'> <div class='row col-md-6 justify-content-center'>";
+			echo "<div class='col-12 row justify-content-center'> <div class='row col-lg-6 justify-content-center'>";
 		
 
-			echo "<div class='row col-md-12 justify-content-center'>";
+			echo "<div class='row col-lg-12 justify-content-center'>";
 		?>
 		<h1>Le trajet</h1>
 </div>
 <?php if ($value>=1) {
 	echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 	}else
 		echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 
 		
 			?>
-				<div class="col-md-6">
+				<div class="col-lg-6">
 					<div class="row descriptionTxt" >
 						<span>Depart</span>
 						<div class="mr-auto"></div>
@@ -294,7 +304,7 @@ class vue_Trajet extends VueGenerique{
 				</div>
 				<div class="col offset-2">
 					<div>
-						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[7];?>" alt="photoVehicule" class=" col-12" >
+						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[8];?>" alt="photoVehicule" class=" col-12" >
 					</div>
 					<div class="justify-content-center row">
 						<div class="col-12 justify-content-center row">
@@ -315,7 +325,7 @@ class vue_Trajet extends VueGenerique{
 								# code...
 							}
 							else if($peutEtreValide){
-								echo '<button class="btn" id="validationAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">valider ce trajet</button>';
+								echo '<button class="btn" id="validationAuTrajet" data-token="'.$token.'" title="ce bouton permet de valider le trajet et donc de terminer ce trajet pour vous" data-id="'.$infoTrajet[13].'"> valider ce trajet</button>';
 							}
 							else if ($value==$infoTrajet[14] && $nbPers<=1) {
 								echo '<button class="btn" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
@@ -381,19 +391,19 @@ class vue_Trajet extends VueGenerique{
 		<?php
 		if ($value>=1) {
 			echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between '>";
 		}
 		else
 			echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between '>";
 		?>
 		
-				<div class="col-md-2 col-4 row align-items-center">
+				<div class="col-lg-2 col-4 row align-items-center">
 					<?php $lien='?module=mod_profil&idprofil='.$infoTrajet[14].'&ongletprofil=profil'?>
 						<a href="<?php echo $lien; ?>"><img src="<?php echo empty($infoTrajet[8] )?'home.jpg':$infoTrajet[8];  ?>" class="img-fluid" ></a>
 						
 				</div>
-				<div class="col-8 col-md-10">
+				<div class="col-8 col-lg-10">
 					<div class="row descriptionTxt" >
 						<span><?php echo $infoTrajet[9]." "; echo $infoTrajet[10];?></span>
 					</div>
@@ -415,11 +425,11 @@ class vue_Trajet extends VueGenerique{
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
 			if ($value>=1) {
 				echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 			}
 			else
 				echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between'>";
+			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
 
 
 		?>
@@ -555,18 +565,18 @@ class vue_Trajet extends VueGenerique{
 				for ($i=0; $i < count($tabCom); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
 ?>				<div class="row col-12" > 
-				<div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;">
+				<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
 					<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
 					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
 				</div>
 				<?php if ($tabCom[$i]['idAuteur']!=$value) {
 					
 				?>
-				<div class="col-8 col-md-9">
+				<div class="col-8 col-lg-9">
 					<span><?php echo $tabCom[$i]['description']; ?></span>
 				</div>	
 				<?php } else{?>
-				<div class="col-7 col-md-8">
+				<div class="col-7 col-lg-8">
 					<span><?php echo $tabCom[$i]['description']; ?></span>
 				</div>
 				<div class="col-1">
@@ -590,19 +600,19 @@ class vue_Trajet extends VueGenerique{
 	   		?>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
 
-				<div class="col-3 col-md-2 offset-md-1">
+				<div class="col-3 col-lg-2 offset-lg-1">
 					<img src="home.jpg" class="img-fluid">
 				</div>
 				
-				<div class="col-8 col-md-9">
+				<div class="col-8 col-lg-9">
 					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"style="resize: none;"> </textarea>
 				</div>
-				<div class="col-3 col-md-3 offset-md-1">
+				<div class="col-3 col-lg-3 offset-lg-1">
 					<label  for="note">note:</label>
-					<input class ="col-12 col-md-6" type="text" id="note" name="note">
+					<input class ="col-12 col-lg-6" type="text" id="note" name="note">
 				</div>	
 				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
-				<div class="col-md-3 col-6 offset-md-9 offset-7">
+				<div class="col-lg-3 col-6 offset-lg-9 offset-7">
 					<input type="submit" class="col" name="submit">
 				</div>				
 				</form>
