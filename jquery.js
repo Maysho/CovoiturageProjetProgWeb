@@ -442,7 +442,7 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
 $('#validationAuTrajet').on('click', function(event) {
   event.preventDefault();
   alert("rentre");
-  if(confirm("Etes-vous sûr.e de vouloir valider ce trajet?")){
+  if(confirm("Etes-vous sûr.e de vouloir valider ce trajet ? Ceci complétera ce trajet pour vous et c'est irrémédiable")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {

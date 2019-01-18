@@ -14,15 +14,16 @@ class VueAccueil extends VueGenerique
 	public function affiche($connecte){
    		if ($connecte) {
    			echo "<div>
-  		<div class='border border-dark justify-content-md-start justify-content-lg-center col-12'>";
+  		<div class='border border-dark justify-content-md-start justify-content-lg-center col-12' >";
    		}
    
   		else
   			echo "<div class='justify-content-md-center row col'>
-  		<div class='border border-dark justify-content-md-start justify-content-lg-center col-md-6'>";
+  		<div class='border border-dark justify-content-md-start justify-content-lg-center col-md-6 ' >";
   		?>
+  		<div id="divHauteRes2">
   		<div class='row justify-content-end'>
-  			<a href="index.php?module=mod_trajet"><button class='btn btn-primary' >proposer</button></a>
+  			<a href="index.php?module=mod_trajet"><button class='btn btn-primary buttonRecherche' title="permet d'accéder a la page de proposition de trajet" >proposer</button></a>
   		</div>
   			<form id='formulaireDeRecherche' method="POST" action="index.php?module=mod_resTrajet">
   			<div class='form-row justify-content-around' id="formPrincipal">
@@ -43,7 +44,7 @@ class VueAccueil extends VueGenerique
 				    	 	 <input type="number" class="form-control" id="inputAddress2" name="prix" placeholder="prix maximal">
 				    	 	  </div>  
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
-				    	 	<label for="inputState">type de vehicule <i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
+				    	 	<label for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
 				    	 	<option selected>Non renseigné</option>
 				    	 	<option>1</option>
@@ -62,7 +63,7 @@ class VueAccueil extends VueGenerique
 				    	<div class="form-check"> 
 				    		
 				    		<input class="form-check-input" name="regulier" type="checkbox" id="gridCheck"> 
-				    		<label class="form-check-label" for="gridCheck"> regulier <i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
+				    		<label class="form-check-label" for="gridCheck"> regulier<i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
 				    	</div> 
 				    </div>
 				       
@@ -70,13 +71,14 @@ class VueAccueil extends VueGenerique
 				  <div class='row' id="buttonSubmitAccueil">
 				  	<button class='btn btn-secondary d-block' id="buttonAgranditForm">+</button>
 				  	<div class="mr-auto"></div>
-				  <button type='submit' class='btn btn-primary' style='margin-right: 3%'>rechercher</button>
+				  <button type='submit' class='btn btn-primary buttonRecherche'>rechercher</button>
 				  </div>
 				  <div class="row d-none" id="divbuttonrapetisseform">
 				        <button class="btn btn-secondary" id="buttonRapetisseForm">-</button> 
 				    </div>
 				  
 				</form>
+  		</div>
   		</div>
   		</div><?php
 
