@@ -54,7 +54,7 @@
 				$erreur=$this->modele->verifieModificationProfil($idUser);
 				if($erreur==NULL){
 					header("Pragma: no-cache");
-					header("Location: ?module=mod_profil&idprofil=$idUser&ongletprofil=profil");
+					header("Location: ?module=mod_profil");
 				}
 				
 				else{	
@@ -100,14 +100,14 @@
 
 			if(!$estConnecter){
 				http_response_code(403);
-				die("Erreur 403");
+				header("Location: ?module=mod_profil");
 			}
 			else
 				$estPagePerso=$this->modele->estPagePerso($idUser);
 
 			if(!$estPagePerso){
 				http_response_code(403);
-				die("Erreur 403");
+				header("Location: ?module=mod_profil");
 			}
 
 			return true;
