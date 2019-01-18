@@ -26,12 +26,10 @@ class ModProfil extends VueGenerique
 
 			switch ($ongletProfil) {
 				case 'profil':
-	
-						$this->controleur->accueilProfil($idUser, $estConnecter);
+					$this->controleur->accueilProfil($idUser, $estConnecter);
 					break;
 				
 				case 'modif':
-
 					$this->controleur->modifierProfil($idUser, $estConnecter);
 					break;
 
@@ -39,13 +37,14 @@ class ModProfil extends VueGenerique
 					$this->controleur->recupereModifProfil($idUser, $estConnecter);
 					break;
 
-
 				case 'recupmodifmdp':
 					$this->controleur->recupereModifMdp($idUser, $estConnecter);
 					break;
+
 				case 'vehicules':
 					$this->controleur-> afficheListeVehicule($idUser, $estConnecter);
 					break;
+
 				case 'trajets':
 					$this->controleur-> afficheTrajetsReserves($idUser, $estConnecter);
 					break;
@@ -57,13 +56,14 @@ class ModProfil extends VueGenerique
 				case 'favoris':
 					$this->controleur-> afficheListeFavoris($idUser, $estConnecter);
 					break;
+
 				default:
 					die("Erreur 404");
 					break;
 			}
 		}
 		else 
-			die("Erreur 403");	
+			header("Location: index.php");
 	}
 }
 

@@ -13,8 +13,9 @@ include_once 'vue_generique.php';
 ?>			    
 		
 			<div class="col-md-12">
-				<p>Pour ajouter un nouveau contact, envoyez lui un message depuis son profil!</p>
-
+				<div class="row">
+					<p>Pour ajouter un nouveau contact, envoyez lui un message depuis son profil!</p>
+				</div>
 				<div class="row">
 					<textarea id="idInterlocuteurEnCours" hidden=""><?php if(isset($interlocuteurs[0]['idInterlocuteur']))echo $interlocuteurs[0]['idInterlocuteur']; ?></textarea>
 					<h4 id="titreContacts" class="col-md-3 order-1 order-md-1">Contacts:</h4>

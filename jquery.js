@@ -1096,12 +1096,10 @@ function chargeMessagesInterlocuteurs(){
     var obj = $(this);
 
     interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-   // $("#"+interlocuteur).css('background-color','#d8d8d8');
-   // $("#"+interlocuteur).css('font-weight','normal');
-   $("#"+interlocuteur).css({
-    'background-color':'#d8d8d8',
-    'font-weight':'normal'
-   });
+    $("#"+interlocuteur).css({
+      'background-color':'#d8d8d8',
+      'font-weight':'normal'
+    });
 
     $('textarea#idInterlocuteurEnCours').val(obj.attr("id"));
     
@@ -1116,7 +1114,6 @@ function chargeMessagesInterlocuteurs(){
       }
     );
     interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-    //$("#"+interlocuteur).css('background-color','#ffffff');
     $("#"+interlocuteur).css({
       'background-color':'#ffffff',
       'font-weight':'bold'
@@ -1191,7 +1188,6 @@ function afficheMessagesEtInterlocuteurs(){
       $('#interlocuteurs').html(data)
 
       interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-      //$("#"+interlocuteur).css('background-color','#ffffff');
       $("#"+interlocuteur).css({
       'background-color':'#ffffff',
       'font-weight':'bold'
@@ -1482,16 +1478,16 @@ $('#envoyerMessage').submit(function(e){
 **
 ******************************************************************************************************************************/
 
+/*
+function replaceFooter(){
+   var docHeight = $(window).height();
+  var footerHeight = $('#footer').height();
+  var footerTop = $('#footer').position().top + footerHeight;
 
-// function replaceFooter(){
-//   var docHeight = $(window).height();
-//  var footerHeight = $('#footer').height();
-//  var footerTop = $('#footer').position().top + footerHeight;
-
-//  if (footerTop < docHeight) {
-//   $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
-//  }
-// }
+  if (footerTop < docHeight) {
+   $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
+  }
+}
 
 $(document).ready(function() {
   replaceFooter();
@@ -1500,7 +1496,7 @@ $(document).ready(function() {
 $(window).resize(function(){
   replaceFooter();
 });
-
+*/
 /******************************************************************************************************************************
 **
 **Affiche ou desaffiche les composants
