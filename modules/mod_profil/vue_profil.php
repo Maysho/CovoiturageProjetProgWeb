@@ -10,6 +10,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser){
 
 ?>
+			<div class="row">			
 				<div class="col-md-12">
 <?php
 		if($estPagePerso){
@@ -153,17 +154,19 @@ include_once __DIR__ .'/../../vue_generique.php';
 ?>
 						</div>
 					
-
+<?php
+		if($donnerAAfficher['description'] != NULL){
+?>
 					
 						<div class="col-md-auto">
-							<label class="">Description : </label>
-							<div class=" col-md-12 border border-primary rounded">
+							<div class="">Description : </label>
+							<div class="col-md-12 border border-primary rounded">
 								<span><?php echo $donnerAAfficher['description']; ?></span>
 							</div>
 						</div>
-					</div>
-					
+					</div>					
 <?php
+		}
 
 				for ($i=0; $i < count($commentaires); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
@@ -185,6 +188,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 	   			}
 ?>			
 				</div>
+			</div>
 
 <?php		
 		}
@@ -195,7 +199,8 @@ include_once __DIR__ .'/../../vue_generique.php';
 		{
 
 ?>
-	<div class="col-12">
+			<div class="row">
+				<div class="col-12">
 <?php
 
 					 self::afficheNavProfil(2,$idUser);
@@ -222,10 +227,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 						
 						</table>
 	   				</div>
-	   				
-	   			
-	
-
+	   			</div>
 			</div>
 			
 <?php		
@@ -250,6 +252,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		}
 		function modificationDeProfil($idUser, $donnees, $token, $erreur=NULL){
 ?>
+			<div class="row">
 				<div class="col-12">
 					
 					<?php self::afficheNavProfil(3,$idUser); ?>
@@ -335,14 +338,15 @@ include_once __DIR__ .'/../../vue_generique.php';
 						
 					</div>
 				</div>
+			</div>
 			
 <?php
 		}
 
 
 		function afficheListeVehicule($idUser, $donnees){
-			?>
-
+?>
+			<div class="row">
 				<div id="vehiculeProfil" class="col-md-12">
 
 					<?php self::afficheNavProfil(4,$idUser); ?>
@@ -453,12 +457,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 						</div>									  
 					</div>
 				</div>
+			</div>
 <?php 
 		}
 
 		function afficheHistorique($idUser, $donnees){
-			?>
-			<div id="vehiculeProfil">
+?>
+			<div id="vehiculeProfil" class="row">
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(5,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">		
@@ -507,12 +512,12 @@ include_once __DIR__ .'/../../vue_generique.php';
 					</div>
 				</div>
 			</div>
-			<?php
+<?php
 		}
 
 		function afficheTrajetsReserves($idUser, $donnees){
-			?>
-			<div id="vehiculeProfil">
+?>
+			<div id="vehiculeProfil" class="row">
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(6,$idUser); ?>
 					<div class="border border-dark rounded col-12" style="overflow: auto;">
@@ -561,7 +566,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 					</div>
 				</div>
 			</div>
-			<?php
+<?php
 		}
 	}
 ?>
