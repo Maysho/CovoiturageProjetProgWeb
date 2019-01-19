@@ -45,22 +45,22 @@ class vue_nav
 
 			  
 
-			  <a  class='liensanscouleur' href='?module=mod_discussion'></a>
+			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''>Affiche</a>
+			  <div class='mr-auto'></div>
+			  <div class="row align-items-center">
+	        	<a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
+
+	        	<a class='nav-link' href='index.php' title="permet d'accéder a la page de recherche de trajet">Rechercher</a>
 
 			  <div class='collapse navbar-collapse float-right' id='navbarSupportedContent'>
-			  <div class='mr-auto'></div>
-			    <ul class='navbar-nav '>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php' title="permet d'accéder a la page de recherche de trajet">Rechercher</a>
-			      </li>
-			      <li class="nav-item ">
-							<a class="btn btn-light border" href="#">
-								<i class="fas fa-money-bill"></i>
-								<span class=""><?php echo $info[1]."€";?></span>
-							</a>
+			  
+			  
+			    <ul class='navbar-nav'>
+			      <li class="nav-item row align-items-center no-gutters">
+			      	<div class="btn_credit border mr-2">
+				      	<i class="fas fa-money-bill"></i>
+				      	<span class=""><?php echo $info[1]."€";?></span>
+					</div>
 			      </li>
 			      <li class="nav-item">
 			      	<a class="btn btn-light border" href="?module=mod_discussion" role="button">
@@ -69,17 +69,18 @@ class vue_nav
 			  		</a>
 			      </li>
 			    </ul>
-			    <div class='nav-item dropdown'>
+			    <div class='nav-item dropdown' >
 			        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
 			          <img src='<?php echo isset($info[0])? $info[0]:'home.jpg' ?>' class='imagenav'>
 			        </a>
-			        <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+			        <div class='dropdown-menu' aria-labelledby='navbarDropdown' id="dropdownNav">
 			          <a class='dropdown-item' href='?module=mod_discussion' title="permet d'accéder a la page de discussion">Discussion</a>
 			          <a class='dropdown-item' href='?module=mod_profil' title="permet d'accéder a la page de profil">Profil</a>
 			          <div class='dropdown-divider'></div>
 			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
 			        </div>
 			      </div>
+			  </div>
 			  </div>
 			</nav>
 
