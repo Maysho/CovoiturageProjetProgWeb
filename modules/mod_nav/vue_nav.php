@@ -56,17 +56,17 @@ class vue_nav
 			  
 			  
 			    <ul class='navbar-nav'>
-			      <li class="nav-item row align-items-center no-gutters">
-			      	<div class="btn_credit border mr-2">
+			      <li class="nav-item ">
+							<a class="btn btn-light border" href="#">
 				      	<i class="fas fa-money-bill"></i>
-				      	<span class=""><?php echo $info[1]."€";?></span>
-					</div>
+								<span class=""><?php echo $info[1]."€";?></span>
+							</a>
 			      </li>
 			      <li class="nav-item">
 			      	<a class="btn btn-light border" href="?module=mod_discussion" role="button">
-						<i id="envelopeMsg" class="fas fa-envelope"></i>
-						<span id='messagesNonLus' class="badge border badge-light"></span>
-			  		</a>
+								<i id="envelopeMsg" class="fas fa-envelope"></i>
+								<span id='messagesNonLus' class="badge border badge-light"></span>
+			  			</a>
 			      </li>
 			    </ul>
 			    <div class='nav-item dropdown' >

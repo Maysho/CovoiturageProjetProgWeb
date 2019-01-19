@@ -353,10 +353,13 @@ font-family: 'Ubuntu', sans-serif;
 /*BOX DE RECHERCHE TRAJET*/
 .search_container{
     margin-top: 25vh;
+    margin-left:2em;
     margin-bottom: 30vh;
+    margin-right:2em;
     /* background-color: #f1f1f1; */
     background-color: rgb(170, 195, 206);
     border-radius: 1em;
+    
 }
 .search_container_result{
     margin-top: 5vh;
@@ -458,5 +461,57 @@ nav{
 .nav-link{
     color: white !important; 
 }
+/* .nav-item a{
+    background-color: #434343;
+} */
 
+
+/*proposer trajet*/
+
+.contenu_page{
+    background-color: #ebebeb;
+    padding: 2em;
+    margin: 2em;
+    border-radius: 1em;
+    font-size: 14px;
+}
+
+.contenu_page h2 {
+    font-size: 30px;
+    font-family: 'Roboto Slab', serif;
+    margin : 0.6em;
+}
+
+.contenu_page h3 {
+    font-size: 24px;
+    margin: 0.7em;
+    /* font-family: 'Roboto Slab', serif; */
+}
+
+.btnSupprEtape{
+    color: rgb(255, 255, 255);
+    background-color: #434343;
+}
+
+
+
+.label_trajet{
+    margin-top: 0.5em;
+}
+.input_price{
+    margin-bottom: 1em;
+}
+
+.btn_trajet{
+    background-color: #434343;
+    border: 1px solid #434343;
+}
+.btn_trajet:hover{
+    background-color: #797979;
+    border: 1px solid #797979;
+}
+.btn_ajout_vehicule{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
 /*fintest*/

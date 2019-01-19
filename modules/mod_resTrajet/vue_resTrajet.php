@@ -47,11 +47,11 @@ class vue_resTrajet extends VueGenerique
 				    	<input type="date" class="form-control" id="inputAddress" placeholder="" name="date" value="<?php echo $date; ?>">  
 				    	 </div> 
 				    	 <div class="form-group col-md-3 partitAjoute d-none">
-				    	 	<label for="inputAddress2">prix</label>    
+				    	 	<label class="search_mini_headline" for="inputAddress2">prix</label>    
 				    	 	 <input type="text" class="form-control" id="inputAddress2" name="prix" placeholder="Prix maximal" value="<?php echo $prix; ?>">
 				    	 	  </div>  
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
-				    	 	<label for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
+				    	 	<label class="search_mini_headline" for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
 							<option <?php echo $type=="Non Renseigné"? "selected":""; ?>>Non Renseigné</option>
 				    	 	
@@ -111,18 +111,18 @@ class vue_resTrajet extends VueGenerique
 	  			</div>
 	  			<div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" >
 	  			<div class=" justify-content-md-between justify-content-center row container-fluid px-0" >
-	  				<span class="col-12 col-md-6 text-center"><?php echo $donnee['depart'];?></span>
-	  				<span class="col-6 text-md-right text-center"><?php echo $donnee['heureDepart'];?></span>
+	  				<span class="col-12 col-md-6 text-center">Départ de <?php echo $donnee['depart'];?></span>
+	  				<span class="col-6 text-md-right text-center"> à <?php echo $donnee['heureDepart'];?></span>
 	  				
 	  				</div>
-	  				<div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0 no-gutters">
-	  				<span class="col-12 col-md-6 text-center" style="padding-right: 3px;"><?php echo $donnee['destination'];?></span>
-	  				<span class="col-6 text-md-right text-center" ><?php echo $donnee['heureArrivee'];?></span>
+	  				<div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0">
+	  				<span class="col-12 col-md-6 text-center" style="padding-right: 3px;">Arrivée à <?php echo $donnee['destination'];?></span>
+	  				<span class="col-6 text-md-right text-center" > à <?php echo $donnee['heureArrivee'];?></span>
 	  				</div>
 	  			</div>
 	  			<div class="col-md-2 row offset-md-1  justify-content-md-end px-0">
 	  			<div class="row justify-content-md-end col-12">
-	  				<span class="align-top"><?php echo $donnee['placeTotale']; ?></span>
+	  				<span class="align-top">Places <?php echo $donnee['placeTotale']; ?></span>
 	  				</div>
 	  				<div class="row align-content-end justify-content-end col-12" >
 	  					<span class="align-text-bottomme">Prix <?php echo $donnee['prix'];?>€</span>
