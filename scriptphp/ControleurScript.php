@@ -231,6 +231,20 @@ switch ($_POST['fonction']) {
 
 			echo "1";
 		break;
+	case 'changeStatutComposant':
+		if (isset($_SESSION['id'])) {
+			if (isset($_SESSION['composantNonActif'])) {
+				unset($_SESSION['composantNonActif']);
+			}
+			else{
+				$_SESSION['composantNonActif']=1;
+			}
+			if( isset($_SESSION['composantNonActif']))
+				echo "1";
+			else
+				echo "0";
+		}
+		break;
 	default:
 		# code...
 		break;

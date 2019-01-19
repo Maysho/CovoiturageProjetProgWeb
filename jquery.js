@@ -1528,3 +1528,22 @@ $( window ).resize(function() {
     $(".composant" ).show();
   }
 });
+$('#changeComposant').on('click', function(event) {
+  event.preventDefault();
+   $.post('scriptphp/ControleurScript.php',
+    {
+      fonction:"changeStatutComposant"
+    },
+    function(data){
+      alert(data);
+      if (data.includes("0")){
+        $('aside').removeClass('d-none');;
+        $('section').toggleClass('col-md-6 col-md-8');
+      }
+      else if(data.includes("1")){
+        $('aside').addClass('d-none');
+        $('section').toggleClass('col-md-8 col-md-6');
+      }
+    }
+  );
+});
