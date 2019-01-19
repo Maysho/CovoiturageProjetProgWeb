@@ -148,7 +148,7 @@ h2{
 
 .interlocuteurs{
     margin-top: 0.5rem;
-    background-color: #dddddd;
+    background-color: #d8d8d8;
 }
 
 .interlocuteurs:hover{
@@ -189,6 +189,47 @@ h2{
     background-color: #434343;
 }
 
+.sectionProfil{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #dddddd;
+}
+
+#img-profil{
+    margin-bottom: 0.5rem;
+    max-height: 200px;
+}
+.label-profil{
+    margin-right: 0.2rem;
+    font-weight: bold;
+}
+
+#description{
+    background-color: #eaeaea;
+}
+
+.commentaire-profil{
+    background-color: #dddddd;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.description-commentaire-profil{
+    background-color: #eaeaea;
+}
+
+.lien-noms-commentaires-profil{
+    color:#555555;
+    font-weight: bold;
+}
+
+.lien-noms-commentaires-profil:hover{
+    color:black;
+    text-decoration: none;
+}
+
+   
 /*
  * Row with equal height columns
  * --------------------------------------------------
@@ -270,7 +311,10 @@ span{
 /* Common styles for all types */
 
 
-
+#img-photo-vehicule{
+    width: 100%;
+    max-height: 100%;
+}
 
 
 
@@ -302,7 +346,7 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 /* FOND D ECRAN */
-#frontpage{
+.frontpage{
     background-image: url(imgbg.jpg);
     background-repeat: no-repeat;
     background-size: cover;

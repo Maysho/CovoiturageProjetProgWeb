@@ -10,6 +10,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser){
 
 ?>
+			<div class="row">			
 				<div class="col-md-12">
 <?php
 		if($estPagePerso){
@@ -18,40 +19,67 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php		
 		}
 ?>
-					<div class="border border-dark rounded">
+					<div class="rounded sectionProfil">
 						
 					
 						<div class="row col-auto">
-							<div class="col-md-2 order-0 ">
+							<div class="col-md-3 order-0 ">
 <?php
 		if(isset($donnerAAfficher['urlPhoto'])){
 ?>
-								<img class="img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
+								<img id="img-profil" class="img-fluid" src="<?php echo $donnerAAfficher['urlPhoto']; ?>" alt="photo de profil">
 							
 <?php
 		}
 		else
-			echo '				<img class="img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
+			echo '				<img id="img-profil" class="img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil">';
 ?>
 							</div>
-							<div class="row col-md-4 order-2 order-md-1">
-								<label class="col-md-12"> Prénom : <?php echo $donnerAAfficher['prenom']; ?> </label>	
-								<label class="col-md-12"> Nom : <?php echo $donnerAAfficher['nom']; ?></label>
+							<div class="row col-md-3 order-2 order-md-1">
+								<div  class="col-md-12">
+									<label class="label-profil">Prénom: </label>
+									<label><?php echo $donnerAAfficher['prenom']; ?> </label>
+								</div>
+								<div class="col-md-12">
+									<label class="label-profil"> Nom:</label>
+									<label><?php echo $donnerAAfficher['nom']; ?></label>
+								</div>
+								
 <?php
 		if(isset($donnerAAfficher['dateDeNaissance']))
-			echo '				<label class="col-md-12"> Age : '.$donnerAAfficher['dateDeNaissance'].' ans</label>';
+			echo '				
+								<div class="col-md-12">
+									<label class="label-profil"> Age:</label>
+									<label>'.$donnerAAfficher['dateDeNaissance'].' ans</label>
+								</div>';
 
 		if(isset($donnerAAfficher['sexe']))
 			echo '
-								<label class="col-md-12">Sexe : '.$donnerAAfficher['sexe'].'</label>';					
+								<div class="col-md-12">
+									<label class="label-profil"> Sexe:</label>
+									<label>'.$donnerAAfficher['sexe'].'</label>
+								</div>';					
 ?>
 							</div>
 
 							<div class="row col-md-4 order-3 order-md-2">
 <?php	if($estPagePerso)							
-			echo '				<label class="col-md-12">E-mail : '.$donnerAAfficher['adresseMail'].'</label>';
-?>								<label class="col-md-12">Nombre de trajets effectués : <?php echo $nbTrajet; ?></label>
-								<label class="col-md-12">Note moyenne : <?php if($moyenne!=NULL)echo $moyenne; else echo "Aucune note reçu"; ?></label>
+			echo '				
+								<div class="col-md-12">
+									<label class="label-profil"> E-mail:</label>
+									<label>'.$donnerAAfficher['adresseMail'].'</label>
+								</div>';
+
+?>								
+								<div class="col-md-12">
+									<label class="label-profil"> Nombre de trajets effectués:</label>
+									<label><?php echo $nbTrajet; ?></label>
+								</div>
+								<div class="col-md-12">
+									<label class="label-profil"> Note moyenne:</label>
+									<label><?php if($moyenne!=NULL)echo $moyenne; else echo "Aucune note reçu"; ?></label>
+								</div>
+								
 							</div>
 
 <?php	if($estPagePerso){	
@@ -153,34 +181,36 @@ include_once __DIR__ .'/../../vue_generique.php';
 ?>
 						</div>
 					
-
-					
-						<div class="col-md-auto">
-							<label class="">Description : </label>
-							<?php if (!empty($donnerAAfficher['description'])) {
-								echo '<div class=" col-md-12 border border-primary rounded">
-								<span>'.$donnerAAfficher['description'].'</span>
-							</div>';
-							}
-							?>
-						</div>
-					</div>
-					
 <?php
+		if($donnerAAfficher['description'] != NULL){
+?>
+						<div class="col-auto">
+							<label class="label-profil">Description: </label>
+							<div id="description" class="col-md-12 rounded">
+								<span><?php echo $donnerAAfficher['description']; ?></span>
+							</div>
+						</div>
+					</div>					
+<?php
+		}
 
 				for ($i=0; $i < count($commentaires); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
-?>
-	   				<div class="border border-dark rounded col-md-12" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
-	   					<div class="row">
-	   						<label class="col-md-8">De <a href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?></label>
-	   						<label class="col-md-4">note : <?php echo $commentaires[$i]['note']; ?></label>
-	   					</div>
-	   					<div class="row">
-	   						<div class="col-md-12">
-	   							<span ><?php echo $commentaires[$i]['description']; ?></span>
+?>				
+	   				<div class="rounded commentaire-profil" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
+	   					<div class="row col-auto">
+	   						<label class="col-md-8">De <a class="lien-noms-commentaires-profil" href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?>:</label>
+	   						<div  class="col-md-4">
+	   							<label class="label-profil">Note:</label>
+	   							<label><?php echo $commentaires[$i]['note']; ?></label>
 	   						</div>
 	   					</div>
+	   					<div class="col-md-12">
+	   						<div class="col-md-12 rounded description-commentaire-profil">
+	   							<span><?php echo $commentaires[$i]['description']; ?></span>
+	   						</div>
+	   					</div>
+	   					
 	   					<?php
 ?>
 	   				</div>
@@ -188,6 +218,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 	   			}
 ?>			
 				</div>
+			</div>
 
 <?php		
 		}
@@ -198,14 +229,15 @@ include_once __DIR__ .'/../../vue_generique.php';
 		{
 
 ?>
-	<div class="col-12">
+			<div class="row">
+				<div class="col-12">
 <?php
 
 					 self::afficheNavProfil(2,$idUser);
 		
 		
 ?>
-					<div class="border border-dark rounded col-12" style="overflow: auto;">
+					<div class="border border-dark rounded sectionProfil col-12" style="overflow: auto;">
 						<table class="table">
 							<tr class="">
 								<td class=" text-center titreFavoris">Depart</td>
@@ -225,10 +257,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 						
 						</table>
 	   				</div>
-	   				
-	   			
-	
-
+	   			</div>
 			</div>
 			
 <?php		
@@ -253,10 +282,11 @@ include_once __DIR__ .'/../../vue_generique.php';
 		}
 		function modificationDeProfil($idUser, $donnees, $token, $erreur=NULL){
 ?>
+			<div class="row">
 				<div class="col-12">
 					
 					<?php self::afficheNavProfil(3,$idUser); ?>
-					<div class="border border-dark rounded">
+					<div class="border border-dark rounded sectionProfil">
 						<form method="POST" class="col-12" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
 							<input type="hidden" name="token" value="<?php echo $token ?>">
 							<div class="row form-group">
@@ -338,18 +368,19 @@ include_once __DIR__ .'/../../vue_generique.php';
 						
 					</div>
 				</div>
+			</div>
 			
 <?php
 		}
 
 
 		function afficheListeVehicule($idUser, $donnees){
-			?>
-
+?>
+			<div class="row">
 				<div id="vehiculeProfil" class="col-md-12">
 
 					<?php self::afficheNavProfil(4,$idUser); ?>
-					<div class="border border-dark rounded col-12" style="overflow: auto;">
+					<div class="border border-dark rounded col-12 sectionProfil" style="overflow: auto;">
 						<table class="table">
 							<thead>
 								<tr class="">
@@ -376,7 +407,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 									<?php echo ($value['hybride'] == "1") ?  "Oui" :  "Non"?>
 								</td>
 								<td class=" text-center ">
-									<a href="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
+									<a class="btn-photo-vehicule" data-toggle="modal" href="" data-remote='<?php echo "$key";?>' data-target=".modal" data-src="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
 									<!-- <img id="myImg" src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
 									
 								</td>
@@ -390,6 +421,29 @@ include_once __DIR__ .'/../../vue_generique.php';
 							?>
 							</tbody>
 						</table>
+
+						<div class="modal fade" id="photoDuVehicule" tabindex="-1" role="dialog" aria-labelledby="envoieMsgModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="envoieMsgModalLabel">Photo du véhicule</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							      	<div class="col-12">
+							      		<img src="" id="img-photo-vehicule" class="img-fluid">
+							      	</div>
+							      	
+
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-primary" data-dismiss="modal">Quitter</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
 						<?php
 						if(count($donnees)<1){
 						?>
@@ -456,15 +510,17 @@ include_once __DIR__ .'/../../vue_generique.php';
 						</div>									  
 					</div>
 				</div>
+			</div>
 <?php 
 		}
 
+
 		function afficheHistorique($idUser, $donnees){
-			?>
-			<div id="vehiculeProfil">
+?>
+			<div id="vehiculeProfil" class="row">
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(5,$idUser); ?>
-					<div class="border border-dark rounded col-12" style="overflow: auto;">		
+					<div class="border border-dark rounded col-12 sectionProfil" style="overflow: auto;">		
 						<table class="table">
 							<thead>
 								<tr class="">
@@ -510,15 +566,15 @@ include_once __DIR__ .'/../../vue_generique.php';
 					</div>
 				</div>
 			</div>
-			<?php
+<?php
 		}
 
 		function afficheTrajetsReserves($idUser, $donnees){
-			?>
-			<div id="vehiculeProfil">
+?>
+			<div id="vehiculeProfil" class="row">
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(6,$idUser); ?>
-					<div class="border border-dark rounded col-12" style="overflow: auto;">
+					<div class="border border-dark rounded col-12 sectionProfil" style="overflow: auto;">
 						<table class="table">
 							<thead>
 								<tr class="">
@@ -564,7 +620,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 					</div>
 				</div>
 			</div>
-			<?php
+<?php
 		}
 	}
 ?>

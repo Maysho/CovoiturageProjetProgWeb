@@ -103,6 +103,8 @@ switch ($module){
 
  
   	<div class="container-fluid">
+  		<button id="changeComposant" class="btn btn-info">Change</button>
+
 		<header>
  <?php 
 			//$CompMenu->affiche();
@@ -114,49 +116,51 @@ switch ($module){
 		</header>
 		
 <?php 	
+			if($module=="mod_accueil")
+				echo '<div class="row justify-content-center flextest frontpage">';
+			else
+				echo '<div class="row justify-content-center flextest">';
 		if(isset($_SESSION['id'])) {
-			echo '<div class="row justify-content-center flextest">';
-			echo "<aside id='composants' class='col-md-3' >";
+			if(!isset($_SESSION['composantNonActif']))
+				echo "<aside id='composants' class='col-md-3' >";
+			else
+				echo "<aside id='composants' class='col-md-3 d-none' >";
 }
-		else
-			echo '<div class="row justify-content-center flextest">';
-
+		else{
+			
+		}
 			include_once 'composants/compCommentaire/compCommentaire.php';
 
   			$compCommentaire=new compCommentaire();
-			if (isset($_SESSION['id'])) {
-				$compCommentaire->affiche();
-			}
+			
 
 			include_once 'composants/compFavoris/compFavoris.php';
 
   			$compFavoris=new compFavoris();
-			if (isset($_SESSION['id'])) {
-				$compFavoris->affiche();
-			}
+
 
 			include_once 'composants/compNote/compNote.php';
 
   			$compNote=new compNote();
-			if (isset($_SESSION['id'])) {
-				$compNote->affiche();
-			}
+
 			include_once 'composants/compHistorique/compHistorique.php';
 
   			$compHistorique=new CompHistorique();
-			if (isset($_SESSION['id'])) {
-				$compHistorique->affiche();
-			}
+
 			include_once 'composants/compTrajetReserve/compTrajetReserve.php';
 
   			$compTrajetReserve=new CompTrajetReserve();
-			if (isset($_SESSION['id'])) {
-				$compTrajetReserve->affiche();
-			}
+
 			include_once 'composants/compPub/compPub.php';
 
   			$CompPub=new CompPub();
-			if (isset($_SESSION['id'])) {
+
+			if (isset($_SESSION['id']) ) {
+				$compCommentaire->affiche();
+				$compFavoris->affiche();
+				$compNote->affiche();
+				$compHistorique->affiche();
+				$compTrajetReserve->affiche();
 				$CompPub->affiche();
 			}
 
@@ -165,7 +169,10 @@ switch ($module){
 			}
 
 			if (isset($_SESSION['id'])) {
-				echo'<section class="col-md-8 px-0 no-gutters" >';
+				if(!isset($_SESSION['composantNonActif']))
+					echo'<section class="col-md-8 px-0 no-gutters" >';
+				else
+					echo'<section class="col-md-6 px-0 no-gutters" >';
 			}
 			else{
 				echo'<section class="col-12 row px-0 no-gutters">';

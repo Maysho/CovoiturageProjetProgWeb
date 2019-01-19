@@ -595,6 +595,19 @@ $(document).ready(function(){
   }
 });
 
+$('.modal').on('show.bs.modal', function (e) {
+
+
+      var button = $(e.relatedTarget);
+      console.log(button);
+      var index = button.attr('class');
+      if (index!=undefined) {
+      if(index.indexOf("btn-photo-vehicule")!=-1)
+        $(this).find('#img-photo-vehicule').attr('src',button.attr('data-src'));
+     
+    }
+      /*$(this).find('.modal-content').load('remote' + index + '.html')*/
+});
 
 /******************************************************************************************************************************
 **
@@ -1096,12 +1109,10 @@ function chargeMessagesInterlocuteurs(){
     var obj = $(this);
 
     interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-   // $("#"+interlocuteur).css('background-color','#d8d8d8');
-   // $("#"+interlocuteur).css('font-weight','normal');
-   $("#"+interlocuteur).css({
-    'background-color':'#d8d8d8',
-    'font-weight':'normal'
-   });
+    $("#"+interlocuteur).css({
+      'background-color':'#d8d8d8',
+      'font-weight':'normal'
+    });
 
     $('textarea#idInterlocuteurEnCours').val(obj.attr("id"));
     
@@ -1116,7 +1127,6 @@ function chargeMessagesInterlocuteurs(){
       }
     );
     interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-    //$("#"+interlocuteur).css('background-color','#ffffff');
     $("#"+interlocuteur).css({
       'background-color':'#ffffff',
       'font-weight':'bold'
@@ -1191,7 +1201,6 @@ function afficheMessagesEtInterlocuteurs(){
       $('#interlocuteurs').html(data)
 
       interlocuteur = $('textarea#idInterlocuteurEnCours').val();
-      //$("#"+interlocuteur).css('background-color','#ffffff');
       $("#"+interlocuteur).css({
       'background-color':'#ffffff',
       'font-weight':'bold'
@@ -1482,24 +1491,26 @@ $('#envoyerMessage').submit(function(e){
 **
 ******************************************************************************************************************************/
 
+/*
+function replaceFooter(){
+   var docHeight = $(window).height();
+  var footerHeight = $('#footer').height();
+  var footerTop = $('#footer').position().top + footerHeight;
 
-// function replaceFooter(){
-//   var docHeight = $(window).height();
-//  var footerHeight = $('#footer').height();
-//  var footerTop = $('#footer').position().top + footerHeight;
+  if (footerTop < docHeight) {
+   $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
+  }
+}
 
-//  if (footerTop < docHeight) {
-//   $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
-//  }
-// }
-
-$(document).ready(function() {
+/*$(document).ready(function() {
   replaceFooter();
 });
 
 $(window).resize(function(){
   replaceFooter();
-});
+
+});*/
+
 
 /******************************************************************************************************************************
 **
@@ -1516,4 +1527,23 @@ $( window ).resize(function() {
   else{
     $(".composant" ).show();
   }
+});
+$('#changeComposant').on('click', function(event) {
+  event.preventDefault();
+   $.post('scriptphp/ControleurScript.php',
+    {
+      fonction:"changeStatutComposant"
+    },
+    function(data){
+      alert(data);
+      if (data.includes("0")){
+        $('aside').removeClass('d-none');;
+        $('section').toggleClass('col-md-6 col-md-8');
+      }
+      else if(data.includes("1")){
+        $('aside').addClass('d-none');
+        $('section').toggleClass('col-md-8 col-md-6');
+      }
+    }
+  );
 });

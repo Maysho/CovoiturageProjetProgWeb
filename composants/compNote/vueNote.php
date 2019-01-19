@@ -16,8 +16,10 @@ class vueNote
       }
       else
          echo "Vous n'avez reçu aucune note pour le moment.";
+
             
 ?>
+
            
          </div>
       </div>

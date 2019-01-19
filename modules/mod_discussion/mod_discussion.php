@@ -20,7 +20,7 @@ class ModDiscussion extends VueGenerique
 		}
 
 		else
-			die("page inaccessible");
+			header("Location: index.php");
 			
 	}
 }
