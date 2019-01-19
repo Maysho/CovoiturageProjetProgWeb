@@ -304,7 +304,7 @@ class vue_Trajet extends VueGenerique{
 				</div>
 				<div class="col offset-2">
 					<div>
-						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[8];?>" alt="photoVehicule" class=" col-12" >
+						<img src="<?php echo empty($infoTrajet[7] )?'home.jpg':$infoTrajet[7];?>" alt="photoVehicule" class=" col-12" >
 					</div>
 					<div class="justify-content-center row">
 						<div class="col-12 justify-content-center row">
