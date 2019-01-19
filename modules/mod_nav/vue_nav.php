@@ -56,11 +56,11 @@ class vue_nav
 			      <li class='nav-item'>
 			        <a class='nav-link' href='index.php' title="permet d'accéder a la page de recherche de trajet">Rechercher</a>
 			      </li>
-			      <li class="nav-item row align-items-center no-gutters">
-			      	<div class="btn_credit border mr-2">
-				      	<i class="fas fa-money-bill"></i>
-				      	<span class=""><?php echo $info[1]."€";?></span>
-					</div>
+			      <li class="nav-item ">
+							<a class="btn btn-light border" href="#">
+								<i class="fas fa-money-bill"></i>
+								<span class=""><?php echo $info[1]."€";?></span>
+							</a>
 			      </li>
 			      <li class="nav-item">
 			      	<a class="btn btn-light border" href="?module=mod_discussion" role="button">
