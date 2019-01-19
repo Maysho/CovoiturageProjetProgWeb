@@ -289,7 +289,7 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."30- Utilisateur non connecté"."\n";
 			$error = true;
 		}
-		if( $placeTotale < 2 || $placeTotale > 9){
+		if( $placeTotale < 2 || $placeTotale > 8){
 			$this->msg=$this->msg."31- Erreur de saisie PlaceTotale"."\n";
 			$error = true;	
 		}
