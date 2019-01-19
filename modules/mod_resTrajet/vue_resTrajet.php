@@ -57,7 +57,7 @@ class vue_resTrajet extends VueGenerique
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
 				    	 	<label for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
-							<option <?php echo $type=="Non renseigné"? "selected":""; ?>>Non renseigné</option>
+							<option <?php echo $type=="Non Renseigné"? "selected":""; ?>>Non Renseigné</option>
 				    	 	
 				    	 	<option <?php echo $type=="1"? "selected":""; ?>>1</option>
 				    	 	<option <?php echo $type=="2"? "selected":""; ?>>2</option>
@@ -115,23 +115,23 @@ class vue_resTrajet extends VueGenerique
   		else
   			echo '<div class="col-12 justify-content-center removeResTrajet"> <a class="liensanscouleur row border border-dark justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
   		?>
-	  			<div class="col-2">
+	  			<div class="col-md-2">
 	  				<img src="home.jpg" style="width: 100px;">
 	  				<span class=""><?php echo $donnee['prenom'];?></span>
 	  			</div>
-	  			<div class="col-6 row offset-1 justify-content-between" >
-	  			<div class=" justify-content-between row container">
-	  				<span class="col-12 col-md-6"><?php echo $donnee['depart'];?></span>
-	  				<span class="col-6 text-right"><?php echo $donnee['heureDepart'];?></span>
+	  			<div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" >
+	  			<div class=" justify-content-md-between justify-content-center row container-fluid px-0" >
+	  				<span class="col-12 col-md-6 text-center"><?php echo $donnee['depart'];?></span>
+	  				<span class="col-6 text-md-right text-center"><?php echo $donnee['heureDepart'];?></span>
 	  				
 	  				</div>
-	  				<div class="align-items-end justify-content-between row container">
-	  				<span class="col-12 col-md-6" style="padding-right: 3px;"><?php echo $donnee['destination'];?></span>
-	  				<span class="col-6 text-right" ><?php echo $donnee['heureArrivee'];?></span>
+	  				<div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0 no-gutters">
+	  				<span class="col-12 col-md-6 text-center" style="padding-right: 3px;"><?php echo $donnee['destination'];?></span>
+	  				<span class="col-6 text-md-right text-center" ><?php echo $donnee['heureArrivee'];?></span>
 	  				</div>
 	  			</div>
-	  			<div class="col-2 row offset-1  justify-content-end ">
-	  			<div class="row justify-content-end col-12">
+	  			<div class="col-md-2 row offset-md-1  justify-content-md-end px-0">
+	  			<div class="row justify-content-md-end col-12">
 	  				<span class="align-top"><?php echo $donnee['placeTotale']; ?></span>
 	  				</div>
 	  				<div class="row align-content-end justify-content-end col-12" >

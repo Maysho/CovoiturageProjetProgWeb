@@ -236,17 +236,17 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
     nomFonction,
 
     function(data,statut){
-      alert(data);
+
 
       $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="home.jpg" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
       $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
         e.preventDefault();
       
-        alert("on rentre");
+
 
         $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
           {
-            idTrajet:$('#desinscriptionAuTrajet').attr('data-id'),
+            idTrajet:$('#contenuCom').attr('data-id'),
             fonction:"supprimerCom"
           }
           ,
@@ -418,12 +418,13 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
     {
-      idTrajet:$('#desinscriptionAuTrajet').attr('data-id'),
+      idTrajet:$('#contenuCom').attr('data-id'),
       fonction:"supprimerCom"
     }
     ,
 
     function(data,statut){
+      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         $('#supprimerCom').parent().parent().parent().remove();//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -1491,7 +1492,7 @@ $('#envoyerMessage').submit(function(e){
 **
 ******************************************************************************************************************************/
 
-/*
+
 function replaceFooter(){
    var docHeight = $(window).height();
   var footerHeight = $('#footer').height();
@@ -1502,14 +1503,14 @@ function replaceFooter(){
   }
 }
 
-/*$(document).ready(function() {
+$(document).ready(function() {
   replaceFooter();
 });
 
 $(window).resize(function(){
   replaceFooter();
 
-});*/
+});
 
 
 /******************************************************************************************************************************
@@ -1523,9 +1524,11 @@ $(window).resize(function(){
 $( window ).resize(function() {
   if ($(window).width() <768) {
     $(".composant" ).hide();
+    $('#changeComposant').hide();
   }
   else{
     $(".composant" ).show();
+    $('#changeComposant').show();
   }
 });
 $('#changeComposant').on('click', function(event) {
@@ -1535,14 +1538,16 @@ $('#changeComposant').on('click', function(event) {
       fonction:"changeStatutComposant"
     },
     function(data){
-      alert(data);
+      
       if (data.includes("0")){
         $('aside').removeClass('d-none');;
         $('section').toggleClass('col-md-6 col-md-8');
+        $('#changeComposant').text("Desaffiche");
       }
       else if(data.includes("1")){
         $('aside').addClass('d-none');
         $('section').toggleClass('col-md-8 col-md-6');
+        $('#changeComposant').text("Affiche");
       }
     }
   );
