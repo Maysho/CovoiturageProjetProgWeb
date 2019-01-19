@@ -15,11 +15,11 @@ class vueCommentaire
 			# code...
 		
    		?>
-   		<div class="col-12 composant border border-dark hidden-md-down">
+   		<div class="col-12 composant rounded hidden-md-down">
    			<div class="headline_composant col-12"> 
    				<h4>Commentaire Recent:</h4>
    			</div>
-				<div class="component_composant">
+				<div class="component_composant rounded">
 					<?php
 					if (count($tab)<=0) {
 						echo "<span>Vous n'avez pas reçu de commentaire</span>";

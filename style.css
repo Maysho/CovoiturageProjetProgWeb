@@ -231,8 +231,9 @@ span{
 }
 .composant{
     overflow: auto;
-    border-radius: 10px;
-    margin-bottom: 5px;
+    padding : 1em ;
+    /* border-radius: 10px; */
+    /* margin-bottom: 5px; */
 }
 .couleurTrajet{
     background-color: #607d8b0a;
@@ -296,7 +297,7 @@ span{
 
 body {
 color:black;
-background-color: #CCEAF7;
+background-color: rgb(184, 211, 223);
 font-family: 'Ubuntu', sans-serif;
 }
 
@@ -310,7 +311,8 @@ font-family: 'Ubuntu', sans-serif;
 #search_container{
     margin-top: 25vh;
     margin-bottom: 30vh;
-    background-color: #aaaaaa;
+    /* background-color: #f1f1f1; */
+    background-color: rgb(170, 195, 206);
     border-radius: 1em;
 }
 
@@ -321,19 +323,40 @@ font-family: 'Ubuntu', sans-serif;
 #composants h4{
     font-size: 18px;
     font-weight: bold;
+    
 }
 
 #composants{
     font-size: 14px;
+    color : rgb(255, 255, 255) ;
+    margin-bottom: 2em;
+    
 }
 
 .headline_composant{
-    border:1px solid red;
+    /* border:1px solid red; */
+    padding: 0.5em;
+    /* background-color:rgb(148, 176, 189); */
+
+
 }
 
 .component_composant{
-    border:1 px solid red;
+    /* border:1px solid red; */
+    padding: 0.5em;
+    background-color:rgb(117, 150, 165);
+    /* border-radius: 5em;  */
 }
 
+.composant{
+    margin-top: 1em;
+    background-color:rgb(150, 174, 184);
+    /* border-radius: 1em;  */
+}
+
+nav{
+    background-color: #323232;
+    color: white;
+}
 
 /*fintest*/
