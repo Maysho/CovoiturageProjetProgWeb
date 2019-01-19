@@ -605,10 +605,10 @@ class vue_Trajet extends VueGenerique{
 				</div>
 				
 				<div class="col-8 col-lg-9">
-					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"style="resize: none;"> </textarea>
+					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
 				</div>
 				<div class="col-3 col-lg-3 offset-lg-1">
-					<label  for="note">note:</label>
+					<label  for="note">note:<i class="fas fa-question-circle" title="la note est noté sur 20"></i></label>
 					<input class ="col-12 col-lg-6" type="text" id="note" name="note">
 				</div>	
 				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">

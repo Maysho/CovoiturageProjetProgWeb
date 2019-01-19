@@ -57,7 +57,7 @@ class vue_resTrajet extends VueGenerique
 				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
 				    	 	<label for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
-							<option <?php echo $type=="Non renseigné"? "selected":""; ?>>Non renseigné</option>
+							<option <?php echo $type=="Non Renseigné"? "selected":""; ?>>Non Renseigné</option>
 				    	 	
 				    	 	<option <?php echo $type=="1"? "selected":""; ?>>1</option>
 				    	 	<option <?php echo $type=="2"? "selected":""; ?>>2</option>

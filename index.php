@@ -103,7 +103,7 @@ switch ($module){
 
  
   	<div class="container-fluid">
-  		<button id="changeComposant" class="btn btn-info">Change</button>
+<!--   		<button id="changeComposant" class="btn btn-info">Change</button> -->
 
 		<header>
  <?php 
