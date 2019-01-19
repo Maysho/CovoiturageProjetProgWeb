@@ -100,7 +100,7 @@ switch ($_POST['fonction']) {
 		$modele_trajet->retirerTrajet($_POST['idTrajet']);
 		break;
 	case 'formTrajet':
-		include_once __DIR__.'/../modules/mod_trajet/modele_trajet.php';
+		include_once '../modules/mod_trajet/modele_trajet.php';
 		$modele_trajet=new modele_trajet();
 
 		if( isset($_POST['soustrajet']) && isset($_POST['descriptionTrajet']) && isset($_POST['placeTotale']) && isset($_POST['dateArrivee'])){

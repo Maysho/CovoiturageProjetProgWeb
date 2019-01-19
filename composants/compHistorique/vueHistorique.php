@@ -12,10 +12,11 @@ class VueHistorique
 	}
 	public function affiche($donnees){
       ?>
-         <div class="col-12 composant border border-dark hidden-md-down">
-            <div class="col-12"> 
+         <div class="col-12 composant rounded hidden-md-down">
+            <div class="headline_composant col-12"> 
                <h4>Historique</h4>
    			</div>
+            <div class="component_composant rounded">
       <?php
       if (count($donnees)>0) {      
          ?>
@@ -46,8 +47,8 @@ class VueHistorique
             }
             ?>
             </table>
-            <div class="row justify-content-end">
-               <a href="index.php?module=mod_profil&idprofil=<?php echo $_SESSION['id'];?>&ongletprofil=historique" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">en afficher plus... </a>
+            <div class="row no-gutters justify-content-end">
+               <a href="index.php?module=mod_profil&idprofil=<?php echo $_SESSION['id'];?>&ongletprofil=historique" class="liensanscouleur text-right" >en afficher plus... </a>
             </div>
    	<?php
       }else{
@@ -56,6 +57,7 @@ class VueHistorique
       <?php
       }
       ?>
+            </div>
          </div>
       <?php
    }
