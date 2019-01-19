@@ -170,12 +170,12 @@ switch ($module){
 
 			if (isset($_SESSION['id'])) {
 				if(!isset($_SESSION['composantNonActif']))
-					echo'<section class="col-md-8 px-0 no-gutters" >';
+					echo'<section class="col-md-8 px-0 " >';
 				else
-					echo'<section class="col-md-6 px-0 no-gutters" >';
+					echo'<section class="col-md-6 px-0 " >';
 			}
 			else{
-				echo'<section class="col-12 row px-0 no-gutters">';
+				echo'<section class="col-12 row px-0 ">';
 				
 			}
 				echo "$affichageForm";

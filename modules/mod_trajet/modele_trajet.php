@@ -50,7 +50,7 @@ class modele_trajet extends connexion {
 				$extension_upload = strtolower(  substr( strrchr($_FILES['photo']['name'], '.')  ,1)  );
 				$nomFich=$idConducteur.'_'.$immatriculation.'.'.$extension_upload;
 				// echo "FILE DEST = " . $_SERVER['DOCUMENT_ROOT']. "/CovoiturageProjetProgWeb/sources/images/photoVehicule/";
-				$result=move_uploaded_file($_FILES['photo']['tmp_name'],DIR . "/../../sources/images/photoVehicule/".$nomFich);
+				$result=move_uploaded_file($_FILES['photo']['tmp_name'], __DIR__ . "/../../sources/images/photoVehicule/".$nomFich);
 				if($result)
 					$url = "sources/images/photoVehicule/".$nomFich;
 			}
@@ -289,7 +289,7 @@ class modele_trajet extends connexion {
 			$this->msg=$this->msg."30- Utilisateur non connecté"."\n";
 			$error = true;
 		}
-		if( $placeTotale < 2 || $placeTotale > 9){
+		if( $placeTotale < 2 || $placeTotale > 8){
 			$this->msg=$this->msg."31- Erreur de saisie PlaceTotale"."\n";
 			$error = true;	
 		}

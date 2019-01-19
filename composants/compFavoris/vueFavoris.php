@@ -15,15 +15,16 @@ class vueFavoris
 			# code...
 		
    		?>
-   		<div class="col-12 composant border border-dark hidden-md-down ">
-   			<div class="col-12"> 
+   		<div class="col-12 composant rounded hidden-md-down ">
+   			<div class="headline_composant col-12"> 
    				<h4>Favoris Recent:</h4>
    			</div>
+				<div class="component_composant rounded">
             <?php if (count($donnees)<=0) {
                echo "<span>Vous n'avez mis aucune recherche en favoris</span>";
             }
             else{ ?>
-            <table class="table">
+            	<table class="table">
                      
    			<?php
 
@@ -35,13 +36,13 @@ class vueFavoris
             }
 
    			?>
-            </table>
-            <div class="row justify-content-end">
-               <a href="index.php?module=mod_profil&idprofil=1&ongletprofil=favoris" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">en afficher plus... </a>
-            </div>
+           		</table>
+					<div class="row no-gutters justify-content-end">
+						<a href="index.php?module=mod_profil&idprofil=1&ongletprofil=favoris" class="liensanscouleur text-right" >en afficher plus... </a>
+					</div>
             <?php } ?>
-
-   		</div>
+					</div>
+				</div>
    	<?php
    	
   	}

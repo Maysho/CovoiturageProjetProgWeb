@@ -13,28 +13,27 @@ class vue_nav
 	}
 	public function navNonConnecte($value='')
 	{
-		echo "<nav class='navbar navbar-expand-md navbar-light'>
-			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
-			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-			    <span class='navbar-toggler-icon'></span>
-			  </button>
-
-			  <div class='collapse navbar-collapse justify-content-end' id='navbarSupportedContent'>
-			    <ul class='navbar-nav '>
-			      
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php' title='permet d\"accéder a la page de recherche de trajet' >Rechercher<span class='sr-only'>(current)</span></a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
-			      </li>
-			      <li class='nav-item'>
-			        <a class='nav-link' href='index.php?module=mod_connexion'>Se Connecter</a>
-			      </li>
-			    </ul>
-			  </div>
-			</nav>
-";
+	?>
+		<nav class='navbar navbar-expand-md navbar-light'>
+			<a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
+			<button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+				<span class='navbar-toggler-icon'></span>
+			</button>
+			<div class='collapse navbar-collapse justify-content-end' id='navbarSupportedContent'>
+				<ul class='navbar-nav '>
+					<li class='nav-item'>
+						<a class='nav-link' href='index.php' title='permet d\"accéder a la page de recherche de trajet' >Rechercher<span class='sr-only'>(current)</span></a>
+					</li>
+					<li class='nav-item'>
+						<a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
+					</li>
+					<li class='nav-item'>
+						<a class='nav-link' href='index.php?module=mod_connexion'>Se Connecter</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	<?php
 	}
 	public function navConnecte($info){
 ?>

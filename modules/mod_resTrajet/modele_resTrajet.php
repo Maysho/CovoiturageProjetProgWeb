@@ -126,7 +126,7 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0)co
 
 		)order by '."{$order}"); 
 		
-		if ($type=="Non renseigné") {
+		if ($type=="Non Renseigné") {
 			$type1=-5;
 			$type2=1000;
 		}

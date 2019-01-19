@@ -12,33 +12,34 @@ class VueVehicule
 	}
 	public function affiche($donnees){
       ?>
-         <div class="col-12 composant border border-dark hidden-md-down ">
-   			<div class="col-12"> 
+         <div class="col-12 composant rounded hidden-md-down ">
+   			<div class="headline_composant col-12"> 
    				<h4>Vehicule</h4>
    			</div>
+            <div class="component_composant rounded">
       <?php
       if (count($donnees)>0) {      
          ?>
-            <table class="table" style="table-layout: fixed; width:100%;">
+               <table class="table" style="table-layout: fixed; width:100%;">
                      
    			<?php
             foreach ($donnees as $key => $value) {
             ?>
-               <tr>
-                  <td class=" text-center ">
-                     <?php echo $value['immatriculation']?>
-                  </td>
-                  <td class=" text-center ">
-                     <a href="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
-                  </td>
-               </tr>
+                  <tr>
+                     <td class=" text-center ">
+                        <?php echo $value['immatriculation']?>
+                     </td>
+                     <td class=" text-center ">
+                        <a href="<?php echo $value['urlPhoto']?>">Voir&nbsp<i class="fas fa-search-plus"></i></a>
+                     </td>
+                  </tr>
             <?php
             }
             ?>
-            </table>
-            <div class="row justify-content-end">
-               <a href="index.php?module=mod_profil&idprofil=1&ongletprofil=vehicules" class="liensanscouleur text-right" style="color: gray;text-decoration: underline;">Tout afficher </a>
-            </div>
+               </table>
+               <div class="row no-gutters justify-content-end">
+                  <a href="index.php?module=mod_profil&idprofil=1&ongletprofil=vehicules" class="liensanscouleur text-right">Tout afficher </a>
+               </div>
    	<?php
       }else{
       ?>
@@ -46,6 +47,7 @@ class VueVehicule
       <?php
       }
       ?>
+            </div>
          </div>
       <?php
    }
