@@ -595,6 +595,19 @@ $(document).ready(function(){
   }
 });
 
+$('.modal').on('show.bs.modal', function (e) {
+
+
+      var button = $(e.relatedTarget);
+      console.log(button);
+      var index = button.attr('class');
+      if (index!=undefined) {
+      if(index.indexOf("btn-photo-vehicule")!=-1)
+        $(this).find('#img-photo-vehicule').attr('src',button.attr('data-src'));
+     
+    }
+      /*$(this).find('.modal-content').load('remote' + index + '.html')*/
+});
 
 /******************************************************************************************************************************
 **
@@ -1489,14 +1502,16 @@ function replaceFooter(){
   }
 }
 
-$(document).ready(function() {
+/*$(document).ready(function() {
   replaceFooter();
 });
 
 $(window).resize(function(){
   replaceFooter();
-});
-*/
+
+});*/
+
+
 /******************************************************************************************************************************
 **
 **Affiche ou desaffiche les composants
@@ -1512,4 +1527,23 @@ $( window ).resize(function() {
   else{
     $(".composant" ).show();
   }
+});
+$('#changeComposant').on('click', function(event) {
+  event.preventDefault();
+   $.post('scriptphp/ControleurScript.php',
+    {
+      fonction:"changeStatutComposant"
+    },
+    function(data){
+      alert(data);
+      if (data.includes("0")){
+        $('aside').removeClass('d-none');;
+        $('section').toggleClass('col-md-6 col-md-8');
+      }
+      else if(data.includes("1")){
+        $('aside').addClass('d-none');
+        $('section').toggleClass('col-md-8 col-md-6');
+      }
+    }
+  );
 });
