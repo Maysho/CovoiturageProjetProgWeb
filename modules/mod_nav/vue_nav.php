@@ -44,7 +44,7 @@ class vue_nav
 			  
 
 			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''><?php echo !isset($_SESSION['composantNonActif'])?"Désaffiche":"Affiche"?></a>
-			  <div class='mr-auto order-1 order-md-0'></div>
+			  <div class='mr-auto'></div>
 			  <div class="row align-items-center">
 	        	<a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
 
@@ -64,7 +64,7 @@ class vue_nav
 							</a>
 			      </li>
 			    </ul>
-			    <div class='nav-item dropdown order-0 order-md-1 ' >
+			    <div class='nav-item dropdown  ' >
 			        <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
 			          <img src='<?php echo isset($info[0])? $info[0]:'home.jpg' ?>' class='imagenav'>
 			        </a>
