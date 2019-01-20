@@ -446,7 +446,7 @@ class modele_trajet extends connexion {
 		$unique=$selecPrepareeUnique->fetch();
 		if (empty($unique['idAuteur'])==0) {
 			http_response_code(401);
-			echo "vous avez déjà rentré un commentaire";
+			echo "Vous ne pouvez poster qu'un commentaire à la fois";
 			exit(1);
 		}
 

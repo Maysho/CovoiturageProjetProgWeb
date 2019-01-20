@@ -308,11 +308,11 @@ class vue_Trajet extends VueGenerique{
 					</div>
 					<div class="justify-content-center row">
 						<div class="col-12 justify-content-center row">
-						<span><?php if($estDansTrajet) echo $PrixAPayer."€";else echo $infoTrajet[12]."€";?></span>
+						<span class="prix_trajet" >Coût <?php if($estDansTrajet) echo $PrixAPayer."€";else echo $infoTrajet[12]."€";?></span>
 						</div>
 						<?php 
 						if ($value==0 && !$peutEtreValide) {
-							echo '<a href="index.php?module=mod_connexion"><button class="btn"  data-target="#partieInscription" id="sinscrireAuTrajet"  data-id=" '.$infoTrajet[13].' ">s\'inscrire au trajet</button></a>';
+							echo '<a href="index.php?module=mod_connexion"><button class="btn btn_valide"  data-target="#partieInscription" id="sinscrireAuTrajet"  data-id=" '.$infoTrajet[13].' ">S\'Inscrire au trajet</button></a>';
 						}else {
 							if ($trajetValidee) {
 								# code...
@@ -328,13 +328,13 @@ class vue_Trajet extends VueGenerique{
 								echo '<button class="btn btn_valide" id="validationAuTrajet" data-token="'.$token.'" title="ce bouton permet de valider le trajet et donc de terminer ce trajet pour vous" data-id="'.$infoTrajet[13].'"> Valider Le Trajet</button>';
 							}
 							else if ($value==$infoTrajet[14] && $nbPers<=1) {
-								echo '<button class="btn btn_retire" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
+								echo '<button class="btn btn_retire" id="retirerTrajet" data-id="'.$infoTrajet[13].'">Retirer le Trajet</button>';
 							}
 							elseif ($value==$infoTrajet[14]) {
 								# code...
 							}
 							else{
-								echo '<button class="btn" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">s\'inscrire au trajet</button>';
+								echo '<button class="btn btn_valide" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">S\'Inscrire au trajet</button>';
 							}
 						}
 ?>
@@ -364,11 +364,11 @@ class vue_Trajet extends VueGenerique{
                         if($i==0){
                         	echo '<label for="st'.$i.'" >'.$tabSt[$i][13].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
                         }
-						echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" n id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
+						echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
                     }
 			        ?>
-								<div class="row justify-content-end">
-									<span id="prixInscription">0</span><span>€</span>
+								<div class="row prix_trajet col-3">
+									<span>Prix&nbsp</span><span id="prixInscription">0</span><span>&nbsp€</span>
 								</div>
 							</div>
 						<div class="modal-footer justify-content-between">
@@ -568,7 +568,7 @@ class vue_Trajet extends VueGenerique{
 						<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
 					</div>
 					<div class="col-3 col-lg-3 offset-lg-1">
-						<label  for="note">note:<i class="fas fa-question-circle" title="la note est noté sur 20"></i></label>
+						<label  for="note">note:<i class="fas fa-question-circle" title="La note est noté sur 20"></i></label>
 						<input class ="col-12 col-lg-6" type="text" id="note" name="note">
 					</div>	
 					<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
