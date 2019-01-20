@@ -1,92 +1,34 @@
-.imagenav{
-	width: 75px;
-}
-.logonav{
-    width: 100%;
-}
-.separation{
-	margin-top: 200px;
-	color: blue;
-	border: none;
-    height: 350px;
-    border:1px solid#70707086;
-}
-#espaceConnexion{
-	width: 100%;
-}
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Roboto+Slab|Staatliches|Ubuntu');
+/*
+font-family: 'Ubuntu', sans-serif;
+font-family: 'Playfair Display', serif;
+font-family: 'Roboto Slab', serif;
+font-family: 'Staatliches', cursive;
+*/
+
+/*
+    SUMMARY
+
+    1.CORPS DU SITE
+    2.NAV
+    3.ACCUEIL
+    4.INSCRIPTION CONNEXION
+    5.COMPOSANT
+    6.TRAJET
+        6.1.BOX DE RECHERCHE TRAJET
+            6.1.1.AUTOCOMPLETE
+        6.2.RESULTAT TRAJET
+        6.3.PROPOSER TRAJET
+        6.4.TRAJET
+
+*/
+
 h2{
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
 .warning{
 	color: red;
-}
-.villeTrouve:hover{
-	background-color: gray;
-}
-.villeTrouve{
-	background-color: white;
-}
-#villesTrouve{
-	position: absolute;
-	z-index: 100;
-}
-#ui-id-1{
-    border-color: gray;
-    padding-left: 0;
-}
-.ui-autocomplete {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    float: left;
-    display: none;
-    min-width: 160px;
-    padding: 4px 0;
-    margin: 0 0 10px 25px;
-    list-style: none;
-    background-color: rgb(117, 150, 165);
-    border-color: #ccc;
-    border-color: rgba(0, 0, 0, 0.2);
-    border-style: solid;
-    border-width: 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding;
-    background-clip: padding-box;
-    *border-right-width: 2px;
-    *border-bottom-width: 2px;
-}
-
-.ui-menu-item > a.ui-corner-all {
-    display: block;
-    padding: 3px 15px;
-    clear: both;
-    font-weight: normal;
-    line-height: 18px;
-    color: red;
-    white-space: nowrap;
-    text-decoration: none;
-}
-
-.ui-state-hover, .ui-state-active {
-    color: #003149;
-    font-weight: bold;
-    text-decoration: none;
-    background-color: rgb(170, 195, 206);
-    border-radius: 10px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    background-image: none;
-}
-.ui-helper-hidden-accessible{
-    display: none;
 }
 .align-text-bottomme{
     position: absolute;
@@ -321,165 +263,17 @@ span{
  */
 /* Common styles for all types */
 
-
 #img-photo-vehicule{
     width: 100%;
 
 }
 
-
-
-
-/*test*/
-
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Roboto+Slab|Staatliches|Ubuntu');
-
-/*
-
-
-    font-family: 'Ubuntu', sans-serif;
-
-    font-family: 'Playfair Display', serif;
-
-    font-family: 'Roboto Slab', serif;
-
-    font-family: 'Staatliches', cursive;
-
-
-*/
-
+/* 1.CORPS DU SITE */
 body {
 color:black;
 background-color: rgb(184, 211, 223);
 font-family: 'Ubuntu', sans-serif;
 }
-
-/* FOND D ECRAN */
-.frontpage{
-    background-image: url(imgbg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: -1em;
-}
-/*BOX DE RECHERCHE TRAJET*/
-.search_container{
-    margin-top: 25vh;
-    margin-left:2em;
-    margin-bottom: 30vh;
-    margin-right:2em;
-    /* background-color: #f1f1f1; */
-    background-color: rgb(170, 195, 206);
-    border-radius: 1em;
-    
-}
-.search_container_result{
-    margin-top: 5vh;
-    margin-bottom: 2vh;
-    background-color: rgb(170, 195, 206);
-    border-radius: 1em;
-}
-
-.search_headline{
-    font-size: 22px;
-    color: #003149;
-    font-family: 'Roboto Slab', serif;
-    font-weight: bold;
-}
-
-.search_mini_headline{
-    color: #003149;
-    font-family: 'Roboto Slab', serif;
-    font-weight: bold;
-}
-
-.buttonRecherche{
-    background-color: #00496d;
-    border: 1px solid #00496d;
-}
-.buttonRecherche:hover{
-    background-color: #003149;
-    border: 1px solid #003149;
-}
-
-.buttonSubmitAccueil, .buttonRapetisseForm, .buttonAgranditForm{
-    width: 10em;
-}
-
-#buttonTrieRes1{
-    color:grey;
-}
-
-.resultatTrajet{
-    background-color: rgb(170, 195, 206);
-    padding: 1em;
-    border-radius: 1em;
-    color:#003149;
-}
-
-
-/*COMPOSANT*/
-
-#composants h4{
-    font-size: 18px;
-    font-weight: bold;
-    
-}
-
-#composants{
-    font-size: 14px;
-    color : #003149 ;
-    margin-bottom: 2em;
-    margin-top: 1em;
-    /* border: 1px solid black;
-    background-color:black; */
-     
-}
-
-.headline_composant{
-    /* border:1px solid red; */
-    padding: 0.5em;
-    /* background-color:rgb(148, 176, 189); */
-    font-family: 'Roboto Slab', serif;
-
-}
-
-.component_composant{
-    /* border:1px solid red; */
-    padding: 0.5em;
-    color : #003149 ;
-    background-color:rgb(117, 150, 165);
-    /* border-radius: 5em;  */
-}
-.component_composant a{
-    color : #003149 ;
-}
-.component_composant a:hover{
-    color : #001f2e ;
-}
-
-.composant{
-    margin-bottom: 1em;
-    background-color:rgb(150, 174, 184);
-    /* border-radius: 1em;  */
-}
-
-
-/*nav*/
-nav{
-    background-color: #323232;
-    color: white;
-    margin-bottom: 1em;
-}
-
-.nav-link{
-    color: white !important; 
-}
-/* .nav-item a{
-    background-color: #434343;
-} */
-
-
-/*proposer trajet*/
 
 .contenu_page{
     background-color: #ebebeb;
@@ -498,90 +292,54 @@ nav{
 .contenu_page h3 {
     font-size: 24px;
     margin: 0.7em;
-    /* font-family: 'Roboto Slab', serif; */
 }
+/* FIN CORPS DU SITE */
 
-.btnSupprEtape{
-    color: rgb(255, 255, 255);
-    background-color: #434343;
-}
+/* 2.NAV */
 
-.label_trajet{
-    margin-top: 0.5em;
-}
-.input_price{
-    margin-bottom: 1em;
-}
-
-.btn_trajet{
-    background-color: #434343;
-    border: 1px solid #434343;
-}
-.btn_trajet:hover{
-    background-color: #797979;
-    border: 1px solid #797979;
-}
-.btn_ajout_vehicule{
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-
-/* Trajet */
-.btn_valide, .btn_retire{
+nav{
+    background-color: #323232;
     color: white;
-}
-.btn_valide{
-    background-color: #007c42;
-}
-.btn_valide:hover{
-    background-color: #00ca6c;
-}
-.btn_retire{
-    background-color: #920000;
-}
-.btn_retire:hover{
-    background-color: #f80000;
-}
-
-.profil_trajet, .mot_du_conducteur, .commentaire{
-    background-color: #607d8b25;
-    border-radius: 1em;
-    padding: 2em;
-}
-.commentaire{
-    margin-bottom: 2em;
-}
-.photo_profil_trajet{
-    border-radius: 50%;
-}
-.prix_trajet{
-    font-size:16px;
-    margin-top: 1em;
     margin-bottom: 1em;
-    padding: 0.7em;
-    background-color: #721212be;
-    border-radius: 0.3em; 
-    color:white;
 }
 
-
-#bodyInscriptionTrajet{
-    margin:1em;
+.nav-link{
+    color: white !important; 
 }
 
-#contenuCom{
-    border-radius: 1em;
+.imagenav{
+	width: 75px;
 }
 
-
-/*restrajet**/
-
-.res_trajet_place_prix{
-    margin: 0em 0em 0em 1em;
+.logonav{
+    width: 100%;
 }
 
-/*inscription connexion*/
+/* FIN NAV */
+
+
+/* 3.ACCUEIL */
+.frontpage{
+    background-image: url(imgbg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -1em;
+}
+
+/* FIN ACCUEIL */
+
+/* 4.INSCRIPTION CONNEXION*/
+
+.separation{
+	margin-top: 200px;
+	color: blue;
+	border: none;
+    height: 350px;
+    border:1px solid#70707086;
+}
+#espaceConnexion{
+	width: 100%;
+}
 
 .inscription_panel{
     background-color: #ebebeb;
@@ -604,20 +362,279 @@ nav{
     border: 1px solid #003149;
 }
 
+/* FIN INSCRIPTION CONNEXION*/
 
 
-/* .mot_du_conducteur{
-    background-color: ; 
-} */
-/* 
-@media (max-width: 720px){
-    .photo_profil_trajet{
-        width:50px;
-    }
+/* 5.COMPOSANT */
+
+#composants h4{
+    font-size: 18px;
+    font-weight: bold;
+    
 }
-@media (min-width: 721px){
-    .photo_profil_trajet{
-        width:100px;
+
+#composants{
+    font-size: 14px;
+    color : #003149 ;
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+
+.headline_composant{
+    padding: 0.5em;
+    font-family: 'Roboto Slab', serif;
+}
+
+.component_composant{
+    padding: 0.5em;
+    color : #003149 ;
+    background-color:rgb(117, 150, 165);
+}
+
+.component_composant a{
+    color : #003149 ;
+}
+
+.component_composant a:hover{
+    color : #001f2e ;
+}
+
+.composant{
+    margin-bottom: 1em;
+    background-color:rgb(150, 174, 184);
+}
+
+
+/* 6.TRAJET */
+
+    /* 6.1.BOX DE RECHERCHE TRAJET */
+
+    .search_container{
+        margin-top: 25vh;
+        margin-left:2em;
+        margin-bottom: 30vh;
+        margin-right:2em;
+        background-color: rgb(170, 195, 206);
+        border-radius: 1em;
+        
     }
-} */
-/*fintest*/
+
+    .search_container_result{
+        margin-top: 5vh;
+        margin-bottom: 2vh;
+        background-color: rgb(170, 195, 206);
+        border-radius: 1em;
+    }
+
+    .search_headline{
+        font-size: 22px;
+        color: #003149;
+        font-family: 'Roboto Slab', serif;
+        font-weight: bold;
+    }
+
+    .search_mini_headline{
+        color: #003149;
+        font-family: 'Roboto Slab', serif;
+        font-weight: bold;
+    }
+
+    .buttonRecherche{
+        background-color: #00496d;
+        border: 1px solid #00496d;
+    }
+
+    .buttonRecherche:hover{
+        background-color: #003149;
+        border: 1px solid #003149;
+    }
+
+    .buttonSubmitAccueil, .buttonRapetisseForm, .buttonAgranditForm{
+        width: 10em;
+    }
+
+        /* 6.1.1.AUTOCOMPLETE */
+        .villeTrouve:hover{
+            background-color: gray;
+        }
+        .villeTrouve{
+            background-color: white;
+        }
+        #villesTrouve{
+            position: absolute;
+            z-index: 100;
+        }
+        #ui-id-1{
+            border-color: gray;
+            padding-left: 0;
+        }
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 25px;
+            list-style: none;
+            background-color: rgb(117, 150, 165);
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: red;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #003149;
+            font-weight: bold;
+            text-decoration: none;
+            background-color: rgb(170, 195, 206);
+            border-radius: 10px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+        .ui-helper-hidden-accessible{
+            display: none;
+        }
+        /* AUTOCOMPLETE */
+
+    /* FIN BOX DE RECHERCHE TRAJET*/
+
+
+    /* 6.2.RESULTAT TRAJET */
+
+    .res_trajet_place_prix{
+        margin: 0em 0em 0em 1em;
+    }
+
+    #buttonTrieRes1{
+        color:grey;
+    }
+
+    .resultatTrajet{
+        background-color: rgb(170, 195, 206);
+        padding: 1em;
+        border-radius: 1em;
+        color:#003149;
+    }
+
+    /* FIN RESULTAT TRAJET */
+
+    /* 6.3.PROPOSER TRAJET */
+    .btnSupprEtape{
+        color: rgb(255, 255, 255);
+        background-color: #434343;
+    }
+
+    .label_trajet{
+        margin-top: 0.5em;
+    }
+
+    .input_price{
+        margin-bottom: 1em;
+    }
+
+    .btn_trajet{
+        background-color: #434343;
+        border: 1px solid #434343;
+    }
+
+    .btn_trajet:hover{
+        background-color: #797979;
+        border: 1px solid #797979;
+    }
+
+    .btn_ajout_vehicule{
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    /* FIN PROPOSER TRAJET */
+
+    /* 6.4.TRAJET */
+    .btn_valide, .btn_retire{
+        color: white;
+    }
+
+    .btn_valide{
+        background-color: #007c42;
+    }
+
+    .btn_valide:hover{
+        background-color: #00ca6c;
+    }
+
+    .btn_retire{
+        background-color: #920000;
+    }
+
+    .btn_retire:hover{
+        background-color: #f80000;
+    }
+
+    .profil_trajet, .mot_du_conducteur, .commentaire{
+        background-color: #607d8b25;
+        border-radius: 1em;
+        padding: 2em;
+    }
+
+    .commentaire{
+        margin-bottom: 2em;
+    }
+
+    .photo_profil_trajet{
+        border-radius: 50%;
+    }
+
+    .prix_trajet{
+        font-size:16px;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding: 0.7em;
+        background-color: #721212be;
+        border-radius: 0.3em; 
+        color:white;
+    }
+
+    #bodyInscriptionTrajet{
+        margin:1em;
+    }
+
+    #contenuCom{
+        border-radius: 1em;
+    }
+
+    .img_trajet{
+        margin-bottom: 0.5rem;
+        max-height: 400px;
+    }
+
+    /* FIN TRAJET*/
+
+/* FIN TRAJET*/
+

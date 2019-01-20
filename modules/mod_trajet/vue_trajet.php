@@ -24,15 +24,13 @@ class vue_Trajet extends VueGenerique{
 										<label for="depart">Je pars de... </label>
 										<input type="text"  name="depart" class="form-control ville" id="depart"  placeholder="Ville de Depart">
 									</div>
-
 									<div class="text-center form-group container tpl" id="etape" hidden>
 										<label for="villeEtape">...En Passant par...</label>
 										<div class="form-group row villeEtape" id="villeEtape" >
 											<input type="text" id="villeEtape0" class="form-control col-10 nomdeVille ville" placeholder="Ville de Passage">
 											<input type="button" class="btn col-2 btnSupprEtape"  value="&times;">
 										</div>
-									</div>								
-
+									</div>	
 									<div class="text-right form-group">
 										<label for="arrive">... Pour aller à...</label>
 										<input type="text" name="arrive" id="arrive" class="form-control ville"  placeholder="Ville d'Arrivée">
@@ -43,24 +41,14 @@ class vue_Trajet extends VueGenerique{
 										<label><input type="checkbox" name="regulier" id="regulier">Régulier</label>
 									</div>	
 								</div>
-
-								<div class="col-md-6 d-none d-lg-block" id="map" > 
-									<!-- <img class="col-md-12 img-thumbnail" alt="Map de la France" src="photos/Black.png"> -->
-
-								</div>
+								<div class="col-md-6 d-none d-lg-block" id="map"></div>
 							</div>
 							<hr>
 						</div>
 						<div>
-
 							<div class="text-left">
 								<h3>Dates et Horaires</h3>
-				  					<!-- <div class="row container" >
-				  						<h2>Dates et Horaires</h2>
-				  						<label>Aller-Retour<input type="checkbox" name="allerRetour"></label>
-				  					</div> --> 
 				  				</div>
-
 				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center"  id="DateHoraire" >
 				  					<div class="col-lg-12">
 				  						<div class="row col-lg-12 px-0 no-gutters">
@@ -75,7 +63,6 @@ class vue_Trajet extends VueGenerique{
 					  					</div>
 				  					</div>
 				  				</div>
-				  				
 				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center" id="checkpoint" hidden>
 				  					<div id="checkpoint0" class="col-lg-12">
 					  					<div class="col-lg-2 row mx-0 px-0 ml-lg-auto">
@@ -95,10 +82,8 @@ class vue_Trajet extends VueGenerique{
 					  					</div>
 				  					</div>
 				  				</div> 
-
 				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center">
 				  					<div class="col-lg-12">
-
 				  						<div class="col-lg-2 row mx-0 px-0 ml-lg-auto">
 					  						<label class="label_trajet col-lg-7">Prix €</label>
 					  						<input class="input_price form-control col-lg-5" id="prixArrivee" value="0">
@@ -116,16 +101,7 @@ class vue_Trajet extends VueGenerique{
 					  					</div>
 				  					</div>
 				  				</div> 
-
-				  				<!-- <div class="text-left form-group" hidden>
-				  					<label>Date du retour</label>
-				  						<input type="date" name="" value="">
-				  					<label>Heure</label>
-										<input class="col-lg-2" type="time" name="soustrajet[][heure]" value="<?php echo date('h:i') ?>">
-				  					<label>prix</label>
-				  						<input class="col-lg-1" name="prix" value="0"	>
-				  					</div> -->
-				  					<hr>
+								<hr>
 				  				</div>
 				  				<div> 
 				  					<h3 class="text-left"> Autres Modalités	</h3>
@@ -150,21 +126,14 @@ class vue_Trajet extends VueGenerique{
 				  										?>
 				  									</select>
 				  								</div>
-
 				  								<div class="row justify-content-center text-center">
-				  									<!-- Trigger the modal with a button -->
 				  									<button type="button" class="btn_ajout_vehicule btn_trajet offset-lg-5 col-lg-6 col-md-8 btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>
-
-				  									<!-- Modal -->
 				  									<div aria-hidden="hidden" class="modal fade" id="myModal" role="dialog">
 				  										<div class="modal-dialog modal-lg">
-
-				  											<!-- Modal content-->
 				  											<div class="modal-content">
 				  												<div class="modal-header">
 				  													<button type="button" class="close" data-dismiss="modal">&times;</button>
 				  												</div>
-
 				  												<div class="modal-body">
 				  													<h3 class="modal-title text-center">Votre nouveau Vehicule</h3>
 				  													<div class="row form-group offset-lg-1">
@@ -183,36 +152,29 @@ class vue_Trajet extends VueGenerique{
 				  															<option value="6">Je n'ai pas certifié mon véhicule</option>
 				  														</select>
 				  													</div>
-
 				  													<div class="row offset-lg-1">
 				  														<label class="col-lg-2" for="hybride">Hybride</label>	
 				  														<div class="row offset-lg-5">
 				  															<input type="checkbox" id="hybride" name="hybride">
 				  														</div>
 				  													</div>
-
 				  													<div class="row offset-lg-1">
 				  														<label class="col-lg-5" for="photoVehicule">Photo du Vehicule</label>
-				  														<img  class="col-lg-5 thumb img-fluid img-default"  src="photos/Black.png" alt="Photo du vehicule"/>
+				  														<img  class="col-lg-5 thumb img-fluid img-default img_trajet"  src="photos/Black.png" alt="Photo du vehicule"/>
 				  														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
 				  														<input class="offset-lg-5 inputPhoto" type="file" name="photoCar"/>
 				  													</div>
-
 				  													<div class="text-center">
 				  														<button id="addCar" class="btn btn-primary btn_trajet"> Ajouter </button>
 				  													</div>
 				  												</div>
-
 				  												<div class="modal-footer">
 				  													<button class="btn btn-default" data-dismiss="modal">Close</button>
 				  												</div>
 				  											</div>
-
 				  										</div>
 				  									</div>									  
 				  								</div>
-
-
 				  								<div class="row justify-content-center text-center">
 				  									<label class="col-lg-4 col-md-8" for="placeTotale">Nombre de place</label>
 				  									<input class="offset-lg-1 col-lg-6 col-md-8 text-right form-control" type="text"  name="placeTotale"   id="placeTotale"  value="0">
@@ -220,7 +182,7 @@ class vue_Trajet extends VueGenerique{
 				  							</div >
 				  						</div>
 				  						<div class="col-lg-6"> 
-				  							<img class="col-lg-12 img-thumbnail img-fluid" id="imgCar" alt="Voiture" src="photos/Black.png"/>
+				  							<img class="col-lg-12 img-thumbnail img-fluid img_trajet" id="imgCar" alt="Voiture" src="photos/Black.png"/>
 				  						</div>
 				  					</div>
 				  					<div class="row">
@@ -263,8 +225,6 @@ class vue_Trajet extends VueGenerique{
 	}else
 		echo "<div class='row col-12 justify-content-center info_trajet' >
 			<div class='col-12 row justify-content-between couleurTrajet'>";
-
-		
 			?>
 				<div class="col-lg-6">
 					<div class="row descriptionTxt" >
@@ -320,7 +280,7 @@ class vue_Trajet extends VueGenerique{
 							}
 
 							else if ($estDansTrajet && !$peutEtreValide && $value!=$infoTrajet[14]) {
-								echo '<button class="btn" id="desinscriptionAuTrajet" data-id="'.$infoTrajet[13].'">se desinscrire du trajet</button>';
+								echo '<button class="btn btn_retire" id="desinscriptionAuTrajet" data-id="'.$infoTrajet[13].'">se desinscrire du trajet</button>';
 							}
 							else if (!$estDansTrajet && $peutEtreValide) {
 								# code...
