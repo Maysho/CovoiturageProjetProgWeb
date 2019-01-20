@@ -436,7 +436,7 @@ class modele_trajet extends connexion {
 		}
 		if(!is_numeric($note) || $note>20 || $note<0 || empty($commentaire)){
 			http_response_code(400);
-			echo "le message ou la note est incorrect";
+			echo "Le message ou la note est incorrect";
 			exit(1);
 		}
 		//TODO faire une verif si on est inscrit au trajet mdr
@@ -447,7 +447,7 @@ class modele_trajet extends connexion {
 		$unique=$selecPrepareeUnique->fetch();
 		if (empty($unique['idAuteur'])==0) {
 			http_response_code(401);
-			echo "vous avez déjà rentré un commentaire";
+			echo "Vous ne pouvez poster qu'un commentaire à la fois";
 			exit(1);
 		}
 
