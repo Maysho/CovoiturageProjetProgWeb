@@ -435,7 +435,7 @@ class modele_trajet extends connexion {
 		}
 		if(!is_numeric($note) || $note>20 || $note<0 || empty($commentaire)){
 			http_response_code(400);
-			echo "le message ou la note est incorrect";
+			echo "Le message ou la note est incorrect";
 			exit(1);
 		}
 		//TODO faire une verif si on est inscrit au trajet mdr

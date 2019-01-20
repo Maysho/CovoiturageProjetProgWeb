@@ -261,7 +261,7 @@ span{
     display: none;
 }
 #dropcom{
-    color: black;
+    color: black!important;
 }
 .detailTrajet{
     margin: 0;
@@ -544,12 +544,14 @@ nav{
     background-color: #f80000;
 }
 
-.profil_trajet, .mot_du_conducteur{
+.profil_trajet, .mot_du_conducteur, .commentaire{
     background-color: #607d8b25;
     border-radius: 1em;
     padding: 2em;
 }
-
+.commentaire{
+    margin-bottom: 2em;
+}
 .photo_profil_trajet{
     border-radius: 50%;
 }
@@ -567,6 +569,12 @@ nav{
 #bodyInscriptionTrajet{
     margin:1em;
 }
+
+#contenuCom{
+    border-radius: 1em;
+}
+
+
 /* .mot_du_conducteur{
     background-color: ; 
 } */
