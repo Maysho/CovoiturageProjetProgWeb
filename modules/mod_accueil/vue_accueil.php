@@ -19,7 +19,7 @@ class VueAccueil extends VueGenerique
    
   		else
   			echo "<div class='no-gutters px-0 justify-content-md-center row col'>
-  		<div class='search_container justify-content-md-start justify-content-lg-center col-md-6'>";
+  		<div class='search_container justify-content-md-start justify-content-lg-center col-md-8'>";
   		?>
 			<div id="divHauteRes2">
 				<div class='row no-gutters justify-content-end'>
