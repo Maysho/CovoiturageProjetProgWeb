@@ -14,7 +14,7 @@ class vue_nav
 	public function navNonConnecte($value='')
 	{
 	?>
-		<nav class='navbar navbar-expand-md navbar-light'>
+		<nav class='navbar navbar-expand-md navbar-light row '>
 			<a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
 			<button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 				<span class='navbar-toggler-icon'></span>
@@ -37,7 +37,7 @@ class vue_nav
 	}
 	public function navConnecte($info){
 ?>
-   		<nav class='navbar navbar-expand-md navbar-light'>
+   		<nav class='navbar navbar-expand-md navbar-light row'>
 			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
@@ -45,7 +45,7 @@ class vue_nav
 
 			  
 
-			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''>Affiche</a>
+			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''><?php echo !isset($_SESSION['composantNonActif'])?"Désaffiche":"Affiche"?></a>
 			  <div class='mr-auto'></div>
 			  <div class="row align-items-center">
 	        	<a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>

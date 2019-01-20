@@ -29,10 +29,11 @@ class vueFavoris
    			<?php
 
    			for ($i=count($donnees)-1; $i >=0 ; $i--) { 
+               $premier=count($donnees)-1==$i?' border-top-0':"";
                echo " <tr>
-               <td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][2]."</a></td>
-               <td class'text-center'> <i class='fas fa-long-arrow-alt-right'></i></td>
-               <td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][3]."</a></td></tr>";
+               <td class='text-center".$premier."'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][2]."</a></td>
+               <td class='text-center ".$premier."'> <i class='fas fa-long-arrow-alt-right'></i></td>
+               <td class=' text-center ".$premier."'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][3]."</a></td></tr>";
             }
 
    			?>
