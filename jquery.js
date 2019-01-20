@@ -834,7 +834,7 @@ $(function(){
         $(this).remove(); 
 
       });
-      $(document).find("#date"+nb).parent().parent().parent().fadeOut(function(){
+      $(document).find("#checkpoint"+nb).fadeOut(function(){
         $(this).remove(); 
       });
 
@@ -842,7 +842,7 @@ $(function(){
 
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
-      $(document).find("#date"+nb).parent().parent().remove();
+      $(document).find("#checkpoint"+nb).remove();
       console.log("On a supprimé une étape");
 
       $(this).parent().fadeOut(function(){

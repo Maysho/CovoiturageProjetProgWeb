@@ -1,6 +1,9 @@
 .imagenav{
 	width: 75px;
 }
+.logonav{
+    width: 100%;
+}
 .separation{
 	margin-top: 200px;
 	color: blue;
@@ -301,7 +304,7 @@ span{
     
 }
 #divHauteRes2{
-    padding: 1%;
+    padding: 1em;
 }
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.
