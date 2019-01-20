@@ -135,14 +135,18 @@ switch ($_POST['fonction']) {
 				if($modele->checkDiscuValide($idUser, $idInterlocuteur)){
 					$msg=$modele->messages($idUser, $idInterlocuteur);
 					$modele->messageLu($idUser, $idInterlocuteur);
-
+					$href;
+					
 					for($i=0; $i<count($msg); $i++){
 						
-						if($i>0) echo '';
+						if($msg[$i]['idUtilisateurParle']==$idInterlocuteur)
+							$href="?module=mod_profil&idprofil=$idInterlocuteur&ongletprofil=profil";
+						else
+							$href="?module=mod_profil&idprofil=$idUser&ongletprofil=profil";
 
-						echo	'<div class="row rounded messages shadow-lg"  >
+						echo	'<div class="row rounded messages shadow-lg" >
 									<div class="col-md-3 row">
-										<label class="col-5 col-md-12 prenomDiscussion">'.$msg[$i]["prenom"].'</label>
+										<a class="col-5 col-md-12 liens-noms" href="'.$href.'">'.$msg[$i]["prenom"].'</a>
 										<label class="col-5 col-md-12 dateHeureDiscussion">'.$msg[$i]["jour"].'</label>
 										<label class="col-2 col-md-12 dateHeureDiscussion">'.$msg[$i]["heure"].'</label>
 									</div>
@@ -150,10 +154,10 @@ switch ($_POST['fonction']) {
 										<span class="msgLongs">'.$msg[$i]["contenuMessage"].'</span>
 									</div>
 								</div>';
-						
 					}
-									
+								
 				}		
+
 	}
 		break;
 	case 'envoyerMessage':

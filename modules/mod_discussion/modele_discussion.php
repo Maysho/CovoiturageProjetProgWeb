@@ -29,12 +29,12 @@ include_once __DIR__ . '/../../connexion.php';
 		public function messages($idUser, $idInterlocuteur){
 			$selectPreparee=self::$bdd->prepare('
 
-				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, DATE_FORMAT(date, "%d/%m/%Y") AS jour, DATE_FORMAT(date, "%H:%i") AS heure FROM discussion
+				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, DATE_FORMAT(date, "%d/%m/%Y") AS jour, DATE_FORMAT(date, "%H:%i") AS heure , idUtilisateurParle  FROM discussion
 				WHERE idUtilisateur1=? AND idUtilisateur2=?
 
 				UNION
 
-				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, DATE_FORMAT(date, "%d/%m/%Y") AS jour, DATE_FORMAT(date, "%H:%i") AS heure FROM discussion
+				SELECT idDiscussion, contenuMessage, (SELECT prenom FROM utilisateur WHERE idUtilisateur = idUtilisateurParle) AS prenom, DATE_FORMAT(date, "%d/%m/%Y") AS jour, DATE_FORMAT(date, "%H:%i")AS heure , idUtilisateurParle  FROM discussion
 				WHERE idUtilisateur2=? AND idUtilisateur1=?
 
 				ORDER BY idDiscussion
