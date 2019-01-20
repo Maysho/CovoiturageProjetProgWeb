@@ -515,6 +515,15 @@ nav{
     width: 100%;
 }
 
+.liens-noms{
+    color:#555555;
+    font-weight: bold;
+}
+
+.liens-noms:hover{
+    color:black;
+    text-decoration: none;
+}
 /* FIN PROFIL */
 
 /* 8.FOOTER */

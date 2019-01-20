@@ -13,12 +13,12 @@ class VueAccueil extends VueGenerique
 
 	public function affiche($connecte){
    		if ($connecte) {
-   			echo "<div class='no-gutters px-0 '>
+   			echo "<div class='no-gutters col-12 '>
   		<div class='search_container justify-content-md-start justify-content-lg-center col-12'>";
    		}
    
   		else
-  			echo "<div class='no-gutters px-0 justify-content-md-center row col'>
+  			echo "<div class='no-gutters justify-content-md-center row col'>
   		<div class='search_container justify-content-md-start justify-content-lg-center col-md-8'>";
   		?>
 			<div id="divHauteRes2">
