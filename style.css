@@ -37,7 +37,6 @@ font-family: 'Ubuntu', sans-serif;
 .contenu_page{
     background-color: #ebebeb;
     padding: 2em;
-    margin: 2em;
     border-radius: 1em;
     font-size: 14px;
 }
@@ -197,12 +196,10 @@ nav{
 
     .search_container{
         margin-top: 25vh;
-        margin-left:2em;
         margin-bottom: 30vh;
         margin-right:2em;
         background-color: rgb(170, 195, 206);
         border-radius: 1em;
-        
     }
 
     .align-text-bottomme{
@@ -524,6 +521,11 @@ nav{
     color:black;
     text-decoration: none;
 }
+
+.active{
+    color:#ffae00 !important;
+}
+
 /* FIN PROFIL */
 
 /* 8.FOOTER */
