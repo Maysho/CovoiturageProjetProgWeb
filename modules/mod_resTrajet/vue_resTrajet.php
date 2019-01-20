@@ -42,15 +42,15 @@ class vue_resTrajet extends VueGenerique
 				      <label class="search_headline" for='rechercheArrive'>Destination</label>
 				      <input type='adresse' class='form-control' id='rechercheArrive' placeholder="Ville d'Arrivée (ex: LE FION, 74500)" name="destination" value="<?php echo $destination; ?>">
 				    </div>
-				    <div class="form-group col-md-3 partitAjoute d-none"> 
+				    <div class="form-group col-md-3 partitAjoute d-none aDesaffiche"> 
 				    	<label class="search_mini_headline" for="inputAddress">Date</label>  
 				    	<input type="date" class="form-control" id="inputAddress" placeholder="" name="date" value="<?php echo $date; ?>">  
 				    	 </div> 
-				    	 <div class="form-group col-md-3 partitAjoute d-none">
+				    	 <div class="form-group col-md-3 partitAjoute d-none aDesaffiche">
 				    	 	<label class="search_mini_headline" for="inputAddress2">prix</label>    
 				    	 	 <input type="text" class="form-control" id="inputAddress2" name="prix" placeholder="Prix maximal" value="<?php echo $prix; ?>">
 				    	 	  </div>  
-				    	 	<div class="partitAjoute form-group col-md-2 d-none">  
+				    	 	<div class="partitAjoute form-group col-md-2 d-none aDesaffiche">  
 				    	 	<label class="search_mini_headline" for="inputState">type de vehicule<i class="fas fa-question-circle" title="dans ce champ vous devez rentrer le crit'Air de votre véhicule"></i></label> 
 				    	 	<select id="inputState" name="type" class="form-control"> 
 							<option <?php echo $type=="Non Renseigné"? "selected":""; ?>>Non Renseigné</option>
@@ -65,7 +65,7 @@ class vue_resTrajet extends VueGenerique
 						</select> 
 					</div>
 				</div>
-				<div class="form-row d-none" id="regulierForm"> 
+				<div class="form-row d-none aDesaffiche" id="regulierForm"> 
 					<div class="form-check"> 
 						<input class="form-check-input" type="checkbox" id="gridCheck" name="regulier" <?php echo $regulier==true?"checked":""; ?> value="<?php echo $regulier; ?>"> 
 						<label class="form-check-label search_mini_headline" for="gridCheck"> Régulier<i class="fas fa-question-circle" title="ce champ doit être validé si vous recherchez un trajet régulié"></i></label>
@@ -83,7 +83,7 @@ class vue_resTrajet extends VueGenerique
 				    </select>
 					<button type='submit' class='btn btn-primary buttonRecherche' id="buttonResTrajet" >Sign in</button>
 				</div>
-				<div class="row d-none" id="divbuttonrapetisseform">
+				<div class="row d-none aDesaffiche" id="divbuttonrapetisseform">
 					<button class="btn btn-secondary buttonRecherche" id="buttonRapetisseForm">-</button> 
 				</div>
 			</form>
