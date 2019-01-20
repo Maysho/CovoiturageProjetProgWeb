@@ -402,7 +402,7 @@ class vue_Trajet extends VueGenerique{
 						<label>Mot du Conducteur :</label>
 					</div>
 					<div class="row mot_du_conducteur" >
-						<p><?php echo $infoTrajet[11];?></p>
+						<p><?php echo (empty($infoTrajet[11])) ? "Aucune Description" : $infoTrajet[11];?></p>
 					</div>
 				</div>
 			</div>
@@ -472,15 +472,15 @@ class vue_Trajet extends VueGenerique{
 							if (isset($personneDansCettePlace)) {
 								if ($infoTrajet[14]==$personneDansCettePlace->getId()) {
 									$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>";
+								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid photo_profil_trajet'></a>";
 								 } 
 								 elseif ($value==$infoTrajet[14]) {
 								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>";
+								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid photo_profil_trajet'></a>";
 								 }
 								 else{
 								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<img src='$urlPhoto' class='img-fluid'>";
+								 	echo "<img src='$urlPhoto' class='img-fluid photo_profil_trajet'>";
 								 }
 							}
 						  	?>
@@ -516,16 +516,16 @@ class vue_Trajet extends VueGenerique{
 		<?php 
 		if ($trajetValide) {
 			if ($value>=1) {
-				echo "<div class=' col-12'>
-				<div class='border border-dark col-12 row justify-content-between'>";
+				echo "<div class='info_trajet col-12'>
+				<div class='col-12 couleurTrajet row justify-content-between'>";
 			}
 			else
-				echo "<div class='row col-12 justify-content-center'>
-				<div class='border border-dark col-12 row justify-content-between'>";
+				echo "<div class='info_trajet row col-12 justify-content-center'>
+				<div class='col-12 couleurTrajet row justify-content-between'>";
 		?>
 		
 				<div class="col-12">
-					<h2>Commentaire</h2>
+					<h3>Commentaire</h3>
 				</div>
 				<div id="espaceCommentaire">
 				<?php
