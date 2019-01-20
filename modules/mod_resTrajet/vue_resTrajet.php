@@ -110,19 +110,17 @@ class vue_resTrajet extends VueGenerique
 	  				<span class=""><?php echo $donnee['prenom'];?></span>
 	  			</div>
 	  			<div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" >
-	  			<div class=" justify-content-md-between justify-content-center row container-fluid px-0" >
+	  			<div class="justify-content-md-between justify-content-center row container-fluid px-0" >
 	  				<span class="col-12 col-md-6 text-center">Départ de <?php echo $donnee['depart'];?></span>
 	  				<span class="col-6 text-md-right text-center"> à <?php echo $donnee['heureDepart'];?></span>
-	  				
-	  				</div>
-	  				<div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0">
-
-	  				<span class="col-12 col-md-6 text-center" style="padding-right: 3px;">Arrivée à <?php echo $donnee['destination'];?></span>
-	  				<span class="col-6 text-md-right text-center" > à <?php echo $donnee['heureArrivee'];?></span>
-	  				</div>
+				</div>
+				<div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0">
+					<span class="col-12 col-md-6 text-center" style="padding-right: 3px;">Arrivée à <?php echo $donnee['destination'];?></span>
+					<span class="col-6 text-md-right text-center" > à <?php echo $donnee['heureArrivee'];?></span>
+				</div>
 	  			</div>
 	  			<div class="col-md-2 row offset-md-1 res_trajet_place_prix justify-content-md-end px-0">
-	  				<div class="row justify-content-md-end  col-12">
+	  				<div class="row justify-content-md-end col-12">
 	  					<span class="align-top">Places <?php echo $donnee['placeTotale']; ?></span>
 	  				</div>
 	  				<div class="row align-content-end justify-content-end col-12" >
