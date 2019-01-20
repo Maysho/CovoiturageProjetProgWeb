@@ -54,7 +54,7 @@ class vue_connexion extends VueGenerique
 						<div class="form-group">
 							<label for="exampleInputEmail3">Adresse Mail</label>
 							<i class="fas fa-user"></i>
-							<input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder="Adresse Mail (ex: songoku@dbz.com)">
+							<input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder=" <i class="fas fa-user"></i> Adresse Mail (ex: songoku@dbz.com)">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword4">Mot De Passe</label>

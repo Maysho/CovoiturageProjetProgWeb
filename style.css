@@ -7,266 +7,25 @@ font-family: 'Staatliches', cursive;
 */
 
 /*
-    SUMMARY
+                SUMMARY
 
-    1.CORPS DU SITE
-    2.NAV
-    3.ACCUEIL
-    4.INSCRIPTION CONNEXION
-    5.COMPOSANT
-    6.TRAJET
-        6.1.BOX DE RECHERCHE TRAJET
-            6.1.1.AUTOCOMPLETE
-        6.2.RESULTAT TRAJET
-        6.3.PROPOSER TRAJET
-        6.4.TRAJET
+                1.CORPS DU SITE
+                2.NAV
+                3.ACCUEIL
+                4.INSCRIPTION CONNEXION
+                5.COMPOSANT
+                6.TRAJET
+                    6.1.BOX DE RECHERCHE TRAJET
+                        6.1.1.AUTOCOMPLETE
+                    6.2.RESULTAT TRAJET
+                    6.3.PROPOSER TRAJET
+                    6.4.TRAJET
+                7.PROFIL
+                8.FOOTER 
+                9.MESSAGERIE
+                10.RANDOM SH*t
 
 */
-
-h2{
-	margin-top: 50px;
-	margin-bottom: 50px;
-}
-.warning{
-	color: red;
-}
-.align-text-bottomme{
-    position: absolute;
-    bottom: 0;
-}
-.liensanscouleur{
-    color: black;
-    text-decoration: none;
-}
-.liensanscouleur:hover{
-    color: black;
-    text-decoration: none;
-}
-.descriptionTxt{
-    margin-top: 20px;
-    margin-bottom:  20px;
-}
-.bordered{
-    border-left: 3px dashed black;
-    height: 100%;
-    margin-left: 7px;
-    min-height: 50px;
-}
-
-.titreFavoris{
-    font-weight: bold;
-}
-
-.btn-profil{
-    white-space: normal;	
-}
-
-.pre-scrollable{
-    height:34rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    background-color: #aaaaaa;
-}
-
-.textarea-fixe{
-    resize: none;
-}
-
-#footer{
-    background-color: #323232;
-    /* margin-top: 25vh; */
-}
-
-.titre-footer{
-    font-size:1.7rem;
-}
-
-.lien-footer{
-    display:block;  
-}
-.lien-footer:hover{
-    text-decoration: none;
-    font-weight: bold;
-    color:white;
-}
-
-.text-footer{
-    color: #AAAAAA;
-}
-
-.interlocuteurs{
-    margin-top: 0.5rem;
-    background-color: #d8d8d8;
-}
-
-.interlocuteurs:hover{
-    cursor:pointer;
-    font-weight: bold;
-    background-color: #eeeeee;
-}
-
-.messages{
-    margin-top: 0.5rem;
-    background-color: #cccccc;
-    padding: 0.25rem;
-}
-
-.prenomDiscussion{
-    font-weight: bold;
-    margin-bottom: 0rem;
-}
-
-.dateHeureDiscussion{
-    font-size: 0.7rem;
-    margin-bottom: 0rem;
-}
-
-#titreContacts{
-    color:white;
-    margin-top: 0.5rem;
-    margin-bottom: 0rem;
-    font-weight: bold;
-    background-color: #323232;
-}
-
-#titreMessages{
-    color:white;
-    margin-bottom: 0rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
-    background-color: #434343;
-}
-
-.sectionProfil{
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    background-color: #dddddd;
-}
-
-#img-profil{
-    margin-bottom: 0.5rem;
-    max-height: 200px;
-}
-.label-profil{
-    margin-right: 0.2rem;
-    font-weight: bold;
-}
-
-#description{
-    background-color: #eaeaea;
-}
-
-.commentaire-profil{
-    background-color: #dddddd;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-}
-
-.description-commentaire-profil{
-    background-color: #eaeaea;
-}
-
-.lien-noms-commentaires-profil{
-    color:#555555;
-    font-weight: bold;
-}
-
-.lien-noms-commentaires-profil:hover{
-    color:black;
-    text-decoration: none;
-}
-
-   
-/*
- * Row with equal height columns
- * --------------------------------------------------
- */
-.checkermed{
-    margin-top: -7px;
-}
-
-.box{
-    position: relative;
-    width: 100px;       /* desired width */
-}
-.box:before{
-    content: "";
-    display: block;
-    padding-top: 100%;  /* ratio of 1:1*/
-}
-
-
-span{
-     word-wrap: break-word;
-}
-#dropcom::after{
-    display: none;
-}
-#dropcom{
-    color: black!important;
-}
-.detailTrajet{
-    margin: 0;
-}
-
-.photoVoitureProfil{
-    width: 30vw;
-    height: 30vh;
-}
-
-#inscriptionbutton{
-    margin-bottom: 5px;
-}
-.composant{
-    overflow: auto;
-    padding : 1em ;
-    /* border-radius: 10px; */
-    /* margin-bottom: 5px; */
-}
-.couleurTrajet{
-    background-color: #607d8b25;
-    border-radius: 1em; 
-    padding: 2em 2em 1em 2em;
-}
-.info_trajet{
-    /* margin: 1em; */
-    padding: 2em;
-}
-.btn_credit{
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-}
-.buttonRecherche{
-    margin-right: 1rem;
-}
-#divHauteRes2{
-    padding: 1em;
-}
-/*
- * Styles copied from the Grid example to make grid rows & columns visible.
- */
-/*
- * Callout styles copied from Bootstrap's main docs.
- */
-/* Common styles for all types */
-
-#img-photo-vehicule{
-    width: 100%;
-
-}
 
 /* 1.CORPS DU SITE */
 body {
@@ -293,6 +52,29 @@ font-family: 'Ubuntu', sans-serif;
     font-size: 24px;
     margin: 0.7em;
 }
+
+h2{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.warning{
+	color: red;
+}
+
+.liensanscouleur{
+    color: black;
+    text-decoration: none;
+}
+.liensanscouleur:hover{
+    color: black;
+    text-decoration: none;
+}
+
+span{
+    word-wrap: break-word;
+}
+
+
 /* FIN CORPS DU SITE */
 
 /* 2.NAV */
@@ -367,10 +149,14 @@ nav{
 
 /* 5.COMPOSANT */
 
+.composant{
+    overflow: auto;
+    padding : 1em ;
+}
+
 #composants h4{
     font-size: 18px;
     font-weight: bold;
-    
 }
 
 #composants{
@@ -419,6 +205,11 @@ nav{
         
     }
 
+    .align-text-bottomme{
+        position: absolute;
+        bottom: 0;
+    }
+
     .search_container_result{
         margin-top: 5vh;
         margin-bottom: 2vh;
@@ -451,6 +242,10 @@ nav{
 
     .buttonSubmitAccueil, .buttonRapetisseForm, .buttonAgranditForm{
         width: 10em;
+    }
+
+    .buttonRecherche{
+        margin-right: 1rem;
     }
 
         /* 6.1.1.AUTOCOMPLETE */
@@ -634,7 +429,236 @@ nav{
         max-height: 400px;
     }
 
+    .detailTrajet{
+        margin: 0;
+    }    
+        
+    .couleurTrajet{
+        background-color: #607d8b25;
+        border-radius: 1em; 
+        padding: 2em 2em 1em 2em;
+    }
+    .info_trajet{
+        padding: 2em;
+    }
+
     /* FIN TRAJET*/
 
 /* FIN TRAJET*/
 
+/* 7.PROFIL */
+.titreFavoris{
+    font-weight: bold;
+}
+
+.btn-profil{
+    white-space: normal;	
+}
+
+.sectionProfil{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #dddddd;
+}
+
+#img-profil{
+    margin-bottom: 0.5rem;
+    max-height: 200px;
+}
+.label-profil{
+    margin-right: 0.2rem;
+    font-weight: bold;
+}
+
+#description{
+    background-color: #eaeaea;
+}
+
+.commentaire-profil{
+    background-color: #dddddd;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.description-commentaire-profil{
+    background-color: #eaeaea;
+}
+
+.lien-noms-commentaires-profil{
+    color:#555555;
+    font-weight: bold;
+}
+
+.lien-noms-commentaires-profil:hover{
+    color:black;
+    text-decoration: none;
+}
+
+.descriptionTxt{
+    margin-top: 20px;
+    margin-bottom:  20px;
+}
+
+#dropcom::after{
+    display: none;
+}
+#dropcom{
+    color: black!important;
+}
+.photoVoitureProfil{
+    width: 30vw;
+    height: 30vh;
+}
+
+#img-photo-vehicule{
+    width: 100%;
+}
+
+/* FIN PROFIL */
+
+/* 8.FOOTER */
+
+#footer{
+    background-color: #323232;
+    /* margin-top: 25vh; */
+}
+
+.titre-footer{
+    font-size:1.7rem;
+}
+
+.lien-footer{
+    display:block;  
+}
+.lien-footer:hover{
+    text-decoration: none;
+    font-weight: bold;
+    color:white;
+}
+
+.text-footer{
+    color: #AAAAAA;
+}
+
+/* FIN FOOTER */
+
+/* 9.MESSAGERIE */
+.textarea-fixe{
+    resize: none;
+}
+
+.interlocuteurs{
+    margin-top: 0.5rem;
+    background-color: #d8d8d8;
+}
+
+.interlocuteurs:hover{
+    cursor:pointer;
+    font-weight: bold;
+    background-color: #eeeeee;
+}
+
+.messages{
+    margin-top: 0.5rem;
+    background-color: #cccccc;
+    padding: 0.25rem;
+}
+
+.prenomDiscussion{
+    font-weight: bold;
+    margin-bottom: 0rem;
+}
+
+.dateHeureDiscussion{
+    font-size: 0.7rem;
+    margin-bottom: 0rem;
+}
+
+#titreContacts{
+    color:white;
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    font-weight: bold;
+    background-color: #323232;
+}
+
+#titreMessages{
+    color:white;
+    margin-bottom: 0rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    background-color: #434343;
+}
+
+
+/* FIN MESSAGERIE */
+
+/* 10.RANDOM */
+
+.bordered{
+    border-left: 3px dashed black;
+    height: 100%;
+    margin-left: 7px;
+    min-height: 50px;
+}
+
+.pre-scrollable{
+    height:34rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-color: #aaaaaa;
+}
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.checkermed{
+    margin-top: -7px;
+}
+
+.box{
+    position: relative;
+    width: 100px;       /* desired width */
+}
+.box:before{
+    content: "";
+    display: block;
+    padding-top: 100%;  /* ratio of 1:1*/
+}
+
+#inscriptionbutton{
+    margin-bottom: 5px;
+}
+
+.btn_credit{
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
+#divHauteRes2{
+    padding: 1em;
+}
+
+/*
+ * Styles copied from the Grid example to make grid rows & columns visible.
+ */
+/*
+ * Callout styles copied from Bootstrap's main docs.
+ */
+/* Common styles for all types */
+
+/* FIN RANDOM */
