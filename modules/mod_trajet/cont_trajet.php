@@ -39,11 +39,12 @@ class cont_trajet
 	        	
 	        	$prixAPayer=0;
 	        	$trajetValide=false;
+	        	$urlPhoto="home.jpg";
 	        	if (isset($_SESSION['id'])&&$estDansTrajet) {
 	        		$prixAPayer=$this->modele->recupPrixAPayer(htmlspecialchars($_GET['id']));
 	        		
 	        		$trajetValide=$this->modele->trajetValide(htmlspecialchars($_GET['id']));
-	        		
+	        		$urlPhoto=$this->modele->recupUrlPhoto();
 	        	}
 				$trajetpeutEtreValide=$this->modele->peutEtreValide(htmlspecialchars($_GET['id']));
 	        	
@@ -62,7 +63,7 @@ class cont_trajet
 	        		$personne[$value[0]]=new personne($etapePers[$value[0]],$personne,$tabInfoTrajet[15],$value[0],$value[1]);
 	        	}
 	        	
-	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$prixAPayer,$trajetAeteValide,$trajetpeutEtreValide,$trajetValide,$nbPersDansTrajet,$personne,$idEtapeTrajet,$token);
+	            $this->vue->afficheTrajet(isset($_SESSION['id'])?$_SESSION['id']:0,$tabInfoTrajet,$tabUser,$idS,$tabinfoSTrajet,$tabCommentaire,$estDansTrajet,$prixAPayer[0],$prixAPayer,$trajetAeteValide,$trajetpeutEtreValide,$trajetValide,$nbPersDansTrajet,$personne,$idEtapeTrajet,$token,$urlPhoto);
 	        }
 	        else{
 	           if(isset($_SESSION['id'])){

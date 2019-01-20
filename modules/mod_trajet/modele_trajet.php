@@ -790,6 +790,13 @@ HAVING trajet.placeTotale-count(utilisateur_idutilisateur)>0 ');
 		echo json_encode($ville);
 
 	}
+	public function recupUrlPhoto()
+	{
+		$selecPrepare=self::$bdd->prepare('SELECT urlPhoto FROM utilisateur where idUtilisateur=?');
+		$tableauIds=array($_SESSION['id']);
+		$selecPrepare->execute($tableauIds);
+		return $selecPrepare->fetch();
+	}
 
 }
 

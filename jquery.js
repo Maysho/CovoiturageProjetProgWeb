@@ -240,7 +240,7 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
     function(data,statut){
 
 
-      $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="home.jpg" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
+      $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="'+$("#photoUtilisateurCo").attr('src')+'" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
       $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
         e.preventDefault();
       
@@ -836,7 +836,7 @@ $(function(){
         $(this).remove(); 
 
       });
-      $(document).find("#date"+nb).parent().parent().parent().fadeOut(function(){
+      $(document).find("#checkpoint"+nb).fadeOut(function(){
         $(this).remove(); 
       });
 
@@ -844,7 +844,7 @@ $(function(){
 
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
-      $(document).find("#date"+nb).parent().parent().remove();
+      $(document).find("#checkpoint"+nb).remove();
       console.log("On a supprimé une étape");
 
       $(this).parent().fadeOut(function(){

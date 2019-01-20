@@ -1,6 +1,9 @@
 .imagenav{
 	width: 75px;
 }
+.logonav{
+    width: 100%;
+}
 .separation{
 	margin-top: 200px;
 	color: blue;
@@ -104,6 +107,7 @@ h2{
     border-left: 3px dashed black;
     height: 100%;
     margin-left: 7px;
+    min-height: 50px;
 }
 
 .titreFavoris{
@@ -278,7 +282,13 @@ span{
     /* margin-bottom: 5px; */
 }
 .couleurTrajet{
-    background-color: #607d8b0a;
+    background-color: #607d8b25;
+    border-radius: 1em; 
+    padding: 2em 2em 1em 2em;
+}
+.info_trajet{
+    /* margin: 1em; */
+    padding: 2em;
 }
 .btn_credit{
     display: inline-block;
@@ -301,7 +311,7 @@ span{
     
 }
 #divHauteRes2{
-    padding: 1%;
+    padding: 1em;
 }
 /*
  * Styles copied from the Grid example to make grid rows & columns visible.
@@ -349,6 +359,7 @@ font-family: 'Ubuntu', sans-serif;
     background-image: url(imgbg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    margin-top: -1em;
 }
 /*BOX DE RECHERCHE TRAJET*/
 .search_container{
@@ -446,7 +457,7 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 .composant{
-    margin-top: 1em;
+    margin-bottom: 1em;
     background-color:rgb(150, 174, 184);
     /* border-radius: 1em;  */
 }
@@ -456,6 +467,7 @@ font-family: 'Ubuntu', sans-serif;
 nav{
     background-color: #323232;
     color: white;
+    margin-bottom: 1em;
 }
 
 .nav-link{
@@ -493,8 +505,6 @@ nav{
     background-color: #434343;
 }
 
-
-
 .label_trajet{
     margin-top: 0.5em;
 }
@@ -514,4 +524,47 @@ nav{
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+
+/* Trajet */
+.btn_valide, .btn_retire{
+    color: white;
+}
+.btn_valide{
+    background-color: #007c42;
+}
+.btn_valide:hover{
+    background-color: #00ca6c;
+}
+.btn_retire{
+    background-color: #920000;
+}
+.btn_retire:hover{
+    background-color: #f80000;
+}
+
+.profil_trajet, .mot_du_conducteur{
+    background-color: #607d8b25;
+    border-radius: 1em;
+    padding: 2em;
+}
+
+.photo_profil_trajet{
+    border-radius: 50%;
+}
+
+/* .mot_du_conducteur{
+    background-color: ; 
+} */
+/* 
+@media (max-width: 720px){
+    .photo_profil_trajet{
+        width:50px;
+    }
+}
+@media (min-width: 721px){
+    .photo_profil_trajet{
+        width:100px;
+    }
+} */
 /*fintest*/
