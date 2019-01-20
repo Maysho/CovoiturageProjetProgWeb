@@ -203,7 +203,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 ?>				
 	   				<div class="rounded commentaire-profil" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
 	   					<div class="row col-auto">
-	   						<label class="col-md-8">De <a class="lien-noms-commentaires-profil" href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?>:</label>
+	   						<label class="col-md-8">De <a class="liens-noms" href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?>:</label>
 	   						<div  class="col-md-4">
 	   							<label class="label-profil">Note:</label>
 	   							<label><?php echo $commentaires[$i]['note']; ?></label>
@@ -241,7 +241,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		
 		
 ?>
-					<div class="border border-dark rounded sectionProfil col-12" style="overflow: auto;">
+					<div class="rounded sectionProfil col-12" style="overflow: auto;">
 						<table class="table">
 							<tr class="">
 								<td class=" text-center titreFavoris">Depart</td>
@@ -290,7 +290,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div class="col-12">
 					
 					<?php self::afficheNavProfil(3,$idUser); ?>
-					<div class="border border-dark rounded sectionProfil">
+					<div class="rounded sectionProfil">
 						<form method="POST" class="col-12" id="editProfil" enctype="multipart/form-data" action="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=recupmodif'; ?>">
 							<input type="hidden" name="token" value="<?php echo $token ?>">
 							<div class="row form-group">
@@ -384,7 +384,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 				<div id="vehiculeProfil" class="col-md-12">
 
 					<?php self::afficheNavProfil(4,$idUser); ?>
-					<div class="border border-dark rounded col-12 sectionProfil" style="overflow: auto;">
+					<div class="rounded col-12 sectionProfil" style="overflow: auto;">
 						<table class="table">
 							<thead>
 								<tr class="">
@@ -498,9 +498,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 										</div>
 										<div class="row offset-md-1">
 											<label class="col-md-5" for="photoVehicule">Photo du Vehicule</label>
-											<img id="defaultThumb" class="col-md-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
+											<img id="defaultThumb" class="col-md-5 thumb img-fluid img-default"  src="photos/Black.png" alt="Photo du vehicule"/>
 											<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
-											<input class="offset-md-5" type="file" id="photoCar" name="photoCar"/>
+											<input id="photoCar" class="offset-md-5 inputPhoto" type="file" name="photoCar"/>
 										</div>
 										<div class="text-center">
 											<button id="addCar" data-dismiss="modal" class="btn btn-primary"> Ajouter </button>
@@ -524,7 +524,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 			<div id="vehiculeProfil" class="row">
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(5,$idUser); ?>
-					<div class="border border-dark rounded col-12 sectionProfil" style="overflow: auto;">		
+					<div class="rounded col-12 sectionProfil" style="overflow: auto;">		
 						<table class="table">
 							<thead>
 								<tr class="">
@@ -578,7 +578,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 			<div id="vehiculeProfil" class="row">
 				<div class="col-md-12">
 					<?php self::afficheNavProfil(6,$idUser); ?>
-					<div class="border border-dark rounded col-12 sectionProfil" style="overflow: auto;">
+					<div class="rounded col-12 sectionProfil" style="overflow: auto;">
 						<table class="table">
 							<thead>
 								<tr class="">
