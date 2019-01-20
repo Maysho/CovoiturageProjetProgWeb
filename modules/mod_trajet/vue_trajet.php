@@ -257,51 +257,50 @@ class vue_Trajet extends VueGenerique{
 		<h2>Le Trajet</h2>
 </div>
 <?php if ($value>=1) {
-	echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
+	echo "<div class='col-12 info_trajet' >
+			<div class='col-12 row justify-content-between couleurTrajet'>";
 	}else
-		echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
+		echo "<div class='row col-12 justify-content-center info_trajet' >
+			<div class='col-12 row justify-content-between couleurTrajet'>";
 
 		
 			?>
 				<div class="col-lg-6">
 					<div class="row descriptionTxt" >
-						<span>Depart</span>
+						<span>Ville de Départ :</span>
 						<div class="mr-auto"></div>
 						<span><?php if($estDansTrajet) echo $villeDepartArrive[1]; else echo $infoTrajet[0];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>Arrive</span>
+						<span>Ville d'Arrivée :</span>
 						<div class="mr-auto"></div>
 						<span><?php if($estDansTrajet) echo $villeDepartArrive[2]; else echo $infoTrajet[1];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>Date Depart</span>
+						<span>Date de Départ :</span>
 						<div class="mr-auto"></div>
 						<span><?php if($estDansTrajet) echo $villeDepartArrive[3]; else echo $infoTrajet[2];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>Date Arrive</span>
+						<span>Date d'Arrivée :</span>
 						<div class="mr-auto"></div>
 						<span><?php if($estDansTrajet) echo $villeDepartArrive[4]; else echo $infoTrajet[3];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>Immatriculation</span>
+						<span>n° d'Immatriculation du véhicule:</span>
 						<div class="mr-auto"></div>
 						<span><?php echo $infoTrajet[4];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>CritAir</span>
+						<span>Catégorie Crit'Air :</span>
 						<div class="mr-auto" ></div>
 						<span><?php echo $infoTrajet[5];?></span>
 					</div>
 					<div class="row descriptionTxt" >
-						<span>Hybride</span>
+						<span>Voiture Hybride :</span>
 						<div class="mr-auto" ></div>
-						<span><?php echo $infoTrajet[6];?></span>
+						<span><?php echo ($infoTrajet[6]==1) ? "Oui" : "Non";?></span>
 					</div>
-
 				</div>
 				<div class="col offset-2">
 					<div>
@@ -326,10 +325,10 @@ class vue_Trajet extends VueGenerique{
 								# code...
 							}
 							else if($peutEtreValide){
-								echo '<button class="btn" id="validationAuTrajet" data-token="'.$token.'" title="ce bouton permet de valider le trajet et donc de terminer ce trajet pour vous" data-id="'.$infoTrajet[13].'"> valider ce trajet</button>';
+								echo '<button class="btn btn_valide" id="validationAuTrajet" data-token="'.$token.'" title="ce bouton permet de valider le trajet et donc de terminer ce trajet pour vous" data-id="'.$infoTrajet[13].'"> Valider Le Trajet</button>';
 							}
 							else if ($value==$infoTrajet[14] && $nbPers<=1) {
-								echo '<button class="btn" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
+								echo '<button class="btn btn_retire" id="retirerTrajet" data-id="'.$infoTrajet[13].'">retirer ce trajet</button>';
 							}
 							elseif ($value==$infoTrajet[14]) {
 								# code...
@@ -341,27 +340,21 @@ class vue_Trajet extends VueGenerique{
 ?>
 					</div>
 				</div>
-				
 			</div>
-
 		</div>
 
 		<div class="modal" id="partieInscription">
 			<div class="modal-dialog">
 			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h4 class="modal-title">Choisissez votre trajet</h4>
-			        <button type="button" class="close" data-dismiss="modal">
-			          <span>&times;</span>
-			        </button>            
-			      </div>
-			      <form method="GET" action="#" id="envoieInscriptionTrajet" data-nbPlace="<?php echo count($tabSt) ?>">
-			      <div class="modal-body" id="bodyInscriptionTrajet">
+			      	<div class="modal-header">
+						<h4 class="modal-title">Choisissez votre trajet</h4>
+						<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+						</button>            
+						</div>
+			      	<form method="GET" action="#" id="envoieInscriptionTrajet" data-nbPlace="<?php echo count($tabSt) ?>">
+			      	<div class="modal-body" id="bodyInscriptionTrajet">
 			        <?php
-			        
-			        //
-			        
-			         
 			        for ($i=0; $i <count($tabSt) ; $i++) { 
                         if ($i==(count($tabSt)-1)) {
                         	echo '<div class="row"><div class="col-6">';
@@ -369,126 +362,113 @@ class vue_Trajet extends VueGenerique{
                         else
                         	echo '<div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
                         if($i==0){
-                        echo '<label for="st'.$i.'" >'.$tabSt[$i][13].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][13].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
                         }
-                        
-                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" n id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
+						echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" n id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
                     }
-
 			        ?>
-			        <div class="row justify-content-end">
-			        <span id="prixInscription">0</span><span>€</span>
-			        </div>
-			      </div>
-			      <div class="modal-footer justify-content-between">
-			        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-			        <input type="submit" name="envoie" class="btn" value="Valider" id="envoieInscription">
-			      </div>
-			  </form>
+								<div class="row justify-content-end">
+									<span id="prixInscription">0</span><span>€</span>
+								</div>
+							</div>
+						<div class="modal-footer justify-content-between">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+							<input type="submit" name="envoie" class="btn" value="Valider" id="envoieInscription">
+						</div>
+			 		</form>
 			    </div>
-			  </div>
+			</div>
 		</div>
 
 		<?php
 		if ($value>=1) {
-			echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between '>";
+			echo "<div class='col-12 ' >
+			<div class='profil_trajet col-12 row justify-content-between '>";
 		}
 		else
-			echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between '>";
+			echo "<div class='row col-12 justify-content-center ' >
+			<div class='profil_trajet col-12 row justify-content-between '>";
 		?>
 		
 				<div class="col-lg-2 col-4 row align-items-center">
 					<?php $lien='?module=mod_profil&idprofil='.$infoTrajet[14].'&ongletprofil=profil'?>
-						<a href="<?php echo $lien; ?>"><img src="<?php echo empty($infoTrajet[8] )?'home.jpg':$infoTrajet[8];  ?>" class="img-fluid" ></a>
-						
+					<a href="<?php echo $lien; ?>"><img src="<?php echo empty($infoTrajet[8] )?'home.jpg':$infoTrajet[8];  ?>" class="img-fluid photo_profil_trajet" ></a>	
+					<div class="row px-0 no-gutters col-12 descriptionTxt justify-content-center">
+						<span style="font-weight:bold;"><?php echo $infoTrajet[9]." "; echo $infoTrajet[10];?></span>
+					</div>
 				</div>
 				<div class="col-8 col-lg-10">
-					<div class="row descriptionTxt" >
-						<span><?php echo $infoTrajet[9]." "; echo $infoTrajet[10];?></span>
+					<div class="row">
+						<label>Mot du Conducteur :</label>
 					</div>
-					<div class="row descriptionTxt" >
-						<span class="col-12"><?php echo $infoTrajet[11];?></span>
-						<span></span>
+					<div class="row mot_du_conducteur" >
+						<p><?php echo $infoTrajet[11];?></p>
 					</div>
 				</div>
-
-				
 			</div>
-
 		</div>
 		<?php
-		/*var_dump($user);
-		var_dump(array_column($user, 'utilisateur_idutilisateur'));
-		var_dump(array_column($user, 'sousTrajet_idsousTrajet'));*/
 		$idUtilisateur=array_column($user, 'utilisateur_idutilisateur');
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
 			if ($value>=1) {
-				echo "<div class='col-12' >
-			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
+				echo "<div class=' info_trajet col-12' >
+			<div class='col-12 row justify-content-between couleurTrajet'>";
 			}
 			else
-				echo "<div class='row col-12 justify-content-center' >
-			<div class='border border-dark col-12 row justify-content-between couleurTrajet'>";
+				echo "<div class='info_trajet row col-12 justify-content-center' >
+			<div class='col-12 row justify-content-between couleurTrajet'>";
 
 
 		?>
 		
 				<div class="col-12">
-			<h3>Itineraire</h3>
-			</div>
+					<h3>Itineraire</h3>
+				</div>
 				<div class="col">
 					<div class="row " >
-						<div class="col-4 border-dark border row justify-content-between detailTrajet">
-						<i class="far fa-circle"><?php  echo $tabSt[0][13]?></i>
-						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
+						<div class="col-4  row justify-content-between detailTrajet">
+						<i class="far fa-circle"></i><?php echo $tabSt[0][13]?>
+						<span> à <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<?php if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border px-0' >";
+						 		echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						 	}
 						else
-							echo "<div class='col-2 border-dark border px-0' >";
+							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						?>
-						
-							<span>c</span>
+							<span><i class="fas fa-taxi"></i></span>
 						</div>
-						
-
 					<?php  $compteur =0;
 					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
 					 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark px-0 border' >";
+						 		echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						 	}
 						else
-							echo "<div class='col-2 border-dark border px-0' >";
+							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 					  ?>
 
 					
-							 <span>p</span> 
+							 <span><i class="fas fa-user-alt"></i></span> 
 						</div>
 						
 					<?php } echo "</div>";
 
 					while($compteur<count($idEtapeTrajet)) { ?>
 			
-					<div class="row " >
-						<div class="col-4 border-dark border ">
-							<div class="bordered ">
-								
+						<div class="row " >
+							<div class="col-4  ">
+								<div class="bordered ">
+								</div>
 							</div>
-						</div>
-						<!-- <div class="col-2 border-dark border border-bottom-0">
-							<img src="home.jpg" class="img-fluid">
-						</div> -->
+							
 						<?php $idsoustrajet=$idEtapeTrajet[$compteur][0];
 						
 						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
 						 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border px-0 border-bottom-0' >";
+						 		echo "<div class='col-1 border-dark border px-0 border-top-0 border-bottom-0' >";
 						 	}
 						 	else
-								echo "<div class='col-2 border-dark border px-0 border-bottom-0' >";
+								echo "<div class='col-2 border-dark border px-0 border-top-0 border-bottom-0' >";
 							
 							$personneDansCettePlace=self::utilisePlace($personne,$idsoustrajet,$i);
 							if (isset($personneDansCettePlace)) {
@@ -505,22 +485,17 @@ class vue_Trajet extends VueGenerique{
 								 	echo "<img src='$urlPhoto' class='img-fluid'>";
 								 }
 							}
-							
-						  ?>
-						</a>
-						
-							
-						</div>
+						  	?>
+								</a>
+							</div>
 						<?php }$compteur=$compteur+1;
 						?>
-
-					</div>
-					<div class="row " >
-						<div class="col-4 border-dark border row justify-content-between detailTrajet">
-						<i class="far fa-circle"><?php echo $tabSt[$compteur-1][36]?></i>
-						<span> <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
 						</div>
-						
+						<div class="row " >
+							<div class="col-4 row justify-content-between detailTrajet">
+							<i class="far fa-circle"> </i><?php echo $tabSt[$compteur-1][36]?>
+							<span> à <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
+						</div>
 						<?php
 						for ($i=0; $i <$infoTrajet[15] ; $i++) { 
 					 	# code...
@@ -533,96 +508,79 @@ class vue_Trajet extends VueGenerique{
 							echo "<div class='col-2 border-dark border px-0 border-bottom-0 border-top-0' >";
 						?>
 						</div>
-
-						
 					<?php } ?>
-						
-						
 					</div>
-					<?php  
-
-							
+					<?php 	
 					}?>
-
-				
+				</div>
 			</div>
-		</div>
 		</div>
 		<?php 
 		if ($trajetValide) {
-		
-		if ($value>=1) {
-			echo "<div class=' col-12'>
-			<div class='border border-dark col-12 row justify-content-between'>";
-		}
-		else
-			echo "<div class='row col-12 justify-content-center'>
-			<div class='border border-dark col-12 row justify-content-between'>";
+			if ($value>=1) {
+				echo "<div class=' col-12'>
+				<div class='border border-dark col-12 row justify-content-between'>";
+			}
+			else
+				echo "<div class='row col-12 justify-content-center'>
+				<div class='border border-dark col-12 row justify-content-between'>";
 		?>
 		
 				<div class="col-12">
 					<h2>Commentaire</h2>
-				</div><div id="espaceCommentaire"><?php
+				</div>
+				<div id="espaceCommentaire">
+				<?php
 				for ($i=0; $i < count($tabCom); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
-?>				<div class="row col-12" > 
-				<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
-					<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
-					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
-				</div>
+				?>				
+					<div class="row col-12" > 
+						<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
+							<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
+							<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
+						</div>
 				<?php if ($tabCom[$i]['idAuteur']!=$value) {
-					
 				?>
-				<div class="col-8 col-lg-9">
-					<span><?php echo $tabCom[$i]['description']; ?></span>
-				</div>	
-				<?php } else{?>
-				<div class="col-7 col-lg-8">
-					<span><?php echo $tabCom[$i]['description']; ?></span>
-				</div>
-				<div class="col-1">
-					<a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-
-			        
-					<i class="fas fa-bars"></i>
-					</a>
-					<div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton">
-					    <a class="dropdown-item " id="supprimerCom" href="#">supprimer</a>
-
-					  </div>
-				</div>
-			<?php }?>
-				</div>
-<?php	   				
-	   			}?>
-	   		</div>
+						<div class="col-8 col-lg-9">
+							<span><?php echo $tabCom[$i]['description']; ?></span>
+						</div>	
+				<?php } else { ?>
+						<div class="col-7 col-lg-8">
+							<span><?php echo $tabCom[$i]['description']; ?></span>
+						</div>
+						<div class="col-1">
+							<a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<i class="fas fa-bars"></i>
+							</a>
+							<div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton">
+					    		<a class="dropdown-item " id="supprimerCom" href="#">supprimer</a>
+					  		</div>
+						</div>
+				<?php }?>
+					</div>
+				<?php } ?>
+	   			</div>
 	   		<?php if ($estDansTrajet) {
-	   			# code...
 	   		?>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
-
-				<div class="col-3 col-lg-2 offset-lg-1">
-					<img src="home.jpg" class="img-fluid">
-				</div>
-				
-				<div class="col-8 col-lg-9">
-					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
-				</div>
-				<div class="col-3 col-lg-3 offset-lg-1">
-					<label  for="note">note:<i class="fas fa-question-circle" title="la note est noté sur 20"></i></label>
-					<input class ="col-12 col-lg-6" type="text" id="note" name="note">
-				</div>	
-				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
-				<div class="col-lg-3 col-6 offset-lg-9 offset-7">
-					<input type="submit" class="col" name="submit">
-				</div>				
+					<div class="col-3 col-lg-2 offset-lg-1">
+						<img src="home.jpg" class="img-fluid">
+					</div>
+					<div class="col-8 col-lg-9">
+						<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
+					</div>
+					<div class="col-3 col-lg-3 offset-lg-1">
+						<label  for="note">note:<i class="fas fa-question-circle" title="la note est noté sur 20"></i></label>
+						<input class ="col-12 col-lg-6" type="text" id="note" name="note">
+					</div>	
+					<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
+					<div class="col-lg-3 col-6 offset-lg-9 offset-7">
+						<input type="submit" class="col" name="submit">
+					</div>				
 				</form>
 			<?php }?>
 				</div>
-
-
 			</div>
-
 		</div>
 	</div>
 </div>
