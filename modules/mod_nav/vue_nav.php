@@ -36,24 +36,20 @@ class vue_nav
 ?>
    		<nav class='row navbar navbar-expand-md navbar-light'>
 
-			  <a class='navbar-brand ' href='index.php'><img src='logo-nav.png'></a>
-
-
-			  
-
-			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''><?php echo !isset($_SESSION['composantNonActif'])?"Désaffiche":"Affiche"?></a>
-			  <div class='mr-auto'></div>
-			  <div class="row align-items-center">
+			<a class='navbar-brand ' href='index.php'><img src='logo-nav.png'></a>
+			<a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''><?php echo !isset($_SESSION['composantNonActif'])?"Désaffiche":"Affiche"?></a>
+			<div class='mr-auto'></div>
+			<div class="row align-items-center">
 	        	<a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
 
 	        	<a class='nav-link' href='index.php' title="permet d'accéder a la page de recherche de trajet">Rechercher</a>
 
 
 			  
-			  <a class="btn btn-light border" href="?module=mod_discussion" role="button">
-								<i id="envelopeMsg" class="fas fa-envelope"></i>
-								<span id='messagesNonLus' class="badge border badge-light"></span>
-			  			</a>
+			  	<a class="btn btn-light border" href="?module=mod_discussion" role="button">
+				<i id="envelopeMsg" class="fas fa-envelope"></i>
+				<span id='messagesNonLus' class="badge border badge-light"></span>
+			  	</a>
 
 			    <ul class='navbar-nav'>
 			      	<li class="nav-item ">
