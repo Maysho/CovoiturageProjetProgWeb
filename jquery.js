@@ -27,7 +27,8 @@ $("#rechercheArrive").autocomplete({
 
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
-  $(".d-none").toggleClass("d-none d-block");
+  $(".aDesaffiche").toggleClass("d-none d-block");
+  $(".aDesaffiche").toggleClass("aDesaffiche aAffiche");
   $("#buttonAgranditForm").toggleClass("d-block d-none");
 });
 
@@ -35,7 +36,8 @@ $(document).on('click', '#buttonAgranditForm', function(event) {
 
 $(document).on('click', '#buttonRapetisseForm', function(event) {
   event.preventDefault();
-  $(".d-block").toggleClass("d-block d-none");
+  $(".aAffiche").toggleClass("d-block d-none");
+  $(".aAffiche").toggleClass("aAffiche aDesaffiche");
   $("#buttonAgranditForm").toggleClass("d-none d-block");
 });
 
@@ -561,7 +563,7 @@ $('#addCar').on('click', function(e){
 
 
 $(document).ready(function(){
-  $('#photoCar').on('change', function(){ //on file input change
+  $('.inputPhoto').on('change', function(){ //on file input change
     if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
     {
       // $('#thumbnail').html(''); //clear html of output element
@@ -575,7 +577,7 @@ $(document).ready(function(){
               // var img = $('<img/>').addClass('thumb img-fluid').attr('src', e.target.result); //create image element 
               // console.log(img);
               // $('#thumbnail').append(img); //append image to output element
-              $('#defaultThumb').attr('src', e.target.result);
+              $('.img-default').attr('src', e.target.result);
             };
           })(file);
           fRead.readAsDataURL(file); //URL representing the file's data.
@@ -1525,6 +1527,7 @@ $( window ).resize(function() {
   if ($(window).width() <768) {
     $(".composant" ).hide();
     $('#changeComposant').hide();
+    
   }
   else{
     $(".composant" ).show();
@@ -1540,13 +1543,11 @@ $('#changeComposant').on('click', function(event) {
     function(data){
       
       if (data.includes("0")){
-        $('aside').removeClass('d-none');;
-        $('section').toggleClass('col-md-6 col-md-8');
+        $('aside').removeClass('d-none');
         $('#changeComposant').text("Desaffiche");
       }
       else if(data.includes("1")){
         $('aside').addClass('d-none');
-        $('section').toggleClass('col-md-8 col-md-6');
         $('#changeComposant').text("Affiche");
       }
       replaceFooter();

@@ -44,7 +44,7 @@ class vue_Trajet extends VueGenerique{
 									</div>	
 								</div>
 
-								<div class="col-md-6" id="map" > 
+								<div class="col-md-6 d-none d-lg-block" id="map" > 
 									<!-- <img class="col-md-12 img-thumbnail" alt="Map de la France" src="photos/Black.png"> -->
 
 								</div>
@@ -63,7 +63,7 @@ class vue_Trajet extends VueGenerique{
 
 				  				<div class="form-group row col-md-8 col-lg-12 justify-content-center"  id="DateHoraire" >
 				  					<div class="col-lg-12">
-				  						<div class="row col-lg-12 px-0 container">
+				  						<div class="row col-lg-12 px-0 no-gutters">
 					  						<div class="col-lg-8 row mx-0 px-0">
 						  						<label class="label_trajet col-lg-6"><i style=" color: green;" class="fab fa-font-awesome-flag"></i> Date de l'aller </label>
 						  						<input class="form-control col-lg-6" type="date" id="dateDepart" value="<?php echo date('Y-m-d') ?>">
@@ -82,7 +82,7 @@ class vue_Trajet extends VueGenerique{
 				  							<label class="label_trajet col-lg-7">Prix €</label>
 				  							<input class="input_price form-control col-lg-5" id="prix0" value="0">
 				  						</div>
-					  					<div class="row col-lg-12 px-0 container">
+					  					<div class="row col-lg-12 px-0 no-gutters">
 					  						<div class="col-lg-8 row mx-0 px-0">
 					  							<label class="label_trajet col-lg-6"><i class="fab fa-font-awesome-flag"></i> Date Etape </label>
 					  							<input type="date" class="col-lg-6 form-control" id="date0" value="<?php echo date('Y-m-d') ?>">
@@ -103,7 +103,7 @@ class vue_Trajet extends VueGenerique{
 					  						<label class="label_trajet col-lg-7">Prix €</label>
 					  						<input class="input_price form-control col-lg-5" id="prixArrivee" value="0">
 					  					</div>
-					  					<div class="row col-lg-12 px-0 container">
+					  					<div class="row col-lg-12 px-0 no-gutters">
 						  					<div class="col-lg-8 row mx-0 px-0">
 						  						<label class="label_trajet col-lg-6"><i style=" color: red;" class="fab fa-font-awesome-flag"></i> Date Arrivee </label>
 						  						<input type="date" class="col-lg-6 form-control" id="dateArrivee" value="<?php echo date('Y-m-d') ?>">
@@ -193,9 +193,9 @@ class vue_Trajet extends VueGenerique{
 
 				  													<div class="row offset-lg-1">
 				  														<label class="col-lg-5" for="photoVehicule">Photo du Vehicule</label>
-				  														<img id="defaultThumb" class="col-lg-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
+				  														<img  class="col-lg-5 thumb img-fluid img-default"  src="photos/Black.png" alt="Photo du vehicule"/>
 				  														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
-				  														<input class="offset-lg-5" type="file" id="photoCar" name="photoCar"/>
+				  														<input class="offset-lg-5 inputPhoto" type="file" name="photoCar"/>
 				  													</div>
 
 				  													<div class="text-center">
@@ -431,8 +431,8 @@ class vue_Trajet extends VueGenerique{
 						<span> à <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<?php if ($infoTrajet[15]>4) {
-							echo "<div class='col-1 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
-						}
+						 		echo "<div class='col-1 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+						 	}
 						else
 							echo "<div class='col-2 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						?>
@@ -441,12 +441,14 @@ class vue_Trajet extends VueGenerique{
 					<?php  $compteur =0;
 					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
 					 	if ($infoTrajet[15]>4) {
-							echo "<div class='col-1 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
-						}
+						 		echo "<div class='col-1 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+						 	}
 						else
 							echo "<div class='col-2 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
-					?>
-							 <span><i class="fas fa-user-alt"></i></span> 
+					  ?>
+
+					
+							 <span>p</span> 
 						</div>
 						
 					<?php } echo "</div>";
@@ -463,10 +465,10 @@ class vue_Trajet extends VueGenerique{
 						
 						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
 						 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border border-top-0 border-bottom-0' >";
+						 		echo "<div class='col-1 border-dark border px-0 border-top-0 border-bottom-0' >";
 						 	}
 						 	else
-								echo "<div class='col-2 border-dark border border-top-0 border-bottom-0' >";
+								echo "<div class='col-2 border-dark border px-0 border-top-0 border-bottom-0' >";
 							
 							$personneDansCettePlace=self::utilisePlace($personne,$idsoustrajet,$i);
 							if (isset($personneDansCettePlace)) {
@@ -496,11 +498,14 @@ class vue_Trajet extends VueGenerique{
 						</div>
 						<?php
 						for ($i=0; $i <$infoTrajet[15] ; $i++) { 
-							if ($infoTrajet[15]>4) {
-								echo "<div class='col-1 border-dark border border-bottom-0 border-top-0' >";
-							}
-							else
-								echo "<div class='col-2 border-dark border border-bottom-0 border-top-0' >";
+					 	# code...
+					  
+
+					  if ($infoTrajet[15]>4) {
+						 		echo "<div class='col-1 border-dark border px-0 border-bottom-0 border-top-0' >";
+						 	}
+						else
+							echo "<div class='col-2 border-dark border px-0 border-bottom-0 border-top-0' >";
 						?>
 						</div>
 					<?php } ?>
