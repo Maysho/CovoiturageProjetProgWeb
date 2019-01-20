@@ -14,7 +14,7 @@ session_start();
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
             crossorigin="" />
-        
+	<link rel="icon" href="favicon.png" />
     <title>TakeU</title>
   </head>
   <body>
@@ -169,10 +169,10 @@ switch ($module){
 			}
 
 			if (isset($_SESSION['id'])) {
-					echo'<section class="col-md-8 px-0 " >';
+				echo'<section class="col-md-8" >';
 			}
 			else{
-				echo'<section class="col-12 row px-0 ">';
+				echo'<section class="col-md-12">';
 				
 			}
 				echo "$affichageForm";

@@ -14,8 +14,8 @@ class vue_nav
 	public function navNonConnecte($value='')
 	{
 	?>
-		<nav class='navbar navbar-expand-md navbar-light row '>
-			<a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
+		<nav class='row navbar navbar-expand-md navbar-light'>
+			<a class='navbar-brand ' href='index.php'><img src='logo-nav.png' ></a>
 			<button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 				<span class='navbar-toggler-icon'></span>
 			</button>
@@ -37,8 +37,8 @@ class vue_nav
 	}
 	public function navConnecte($info){
 ?>
-   		<nav class='navbar navbar-expand-md navbar-light row'>
-			  <a class='navbar-brand ' href='index.php'><img src='home.jpg' class='imagenav'></a>
+   		<nav class='row navbar navbar-expand-md navbar-light'>
+			  <a class='navbar-brand ' href='index.php'><img src='logo-nav.png'></a>
 			  <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 			    <span class='navbar-toggler-icon'></span>
 			  </button>

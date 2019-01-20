@@ -140,7 +140,7 @@ switch ($_POST['fonction']) {
 						
 						if($i>0) echo '';
 
-						echo	'<div class="row rounded messages"  >
+						echo	'<div class="row rounded messages shadow-lg"  >
 									<div class="col-md-3 row">
 										<label class="col-5 col-md-12 prenomDiscussion">'.$msg[$i]["prenom"].'</label>
 										<label class="col-5 col-md-12 dateHeureDiscussion">'.$msg[$i]["jour"].'</label>
@@ -181,7 +181,7 @@ switch ($_POST['fonction']) {
 
 				for($i=0; $i<count($interlocuteurs); $i++){
 		?>
-					<div  id="<?php echo $interlocuteurs[$i]['idInterlocuteur']; ?>" class="row interlocuteurs rounded" >
+					<div  id="<?php echo $interlocuteurs[$i]['idInterlocuteur']; ?>" class="row interlocuteurs rounded shadow-lg" >
 						<p class=" col-md-9"><?php echo $interlocuteurs[$i]['prenom']; ?></p>
 		<?php
 				$nbMessagesNonLu=$modele->nbMessagesNonLuInterlocuteur($idUser, $interlocuteurs[$i]['idInterlocuteur']);

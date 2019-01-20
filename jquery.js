@@ -563,7 +563,7 @@ $('#addCar').on('click', function(e){
 
 
 $(document).ready(function(){
-  $('#photoCar').on('change', function(){ //on file input change
+  $('.inputPhoto').on('change', function(){ //on file input change
     if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
     {
       // $('#thumbnail').html(''); //clear html of output element
@@ -577,7 +577,7 @@ $(document).ready(function(){
               // var img = $('<img/>').addClass('thumb img-fluid').attr('src', e.target.result); //create image element 
               // console.log(img);
               // $('#thumbnail').append(img); //append image to output element
-              $('#defaultThumb').attr('src', e.target.result);
+              $('.img-default').attr('src', e.target.result);
             };
           })(file);
           fRead.readAsDataURL(file); //URL representing the file's data.
@@ -836,7 +836,7 @@ $(function(){
         $(this).remove(); 
 
       });
-      $(document).find("#date"+nb).parent().parent().parent().fadeOut(function(){
+      $(document).find("#checkpoint"+nb).fadeOut(function(){
         $(this).remove(); 
       });
 
@@ -844,7 +844,7 @@ $(function(){
 
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
-      $(document).find("#date"+nb).parent().parent().remove();
+      $(document).find("#checkpoint"+nb).remove();
       console.log("On a supprimé une étape");
 
       $(this).parent().fadeOut(function(){
@@ -1544,7 +1544,7 @@ $('#changeComposant').on('click', function(event) {
       
       if (data.includes("0")){
         $('aside').removeClass('d-none');
-        $('#changeComposant').text("Désaffiche");
+        $('#changeComposant').text("Desaffiche");
       }
       else if(data.includes("1")){
         $('aside').addClass('d-none');
