@@ -249,7 +249,7 @@ class vue_Trajet extends VueGenerique{
 			echo "<div class='col-12 contenu_page'><div class='col-lg-12'>";
 		}
 		else
-			echo "<div class='col-12 contenu_page row justify-content-center'> <div class='row col-lg-6 justify-content-center'>";
+			echo "<div class='col-12  row justify-content-center'> <div class='row col-lg-8 contenu_page justify-content-center'>";
 		
 
 			echo "<div class='row col-lg-12 justify-content-center'>";
