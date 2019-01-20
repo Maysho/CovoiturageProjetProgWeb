@@ -1542,7 +1542,7 @@ $('#changeComposant').on('click', function(event) {
       if (data.includes("0")){
         $('aside').removeClass('d-none');;
         $('section').toggleClass('col-md-6 col-md-8');
-        $('#changeComposant').text("Desaffiche");
+        $('#changeComposant').text("Désaffiche");
       }
       else if(data.includes("1")){
         $('aside').addClass('d-none');
