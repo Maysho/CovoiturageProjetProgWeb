@@ -27,7 +27,8 @@ $("#rechercheArrive").autocomplete({
 
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
-  $(".d-none").toggleClass("d-none d-block");
+  $(".aDesaffiche").toggleClass("d-none d-block");
+  $(".aDesaffiche").toggleClass("aDesaffiche aAffiche");
   $("#buttonAgranditForm").toggleClass("d-block d-none");
 });
 
@@ -35,7 +36,8 @@ $(document).on('click', '#buttonAgranditForm', function(event) {
 
 $(document).on('click', '#buttonRapetisseForm', function(event) {
   event.preventDefault();
-  $(".d-block").toggleClass("d-block d-none");
+  $(".aAffiche").toggleClass("d-block d-none");
+  $(".aAffiche").toggleClass("aAffiche aDesaffiche");
   $("#buttonAgranditForm").toggleClass("d-none d-block");
 });
 
@@ -1502,6 +1504,7 @@ $( window ).resize(function() {
     $('#changeComposant').show();
   }
 });
+
 $('#changeComposant').on('click', function(event) {
   event.preventDefault();
    $.post('scriptphp/ControleurScript.php',
@@ -1511,13 +1514,11 @@ $('#changeComposant').on('click', function(event) {
     function(data){
       
       if (data.includes("0")){
-        $('aside').removeClass('d-none');;
-        $('section').toggleClass('col-md-6 col-md-8');
+        $('aside').removeClass('d-none');
         $('#changeComposant').text("Desaffiche");
       }
       else if(data.includes("1")){
         $('aside').addClass('d-none');
-        $('section').toggleClass('col-md-8 col-md-6');
         $('#changeComposant').text("Affiche");
       }
       replaceFooter();

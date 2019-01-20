@@ -69,7 +69,7 @@ class vue_nav
 			          	<a class='dropdown-item' href='?module=mod_discussion' title="Accéder à la page de discussion">Discussion</a>
 						<a class='dropdown-item' href='?module=mod_profil' title="Accéder à la page de profil">Profil</a>
 						<div class='dropdown-divider'></div>
-						<a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Déconnexion <i class="fas fa-sign-out-alt"></i></a>
+						<a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Déconnexion</i></a>
 					</div>
 				</div>
 			</div>
