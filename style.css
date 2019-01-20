@@ -220,12 +220,12 @@ h2{
     background-color: #eaeaea;
 }
 
-.lien-noms-commentaires-profil{
+.liens-noms{
     color:#555555;
     font-weight: bold;
 }
 
-.lien-noms-commentaires-profil:hover{
+.liens-noms:hover{
     color:black;
     text-decoration: none;
 }
