@@ -104,6 +104,7 @@ h2{
     border-left: 3px dashed black;
     height: 100%;
     margin-left: 7px;
+    min-height: 50px;
 }
 
 .titreFavoris{
@@ -446,7 +447,7 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 .composant{
-    margin-top: 1em;
+    margin-bottom: 1em;
     background-color:rgb(150, 174, 184);
     /* border-radius: 1em;  */
 }
@@ -456,6 +457,7 @@ font-family: 'Ubuntu', sans-serif;
 nav{
     background-color: #323232;
     color: white;
+    margin-bottom: 1em;
 }
 
 .nav-link{

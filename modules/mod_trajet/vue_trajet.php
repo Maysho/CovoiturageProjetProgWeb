@@ -445,10 +445,10 @@ class vue_Trajet extends VueGenerique{
 						<span> <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<?php if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border' >";
+						 		echo "<div class='col-1 border-dark border px-0' >";
 						 	}
 						else
-							echo "<div class='col-2 border-dark border' >";
+							echo "<div class='col-2 border-dark border px-0' >";
 						?>
 						
 							<span>c</span>
@@ -458,10 +458,10 @@ class vue_Trajet extends VueGenerique{
 					<?php  $compteur =0;
 					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
 					 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border' >";
+						 		echo "<div class='col-1 border-dark px-0 border' >";
 						 	}
 						else
-							echo "<div class='col-2 border-dark border' >";
+							echo "<div class='col-2 border-dark border px-0' >";
 					  ?>
 
 					
@@ -485,24 +485,24 @@ class vue_Trajet extends VueGenerique{
 						
 						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
 						 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border border-bottom-0' >";
+						 		echo "<div class='col-1 border-dark border px-0 border-bottom-0' >";
 						 	}
 						 	else
-								echo "<div class='col-2 border-dark border border-bottom-0' >";
+								echo "<div class='col-2 border-dark border px-0 border-bottom-0' >";
 							
 							$personneDansCettePlace=self::utilisePlace($personne,$idsoustrajet,$i);
 							if (isset($personneDansCettePlace)) {
 								if ($infoTrajet[14]==$personneDansCettePlace->getId()) {
 									$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>".$personneDansCettePlace->getId();
+								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>";
 								 } 
 								 elseif ($value==$infoTrajet[14]) {
 								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>".$personneDansCettePlace->getId();
+								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid'></a>";
 								 }
 								 else{
 								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<img src='$urlPhoto' class='img-fluid'>".$personneDansCettePlace->getId();
+								 	echo "<img src='$urlPhoto' class='img-fluid'>";
 								 }
 							}
 							
@@ -527,10 +527,10 @@ class vue_Trajet extends VueGenerique{
 					  
 
 					  if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border border-bottom-0 border-top-0' >";
+						 		echo "<div class='col-1 border-dark border px-0 border-bottom-0 border-top-0' >";
 						 	}
 						else
-							echo "<div class='col-2 border-dark border border-bottom-0 border-top-0' >";
+							echo "<div class='col-2 border-dark border px-0 border-bottom-0 border-top-0' >";
 						?>
 						</div>
 
