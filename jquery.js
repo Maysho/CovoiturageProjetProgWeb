@@ -95,7 +95,6 @@ $("#formulaireDeRechercheResultat").change(function(event) {
 
 function afficheRes(){
   removeResTrajet();
-  console.log($("divHauteRes").attr("class"));
   nbResAAfficher=tab.length<nbAffiche?tab.length:nbAffiche;
   for (var i = 0; i < nbResAAfficher; i++) {
     var urlPhoto=tab[i]["urlPhoto"]!=null?tab[i]["urlPhoto"]:"home.jpg";
@@ -268,7 +267,6 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
     },
     'text'
   ).fail(function(data,statut,xhr) {
-      console.log(data.responseText);
       $('#formCommentairePageTrajet').append('<div class="row justify-content-end col-12" id="messageErreurCom"><small class="align-right form-text warning"> '+data.responseText+'</small></div>');
   });
 });
@@ -516,7 +514,6 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
-      console.log(txt);
       if( page == 1){
         location.reload();
       }
@@ -584,7 +581,6 @@ $('.modal').on('show.bs.modal', function (e) {
 
 
       var button = $(e.relatedTarget);
-      console.log(button);
       var index = button.attr('class');
       if (index!=undefined) {
       if(index.indexOf("btn-photo-vehicule")!=-1)
@@ -604,7 +600,6 @@ $('.modal').on('show.bs.modal', function (e) {
 
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
-  console.log("Valeur de "+key);
   var dateArrivee= $('#dateArrivee').val();
   var soustrajets=[];
 
@@ -675,7 +670,6 @@ $('#envoiTrajet').on("click",function(e){
           regulier: $(document).find('#regulier').is(":checked")
         };
       }
-      console.log(soustrajet)
       soustrajets[i]= soustrajet;
     }
   }
@@ -705,7 +699,7 @@ $('#envoiTrajet').on("click",function(e){
         // alert("msg :"+txt.responseText);
         alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes");
         verifError(txt.responseText);
-         console.log(txt.responseText);
+         
       }
     });
   }
@@ -717,7 +711,6 @@ $(function(){
 
   // ajout des champs etapes
   $("#btnAjoutEtape").on("click",function(){
-    console.log(key);
     // On copie le template et on le rend visible la premiere fois 
     if( $('.tpl').length == 1){
       var cont= $('#etape').clone(); //partie itineraire
@@ -813,7 +806,7 @@ $(function(){
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
 
-      console.log("On a supprimé le block");
+
       $(this).parent().parent().fadeOut(function(){
         $(this).remove(); 
 
@@ -827,7 +820,7 @@ $(function(){
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
       $(document).find("#checkpoint"+nb).remove();
-      console.log("On a supprimé une étape");
+
 
       $(this).parent().fadeOut(function(){
         $(this).remove();
@@ -859,7 +852,6 @@ $(function(){
 
   $('#idVehicule').change(function() {
     var sources = $(this).find(':selected').attr("data-url"); 
-    console.log($(this).attr("data-url"));
     if(sources == ""){
       $('#imgCar').attr("src","photos/Black.png");
     }
@@ -933,13 +925,11 @@ function actualiseMap() {
     function(data,statut){
       tab=JSON.parse(data);
       for (var i = 0; i < markers.length; i++) {
-        console.log("test");
         macarte.removeLayer(markers[i]);
         macarte.removeBounds
       }
       if (polyline!=null) {
-        console.log(polyline);
-      macarte.removeLayer(polyline);
+        macarte.removeLayer(polyline);
       }
       markers=[];
       for (ville in tab) {
