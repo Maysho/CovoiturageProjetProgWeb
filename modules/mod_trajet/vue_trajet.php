@@ -193,9 +193,9 @@ class vue_Trajet extends VueGenerique{
 
 				  													<div class="row offset-lg-1">
 				  														<label class="col-lg-5" for="photoVehicule">Photo du Vehicule</label>
-				  														<img id="defaultThumb" class="col-lg-5 thumb img-fluid"  src="photos/Black.png" alt="Photo du vehicule"/>
+				  														<img  class="col-lg-5 thumb img-fluid img-default"  src="photos/Black.png" alt="Photo du vehicule"/>
 				  														<input type="hidden" id="photoVehicule" name="MAX_FILE_SIZE" value="5000000" />
-				  														<input class="offset-lg-5" type="file" id="photoCar" name="photoCar"/>
+				  														<input class="offset-lg-5 inputPhoto" type="file" name="photoCar"/>
 				  													</div>
 
 				  													<div class="text-center">
