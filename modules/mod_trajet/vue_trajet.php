@@ -243,8 +243,9 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token,$urlPhotoNous)
 	{
+
 		if ($value>=1) {
 			echo "<div class='col-12 contenu_page'><div class='col-lg-12'>";
 		}
@@ -567,10 +568,12 @@ class vue_Trajet extends VueGenerique{
 					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
 ?>				<div class="row col-12" > 
 				<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
-					<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
+					<a href="<?php echo $href ;?>"> <img src="<?php echo isset($tabCom[$i]['urlPhoto'])?$tabCom[$i]['urlPhoto']:'home.jpg';?>" class="img-fluid"></a>
 					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
 				</div>
-				<?php if ($tabCom[$i]['idAuteur']!=$value) {
+
+				<?php 
+				 if ($tabCom[$i]['idAuteur']!=$value) {
 					
 				?>
 				<div class="col-8 col-lg-9">
@@ -597,12 +600,12 @@ class vue_Trajet extends VueGenerique{
 	   			}?>
 	   		</div>
 	   		<?php if ($estDansTrajet) {
-	   			# code...
+	   			
 	   		?>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
 
 				<div class="col-3 col-lg-2 offset-lg-1">
-					<img src="home.jpg" class="img-fluid">
+					<img src="<?php echo isset($urlPhotoNous['0'])?$urlPhotoNous['0']:'home.jpg';?>" id="photoUtilisateurCo" class="img-fluid">
 				</div>
 				
 				<div class="col-8 col-lg-9">
