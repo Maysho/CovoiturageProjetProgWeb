@@ -83,7 +83,7 @@ class vue_resTrajet extends VueGenerique
 								<option>heureDepart</option>
 								<option>prix, heureArrivee</option>
 							</select>
-							<button type='submit' class='btn btn-primary buttonRecherche' id="buttonResTrajet" >Sign in</button>
+							<button type='submit' class='btn btn-primary buttonRecherche' id="buttonResTrajet" >Rechercher Un Trajet</button>
 						</div>
 						<div class="row d-none aDesaffiche" id="divbuttonrapetisseform">
 							<button class="btn btn-secondary buttonRecherche" id="buttonRapetisseForm">-</button> 
