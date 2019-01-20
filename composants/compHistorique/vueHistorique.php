@@ -23,27 +23,30 @@ class VueHistorique
             <table class="table">
                      
    			<?php
+            $compteur=0;
             foreach ($donnees as $key => $value) {
+               $premier=$compteur==0?' border-top-0':"";
             ?>
                <tr>
-                  <td class="text-center">
+                  <td class="text-center <?php echo $premier;?> ">
                      <a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
                      <?php echo $value["villeDepart"]["dateDepart"]?> 
                      </a>
                   </td>
-                  <td class="text-center">
+                  <td class="text-center <?php echo $premier;?>">
                      <a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
                      <?php echo $value["villeDepart"]["nomVille"]?> 
                      </a>
                   </td>
-                  <td class="text-center"><i class="fas fa-long-arrow-alt-right"></i></td>
-                  <td class="text-center">
+                  <td class="text-center <?php echo $premier;?>"><i class="fas fa-long-arrow-alt-right"></i></td>
+                  <td class="text-center <?php echo $premier;?>">
                      <a class="liensanscouleur" href="index.php?module=mod_trajet&action=afficheTrajet&id=<?php echo $value["villeDepart"]["idTrajet"]?>">
                      <?php echo $value["villeArrivee"]["nomVille"]?> 
                      </a>
                   </td>
                </tr> 
             <?php
+            $compteur++;
             }
             ?>
             </table>

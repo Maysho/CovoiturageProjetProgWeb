@@ -45,7 +45,7 @@ class vue_nav
 
 			  
 
-			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''>Affiche</a>
+			  <a  class='nav-link liensanscouleur ' title="en cliquant vous ferez afficher ou desafficher les composants" id="changeComposant" href=''><?php echo !isset($_SESSION['composantNonActif'])?"Désaffiche":"Affiche"?></a>
 			  <div class='mr-auto'></div>
 			  <div class="row align-items-center">
 	        	<a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>

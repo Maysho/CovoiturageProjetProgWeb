@@ -272,10 +272,8 @@ include_once __DIR__ .'/../../vue_generique.php';
 		{
 			?>
 			<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-					 <button class='navbar-toggler navbar-nav mr-auto' type='button' data-toggle='collapse' data-target='#navContent' aria-controls='navContent' aria-expanded='false' aria-label='Toggle navigation'>
-			    <span class='navbar-toggler-icon'></span>
-			  </button>
-					    <div class="navbar-nav justify-content-between" id="navContent">
+					
+					    <div class="navbar-nav justify-content-between">
 							<a class="nav-item nav-link <?php echo $active==1?'active':''; ?>" href="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=profil'; ?>">Profil</a>
 					    	<a class="nav-item nav-link <?php echo $active==2?'active':''; ?>" href="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=favoris'; ?>">Favoris</a>
 					    	<a class="nav-item nav-link <?php echo $active==3?'active':''; ?>" href="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=modif'; ?>">Modifier le profil</a>

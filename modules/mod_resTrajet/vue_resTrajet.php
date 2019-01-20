@@ -106,7 +106,7 @@ class vue_resTrajet extends VueGenerique
   			echo '<div class="col-12 justify-content-center removeResTrajet"> <a class="resultatTrajet liensanscouleur row justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
   		?>
 	  			<div class="col-md-2">
-	  				<img src="home.jpg" style="width: 100px;">
+	  				<img src="<?php echo isset($donnee['urlPhoto'])?$donnee['urlPhoto']:'home.jpg';?>" style="width: 100px;">
 	  				<span class=""><?php echo $donnee['prenom'];?></span>
 	  			</div>
 	  			<div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" >
@@ -116,6 +116,7 @@ class vue_resTrajet extends VueGenerique
 	  				
 	  				</div>
 	  				<div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0">
+
 	  				<span class="col-12 col-md-6 text-center" style="padding-right: 3px;">Arrivée à <?php echo $donnee['destination'];?></span>
 	  				<span class="col-6 text-md-right text-center" > à <?php echo $donnee['heureArrivee'];?></span>
 	  				</div>

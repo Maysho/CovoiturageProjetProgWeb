@@ -170,7 +170,6 @@ switch ($module){
 
 			if (isset($_SESSION['id'])) {
 				echo'<section class="col-md-8" >';
-
 			}
 			else{
 				echo'<section class="col-md-12">';
