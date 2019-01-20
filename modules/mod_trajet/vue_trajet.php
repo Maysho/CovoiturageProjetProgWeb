@@ -446,8 +446,6 @@ class vue_Trajet extends VueGenerique{
 						else
 							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 					  ?>
-
-					
 							 <span><i class="fas fa-user-alt"></i></span> 
 						</div>
 						
