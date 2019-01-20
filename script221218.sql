@@ -138,7 +138,6 @@ CREATE TABLE IF NOT EXISTS `dutinfopw201623`.`favoris` (
   `prix` INT(11) NOT NULL,
   `type` VARCHAR(64) NOT NULL,
   `regulier` TINYINT NOT NULL,
-  `ordre` VARCHAR(64) NOT NULL,
   PRIMARY KEY (`idfavoris`),
   UNIQUE INDEX `idfavoris_UNIQUE` (`idfavoris` ASC) ,
   INDEX `fk_favoris_utilisateur1_idx` (`idUtilisateur` ASC) ,

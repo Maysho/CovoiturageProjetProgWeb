@@ -27,8 +27,7 @@ $("#rechercheArrive").autocomplete({
 
 $(document).on('click', '#buttonAgranditForm', function(event) {
   event.preventDefault();
-  $(".aDesaffiche").toggleClass("d-none d-block");
-  $(".aDesaffiche").toggleClass("aDesaffiche aAffiche");
+  $(".d-none").toggleClass("d-none d-block");
   $("#buttonAgranditForm").toggleClass("d-block d-none");
 });
 
@@ -36,8 +35,7 @@ $(document).on('click', '#buttonAgranditForm', function(event) {
 
 $(document).on('click', '#buttonRapetisseForm', function(event) {
   event.preventDefault();
-  $(".aAffiche").toggleClass("d-block d-none");
-  $(".aAffiche").toggleClass("aAffiche aDesaffiche");
+  $(".d-block").toggleClass("d-block d-none");
   $("#buttonAgranditForm").toggleClass("d-none d-block");
 });
 
@@ -98,8 +96,7 @@ function afficheRes(){
   nbResAAfficher=tab.length<nbAffiche?tab.length:nbAffiche;
   for (var i = 0; i < nbResAAfficher; i++) {
     var urlPhoto=tab[i]["urlPhoto"]!=null?tab[i]["urlPhoto"]:"home.jpg";
-    $('#contenu').append('<div class="'+$("#divHauteRes").attr("class")+' removeResTrajet"> <a class="liensanscouleur '+$("#divHauteRes2").attr("class")+'" href="index.php?module=mod_trajet&action=afficheTrajet&id='+tab[i]["idTrajet"]+'"> <div class="col-md-2"> <img src="'+urlPhoto+'" style="width: 100px"> <span class="">'+tab[i]["prenom"]+'</span> </div> <div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" > <div class=" justify-content-md-between justify-content-center row container-fluid px-0"> <span class="col-12 col-md-6 text-center">'+tab[i]["depart"]+'</span> <span class="col-6 text-md-right text-center">'+tab[i]["heureDepart"]+'</span></div><div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0 "><span class="col-12 col-md-6 text-center" style="padding-right: 3px">'+tab[i]["destination"]+'</span> <span class="col-6 text-md-right text-center">'+tab[i]["heureArrivee"]+'</span> </div> </div> <div class="col-md-2 row offset-md-1  justify-content-md-end px-0"> <div class="row justify-content-md-end col-12"> <span class="align-top">'+tab[i]["placeTotale"]+'</span> </div> <div class="row align-content-end justify-content-end col-12" > <span class="align-text-bottomme">'+tab[i]["prix"]+'€</span> </div> </div> </a> </div>');
-
+    $('#contenu').append('<div class="'+$("#divHauteRes").attr("class")+' removeResTrajet"> <a class="liensanscouleur resultatTrajet '+$("#divHauteRes2").attr("class")+'" href="index.php?module=mod_trajet&action=afficheTrajet&id='+tab[i]["idTrajet"]+'"> <div class="col-md-2"> <img src="'+urlPhoto+'" style="width: 100px"> <span class="">'+tab[i]["prenom"]+'</span> </div> <div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" > <div class="justify-content-md-between justify-content-center row container-fluid px-0"> <span class="col-12 col-md-6 text-center">Départ de '+tab[i]["depart"]+'</span> <span class="col-6 text-md-right text-center">à '+tab[i]["heureDepart"]+'</span></div><div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0 "><span class="col-12 col-md-6 text-center" style="padding-right: 3px">Arrivée à '+tab[i]["destination"]+'</span> <span class="col-6 text-md-right text-center">à '+tab[i]["heureArrivee"]+'</span> </div> </div> <div class="col-md-2 row offset-md-1 res_trajet_place_prix justify-content-md-end px-0"> <div class="row justify-content-md-end col-12"> <span class="align-top">Places '+tab[i]["placeTotale"]+'</span> </div> <div class="row align-content-end justify-content-end col-12"> <span class="align-text-bottomme">Prix '+tab[i]["prix"]+'€</span> </div> </div> </a> </div>');
   }
 }
 
@@ -234,7 +231,7 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
     function(data,statut){
 
 
-      $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="'+$("#photoUtilisateurCo").attr('src')+'" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
+      $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="'+$("#photoUtilisateurCo").attr('src')+'" class="img-fluid photo_profil_trajet"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8 commentaire"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
       $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
         e.preventDefault();
       
@@ -542,7 +539,7 @@ $('#addCar').on('click', function(e){
 
 
 $(document).ready(function(){
-  $('.inputPhoto').on('change', function(){ //on file input change
+  $('#photoCar').on('change', function(){ //on file input change
     if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
     {
       // $('#thumbnail').html(''); //clear html of output element
@@ -556,7 +553,7 @@ $(document).ready(function(){
               // var img = $('<img/>').addClass('thumb img-fluid').attr('src', e.target.result); //create image element 
               // console.log(img);
               // $('#thumbnail').append(img); //append image to output element
-              $('.img-default').attr('src', e.target.result);
+              $('#defaultThumb').attr('src', e.target.result);
             };
           })(file);
           fRead.readAsDataURL(file); //URL representing the file's data.
@@ -1499,7 +1496,6 @@ $( window ).resize(function() {
   if ($(window).width() <768) {
     $(".composant" ).hide();
     $('#changeComposant').hide();
-    
   }
   else{
     $(".composant" ).show();
@@ -1515,11 +1511,13 @@ $('#changeComposant').on('click', function(event) {
     function(data){
       
       if (data.includes("0")){
-        $('aside').removeClass('d-none');
+        $('aside').removeClass('d-none');;
+        $('section').toggleClass('col-md-6 col-md-8');
         $('#changeComposant').text("Desaffiche");
       }
       else if(data.includes("1")){
         $('aside').addClass('d-none');
+        $('section').toggleClass('col-md-8 col-md-6');
         $('#changeComposant').text("Affiche");
       }
       replaceFooter();
