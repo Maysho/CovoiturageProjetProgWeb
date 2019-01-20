@@ -25,10 +25,7 @@ class vue_nav
 						<a class='nav-link' href='index.php' title='permet d\"accéder a la page de recherche de trajet' >Rechercher<span class='sr-only'>(current)</span></a>
 					</li>
 					<li class='nav-item'>
-						<a class='nav-link' href='index.php?module=mod_connexion'>S'inscrire </a>
-					</li>
-					<li class='nav-item'>
-						<a class='nav-link' href='index.php?module=mod_connexion'>Se Connecter</a>
+						<a class='nav-link' href='index.php?module=mod_connexion'>Connexion <i class="fas fa-sign-in-alt"></i></a>
 					</li>
 				</ul>
 			</div>
@@ -49,9 +46,7 @@ class vue_nav
 			  <div class='mr-auto'></div>
 			  <div class="row align-items-center">
 	        	<a class='nav-link' href='index.php?module=mod_trajet' title="permet d'accéder a la page de proposition de trajet">Proposer <span class='sr-only'>(current)</span></a>
-
 	        	<a class='nav-link' href='index.php' title="permet d'accéder a la page de recherche de trajet">Rechercher</a>
-
 			  <div class='collapse navbar-collapse float-right' id='navbarSupportedContent'>
 			  
 			  
@@ -77,7 +72,7 @@ class vue_nav
 			          <a class='dropdown-item' href='?module=mod_discussion' title="permet d'accéder a la page de discussion">Discussion</a>
 			          <a class='dropdown-item' href='?module=mod_profil' title="permet d'accéder a la page de profil">Profil</a>
 			          <div class='dropdown-divider'></div>
-			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion</a>
+			          <a class='dropdown-item' href='index.php?module=mod_connexion&action=deconnexion'>Deconnexion <i class="fas fa-sign-out-alt"></i></a>
 			        </div>
 			      </div>
 			  </div>

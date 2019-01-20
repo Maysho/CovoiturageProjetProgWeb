@@ -53,10 +53,12 @@ class vue_connexion extends VueGenerique
 						<h2 class="text-center">Se Connecter</h2>
 						<div class="form-group">
 							<label for="exampleInputEmail3">Adresse Mail</label>
+							<i class="fas fa-user"></i>
 							<input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder="Adresse Mail (ex: songoku@dbz.com)">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword4">Mot De Passe</label>
+							<i class="fas fa-lock"></i>
 							<input type="password" class="form-control" name="mdpConnexion" id="mdpConnexion" placeholder="Mot De Passe (ex: ********)">
 							<?php
 							if ($error==1) {
