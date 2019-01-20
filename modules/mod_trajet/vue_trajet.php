@@ -431,24 +431,24 @@ class vue_Trajet extends VueGenerique{
 						<span> à <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<?php if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+						 		echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						 	}
 						else
-							echo "<div class='col-2 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						?>
 							<span><i class="fas fa-taxi"></i></span>
 						</div>
 					<?php  $compteur =0;
 					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
 					 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+						 		echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						 	}
 						else
-							echo "<div class='col-2 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 					  ?>
 
 					
-							 <span>p</span> 
+							 <span><i class="fas fa-user-alt"></i></span> 
 						</div>
 						
 					<?php } echo "</div>";
