@@ -243,8 +243,9 @@ class vue_Trajet extends VueGenerique{
 				  		<?php
 				  	
 	}
-	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token)
+	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token,$urlPhotoNous)
 	{
+
 		if ($value>=1) {
 			echo "<div class='col-12 contenu_page'><div class='col-lg-12'>";
 		}
@@ -533,13 +534,17 @@ class vue_Trajet extends VueGenerique{
 				<?php
 				for ($i=0; $i < count($tabCom); $i++) { 
 					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
-				?>				
-					<div class="row col-12" > 
-						<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
-							<a href="<?php echo $href ;?>"> <img src="home.jpg" class="img-fluid"></a>
-							<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
-						</div>
-				<?php if ($tabCom[$i]['idAuteur']!=$value) {
+
+?>				<div class="row col-12" > 
+				<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
+					<a href="<?php echo $href ;?>"> <img src="<?php echo isset($tabCom[$i]['urlPhoto'])?$tabCom[$i]['urlPhoto']:'home.jpg';?>" class="img-fluid"></a>
+					<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
+				</div>
+
+				<?php 
+				 if ($tabCom[$i]['idAuteur']!=$value) {
+					
+
 				?>
 						<div class="col-8 col-lg-9">
 							<span><?php echo $tabCom[$i]['description']; ?></span>
@@ -561,22 +566,26 @@ class vue_Trajet extends VueGenerique{
 				<?php } ?>
 	   			</div>
 	   		<?php if ($estDansTrajet) {
+	   			
 	   		?>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
-					<div class="col-3 col-lg-2 offset-lg-1">
-						<img src="home.jpg" class="img-fluid">
-					</div>
-					<div class="col-8 col-lg-9">
-						<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
-					</div>
-					<div class="col-3 col-lg-3 offset-lg-1">
-						<label  for="note">note:<i class="fas fa-question-circle" title="la note est noté sur 20"></i></label>
-						<input class ="col-12 col-lg-6" type="text" id="note" name="note">
-					</div>	
-					<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
-					<div class="col-lg-3 col-6 offset-lg-9 offset-7">
-						<input type="submit" class="col" name="submit">
-					</div>				
+
+				<div class="col-3 col-lg-2 offset-lg-1">
+					<img src="<?php echo isset($urlPhotoNous['0'])?$urlPhotoNous['0']:'home.jpg';?>" id="photoUtilisateurCo" class="img-fluid">
+				</div>
+				
+				<div class="col-8 col-lg-9">
+					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
+				</div>
+				<div class="col-3 col-lg-3 offset-lg-1">
+					<label  for="note">note:<i class="fas fa-question-circle" title="la note est noté sur 20"></i></label>
+					<input class ="col-12 col-lg-6" type="text" id="note" name="note">
+				</div>	
+				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
+				<div class="col-lg-3 col-6 offset-lg-9 offset-7">
+					<input type="submit" class="col" name="submit">
+				</div>				
+
 				</form>
 			<?php }?>
 				</div>
