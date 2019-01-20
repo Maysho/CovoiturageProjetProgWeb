@@ -359,6 +359,7 @@ font-family: 'Ubuntu', sans-serif;
     background-image: url(imgbg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    margin-top: -1em;
 }
 /*BOX DE RECHERCHE TRAJET*/
 .search_container{

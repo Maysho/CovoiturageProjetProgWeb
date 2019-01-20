@@ -19,7 +19,7 @@ class vue_resTrajet extends VueGenerique
   			echo "<div><div class='col col-md-12'>";
   		}
   		else{
-  			echo "<div class='row justify-content-center col-12'> <div class='col col-md-6 '>";
+  			echo "<div class='row justify-content-center col-12'> <div class='col col-md-8 '>";
   		}
   		?>
 			<div id='contenu' class='col-12'> <div class='col-12 ' id='divHauteRes'> 
