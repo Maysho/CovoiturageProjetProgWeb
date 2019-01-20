@@ -1527,6 +1527,7 @@ $( window ).resize(function() {
   if ($(window).width() <768) {
     $(".composant" ).hide();
     $('#changeComposant').hide();
+    
   }
   else{
     $(".composant" ).show();
@@ -1542,7 +1543,7 @@ $('#changeComposant').on('click', function(event) {
     function(data){
       
       if (data.includes("0")){
-        $('aside').removeClass('d-none');;
+        $('aside').removeClass('d-none');
         $('#changeComposant').text("Désaffiche");
       }
       else if(data.includes("1")){
