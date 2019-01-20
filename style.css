@@ -281,7 +281,13 @@ span{
     /* margin-bottom: 5px; */
 }
 .couleurTrajet{
-    background-color: #607d8b0a;
+    background-color: #607d8b25;
+    border-radius: 1em; 
+    padding: 2em 2em 1em 2em;
+}
+.info_trajet{
+    /* margin: 1em; */
+    padding: 2em;
 }
 .btn_credit{
     display: inline-block;
@@ -496,8 +502,6 @@ nav{
     background-color: #434343;
 }
 
-
-
 .label_trajet{
     margin-top: 0.5em;
 }
@@ -517,4 +521,47 @@ nav{
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+
+/* Trajet */
+.btn_valide, .btn_retire{
+    color: white;
+}
+.btn_valide{
+    background-color: #007c42;
+}
+.btn_valide:hover{
+    background-color: #00ca6c;
+}
+.btn_retire{
+    background-color: #920000;
+}
+.btn_retire:hover{
+    background-color: #f80000;
+}
+
+.profil_trajet, .mot_du_conducteur{
+    background-color: #607d8b25;
+    border-radius: 1em;
+    padding: 2em;
+}
+
+.photo_profil_trajet{
+    border-radius: 50%;
+}
+
+/* .mot_du_conducteur{
+    background-color: ; 
+} */
+/* 
+@media (max-width: 720px){
+    .photo_profil_trajet{
+        width:50px;
+    }
+}
+@media (min-width: 721px){
+    .photo_profil_trajet{
+        width:100px;
+    }
+} */
 /*fintest*/
