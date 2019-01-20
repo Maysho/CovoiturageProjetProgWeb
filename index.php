@@ -132,7 +132,6 @@ switch ($module){
 			include_once 'composants/compCommentaire/compCommentaire.php';
 
   			$compCommentaire=new compCommentaire();
-			
 
 			include_once 'composants/compFavoris/compFavoris.php';
 
@@ -173,16 +172,10 @@ switch ($module){
 			}
 			else{
 				echo'<section class="col-md-12">';
-				
 			}
 				echo "$affichageForm";
 ?>
 		</section>
-		
-
-
-	
-
 		<footer id="footer" class="row col-12 justify-content-center card-footer">
 			<div class="col-md-3">
 				<h3 class="text-footer titre-footer">Qui sommes-nous?</h3>
@@ -207,7 +200,6 @@ switch ($module){
 				</div>
 			</div>
 		</footer>
-
 	</div>	
 
 	<!-- Optional JavaScript -->
@@ -217,10 +209,7 @@ switch ($module){
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-            crossorigin=""></script>
-    
+	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
     <script src="jquery.js"></script>
     <script src="javascript.js"> </script>
 </body>

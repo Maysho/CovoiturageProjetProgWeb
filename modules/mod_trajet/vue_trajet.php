@@ -201,13 +201,10 @@ class vue_Trajet extends VueGenerique{
 				  				<button id="envoiTrajet" class="btn btn-primary btn_trajet">C'est parti! <i class="fas fa-car-side"></i></button>
 				  			</div>
 				  		</div>
-
-				  		<?php
-				  	
+	<?php	  	
 	}
 	public function afficheTrajet($value,$infoTrajet,$user,$idS,$tabSt,$tabCom,$estDansTrajet,$PrixAPayer,$villeDepartArrive,$trajetValide,$peutEtreValide,$trajetValidee,$nbPers,$personne,$idEtapeTrajet,$token,$urlPhotoNous)
 	{
-
 		if ($value>=1) {
 			echo "<div class='col-12 contenu_page'><div class='col-lg-12'>";
 		}
@@ -217,14 +214,14 @@ class vue_Trajet extends VueGenerique{
 
 			echo "<div class='row col-lg-12 justify-content-center'>";
 		?>
-		<h2>Le Trajet</h2>
-</div>
-<?php if ($value>=1) {
-	echo "<div class='col-12 info_trajet' >
-			<div class='col-12 row justify-content-between couleurTrajet'>";
-	}else
-		echo "<div class='row col-12 justify-content-center info_trajet' >
-			<div class='col-12 row justify-content-between couleurTrajet'>";
+			<h2>Le Trajet</h2>
+		</div>
+		<?php if ($value>=1) {
+			echo "<div class='col-12 info_trajet'>
+				<div class='col-12 row justify-content-between couleurTrajet'>";
+		}else
+			echo "<div class='row col-12 justify-content-center info_trajet'>
+				<div class='col-12 row justify-content-between couleurTrajet'>";
 			?>
 				<div class="col-lg-6">
 					<div class="row descriptionTxt" >
@@ -276,14 +273,11 @@ class vue_Trajet extends VueGenerique{
 							echo '<a href="index.php?module=mod_connexion"><button class="btn btn_valide"  data-target="#partieInscription" id="sinscrireAuTrajet"  data-id=" '.$infoTrajet[13].' ">S\'Inscrire au trajet</button></a>';
 						}else {
 							if ($trajetValidee) {
-								# code...
 							}
-
 							else if ($estDansTrajet && !$peutEtreValide && $value!=$infoTrajet[14]) {
 								echo '<button class="btn btn_retire" id="desinscriptionAuTrajet" data-id="'.$infoTrajet[13].'">se desinscrire du trajet</button>';
 							}
 							else if (!$estDansTrajet && $peutEtreValide) {
-								# code...
 							}
 							else if($peutEtreValide){
 								echo '<button class="btn btn_valide" id="validationAuTrajet" data-token="'.$token.'" title="ce bouton permet de valider le trajet et donc de terminer ce trajet pour vous" data-id="'.$infoTrajet[13].'"> Valider Le Trajet</button>';
@@ -292,13 +286,12 @@ class vue_Trajet extends VueGenerique{
 								echo '<button class="btn btn_retire" id="retirerTrajet" data-id="'.$infoTrajet[13].'">Retirer le Trajet</button>';
 							}
 							elseif ($value==$infoTrajet[14]) {
-								# code...
 							}
 							else{
 								echo '<button class="btn btn_valide" data-toggle="modal" data-target="#partieInscription" id="sinscrireAuTrajet" data-token="'.$token.'" data-id="'.$infoTrajet[13].'">S\'Inscrire au trajet</button>';
 							}
 						}
-?>
+						?>
 					</div>
 				</div>
 			</div>
@@ -310,24 +303,24 @@ class vue_Trajet extends VueGenerique{
 			      	<div class="modal-header">
 						<h4 class="modal-title">Choisissez votre trajet</h4>
 						<button type="button" class="close" data-dismiss="modal">
-						<span>&times;</span>
+							<span>&times;</span>
 						</button>            
-						</div>
+					</div>
 			      	<form method="GET" action="#" id="envoieInscriptionTrajet" data-nbPlace="<?php echo count($tabSt) ?>">
-			      	<div class="modal-body" id="bodyInscriptionTrajet">
-			        <?php
-			        for ($i=0; $i <count($tabSt) ; $i++) { 
-                        if ($i==(count($tabSt)-1)) {
-                        	echo '<div class="row"><div class="col-6">';
-                        }
-                        else
-                        	echo '<div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
-                        if($i==0){
-                        	echo '<label for="st'.$i.'" >'.$tabSt[$i][13].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
-                        }
-						echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
-                    }
-			        ?>
+			      		<div class="modal-body" id="bodyInscriptionTrajet">
+						<?php
+						for ($i=0; $i <count($tabSt) ; $i++) { 
+							if ($i==(count($tabSt)-1)) {
+								echo '<div class="row"><div class="col-6">';
+							}
+							else
+								echo '<div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+							if($i==0){
+								echo '<label for="st'.$i.'" >'.$tabSt[$i][13].'</label></div><div class="row col-6 align-items-center"></div></div><div class="row"><div class="col-6 border border-top-0 border-right-0 border-left-0 border-dark">';
+							}
+							echo '<label for="st'.$i.'" >'.$tabSt[$i][36].'</label></div><div class="row col-6 align-items-top"><input type="checkbox" id="st'.$i.'" data-idVille="'.$tabSt[$i][35].'" value='.$i.' data-prix="'.$tabSt[$i][8].'" class="checkerInscription checkermed"></div></div>';
+						}
+						?>
 								<div class="row prix_trajet col-3">
 									<span>Prix&nbsp</span><span id="prixInscription">0</span><span>&nbsp€</span>
 								</div>
@@ -371,15 +364,13 @@ class vue_Trajet extends VueGenerique{
 		<?php
 		$idUtilisateur=array_column($user, 'utilisateur_idutilisateur');
 		$idSousTrajets=array_column($user, 'sousTrajet_idsousTrajet');
-			if ($value>=1) {
-				echo "<div class=' info_trajet col-12' >
-			<div class='col-12 row justify-content-between couleurTrajet'>";
-			}
-			else
-				echo "<div class='info_trajet row col-12 justify-content-center' >
-			<div class='col-12 row justify-content-between couleurTrajet'>";
-
-
+		if ($value>=1) {
+			echo "<div class=' info_trajet col-12' >
+		<div class='col-12 row justify-content-between couleurTrajet'>";
+		}
+		else
+			echo "<div class='info_trajet row col-12 justify-content-center' >
+		<div class='col-12 row justify-content-between couleurTrajet'>";
 		?>
 		
 				<div class="col-12">
@@ -388,123 +379,115 @@ class vue_Trajet extends VueGenerique{
 				<div class="col">
 					<div class="row " >
 						<div class="col-4  row justify-content-between detailTrajet">
-						<i class="far fa-circle"></i><?php echo $tabSt[0][13]?>
-						<span> à <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
+							<i class="far fa-circle"></i><?php echo $tabSt[0][13]?>
+							<span> à <?php echo self::afficheHeure($tabSt[0]['heureDepart'])?></span>
 						</div>
 						<?php if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
-						 	}
+							echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+						}
 						else
 							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 						?>
 							<span><i class="fas fa-taxi"></i></span>
 						</div>
-					<?php  $compteur =0;
-					for ($i=1; $i <$infoTrajet[15] ; $i++) { 
-					 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
-						 	}
-						else
-							echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
-					  ?>
-							 <span><i class="fas fa-user-alt"></i></span> 
-						</div>
-						
-					<?php } echo "</div>";
-
-					while($compteur<count($idEtapeTrajet)) { ?>
-			
-						<div class="row " >
-							<div class="col-4  ">
-								<div class="bordered ">
-								</div>
-							</div>
-							
-						<?php $idsoustrajet=$idEtapeTrajet[$compteur][0];
-						
-						 for ($i=0; $i < $infoTrajet[15]; $i++) { 
-						 	if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border px-0 border-top-0 border-bottom-0' >";
-						 	}
-						 	else
-								echo "<div class='col-2 border-dark border px-0 border-top-0 border-bottom-0' >";
-							
-							$personneDansCettePlace=self::utilisePlace($personne,$idsoustrajet,$i);
-							if (isset($personneDansCettePlace)) {
-								if ($infoTrajet[14]==$personneDansCettePlace->getId()) {
-									$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid photo_profil_trajet'></a>";
-								 } 
-								 elseif ($value==$infoTrajet[14]) {
-								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid photo_profil_trajet'></a>";
-								 }
-								 else{
-								 	$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
-								 	echo "<img src='$urlPhoto' class='img-fluid photo_profil_trajet'>";
-								 }
+						<?php  $compteur =0;
+						for ($i=1; $i <$infoTrajet[15] ; $i++) { 
+							if ($infoTrajet[15]>4) {
+								echo "<div class='col-1 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
 							}
-						  	?>
-								</a>
+							else
+								echo "<div class='col-2 px-0 justify-content-center row no-gutters border border-dark border-top-0 border-bottom-0' >";
+						?>
+							<span><i class="fas fa-user-alt"></i></span> 
+						</div>
+					<?php } 
+					echo "</div>";
+					while($compteur<count($idEtapeTrajet)) { ?>
+					<div class="row " >
+						<div class="col-4  ">
+							<div class="bordered ">
 							</div>
-						<?php }$compteur=$compteur+1;
+						</div>
+					<?php $idsoustrajet=$idEtapeTrajet[$compteur][0];
+						
+					for ($i=0; $i < $infoTrajet[15]; $i++) { 
+						if ($infoTrajet[15]>4) {
+							echo "<div class='col-1 border-dark border px-0 border-top-0 border-bottom-0' >";
+						}
+						else
+							echo "<div class='col-2 border-dark border px-0 border-top-0 border-bottom-0' >";
+						$personneDansCettePlace=self::utilisePlace($personne,$idsoustrajet,$i);
+						if (isset($personneDansCettePlace)) {
+							if ($infoTrajet[14]==$personneDansCettePlace->getId()) {
+								$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
+								echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid photo_profil_trajet'></a>";
+							} 
+							elseif ($value==$infoTrajet[14]) {
+								$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
+								echo "<a href='index.php?module=mod_profil&idprofil=".$personneDansCettePlace->getId()."&ongletprofil=profil'><img src='$urlPhoto' class='img-fluid photo_profil_trajet'></a>";
+							}
+							else{
+								$urlPhoto=$personneDansCettePlace->getUrlPhoto()!=null?$personneDansCettePlace->getUrlPhoto():'home.jpg';
+								echo "<img src='$urlPhoto' class='img-fluid photo_profil_trajet'>";
+							}
+						}
 						?>
 						</div>
+						<?php }
+						$compteur=$compteur+1;
+						?>
+					</div>
 						<div class="row " >
 							<div class="col-4 row justify-content-between detailTrajet">
-							<i class="far fa-circle"> </i><?php echo $tabSt[$compteur-1][36]?>
-							<span> à <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
+								<i class="far fa-circle"> </i><?php echo $tabSt[$compteur-1][36]?>
+								<span> à <?php echo self::afficheHeure($tabSt[$compteur-1]['heureArrivee'])?></span>
+							</div>
+							<?php
+							for ($i=0; $i <$infoTrajet[15] ; $i++) { 
+								if ($infoTrajet[15]>4) {
+									echo "<div class='col-1 border-dark border px-0 border-bottom-0 border-top-0' >";
+								}
+								else
+									echo "<div class='col-2 border-dark border px-0 border-bottom-0 border-top-0' >";
+							?>
+							</div>
+							<?php } ?>
 						</div>
-						<?php
-						for ($i=0; $i <$infoTrajet[15] ; $i++) { 
-					 	# code...
-					  
-
-					  if ($infoTrajet[15]>4) {
-						 		echo "<div class='col-1 border-dark border px-0 border-bottom-0 border-top-0' >";
-						 	}
-						else
-							echo "<div class='col-2 border-dark border px-0 border-bottom-0 border-top-0' >";
-						?>
-						</div>
-					<?php } ?>
+					<?php }?>
 					</div>
-					<?php 	
-					}?>
 				</div>
 			</div>
-		</div>
-		<?php 
-		if ($trajetValide) {
-			if ($value>=1) {
-				echo "<div class='info_trajet col-12'>
-				<div class='col-12 couleurTrajet row justify-content-between'>";
-			}
-			else
-				echo "<div class='info_trajet row col-12 justify-content-center'>
-				<div class='col-12 couleurTrajet row justify-content-between'>";
-		?>
+			<?php 
+			if ($trajetValide) {
+				if ($value>=1) {
+					echo "<div class='info_trajet col-12'>
+					<div class='col-12 couleurTrajet row justify-content-between'>";
+				}
+				else
+					echo "<div class='info_trajet row col-12 justify-content-center'>
+					<div class='col-12 couleurTrajet row justify-content-between'>";
+			?>
 		
-				<div class="col-12">
-					<h3>Commentaire</h3>
-				</div>
-				<div id="espaceCommentaire">
-				<?php
-				for ($i=0; $i < count($tabCom); $i++) { 
-					$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
-				?>
-					<div class="row col-12" > 
-						<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
-							<a href="<?php echo $href ;?>"> <img src="<?php echo isset($tabCom[$i]['urlPhoto'])?$tabCom[$i]['urlPhoto']:'home.jpg';?>" class="img-fluid photo_profil_trajet"></a>
-							<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
-						</div>
-					<?php 
-					if ($tabCom[$i]['idAuteur']!=$value) {
-					?>
+					<div class="col-12">
+						<h3>Commentaire</h3>
+					</div>
+					<div id="espaceCommentaire">
+					<?php
+					for ($i=0; $i < count($tabCom); $i++) { 
+						$href = '?module=mod_profil&idprofil='.$tabCom[$i]['idAuteur'].'&ongletprofil=profil';
+						?>
+						<div class="row col-12" > 
+							<div class="col-3 col-lg-2 offset-lg-1 " style="display: inline-block;">
+								<a href="<?php echo $href ;?>"> <img src="<?php echo isset($tabCom[$i]['urlPhoto'])?$tabCom[$i]['urlPhoto']:'home.jpg';?>" class="img-fluid photo_profil_trajet"></a>
+								<label class="">note : <?php echo $tabCom[$i]['note']; ?></label>
+							</div>
+						<?php 
+						if ($tabCom[$i]['idAuteur']!=$value) {
+						?>
 						<div class="col-8 col-lg-9">
 							<span><?php echo $tabCom[$i]['description']; ?></span>
 						</div>	
-					<?php } else { ?>
+						<?php } else { ?>
 						<div class="commentaire col-7 col-lg-8">
 							<span><?php echo $tabCom[$i]['description']; ?></span>
 						</div>
@@ -516,33 +499,30 @@ class vue_Trajet extends VueGenerique{
 					    		<a class="dropdown-item " id="supprimerCom" href="#">Supprimer</a>
 					  		</div>
 						</div>
-					<?php }?>
+						<?php }?>
 					</div>
 				<?php } ?>
 	   			</div>
 	   		<?php if ($estDansTrajet) {
-	   			
 	   		?>
 				<form method="POST" action="" id="formCommentairePageTrajet" class="row col-12">
-
-				<div class="col-3 col-lg-2 offset-lg-1">
-					<img src="<?php echo isset($urlPhotoNous['0'])?$urlPhotoNous['0']:'home.jpg';?>" id="photoUtilisateurCo" class="img-fluid photo_profil_trajet">
-				</div>
-				
-				<div class="col-7 col-lg-8">
-					<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
-				</div>
-				<div class="col-3 col-lg-3 offset-lg-1">
-					<label for="note"><i class="fas fa-question-circle" title="la note est noté sur 20">Note&nbsp:&nbsp</i></label>
-					<input class ="col-6 col-lg-3" type="text" id="note" name="note">
-				</div>	
-				<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
-				<div class="col-lg-3 col-6 offset-lg-9 offset-7">
-					<input type="submit" class="btn btn-primary btn_valide col" name="submit">
-				</div>				
-
+					<div class="col-3 col-lg-2 offset-lg-1">
+						<img src="<?php echo isset($urlPhotoNous['0'])?$urlPhotoNous['0']:'home.jpg';?>" id="photoUtilisateurCo" class="img-fluid photo_profil_trajet">
+					</div>
+					
+					<div class="col-7 col-lg-8">
+						<textarea type="textarea" class="col" form="formCommentairePageTrajet" name="commentaire" id="contenuCom"  data-id="<?php echo $infoTrajet[13]; ?>" style="resize: none;"> </textarea>
+					</div>
+					<div class="col-3 col-lg-3 offset-lg-1">
+						<label for="note"><i class="fas fa-question-circle" title="la note est noté sur 20">Note&nbsp:&nbsp</i></label>
+						<input class ="col-6 col-lg-3" type="text" id="note" name="note">
+					</div>	
+					<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
+					<div class="col-lg-3 col-6 offset-lg-9 offset-7">
+						<input type="submit" class="btn btn-primary btn_valide col" name="submit">
+					</div>	
 				</form>
-			<?php }?>
+				<?php }?>
 				</div>
 			</div>	
 		</div>
