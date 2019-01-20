@@ -44,7 +44,6 @@ $(document).on('click', '#buttonRapetisseForm', function(event) {
 
 
 $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le formulaire par son identifiant
-  alert("uidzeuideee");
   var nomFonction=$("#formulaireDeRechercheResultat").serialize()+"&fonction=rechercheTrajet";
   e.preventDefault();
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
@@ -53,7 +52,6 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
     ,
 
     function(data,statut){
-      alert(data);
       tab=JSON.parse(data);
       nbAffiche=25;
       afficheRes();
@@ -133,7 +131,6 @@ $("#miseEnFavoris").on('click', function(event) {
     ,
 
     function(data,statut){
-      alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
           //window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -165,7 +162,6 @@ $(".buttonSuppFavoris").on('click', function(event) {
     ,
 
     function(data,statut){
-      alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
             //window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -194,7 +190,6 @@ $(".buttonSuppFavoris").on('click', function(event) {
 $("#inscription").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   removeWarningForm();
-  alert("on rentre");
   var nomFonction=$("#inscription").serialize()+"&fonction=formulaireDinscription";
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -202,12 +197,12 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
     ,
 
     function(data,statut){
-      alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         // Le membre est connecté. Ajoutons lui un message dans la page HTML.
-
+        alert("l'inscription s'est bien déroulée");
         window.location.replace('index.php?module=mod_connexion');
+
       }
       else{
              // Le membre n'a pas été connecté. (data vaut ici "failed")
@@ -336,7 +331,6 @@ $(".checkerInscription").on('change', function(event) {
 $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   $('#warningInscriptionprob').remove();
-  alert("on rentre");
   var compteur=0;
   var tabVille=[];
   for (var i = 0; i < parseInt($(this).attr('data-nbPlace'),10); i++) {
@@ -357,7 +351,6 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
       }
       ,
       function(data,statut){
-        alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
         if(data.includes("success")){
                window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#sinscrireAuTrajet').attr('data-id'));
@@ -371,7 +364,6 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
 
       'text'
     ).fail(function(data,statut,xhr) {
-      alert(data.responseText);
       verifError(data.responseText);
     });
   }
@@ -382,7 +374,6 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
 $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   
-  alert("on rentre");
   if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
     {
@@ -391,7 +382,6 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
     }
     ,
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
              window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#desinscriptionAuTrajet').attr('data-id'));
@@ -404,7 +394,6 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
     },
        'text'
   ).fail(function(data,statut,xhr) {
-    alert(data.responseText);
     verifError(data.responseText);
   });
 }
@@ -415,7 +404,7 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
 $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   
-  alert("on rentre");
+
 
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -426,7 +415,6 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
     ,
 
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         $('#supprimerCom').parent().parent().parent().remove();//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -444,7 +432,6 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
 
 $('#validationAuTrajet').on('click', function(event) {
   event.preventDefault();
-  alert("rentre");
   if(confirm("Etes-vous sûr.e de vouloir valider ce trajet ? Ceci complétera ce trajet pour vous et c'est irrémédiable")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -456,7 +443,6 @@ $('#validationAuTrajet').on('click', function(event) {
     ,
 
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#validationAuTrajet').attr('data-id'));//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -475,7 +461,6 @@ $('#validationAuTrajet').on('click', function(event) {
 
 $('#retirerTrajet').on('click', function(event) {
   event.preventDefault();
-  alert("rentre");
   if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -485,7 +470,6 @@ $('#retirerTrajet').on('click', function(event) {
     }
     ,
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -553,8 +537,6 @@ $('#addCar').on('click', function(e){
       $("#myModal").modal('hide');
     },
     error: function(txt){
-      alert("fail");
-      alert("msg"+txt.responseText)
       verifError(txt.responseText);
     }
   });
