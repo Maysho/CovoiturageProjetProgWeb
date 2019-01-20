@@ -10,9 +10,13 @@ include_once __DIR__ .'/../../vue_generique.php';
 		function accueilProfil($donnerAAfficher, $nbTrajet, $moyenne, $commentaires, $estConnecter, $estPagePerso, $idUser){
 
 ?>
-			<div class="row">			
-				<div class="col-md-12">
+			<div class="row justify-content-center">			
+				
 <?php
+		if($estConnecter)
+			echo '<div class="col-md-12">';
+		else
+			echo '<div class="col-md-8">';
 		if($estPagePerso){
 ?>
 					<?php self::afficheNavProfil(1,$idUser); ?>
@@ -294,7 +298,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		if(isset($donnees['urlPhoto'])){
 ?>
 							<div class="col-md-4">
-								<img class="img-fluid" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
+								<img class="img-fluid img-default" src="<?php echo $donnees['urlPhoto']; ?>" alt="photo de profil">
 							</div>
 <?php
 		}
@@ -302,7 +306,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 			echo 			'<div class="col-md-4"><img class=" img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil"></div>';
 ?>
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-								<input class="col-md-4" type="file" name="photoprofil" >
+								<input class="col-md-4 inputPhoto" type="file" name="photoprofil" >
 								<?php if(strpos($erreur, '20')!==false) echo "<p class='offset-md-2 col-md-8 form-text warning'>/!\Une erreur dans l'upload de l'image c'est produite!</p>";?>
 								<?php if(strpos($erreur, '21')!==false) echo "<p class='offset-md-2 col-md-8 form-text warning'>/!\Le fichier est trop lourd!</p>";?>
 								<?php if(strpos($erreur, '22')!==false) echo "<p class='text-center offset-md-2 col-md-8 form-text warning'>/!\Le fichier n'a pas la bonne extension!</p>";?>

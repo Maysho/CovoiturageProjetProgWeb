@@ -169,10 +169,10 @@ switch ($module){
 			}
 
 			if (isset($_SESSION['id'])) {
-					echo'<section class="col-md-8 px-0 " >';
+				echo'<section class="col-md-8" >';
 			}
 			else{
-				echo'<section class="col-12 row px-0 ">';
+				echo'<section class="col-md-12">';
 				
 			}
 				echo "$affichageForm";
