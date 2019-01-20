@@ -121,9 +121,9 @@ class vue_resTrajet extends VueGenerique
 	  				<span class="col-6 text-md-right text-center" > à <?php echo $donnee['heureArrivee'];?></span>
 	  				</div>
 	  			</div>
-	  			<div class="col-md-2 row offset-md-1  justify-content-md-end px-0">
-	  			<div class="row justify-content-md-end col-12">
-	  				<span class="align-top">Places <?php echo $donnee['placeTotale']; ?></span>
+	  			<div class="col-md-2 row offset-md-1 res_trajet_place_prix justify-content-md-end px-0">
+	  				<div class="row justify-content-md-end  col-12">
+	  					<span class="align-top">Places <?php echo $donnee['placeTotale']; ?></span>
 	  				</div>
 	  				<div class="row align-content-end justify-content-end col-12" >
 	  					<span class="align-text-bottomme">Prix <?php echo $donnee['prix'];?>€</span>

@@ -8,7 +8,8 @@
 	margin-top: 200px;
 	color: blue;
 	border: none;
-	height: 350px;
+    height: 350px;
+    border:1px solid#70707086;
 }
 #espaceConnexion{
 	width: 100%;
@@ -308,7 +309,6 @@ span{
 }
 .buttonRecherche{
     margin-right: 1rem;
-    
 }
 #divHauteRes2{
     padding: 1em;
@@ -573,6 +573,37 @@ nav{
 #contenuCom{
     border-radius: 1em;
 }
+
+
+/*restrajet**/
+
+.res_trajet_place_prix{
+    margin: 0em 0em 0em 1em;
+}
+
+/*inscription connexion*/
+
+.inscription_panel{
+    background-color: #ebebeb;
+    border-radius: 1em;
+    padding: 1em;
+    color: #001f2e   ;
+}
+.inscription_panel h2{
+    margin: 0.5em;
+    font-size: 30px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.buttonInscription{
+    background-color: #00496d;
+    border: 1px solid #00496d;
+}
+.buttonInscription:hover{
+    background-color: #003149;
+    border: 1px solid #003149;
+}
+
 
 
 /* .mot_du_conducteur{
