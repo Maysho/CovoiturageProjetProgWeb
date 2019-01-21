@@ -689,6 +689,7 @@ $('#envoiTrajet').on("click",function(e){
         fonction:"formTrajet"
       },
       success : function(txt){
+        alert("Bravo, votre trajet a été créé, vous allez être redirigé");
         window.location='index.php';
         // console.log("msg :"+txt.responseText);
         // key = 0;
