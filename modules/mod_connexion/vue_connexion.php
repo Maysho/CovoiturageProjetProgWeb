@@ -20,19 +20,19 @@ class vue_connexion extends VueGenerique
 					<form class=""method="POST" id="inscription">
 						<div class="form-group" id="divEmailInscription">
 							<label for="exampleInputEmail1">Adresse Mail</label>
-							<input type="email" required name="emailInscription" class="form-control" id="emailInscription"  placeholder="Adresse Mail (ex: hishirobestgrill@relife.com)">
+							<input type="email" required name="emailInscription" class="form-control" id="emailInscription"  placeholder="Adresse Mail (ex: johntitor@future.com)">
 						</div>
 						<div class="form-group" id="divConfEmail">
 							<label for="exampleInputEmail2">Confirmation d'Adresse Mail</label>
-							<input type="email" required name="confemail" id="confemail" class="form-control"   placeholder="Adresse Mail (ex: hishirobestgrill@relife.com)">
+							<input type="email" required name="confemail" id="confemail" class="form-control"   placeholder="Adresse Mail (ex: johntitor@future.com)">
 						</div >
 						<div class="form-group" id="divNomInscription">
 							<label for="Nom">Nom</label>
-							<input type="text" required name="nomInscription" class="form-control" id="nomInscription"  placeholder="Nom (ex: Monkey D.)">
+							<input type="text" required name="nomInscription" class="form-control" id="nomInscription"  placeholder="Nom (ex: Titor)">
 						</div>
 						<div class="form-group" id="divPrenomInscription">
 							<label for="Prenom">Prénom</label>
-							<input type="text" required name="prenomInscription" class="form-control" id="prenomInscription"  placeholder="Prénom (ex: Luffy)">
+							<input type="text" required name="prenomInscription" class="form-control" id="prenomInscription"  placeholder="Prénom (ex: John)">
 						</div>
 						<div class="form-group" id="divMDPInscription">
 							<label for="exampleInputPassword1">Mot De Passe <i class="fas fa-question-circle" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre"></i></label>
@@ -54,7 +54,7 @@ class vue_connexion extends VueGenerique
 						<div class="form-group">
 							<label for="exampleInputEmail3">Adresse Mail</label>
 							<i class="fas fa-user"></i>
-							<input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder=" <i class="fas fa-user"></i> Adresse Mail (ex: songoku@dbz.com)">
+							<input type="email" class="form-control" id="mailConnexion" name="mailConnexion"  placeholder="Adresse Mail (ex: johntitor@future.com)">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword4">Mot De Passe</label>
@@ -109,7 +109,7 @@ class vue_connexion extends VueGenerique
 			<h2>Veuillez renseigner le nouveau Mot de Passe</h2>
 			<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieMPD">';?>
 				<div class="form-group" id="divEmailInscription">
-					<label for="mdp">Mot de passe <i class="fas fa-question-circle" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre"></label>
+					<label for="mdp">Mot de passe <i class="fas fa-question-circle" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre"></i></label>
 					<input type="password" required name="mdp" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre" class="form-control" id="mdp"  placeholder="Mot De Passe (ex: ********)">
 					<label for="mdpconf">Mot de passe</label>
 					<input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Mot De Passe (ex: ********)">
