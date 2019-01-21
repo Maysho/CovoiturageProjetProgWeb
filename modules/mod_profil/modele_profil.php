@@ -98,7 +98,7 @@ class ModeleProfil extends connexion{
 			$this->msg=$this->msg."10-";
 			$erreur = true;
 		}
-		if($date != null && (!preg_match('#^[1-9]{4}-[1-9]{2}-[1-9]{2}$#',$date) || self::traduitAge($date)<18)){
+		if($date != null && (!preg_match('#^[0-9]{4}-[0-9]{2}-[0-9]{2}$#',$date) || self::traduitAge($date)<18)){
 			$this->msg=$this->msg."11-";
 			$erreur = true;
 		}
@@ -218,9 +218,7 @@ class ModeleProfil extends connexion{
 				$selectPreparee->execute($tableauIds);
 				$tab=$selectPreparee->fetch();
 				$email=$tab['adresseMail'];
-		}
-die($date);
-		
+		}		
 		$urlPhoto = self::enregistrePhotoProfil($idUser);			
 		self::updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
 		return NULL;
