@@ -98,7 +98,7 @@ class ModeleProfil extends connexion{
 			$this->msg=$this->msg."10-";
 			$erreur = true;
 		}
-		if($date != null && self::traduitAge($date)<18){
+		if($date != null && (!preg_match('#^[1-9]{4}-[1-9]{2}-[1-9]{2}$#',$date) || self::traduitAge($date)<18)){
 			$this->msg=$this->msg."11-";
 			$erreur = true;
 		}
@@ -187,6 +187,7 @@ class ModeleProfil extends connexion{
 
 	public function verifieModificationProfil($idUser){
 
+
 		if (isset($_POST['token']))
 			$token=htmlspecialchars($_POST['token']);
 		else{
@@ -194,7 +195,6 @@ class ModeleProfil extends connexion{
 			echo 'Une erreur dans le certificat c\'est produite veuillez réessayer';
 			exit(1);
 		}
-
 		if(!$this->verifieToken($idUser, $token)){
 			http_response_code(400);
 			echo 'Une erreur dans le certificat c\'est produite veuillez réessayer';
@@ -205,10 +205,9 @@ class ModeleProfil extends connexion{
 		$nom = htmlspecialchars($_POST['nom']);
 		$email = htmlspecialchars($_POST['Email']);
 		$emailConfirm = htmlspecialchars($_POST['confirmationEmail']);
-		$date = $_POST['datedenaissance'];
+		$date = htmlspecialchars($_POST['datedenaissance']);
 		$sexe = isset($_POST['sexe'])?$_POST['sexe'] : null;
 		$description = htmlspecialchars($_POST['description']);
-
 		if(self::erreurDansModif($email, $emailConfirm, $nom, $prenom, $sexe, $date, $description) || self::erreurDansUploadImage()){
 			return $this->msg;
 		}
@@ -220,7 +219,7 @@ class ModeleProfil extends connexion{
 				$tab=$selectPreparee->fetch();
 				$email=$tab['adresseMail'];
 		}
-
+die($date);
 		
 		$urlPhoto = self::enregistrePhotoProfil($idUser);			
 		self::updateProfil($email, $nom, $prenom, $sexe, $date, $description, $idUser, $urlPhoto);			
