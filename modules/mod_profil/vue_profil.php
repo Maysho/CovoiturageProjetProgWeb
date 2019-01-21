@@ -254,7 +254,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 							for ($i=0; $i <count($donnees) ; $i++) { 
 								$prix=$donnees[$i][4]!='100000'?$donnees[$i][4]:'';
 								$regulier=$donnees[$i][6]==1?"oui":'non';
-								echo " <tr><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][2]."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][3]."</a></td><td class=' text-center'><a class='liensanscouleur'  href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$prix."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][5]."</a></td><td class='row justify-content-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$regulier."</a></td><td class=' text-center'><button class='buttonSuppFavoris' data-id='".$donnees[$i][0]."'>X</button></td></tr>";
+								echo " <tr><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][2]."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][3]."</a></td><td class=' text-center'><a class='liensanscouleur'  href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$prix."</a></td><td class=' text-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$donnees[$i][5]."</a></td><td class='row justify-content-center'><a class='liensanscouleur' href='index.php?module=mod_resTrajet&action=afficheFavoris&id=".$donnees[$i][0]."'>".$regulier."</a></td><td class=' text-center'><button class='buttonSuppFavoris btn btn-danger' data-id='".$donnees[$i][0]."'><i class='fas fa-trash'></i></button></td></tr>";
 							}
 					
 						?>
@@ -271,7 +271,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 		public function afficheNavProfil($active=1,$idUser)
 		{
 			?>
-			<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+			<nav class="navbar nav-profil navbar-expand-md navbar-dark bg-primary">
 					
 					    <div class="navbar-nav justify-content-between">
 							<a class="nav-item nav-link <?php echo $active==1?'active':''; ?>" href="<?php echo '?module=mod_profil&idprofil='.$idUser.'&ongletprofil=profil'; ?>">Profil</a>
@@ -366,7 +366,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<?php if(strpos($erreur, '12')!==false) echo "<p class='col-md-4 form-text warning'>/!\Votre description est trop longue!</p>";?>
 							</div>
 
-							<button class="btn btn-primary" type="submit" name="submit">Mettre à jour vos données</button>
+							<button class="btn btn-primary btn-profil" type="submit" name="submit">Mettre à jour vos données</button>
 						</form>
 
 						
@@ -417,7 +417,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 								</td>
 								<td>
 									<!-- <button class="btn btn-primary"><i class="fas fa-edit"></i></button> -->
-									<button data-id="<?php echo $value['immatriculation']?>" class="btn btn-primary delCar"><i class="fas fa-trash"></i></button>
+									<button data-id="<?php echo $value['immatriculation']?>" class="btn btn-primary delCar btn-danger"><i class="fas fa-trash"></i></button>
 								</td>
 							</tr>
 							<?php
@@ -459,9 +459,9 @@ include_once __DIR__ .'/../../vue_generique.php';
 
 					<div class="container">
 						<!-- Trigger the modal with a button -->
-						<div class="row">
-							<div class="">
-								<button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>		
+						<div class="row justify-content-center">
+							<div >
+								<button type="button" class="btn btn-primary btn-profil btn-ajout-vehicule" data-toggle="modal" data-target="#myModal">Ajouter un Vehicule <i class="fas fa-car"></i></button>		
 							</div>
 						</div>
 						<!-- Modal -->
