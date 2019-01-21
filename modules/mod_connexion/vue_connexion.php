@@ -92,7 +92,7 @@ class vue_connexion extends VueGenerique
 					<label for="emailInscription">Code recu par mail</label>
 					<input type="text" required name="token" class="form-control" id="emailInscription"  placeholder="Code..."><?php 
 					if($value==1)
-						echo '<small id="warningemaildif" class=" form-text warning"> <i class="fas fa-exclamation-triangle"> Ce champ est Incorrect</small>';
+						echo '<small id="warningemaildif" class=" form-text warning"> <i class="fas fa-exclamation-triangle"></i> Ce champ est Incorrect</small>';
 					?>
 				</div>
 				<div class="justify-content-end row" >
@@ -107,25 +107,25 @@ class vue_connexion extends VueGenerique
 		?>
 		<div class="justify-content-md-start justify-content-lg-center offset-1 col-md-3 ">
 			<h2>Veuillez renseigner le nouveau Mot de Passe</h2>
-		<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieMPD">';?>
-					<div class="form-group" id="divEmailInscription">
-						<label for="mdp">Mot de passe <i class="fas fa-question-circle" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre"></label>
-						<input type="password" required name="mdp" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre" class="form-control" id="mdp"  placeholder="Mot De Passe (ex: ********)">
-						<label for="mdpconf">Mot de passe</label>
-						<input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Mot De Passe (ex: ********)">
-						<input type="hidden" name="token" value="<?php echo $token ?>">
-						<?php 
-						if($value==1)
-							echo '<small id="warningemaildif" class=" form-text warning"> <i class="fas fa-exclamation-triangle"> Champ incorrect</small>';
-						?>
-					</div>
-					<div class="justify-content-end row" >
-						<button type="submit" name="submit"  class="btn btn-primary buttonInscription">Changer de mot de passe</button>
-					</div>
+			<?php echo '<form method="POST" action="index.php?module=mod_connexion&action=VerifieMPD">';?>
+				<div class="form-group" id="divEmailInscription">
+					<label for="mdp">Mot de passe <i class="fas fa-question-circle" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre"></label>
+					<input type="password" required name="mdp" title="Doit faire au moins 8 caractères, 1 Majuscule, 1 Minuscule et 1 chiffre" class="form-control" id="mdp"  placeholder="Mot De Passe (ex: ********)">
+					<label for="mdpconf">Mot de passe</label>
+					<input type="password" required name="mdpconf" class="form-control" id="mdpconf"  placeholder="Mot De Passe (ex: ********)">
+					<input type="hidden" name="token" value="<?php echo $token ?>">
+					<?php 
+					if($value==1)
+						echo '<small id="warningemaildif" class=" form-text warning"> <i class="fas fa-exclamation-triangle"></i> Champ incorrect</small>';
+					?>
+				</div>
+				<div class="justify-content-end row" >
+					<button type="submit" name="submit"  class="btn btn-primary buttonInscription">Changer de mot de passe</button>
+				</div>
 			</form>
 		</div>
 		
-<?php
+	<?php
 	}
 	public function motDePasseOublier($value)
 	{
@@ -139,7 +139,7 @@ class vue_connexion extends VueGenerique
 						<input type="hidden" name="module" value="mod_connexion" />
 						<input type="hidden" name="action" value="ChercheMotDePasseOublie" /><?php 
 						if($value==1)
-							echo '<small id="warningemaildif" class=" form-text warning"> <i class="fas fa-exclamation-triangle"> Champs incorrect</small>';
+							echo '<small id="warningemaildif" class=" form-text warning"> <i class="fas fa-exclamation-triangle"></i> Champs incorrect</small>';
 						?>
 					</div>
 					<div class="justify-content-end row" >
