@@ -139,12 +139,16 @@ switch ($_POST['fonction']) {
 					
 					for($i=0; $i<count($msg); $i++){
 						
-						if($msg[$i]['idUtilisateurParle']==$idInterlocuteur)
+						if($msg[$i]['idUtilisateurParle']==$idInterlocuteur){
 							$href="?module=mod_profil&idprofil=$idInterlocuteur&ongletprofil=profil";
-						else
+							echo '<div class="row rounded messagesInter shadow-lg" >';
+						}
+						else{
 							$href="?module=mod_profil&idprofil=$idUser&ongletprofil=profil";
+							echo '<div class="row rounded messagesUser shadow-lg" >';
+						}
 
-						echo	'<div class="row rounded messages shadow-lg" >
+						echo	'
 									<div class="col-md-3 row">
 										<a class="col-5 col-md-12 liens-noms" href="'.$href.'">'.$msg[$i]["prenom"].'</a>
 										<label class="col-5 col-md-12 dateHeureDiscussion">'.$msg[$i]["jour"].'</label>

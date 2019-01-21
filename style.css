@@ -599,9 +599,15 @@ nav{
     background-color: #eeeeee;
 }
 
-.messages{
+.messagesInter{
     margin-top: 0.5rem;
     background-color: #cccccc;
+    padding: 0.25rem;
+}
+
+.messagesUser{
+    margin-top: 0.5rem;
+    background-color: #eeeeee;
     padding: 0.25rem;
 }
 
