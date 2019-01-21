@@ -126,6 +126,7 @@ nav{
     background-color: #ebebeb;
     border-radius: 1em;
     padding: 1em;
+    margin-bottom: 1em;
     color: #001f2e   ;
 }
 .inscription_panel h2{
@@ -161,8 +162,7 @@ nav{
 #composants{
     font-size: 14px;
     color : #003149 ;
-    margin-bottom: 2em;
-    margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
 .headline_composant{
@@ -444,18 +444,33 @@ nav{
 /* FIN TRAJET*/
 
 /* 7.PROFIL */
+
+.nav-profil{
+    background-color: #00496d !important;
+    border-radius: 0.1em;
+}
+
 .titreFavoris{
     font-weight: bold;
 }
 
 .btn-profil{
     white-space: normal;	
+    background-color: #00496d;
+    border: 1px solid #00496d;
+}
+
+.btn-profil:hover{
+    white-space: normal;    
+    background-color: #003149;
+    border: 1px solid #003149;
+
 }
 
 .sectionProfil{
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    background-color: #dddddd;
+    background-color: #ebebeb;
 }
 
 #img-profil{
@@ -523,9 +538,23 @@ nav{
 }
 
 .active{
-    color:#ffae00 !important;
+    /*color:#ffae00 !important;*/
+    /*text-decoration: underline;*/
+    font-weight: bolder;
+    background-color: #006ea4 !important;
+    border-radius: 0.2em;
 }
 
+.btn-photo-vehicule{
+    text-decoration: none;
+}
+.btn-photo-vehicule:hover{
+    text-decoration: none;   
+}
+
+.btn-ajout-vehicule{
+    margin-top:1em;
+}
 /* FIN PROFIL */
 
 /* 8.FOOTER */
