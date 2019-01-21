@@ -402,7 +402,7 @@ class modele_trajet extends connexion {
 	}
 	public function recupInfoTrajet($id,$tabs1s2)
 	{
-		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateArrivee,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=?');
+		$selecPreparee=self::$bdd->prepare('SELECT ville1.nomVille,ville2.nomVille,sDebut.dateDepart,sFin.dateArrivee,vehicule.immatriculation,vehicule.critair,vehicule.hybride,vehicule.urlPhoto,utilisateur.urlPhoto, nom, prenom,descriptionTrajet,sFin.prixCumule,trajet.idTrajet,idConducteur,trajet.placeTotale FROM trajet inner join soustrajet as sDebut on trajet.idTrajet=sDebut.idTrajet inner join soustrajet as sFin on trajet.idTrajet=sFin.idTrajet inner join utilisateur on idConducteur=utilisateur.idUtilisateur inner join ville as ville1 on ville1.idVille=sDebut.idVilleDepart inner join ville as ville2 on ville2.idVille=sFin.idVilleArrivee inner join vehiculeutilisateur as vu on idConducteur=vu.idUtilisateur inner join vehicule on vu.immatriculation=vehicule.immatriculation WHERE trajet.idTrajet=? and sDebut.idsousTrajet=? and sFin.idsousTrajet=? and vehicule.immatriculation=sDebut.idVehiculeConducteur');
 		$tableauIds=array($id,$tabs1s2[0],$tabs1s2[1]);
 		$selecPreparee->execute($tableauIds);
 		return $selecPreparee->fetch();
@@ -436,7 +436,7 @@ class modele_trajet extends connexion {
 		}
 		if(!is_numeric($note) || $note>20 || $note<0 || empty($commentaire)){
 			http_response_code(400);
-			echo "le message ou la note est incorrect";
+			echo "Le message ou la note est incorrect";
 			exit(1);
 		}
 		//TODO faire une verif si on est inscrit au trajet mdr
@@ -447,7 +447,7 @@ class modele_trajet extends connexion {
 		$unique=$selecPrepareeUnique->fetch();
 		if (empty($unique['idAuteur'])==0) {
 			http_response_code(401);
-			echo "vous avez déjà rentré un commentaire";
+			echo "Vous ne pouvez poster qu'un commentaire à la fois";
 			exit(1);
 		}
 

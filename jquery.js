@@ -44,7 +44,6 @@ $(document).on('click', '#buttonRapetisseForm', function(event) {
 
 
 $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le formulaire par son identifiant
-  alert("uidzeuideee");
   var nomFonction=$("#formulaireDeRechercheResultat").serialize()+"&fonction=rechercheTrajet";
   e.preventDefault();
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
@@ -53,7 +52,6 @@ $("#formulaireDeRechercheResultat").submit(function(e){ // On sélectionne le fo
     ,
 
     function(data,statut){
-      alert(data);
       tab=JSON.parse(data);
       nbAffiche=25;
       afficheRes();
@@ -97,12 +95,10 @@ $("#formulaireDeRechercheResultat").change(function(event) {
 
 function afficheRes(){
   removeResTrajet();
-  console.log($("divHauteRes").attr("class"));
   nbResAAfficher=tab.length<nbAffiche?tab.length:nbAffiche;
   for (var i = 0; i < nbResAAfficher; i++) {
     var urlPhoto=tab[i]["urlPhoto"]!=null?tab[i]["urlPhoto"]:"home.jpg";
-    $('#contenu').append('<div class="'+$("#divHauteRes").attr("class")+' removeResTrajet"> <a class="liensanscouleur '+$("#divHauteRes2").attr("class")+'" href="index.php?module=mod_trajet&action=afficheTrajet&id='+tab[i]["idTrajet"]+'"> <div class="col-md-2"> <img src="'+urlPhoto+'" style="width: 100px"> <span class="">'+tab[i]["prenom"]+'</span> </div> <div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" > <div class=" justify-content-md-between justify-content-center row container-fluid px-0"> <span class="col-12 col-md-6 text-center">'+tab[i]["depart"]+'</span> <span class="col-6 text-md-right text-center">'+tab[i]["heureDepart"]+'</span></div><div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0 "><span class="col-12 col-md-6 text-center" style="padding-right: 3px">'+tab[i]["destination"]+'</span> <span class="col-6 text-md-right text-center">'+tab[i]["heureArrivee"]+'</span> </div> </div> <div class="col-md-2 row offset-md-1  justify-content-md-end px-0"> <div class="row justify-content-md-end col-12"> <span class="align-top">'+tab[i]["placeTotale"]+'</span> </div> <div class="row align-content-end justify-content-end col-12" > <span class="align-text-bottomme">'+tab[i]["prix"]+'€</span> </div> </div> </a> </div>');
-
+    $('#contenu').append('<div class="'+$("#divHauteRes").attr("class")+' removeResTrajet"> <a class="liensanscouleur resultatTrajet '+$("#divHauteRes2").attr("class")+'" href="index.php?module=mod_trajet&action=afficheTrajet&id='+tab[i]["idTrajet"]+'"> <div class="col-md-2"> <img src="'+urlPhoto+'" style="width: 100px"> <span class="">'+tab[i]["prenom"]+'</span> </div> <div class="col-md-6 row offset-md-1 justify-content-md-between justify-content-center no-gutters px-0" > <div class="justify-content-md-between justify-content-center row container-fluid px-0"> <span class="col-12 col-md-6 text-center">Départ de '+tab[i]["depart"]+'</span> <span class="col-6 text-md-right text-center">à '+tab[i]["heureDepart"]+'</span></div><div class="align-items-end justify-content-md-between justify-content-center row container-fluid px-0 "><span class="col-12 col-md-6 text-center" style="padding-right: 3px">Arrivée à '+tab[i]["destination"]+'</span> <span class="col-6 text-md-right text-center">à '+tab[i]["heureArrivee"]+'</span> </div> </div> <div class="col-md-2 row offset-md-1 res_trajet_place_prix justify-content-md-end px-0"> <div class="row justify-content-md-end col-12"> <span class="align-top">Places '+tab[i]["placeTotale"]+'</span> </div> <div class="row align-content-end justify-content-end col-12"> <span class="align-text-bottomme">Prix '+tab[i]["prix"]+'€</span> </div> </div> </a> </div>');
   }
 }
 
@@ -133,7 +129,6 @@ $("#miseEnFavoris").on('click', function(event) {
     ,
 
     function(data,statut){
-      alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
           //window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -165,7 +160,6 @@ $(".buttonSuppFavoris").on('click', function(event) {
     ,
 
     function(data,statut){
-      alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
             //window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -194,7 +188,6 @@ $(".buttonSuppFavoris").on('click', function(event) {
 $("#inscription").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   removeWarningForm();
-  alert("on rentre");
   var nomFonction=$("#inscription").serialize()+"&fonction=formulaireDinscription";
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -202,12 +195,12 @@ $("#inscription").submit(function(e){ // On sélectionne le formulaire par son i
     ,
 
     function(data,statut){
-      alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         // Le membre est connecté. Ajoutons lui un message dans la page HTML.
-
+        alert("l'inscription s'est bien déroulée");
         window.location.replace('index.php?module=mod_connexion');
+
       }
       else{
              // Le membre n'a pas été connecté. (data vaut ici "failed")
@@ -240,7 +233,7 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
     function(data,statut){
 
 
-      $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="'+$("#photoUtilisateurCo").attr('src')+'" class="img-fluid"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
+      $('#espaceCommentaire').prepend('<div class="row col-12" > <div class="col-3 col-md-2 offset-md-1 " style="display: inline-block;"> <a href="?module=mod_profil"> <img src="'+$("#photoUtilisateurCo").attr('src')+'" class="img-fluid photo_profil_trajet"></a><label class="">note : '+$("#note").val()+'</label></div> <div class="col-7 col-md-8 commentaire"><span>'+$("#contenuCom").val()+'</span></div><div class="col-1"><a class="nav-link dropdown-toggle" href="#" id="dropcom" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fas fa-bars"></i></a><div class="dropdown-menu col-1" aria-labelledby="dropdownMenuButton"><a class="dropdown-item " id="supprimerCom" href="#">supprimer</a></div></div>');
       $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
         e.preventDefault();
       
@@ -273,7 +266,6 @@ $("#formCommentairePageTrajet").submit(function(e){ // On sélectionne le formul
     },
     'text'
   ).fail(function(data,statut,xhr) {
-      console.log(data.responseText);
       $('#formCommentairePageTrajet').append('<div class="row justify-content-end col-12" id="messageErreurCom"><small class="align-right form-text warning"> '+data.responseText+'</small></div>');
   });
 });
@@ -336,7 +328,6 @@ $(".checkerInscription").on('change', function(event) {
 $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   $('#warningInscriptionprob').remove();
-  alert("on rentre");
   var compteur=0;
   var tabVille=[];
   for (var i = 0; i < parseInt($(this).attr('data-nbPlace'),10); i++) {
@@ -357,7 +348,6 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
       }
       ,
       function(data,statut){
-        alert(data);
       //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
         if(data.includes("success")){
                window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#sinscrireAuTrajet').attr('data-id'));
@@ -371,7 +361,6 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
 
       'text'
     ).fail(function(data,statut,xhr) {
-      alert(data.responseText);
       verifError(data.responseText);
     });
   }
@@ -382,7 +371,6 @@ $("#envoieInscriptionTrajet").submit(function(e){ // On sélectionne le formulai
 $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   
-  alert("on rentre");
   if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
     {
@@ -391,7 +379,6 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
     }
     ,
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
              window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#desinscriptionAuTrajet').attr('data-id'));
@@ -404,7 +391,6 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
     },
        'text'
   ).fail(function(data,statut,xhr) {
-    alert(data.responseText);
     verifError(data.responseText);
   });
 }
@@ -415,7 +401,7 @@ $("#desinscriptionAuTrajet").on('click',function(e){ // On sélectionne le formu
 $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par son identifiant
   e.preventDefault();
   
-  alert("on rentre");
+
 
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -426,7 +412,6 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
     ,
 
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         $('#supprimerCom').parent().parent().parent().remove();//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -444,7 +429,6 @@ $("#supprimerCom").on('click',function(e){ // On sélectionne le formulaire par 
 
 $('#validationAuTrajet').on('click', function(event) {
   event.preventDefault();
-  alert("rentre");
   if(confirm("Etes-vous sûr.e de vouloir valider ce trajet ? Ceci complétera ce trajet pour vous et c'est irrémédiable")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -456,7 +440,6 @@ $('#validationAuTrajet').on('click', function(event) {
     ,
 
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         window.location.replace('index.php?module=mod_trajet&action=afficheTrajet&id='+$('#validationAuTrajet').attr('data-id'));//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -475,7 +458,6 @@ $('#validationAuTrajet').on('click', function(event) {
 
 $('#retirerTrajet').on('click', function(event) {
   event.preventDefault();
-  alert("rentre");
   if(confirm("Etes-vous sûr.e de vous desinscrire de ce trajet?")){
   $.post('scriptphp/ControleurScript.php', // Un script PHP que l'on va créer juste après
 
@@ -485,7 +467,6 @@ $('#retirerTrajet').on('click', function(event) {
     }
     ,
     function(data,statut){
-      alert(data);
     //je passe le message d'erreur par un echo dans le serveur qui est recuperer dans le data
       if(data.includes("success")){
         window.location.replace('index.php');//.parent().parent().parent().parent().attr("background-color", 'blue');
@@ -532,7 +513,6 @@ $('#addCar').on('click', function(e){
     type: 'POST', // For jQuery < 1.9
     data:formData,
     success : function(txt){
-      console.log(txt);
       if( page == 1){
         location.reload();
       }
@@ -553,8 +533,6 @@ $('#addCar').on('click', function(e){
       $("#myModal").modal('hide');
     },
     error: function(txt){
-      alert("fail");
-      alert("msg"+txt.responseText)
       verifError(txt.responseText);
     }
   });
@@ -563,7 +541,7 @@ $('#addCar').on('click', function(e){
 
 
 $(document).ready(function(){
-  $('.inputPhoto').on('change', function(){ //on file input change
+  $('#photoCar').on('change', function(){ //on file input change
     if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
     {
       // $('#thumbnail').html(''); //clear html of output element
@@ -577,7 +555,7 @@ $(document).ready(function(){
               // var img = $('<img/>').addClass('thumb img-fluid').attr('src', e.target.result); //create image element 
               // console.log(img);
               // $('#thumbnail').append(img); //append image to output element
-              $('.img-default').attr('src', e.target.result);
+              $('#defaultThumb').attr('src', e.target.result);
             };
           })(file);
           fRead.readAsDataURL(file); //URL representing the file's data.
@@ -602,7 +580,6 @@ $('.modal').on('show.bs.modal', function (e) {
 
 
       var button = $(e.relatedTarget);
-      console.log(button);
       var index = button.attr('class');
       if (index!=undefined) {
       if(index.indexOf("btn-photo-vehicule")!=-1)
@@ -622,7 +599,6 @@ $('.modal').on('show.bs.modal', function (e) {
 
 $('#envoiTrajet').on("click",function(e){
   e.preventDefault();
-  console.log("Valeur de "+key);
   var dateArrivee= $('#dateArrivee').val();
   var soustrajets=[];
 
@@ -693,7 +669,6 @@ $('#envoiTrajet').on("click",function(e){
           regulier: $(document).find('#regulier').is(":checked")
         };
       }
-      console.log(soustrajet)
       soustrajets[i]= soustrajet;
     }
   }
@@ -723,7 +698,7 @@ $('#envoiTrajet').on("click",function(e){
         // alert("msg :"+txt.responseText);
         alert("Certains champs ont été mal remplis, veuillez réinsérer des donneés correctes");
         verifError(txt.responseText);
-         console.log(txt.responseText);
+         
       }
     });
   }
@@ -735,7 +710,6 @@ $(function(){
 
   // ajout des champs etapes
   $("#btnAjoutEtape").on("click",function(){
-    console.log(key);
     // On copie le template et on le rend visible la premiere fois 
     if( $('.tpl').length == 1){
       var cont= $('#etape').clone(); //partie itineraire
@@ -831,7 +805,7 @@ $(function(){
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
 
-      console.log("On a supprimé le block");
+
       $(this).parent().parent().fadeOut(function(){
         $(this).remove(); 
 
@@ -845,7 +819,7 @@ $(function(){
       var id = $(this).parent().find("input").first().attr("id") ;
       var nb = parseInt(id.replace(/[^0-9\.]/g,''),10);
       $(document).find("#checkpoint"+nb).remove();
-      console.log("On a supprimé une étape");
+
 
       $(this).parent().fadeOut(function(){
         $(this).remove();
@@ -877,7 +851,6 @@ $(function(){
 
   $('#idVehicule').change(function() {
     var sources = $(this).find(':selected').attr("data-url"); 
-    console.log($(this).attr("data-url"));
     if(sources == ""){
       $('#imgCar').attr("src","photos/Black.png");
     }
@@ -951,13 +924,11 @@ function actualiseMap() {
     function(data,statut){
       tab=JSON.parse(data);
       for (var i = 0; i < markers.length; i++) {
-        console.log("test");
         macarte.removeLayer(markers[i]);
         macarte.removeBounds
       }
       if (polyline!=null) {
-        console.log(polyline);
-      macarte.removeLayer(polyline);
+        macarte.removeLayer(polyline);
       }
       markers=[];
       for (ville in tab) {
@@ -1527,13 +1498,13 @@ $( window ).resize(function() {
   if ($(window).width() <768) {
     $(".composant" ).hide();
     $('#changeComposant').hide();
-    
   }
   else{
     $(".composant" ).show();
     $('#changeComposant').show();
   }
 });
+
 $('#changeComposant').on('click', function(event) {
   event.preventDefault();
    $.post('scriptphp/ControleurScript.php',
