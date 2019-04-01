@@ -85,19 +85,24 @@ class cont_connexion
 	{
 		if (isset($_POST['mdp'])&&isset($_POST['mdpconf'])&& isset($_POST['token']) && $this->modele->verifieMDP(htmlspecialchars($_POST['mdp']),htmlspecialchars($_POST['mdpconf']))) {
 			$id=$this->modele->recupereID($_SESSION['emailChangement']);
-			unset($_SESSION['emailChangement']);
+			
 			if($id>=0){
 				if ($this->modele->verifieTokenDansMDP(htmlspecialchars($_POST['token']),$id)) {
 					$this->modele->changeMDP($_POST['mdp'],$id);	
+					echo "string";
+					unset($_SESSION['emailChangement']);
 					header("Location: index.php?module=mod_connexion");
 				}
-				else
-					$this->vue->affichePageChangementMPD(1,null);		
+				else{
+					echo "stringezaeza";
+					$this->vue->affichePageChangementMPD(1,$_POST['token']);		
+				}
 			}
+			
 			
 		}
 		else
-			$this->vue->affichePageChangementMPD(1,null);
+			$this->vue->affichePageChangementMPD(1,$_POST['token']);
 	}
 	public function deconnexion($value='')
 	{

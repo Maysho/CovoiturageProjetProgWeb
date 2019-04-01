@@ -127,7 +127,7 @@ class modele_connexion extends connexion
 		}
 		$insertPreparee=self::$bdd->prepare('UPDATE utilisateur SET token = :token WHERE adresseMail=:adresseMail');
 		$insertPreparee -> execute(array('token'=>$token,'adresseMail'=>$email));
-		mail($email, 'Mot de passe oublier covoiturage', $token."
+		mail($email, 'Mot de passe oublie covoiturage', $token."
 			index.php?email=".$email."&module=mod_connexion&action=ChercheMotDePasseOublier", "From: covoiturage@hotm.fr");
 	}
 	public function verifieMail($email)
