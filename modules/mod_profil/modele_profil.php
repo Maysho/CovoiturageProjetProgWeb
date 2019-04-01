@@ -62,16 +62,16 @@ class ModeleProfil extends connexion{
 	
 	public function nbTrajetsEtNote($idUser){
 
-		$selectPreparee=self::$bdd->prepare('SELECT count(*) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? ');
-		$tableauIds=array($idUser);
+		$selectPreparee=self::$bdd->prepare('SELECT count(distinct(idTrajet)) as nb, round(avg(note),1) as moyenne FROM commenter WHERE idUtilisateur=? and idAuteur!=?');
+		$tableauIds=array($idUser,$idUser);
 		$selectPreparee->execute($tableauIds);
 		return $selectPreparee->fetch();
 	}
 
 	public function commentaires($idUser){
 
-			$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date_format(date,"%d/%m/%Y") AS date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null order by date DESC');
-			$tableauIds=array($idUser);
+			$selectPreparee=self::$bdd->prepare('SELECT (SELECT prenom from utilisateur where idUtilisateur=idAuteur) as prenom, idAuteur, date_format(date,"%d/%m/%Y") AS date, note, commenter.description FROM utilisateur INNER JOIN commenter on utilisateur.idUtilisateur = commenter.idUtilisateur WHERE utilisateur.idUtilisateur=? and commenter.description is not null and idAuteur!=? order by date DESC');
+			$tableauIds=array($idUser,$idUser);
 			$selectPreparee->execute($tableauIds);
 			return $selectPreparee->fetchAll();
 	}

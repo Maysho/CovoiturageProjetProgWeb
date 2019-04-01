@@ -39,7 +39,7 @@ class vueFavoris
    			?>
            		</table>
 					<div class="row no-gutters justify-content-end">
-						<a href="index.php?module=mod_profil&idprofil=1&ongletprofil=favoris" class="liensanscouleur text-right" >en afficher plus... </a>
+						<a href="index.php?module=mod_profil&idprofil=<?php echo $_SESSION['id'];?>&ongletprofil=favoris" class="liensanscouleur text-right" >en afficher plus... </a>
 					</div>
             <?php } ?>
 					</div>

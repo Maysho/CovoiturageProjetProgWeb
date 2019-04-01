@@ -153,8 +153,8 @@ class vue_Trajet extends VueGenerique{
 				  														</select>
 				  													</div>
 				  													<div class="row offset-lg-1">
-				  														<label class="col-lg-2" for="hybride">Hybride</label>	
-				  														<div class="row offset-lg-5">
+				  														<label class="col-lg-5" for="hybride">Hybride</label>	
+				  														<div class="row offset-lg-2">
 				  															<input type="checkbox" id="hybride" name="hybride">
 				  														</div>
 				  													</div>
@@ -484,7 +484,7 @@ class vue_Trajet extends VueGenerique{
 						<?php 
 						if ($tabCom[$i]['idAuteur']!=$value) {
 						?>
-						<div class="col-8 col-lg-9">
+						<div class="commentaire col-7 col-lg-8">
 							<span><?php echo $tabCom[$i]['description']; ?></span>
 						</div>	
 						<?php } else { ?>
@@ -515,7 +515,7 @@ class vue_Trajet extends VueGenerique{
 					</div>
 					<div class="col-3 col-lg-3 offset-lg-1">
 						<label for="note"><i class="fas fa-question-circle" title="la note est noté sur 20">Note&nbsp:&nbsp</i></label>
-						<input class ="col-6 col-lg-3" type="text" id="note" name="note">
+						<input class ="col-6 col-lg-3 px-0" type="text" id="note" name="note">
 					</div>	
 					<input type="hidden" name="idTrajet" value="<?php echo $infoTrajet['13']  ?>">
 					<div class="col-lg-3 col-6 offset-lg-9 offset-7">

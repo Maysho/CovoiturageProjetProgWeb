@@ -31,11 +31,11 @@ class VueAccueil extends VueGenerique
 					<div class='form-row justify-content-around' id="formPrincipal">
 						<div class='form-group col-md-6' id="villeDepartRecherche">
 							<label class="search_headline" for='rechercheDepart'>Départ</label>
-							<input type='adresse' class='form-control col-12' name="depart" id='rechercheDepart' placeholder='Ville de Départ (ex: MONTCUQ, 46800)'>
+							<input type='adresse' class='form-control col-12' name="depart" id='rechercheDepart' placeholder='Ville de Départ (ex: PARIS 19, 75019)'>
 						</div>
 						<div class='form-group col-md-6' id="villeArriveRecherche">
 							<label class="search_headline" for='rechercheArrive'>Destination</label>
-							<input type='adresse' class='form-control' id='rechercheArrive' name="destination" placeholder="Ville d'Arrivée (ex: LE FION, 74500)">
+							<input type='adresse' class='form-control' id='rechercheArrive' name="destination" placeholder="Ville d'Arrivée (ex: MONTREUIL, 93100)">
 						</div>
 						<div class="form-group col-md-3 partitAjoute d-none aDesaffiche"> 
 							<label class="search_mini_headline" for="inputAddress">Date</label>  

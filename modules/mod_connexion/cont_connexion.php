@@ -89,11 +89,12 @@ class cont_connexion
 			if($id>=0){
 				if ($this->modele->verifieTokenDansMDP(htmlspecialchars($_POST['token']),$id)) {
 					$this->modele->changeMDP($_POST['mdp'],$id);	
+					header("Location: index.php?module=mod_connexion");
 				}
 				else
 					$this->vue->affichePageChangementMPD(1,null);		
 			}
-			$this->vue->pageConnexion(0);
+			
 		}
 		else
 			$this->vue->affichePageChangementMPD(1,null);

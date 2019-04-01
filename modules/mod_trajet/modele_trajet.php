@@ -459,7 +459,7 @@ class modele_trajet extends connexion {
 			http_response_code(402);
 			echo "une erreur est survenu";
 			exit(1);
-		}
+		}	
 
 		$insertPreparee=self::$bdd->prepare('INSERT INTO commenter(idAuteur,idTrajet,description,date,note,idUtilisateur) values(:id1,:id2,:descript,:date,:note,:idUtilisateur)');
 		$insertPreparee -> execute(array('id1'=>$_SESSION['id'],'id2'=>$idTrajet,'descript'=>$commentaire,'date'=>date("Y-m-d"),'note'=>$note,'idUtilisateur'=>$utilisateur['idConducteur']));

@@ -194,33 +194,41 @@ include_once __DIR__ .'/../../vue_generique.php';
 								<span><?php echo $donnerAAfficher['description']; ?></span>
 							</div>
 						</div>
-					</div>					
+					</div>	
+				</div>				
+				<div class='col-md-12'>
 <?php
 		}
-
-				for ($i=0; $i < count($commentaires); $i++) { 
-					$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
-?>				
-	   				<div class="rounded commentaire-profil" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
-	   					<div class="row col-auto">
-	   						<label class="col-md-8">De <a class="liens-noms" href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?>:</label>
-	   						<div  class="col-md-4">
-	   							<label class="label-profil">Note:</label>
-	   							<label><?php echo $commentaires[$i]['note']; ?></label>
-	   						</div>
-	   					</div>
-	   					<div class="col-md-12">
-	   						<div class="col-md-12 rounded description-commentaire-profil">
-	   							<span><?php echo $commentaires[$i]['description']; ?></span>
-	   						</div>
-	   					</div>
-	   					
-	   					<?php
-?>
-	   				</div>
-<?php	   				
-	   			}
-?>			
+		else{
+			echo "</div>";
+			
+		}
+			
+					for ($i=0; $i < count($commentaires); $i++) { 
+						$href = '?module=mod_profil&idprofil='.$commentaires[$i]['idAuteur'].'&ongletprofil=profil';
+	?>				
+		   				<div class="rounded commentaire-profil col-auto" id="<?php echo $commentaires[$i]['idAuteur'].'Auteur99Trajet'?>">
+		   					<div class="row col-auto">
+		   						<label class="col-md-8">De <a class="liens-noms" href="<?php echo $href ;?>"><?php echo $commentaires[$i]['prenom'];?></a> le <?php echo $commentaires[$i]['date']; ?>:</label>
+		   						<div  class="col-md-4">
+		   							<label class="label-profil">Note:</label>
+		   							<label><?php echo $commentaires[$i]['note']; ?></label>
+		   						</div>
+		   					</div>
+		   					<div class="col-md-12">
+		   						<div class="col-md-12 rounded description-commentaire-profil">
+		   							<span><?php echo $commentaires[$i]['description']; ?></span>
+		   						</div>
+		   					</div>
+		   					
+		   					<?php
+	?>
+		   				</div>
+	<?php	   				
+		   			}
+		   if($donnerAAfficher['description'] != NULL)
+		   echo"	</div>";
+?>					
 				</div>
 			</div>
 
@@ -303,7 +311,7 @@ include_once __DIR__ .'/../../vue_generique.php';
 <?php
 		}
 		else
-			echo 			'<div class="col-md-4"><img class=" img-fluid" src="sources/images/photoProfil/default.jpg" alt="photo de profil"></div>';
+			echo 			'<div class="col-md-4"><img class=" img-fluid img-default" src="sources/images/photoProfil/default.jpg" alt="photo de profil"></div>';
 ?>
 								<input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
 								<input class="col-md-4 inputPhoto" type="file" name="photoprofil" >

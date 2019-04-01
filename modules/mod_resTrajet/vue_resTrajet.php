@@ -38,11 +38,11 @@ class vue_resTrajet extends VueGenerique
 						<div class='form-row justify-content-around' id="formPrincipal" >
 							<div class='form-group col-md-6' id="villeDepartRecherche">
 							<label class="search_headline" for='rechercheDepart'>Départ</label>
-							<input type='adresse' class='form-control col-12' id='rechercheDepart' placeholder='Ville de Départ (ex: MONTCUQ, 46800)' name='depart' value="<?php echo $depart; ?>"  >
+							<input type='adresse' class='form-control col-12' id='rechercheDepart' placeholder='Ville de Départ (ex: PARIS 19, 75019)' name='depart' value="<?php echo $depart; ?>"  >
 							</div>
 							<div class='form-group col-md-6' id="villeArriveRecherche">
 							<label class="search_headline" for='rechercheArrive'>Destination</label>
-							<input type='adresse' class='form-control' id='rechercheArrive' placeholder="Ville d'Arrivée (ex: LE FION, 74500)" name="destination" value="<?php echo $destination; ?>">
+							<input type='adresse' class='form-control' id='rechercheArrive' placeholder="Ville d'Arrivée (ex: MONTREUIL, 93100)" name="destination" value="<?php echo $destination; ?>">
 							</div>
 							<div class="form-group col-md-3 partitAjoute d-none aDesaffiche"> 
 								<label class="search_mini_headline" for="inputAddress">Date</label>  
@@ -98,10 +98,10 @@ class vue_resTrajet extends VueGenerique
 				if ($i<25) {
 					if ($value==1) {
 						echo '<div class="col-12 removeResTrajet">
-						<a class="resultatTrajet liensanscouleur row justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'">';
+						<a class="search_container_result resultatTrajet liensanscouleur row justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'">';
 					}
 					else
-						echo '<div class="col-12 justify-content-center removeResTrajet"> <a class="resultatTrajet liensanscouleur row justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
+						echo '<div class="col-12 justify-content-center removeResTrajet"> <a class="resultatTrajet search_container_result liensanscouleur row justify-content-between col-12" href="index.php?module=mod_trajet&action=afficheTrajet&id='.$donnee['idTrajet'].'"> '
 					?>
 					<div class="col-md-2">
 						<img src="<?php echo isset($donnee['urlPhoto'])?$donnee['urlPhoto']:'home.jpg';?>" style="width: 100px;">
